@@ -69,14 +69,12 @@
       }
     }
     fetchEphemerisData();
-    function updateTimeDisplay() {
-      document.getElementById("timeDisplay").innerHTML = new Date().toLocaleString();
-    }
+    function updateTimeDisplay() { document.getElementById("timeDisplay").innerHTML = new Date().toLocaleString(); }
     setInterval(updateTimeDisplay, 1000);
     updateTimeDisplay();
     function computeGMST(date) {
       let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
-      if(month<=2){year-=1;month+=12;}
+      if(month<=2){ year-=1; month+=12; }
       let dayFraction = (hour+minute/60+second/3600)/24;
       let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
       let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
@@ -113,7 +111,7 @@
     const objectPolylines = {};
     function initPolylines() {
       celestialObjects.forEach(obj => {
-        if (!objectPolylines[obj.name]) {
+        if(!objectPolylines[obj.name]){
           let polyline = L.polyline([], {color: obj.color, weight: 5}).addTo(shapesGroup);
           objectPolylines[obj.name] = polyline;
         }
@@ -182,9 +180,7 @@
             }
           }
           let allChecked = true;
-          document.querySelectorAll(".legendCheckbox").forEach(cb => {
-            if(!cb.checked) allChecked = false;
-          });
+          document.querySelectorAll(".legendCheckbox").forEach(cb => { if(!cb.checked) allChecked = false; });
           document.getElementById("allPlanetsCheckbox").checked = allChecked;
           updateCelestialShapes();
         });
@@ -254,6 +250,14 @@
         }
       }
     });
+    map.on("click", function(){
+      selectedObject = null;
+      updateLegendSelection();
+    });
+    map.on("dragstart", function(){
+      selectedObject = null;
+      updateLegendSelection();
+    });
     function updateCelestialShapes(){
       const now = new Date();
       initPolylines();
@@ -269,9 +273,9 @@
           }
           return;
         }
-        let angularRadiusDeg = (obj.angular_size_arcsec / 2) / 3600;
-        let angularRadiusRad = angularRadiusDeg * Math.PI / 180;
-        let effectiveDistanceKm = 6371 * angularRadiusRad;
+        let angularRadiusDeg = (obj.angular_size_arcsec/2)/3600;
+        let angularRadiusRad = angularRadiusDeg*Math.PI/180;
+        let effectiveDistanceKm = 6371*angularRadiusRad;
         let subCel = subCelestialPoint(now, obj.ra_deg, obj.dec_deg);
         let pts = computeCirclePoints(subCel, effectiveDistanceKm);
         objectPolylines[obj.name].setLatLngs(pts);
@@ -285,8 +289,21 @@
             icon: L.divIcon({
               html: `<div style="font-size:24px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 2px black;">${obj.name}</div>`,
               className: '',
-              iconAnchor: [0, 0]
+              iconAnchor: [0,0]
             })
+          });
+          marker.on("click", function(e){
+            e.originalEvent.stopPropagation();
+            let cb = document.getElementById("checkbox_"+obj.name);
+            if(cb && cb.checked){
+              selectedObject = obj.name;
+              updateLegendSelection();
+              const poly = objectPolylines[obj.name];
+              if(poly){
+                const bounds = poly.getBounds();
+                map.fitBounds(bounds, {padding:[20,20], maxZoom:12});
+              }
+            }
           });
           objectLabels[obj.name] = marker;
         }
