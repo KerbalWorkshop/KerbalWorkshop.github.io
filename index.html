@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Overhead Celestial Map – See where the Sun, Moon & planets are overhead</title>
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     html, body, #map {
@@ -12,7 +11,6 @@
       margin: 0;
       padding: 0;
     }
-    /* Minimal header */
     #header {
       position: absolute;
       top: 5px;
@@ -26,7 +24,6 @@
       font-size: 18px;
       text-align: center;
     }
-    /* Legend styling */
     #legendContainer {
       position: absolute;
       top: 50px;
@@ -82,7 +79,6 @@
       flex-grow: 1;
       cursor: pointer;
     }
-    /* "All Planets" Control */
     #allPlanetsContainer {
       display: flex;
       align-items: center;
@@ -96,7 +92,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-    /* Live time display */
     #timeDisplay {
       position: absolute;
       top: 5px;
@@ -108,7 +103,6 @@
       font-size: 14px;
       z-index: 1000;
     }
-    /* API Control Button */
     #apiControl {
       position: absolute;
       top: 40px;
@@ -124,28 +118,19 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <div id="header">Live Overhead Celestial Map</div>
   <div id="map"></div>
-  <!-- Legend Container -->
   <div id="legendContainer">
     <div id="legendHeader">Solar System &#9660;</div>
     <div id="legendContent"></div>
   </div>
-  <!-- Live Time Display -->
   <div id="timeDisplay"></div>
-  <!-- API Control Button -->
   <div id="apiControl">
     <button id="apiToggleButton">Pause API Querying</button>
   </div>
-
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    /***********************************************
-     * Global Variables & Lookup Tables
-     ***********************************************/
-    let celestialObjects = []; // To be populated from API fetch.
+    let celestialObjects = [];
     const physicalDiameters = {
       "sun": 1392700,
       "moon": 3474,
@@ -170,30 +155,18 @@
       "neptune": "royalblue",
       "pluto": "mediumpurple"
     };
-
-    /***********************************************
-     * API Query Control Variables
-     ***********************************************/
     let apiQueryingEnabled = true;
-    let apiInterval = setInterval(fetchEphemerisData, 60 * 1000); // Every minute
-
-    /***********************************************
-     * Selected Object for Follow Mode (via legend only)
-     ***********************************************/
+    let apiInterval = setInterval(fetchEphemerisData, 60 * 1000);
     let selectedObject = null;
-
-    /***********************************************
-     * Fetch Ephemeris Data from AstronomyAPI
-     ***********************************************/
     async function fetchEphemerisData() {
       const now = new Date();
       const dateString = now.toISOString().split("T")[0];
       const timeString = now.toISOString().split("T")[1].split("Z")[0].substring(0,8);
       const bodies = "sun,moon,mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto";
       const latitude = 0, longitude = 0, elevation = 0;
-      const url = `/.netlify/functions/astronomy?latitude=0&longitude=0&elevation=0`;
+      const url = `https://api.astronomyapi.com/api/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&elevation=${elevation}&from_date=${dateString}&to_date=${dateString}&time=${timeString}&bodies=${bodies}`;
       const apiKey = "a042c91a-4d50-4638-acf5-ab52206bdea2";
-      const apiSecret = "ff650236cb119a8ca7989ae8871320db8aefbc900eed03a918fc07f55fe8c6e5f0a7ee90f4deb4681de9661875535a1ecd440a4be70a38c9dad2ecf6079e2cded3dfafd7c564a8efb68a8ac042b8291b3e15e2e72e3707a570e02752f384a0c4b0a38dc3f6b480b2aad6379a5d160082";
+      const apiSecret = "ff650236cb119a8ca7989ae8871320db8aefbc900eed03a918fc07f55fe8c6e5f0a7ee90f4deb4681de9661875535a1ecd440a4be70a38c9dad2ecf6079e2cded3dfafd7c564a8efb68a8ac042b8291b3e15e2e72e3707a570e02752f384a0c4b0a38dc3f6b480b2aad6379a5d160082`;
       const authHeader = "Basic " + btoa(`${apiKey}:${apiSecret}`);
       try {
         const response = await fetch(url, {
@@ -241,10 +214,6 @@
       }
     }
     fetchEphemerisData();
-
-    /***********************************************
-     * API Toggle Button
-     ***********************************************/
     document.getElementById("apiToggleButton").addEventListener("click", function(){
       if (apiQueryingEnabled) {
         clearInterval(apiInterval);
@@ -257,19 +226,11 @@
         this.textContent = "Pause API Querying";
       }
     });
-
-    /***********************************************
-     * Live Time Display
-     ***********************************************/
     function updateTimeDisplay() {
       document.getElementById("timeDisplay").innerHTML = new Date().toLocaleString();
     }
     setInterval(updateTimeDisplay, 1000);
     updateTimeDisplay();
-
-    /***********************************************
-     * GMST & Sub-Celestial Calculations
-     ***********************************************/
     function computeGMST(date) {
       let year = date.getUTCFullYear();
       let month = date.getUTCMonth() + 1;
@@ -290,17 +251,12 @@
       if (gmstHours < 0) gmstHours += 24;
       return gmstHours * 15;
     }
-
     function subCelestialPoint(date, ra_deg, dec_deg) {
       const gmst_deg = computeGMST(date);
       let lon = ra_deg - gmst_deg;
       lon = ((lon + 180) % 360) - 180;
       return { lat: dec_deg, lon: lon };
     }
-
-    /***********************************************
-     * Destination & Circle Calculation Functions
-     ***********************************************/
     function destinationPoint(lat, lon, distanceKm, bearing) {
       const R = 6371;
       const bearingRad = bearing * Math.PI / 180;
@@ -313,7 +269,6 @@
                                             Math.cos(dR) - Math.sin(latRad) * Math.sin(newLatRad));
       return { lat: newLatRad * 180/Math.PI, lon: newLonRad * 180/Math.PI };
     }
-
     function computeCirclePoints(center, distanceKm) {
       let points = [];
       for (let bearing = 0; bearing < 360; bearing += 4) {
@@ -323,10 +278,6 @@
       points.push(points[0]);
       return points;
     }
-
-    /***********************************************
-     * Map Setup & Layer Initialization
-     ***********************************************/
     var map = L.map('map').setView([0, 0], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
@@ -341,15 +292,9 @@
         }
       });
     }
-
-    /***********************************************
-     * Legend Creation with Checkboxes and Color Indicator
-     ***********************************************/
     function createLegend() {
       let legendContent = document.getElementById("legendContent");
       legendContent.innerHTML = "";
-      
-      // "All Planets" control.
       let allContainer = document.createElement("div");
       allContainer.id = "allPlanetsContainer";
       allContainer.style.display = "flex";
@@ -364,7 +309,6 @@
       allContainer.appendChild(allCheckbox);
       allContainer.appendChild(allLabel);
       legendContent.appendChild(allContainer);
-      
       allCheckbox.addEventListener("change", function() {
         let allChecked = allCheckbox.checked;
         document.querySelectorAll(".legendCheckbox").forEach(cb => {
@@ -384,33 +328,25 @@
         });
         updateCelestialShapes();
       });
-      
-      // Individual legend items.
       celestialObjects.forEach(obj => {
         let item = document.createElement("div");
         item.className = "legendItem";
         item.setAttribute("data-object", obj.name);
-        
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "legendCheckbox";
         checkbox.id = "checkbox_" + obj.name;
         checkbox.checked = true;
-        
         let colorIndicator = document.createElement("span");
         colorIndicator.className = "legendColor";
         colorIndicator.style.backgroundColor = obj.color;
-        
         let nameLabel = document.createElement("span");
         nameLabel.className = "legendName";
         nameLabel.textContent = obj.name;
-        
         item.appendChild(checkbox);
         item.appendChild(colorIndicator);
         item.appendChild(nameLabel);
         legendContent.appendChild(item);
-        
-        // Prevent checkbox click from toggling selection.
         checkbox.addEventListener("click", function(e) {
           e.stopPropagation();
         });
@@ -431,8 +367,7 @@
           document.getElementById("allPlanetsCheckbox").checked = allChecked;
           updateCelestialShapes();
         });
-        // Clicking on the legend item (excluding the checkbox) selects the object if its checkbox is checked.
-        item.addEventListener("click", function(e) {
+        item.addEventListener("click", function() {
           if (!checkbox.checked) return;
           if (selectedObject !== obj.name) {
             selectedObject = obj.name;
@@ -446,7 +381,6 @@
         });
       });
     }
-    
     function updateLegendSelection() {
       document.querySelectorAll('.legendItem').forEach(item => {
         if (item.getAttribute("data-object") === selectedObject) {
@@ -456,19 +390,16 @@
         }
       });
     }
-    
-    document.getElementById("legendHeader").addEventListener("click", function() {
+    document.getElementById("legendHeader").addEventListener("click", function(e) {
+      let allCheckbox = document.getElementById("allPlanetsCheckbox");
+      if (e.target === allCheckbox) return;
       let content = document.getElementById("legendContent");
       content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
       this.innerHTML = (content.style.display === "block") ? "Solar System &#9650;" : "Solar System &#9660;";
     });
     createLegend();
     document.getElementById("legendContent").style.display = "block";
-    document.getElementById("legendHeader").innerHTML = "Solar System &#9650;";
-
-    /***********************************************
-     * Dynamic Label Markers (Zoom-dependent)
-     ***********************************************/
+    document.getElementById("legendHeader").innerHTML = '<input type="checkbox" id="allPlanetsCheckbox" checked> <span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
     const labelZoomThreshold = 7;
     const objectLabels = {};
     function updateLabelsVisibility() {
@@ -502,22 +433,6 @@
         }
       }
     });
-
-    /***********************************************
-     * Deselect on Map Click & Drag
-     ***********************************************/
-    map.on("click", function() {
-      selectedObject = null;
-      updateLegendSelection();
-    });
-    map.on("dragstart", function() {
-      selectedObject = null;
-      updateLegendSelection();
-    });
-
-    /***********************************************
-     * Update Celestial Shapes & Labels
-     ***********************************************/
     function updateCelestialShapes() {
       const now = new Date();
       initPolylines();
