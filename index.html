@@ -45,9 +45,6 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
     #legendHeader:hover {
       background: #ddd;
@@ -111,6 +108,19 @@
       font-size: 14px;
       z-index: 1000;
     }
+    /* API Control Button */
+    #apiControl {
+      position: absolute;
+      top: 40px;
+      right: 10px;
+      z-index: 1000;
+      font-family: sans-serif;
+    }
+    #apiToggleButton {
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -119,16 +129,15 @@
   <div id="map"></div>
   <!-- Legend Container -->
   <div id="legendContainer">
-    <!-- Header: All checkbox, title, arrow -->
-    <div id="legendHeader">
-      <input type="checkbox" id="allPlanetsCheckbox" checked>
-      <span class="title">Solar System</span>
-      <span class="arrow" id="toggleArrow">&#9660;</span>
-    </div>
+    <div id="legendHeader">Solar System &#9660;</div>
     <div id="legendContent"></div>
   </div>
   <!-- Live Time Display -->
   <div id="timeDisplay"></div>
+  <!-- API Control Button -->
+  <div id="apiControl">
+    <button id="apiToggleButton">Pause API Querying</button>
+  </div>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -182,10 +191,10 @@
       const timeString = now.toISOString().split("T")[1].split("Z")[0].substring(0,8);
       const bodies = "sun,moon,mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto";
       const latitude = 0, longitude = 0, elevation = 0;
-      const url = `https://api.astronomyapi.com/api/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&elevation=${elevation}&from_date=${dateString}&to_date=${dateString}&time=${timeString}&bodies=${bodies}`;
+      const url = https://api.astronomyapi.com/api/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&elevation=${elevation}&from_date=${dateString}&to_date=${dateString}&time=${timeString}&bodies=${bodies};
       const apiKey = "a042c91a-4d50-4638-acf5-ab52206bdea2";
       const apiSecret = "ff650236cb119a8ca7989ae8871320db8aefbc900eed03a918fc07f55fe8c6e5f0a7ee90f4deb4681de9661875535a1ecd440a4be70a38c9dad2ecf6079e2cded3dfafd7c564a8efb68a8ac042b8291b3e15e2e72e3707a570e02752f384a0c4b0a38dc3f6b480b2aad6379a5d160082";
-      const authHeader = "Basic " + btoa(`${apiKey}:${apiSecret}`);
+      const authHeader = "Basic " + btoa(${apiKey}:${apiSecret});
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -194,7 +203,7 @@
             "Content-Type": "application/json"
           }
         });
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        if (!response.ok) throw new Error(HTTP error: ${response.status});
         const data = await response.json();
         let newObjects = [];
         data.data.table.rows.forEach(row => {
@@ -236,7 +245,18 @@
     /***********************************************
      * API Toggle Button
      ***********************************************/
-    // The API Toggle Button has been removed from the HTML and from the code.
+    document.getElementById("apiToggleButton").addEventListener("click", function(){
+      if (apiQueryingEnabled) {
+        clearInterval(apiInterval);
+        apiQueryingEnabled = false;
+        this.textContent = "Resume API Querying";
+      } else {
+        fetchEphemerisData();
+        apiInterval = setInterval(fetchEphemerisData, 60 * 1000);
+        apiQueryingEnabled = true;
+        this.textContent = "Pause API Querying";
+      }
+    });
 
     /***********************************************
      * Live Time Display
@@ -412,7 +432,7 @@
           updateCelestialShapes();
         });
         // Clicking on the legend item (excluding the checkbox) selects the object if its checkbox is checked.
-        item.addEventListener("click", function() {
+        item.addEventListener("click", function(e) {
           if (!checkbox.checked) return;
           if (selectedObject !== obj.name) {
             selectedObject = obj.name;
@@ -437,16 +457,14 @@
       });
     }
     
-    document.getElementById("legendHeader").addEventListener("click", function(e) {
-      let allCheckbox = document.getElementById("allPlanetsCheckbox");
-      if (e.target === allCheckbox) return;
+    document.getElementById("legendHeader").addEventListener("click", function() {
       let content = document.getElementById("legendContent");
       content.style.display = (content.style.display === "none" || content.style.display === "") ? "block" : "none";
       this.innerHTML = (content.style.display === "block") ? "Solar System &#9650;" : "Solar System &#9660;";
     });
     createLegend();
     document.getElementById("legendContent").style.display = "block";
-    document.getElementById("legendHeader").innerHTML = '<input type="checkbox" id="allPlanetsCheckbox" checked> <span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
+    document.getElementById("legendHeader").innerHTML = "Solar System &#9650;";
 
     /***********************************************
      * Dynamic Label Markers (Zoom-dependent)
@@ -474,7 +492,6 @@
         }
       }
     }
-    
     map.on("zoomend", function() {
       updateLabelsVisibility();
       if (selectedObject) {
@@ -485,7 +502,19 @@
         }
       }
     });
-    
+
+    /***********************************************
+     * Deselect on Map Click & Drag
+     ***********************************************/
+    map.on("click", function() {
+      selectedObject = null;
+      updateLegendSelection();
+    });
+    map.on("dragstart", function() {
+      selectedObject = null;
+      updateLegendSelection();
+    });
+
     /***********************************************
      * Update Celestial Shapes & Labels
      ***********************************************/
@@ -518,7 +547,7 @@
         } else {
           let marker = L.marker(subCel, {
             icon: L.divIcon({
-              html: `<div style="font-size:24px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 2px black;">${obj.name}</div>`,
+              html: <div style="font-size:24px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 2px black;">${obj.name}</div>,
               className: '',
               iconAnchor: [0, 0]
             })
