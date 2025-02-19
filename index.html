@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Overhead Celestial Map – See where the Sun, Moon & planets are overhead</title>
+  <title>Live Overhead Celestial Map – See where the Moon, Sun & planets are overhead</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     html, body, #map { height: 100%; margin: 0; padding: 0; }
@@ -33,14 +33,14 @@
   <div id="header">Live Overhead Celestial Map <span id="helpButton">?</span></div>
   <div id="map"></div>
   <div id="legendContainer">
-    <div id="legendHeader"><input type="checkbox" id="allPlanetsCheckbox" checked> <span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9660;</span></div>
+    <div id="legendHeader">Solar System &#9660;</div>
     <div id="legendContent"></div>
   </div>
   <div id="timeDisplay"></div>
   <div id="helpModal" class="modal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
-      <p>This map shows the overhead positions of the Sun, Moon, and planets in real time. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">this XKCD comic</a>.</p>
+      <p>This map shows the live locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
     </div>
   </div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -113,7 +113,7 @@
       points.push(points[0]);
       return points;
     }
-    var map = L.map('map').setView([0, 0], 6);
+    var map = L.map('map').setView([0, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
     var shapesGroup = L.layerGroup().addTo(map);
     const objectPolylines = {};
@@ -204,14 +204,14 @@
     }
     document.getElementById("legendHeader").addEventListener("click", function(e){
       let allCheckbox = document.getElementById("allPlanetsCheckbox");
-      if(e.target === allCheckbox)return;
+      if(e.target===allCheckbox)return;
       let content = document.getElementById("legendContent");
       content.style.display = (content.style.display==="none" || content.style.display==="") ? "block" : "none";
       this.innerHTML = (content.style.display==="block") ? "Solar System &#9650;" : "Solar System &#9660;";
     });
     createLegend();
     document.getElementById("legendContent").style.display = "block";
-    document.getElementById("legendHeader").innerHTML = '<input type="checkbox" id="allPlanetsCheckbox" checked> <span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
+    document.getElementById("legendHeader").innerHTML = '<span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
     const labelZoomThreshold = 7;
     const objectLabels = {};
     function updateLabelsVisibility(){
@@ -290,9 +290,7 @@
           });
           objectLabels[obj.name] = marker;
         }
-        if(selectedObject===obj.name){
-          map.panTo(subCel, {animate:true});
-        }
+        if(selectedObject===obj.name){ map.panTo(subCel, {animate:true}); }
       });
       updateLabelsVisibility();
     }
