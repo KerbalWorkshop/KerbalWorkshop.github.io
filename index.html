@@ -191,7 +191,7 @@
       const timeString = now.toISOString().split("T")[1].split("Z")[0].substring(0,8);
       const bodies = "sun,moon,mercury,venus,mars,jupiter,saturn,uranus,neptune,pluto";
       const latitude = 0, longitude = 0, elevation = 0;
-      const url = `https://api.astronomyapi.com/api/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&elevation=${elevation}&from_date=${dateString}&to_date=${dateString}&time=${timeString}&bodies=${bodies}`;
+      const url = `/.netlify/functions/astronomy?latitude=0&longitude=0&elevation=0`;
       const apiKey = "a042c91a-4d50-4638-acf5-ab52206bdea2";
       const apiSecret = "ff650236cb119a8ca7989ae8871320db8aefbc900eed03a918fc07f55fe8c6e5f0a7ee90f4deb4681de9661875535a1ecd440a4be70a38c9dad2ecf6079e2cded3dfafd7c564a8efb68a8ac042b8291b3e15e2e72e3707a570e02752f384a0c4b0a38dc3f6b480b2aad6379a5d160082";
       const authHeader = "Basic " + btoa(`${apiKey}:${apiSecret}`);
