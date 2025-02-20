@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     html, body, #map { height: 100%; margin: 0; padding: 0; }
-    /* Header (map title) */
+    /* Header styling */
     #header {
       position: absolute;
       top: 5px;
@@ -22,23 +22,24 @@
       text-align: center;
       white-space: nowrap;
     }
-    /* Back button as a thin left arrow */
+    /* Back button styled as a circular arrow */
     #backButton {
       position: absolute;
       top: 8px;
       left: 10px;
       z-index: 1100;
-      background: none;
-      color: #007acc;
-      font-size: 24px;
-      text-decoration: none;
-      font-family: sans-serif;
-      line-height: 1;
-      padding: 0;
+      background: #007acc;
+      color: #fff;
       border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 20px;
       cursor: pointer;
     }
-    /* Legend container styling */
+    /* Legend container in upper right */
     #legendContainer {
       position: absolute;
       top: 50px;
@@ -83,16 +84,43 @@
     }
     #allPlanetsContainer input { margin-right: 4px; cursor: pointer; }
     #allPlanetsContainer label { font-weight: bold; cursor: pointer; }
-    /* Modal styles remain the same */
-    .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
-    .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 300px; border-radius: 4px; font-size: 14px; }
-    .close { color: #aaa; float: right; font-size: 22px; font-weight: bold; cursor: pointer; }
+    /* Help modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 300px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: -10px;
+    }
     .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
+    /* Hide Leaflet's default zoom controls */
   </style>
 </head>
 <body>
   <button id="backButton" onclick="location.href='index.html'">&#8592;</button>
-  <div id="header">Live Overhead Celestial Map <span id="helpButton">?</span></div>
+  <div id="header">Live Overhead Celestial Map <span id="helpButton" style="display:inline-block; width:28px; height:28px; line-height:28px; border-radius:50%; border:1px solid #007acc; text-align:center; cursor:pointer; font-size:16px;">?</span></div>
   <div id="map"></div>
   <div id="legendContainer">
     <div id="legendHeader"><span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9660;</span></div>
@@ -131,7 +159,7 @@
             const physDiam = physicalDiameters[entry.id.toLowerCase()];
             angular_size_arcsec = (physDiam && distance_km>0)? (physDiam/distance_km)*206265 : 0;
           }
-          newObjects.push({id:entry.id,name:entry.name,ra_deg:ra_deg,dec_deg:dec_deg,angular_size_arcsec:angular_size_arcsec,color:objectColors[entry.id.toLowerCase()]||"white"});
+          newObjects.push({id:entry.id, name:entry.name, ra_deg:ra_deg, dec_deg:dec_deg, angular_size_arcsec:angular_size_arcsec, color:objectColors[entry.id.toLowerCase()]||"white"});
         });
         celestialObjects = newObjects;
         createLegend();
@@ -140,7 +168,7 @@
     fetchEphemerisData();
     function computeGMST(date){
       let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
-      if(month<=2){year-=1; month+=12;}
+      if(month<=2){ year-=1; month+=12; }
       let dayFraction = (hour+minute/60+second/3600)/24;
       let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
       let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
