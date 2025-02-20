@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Overhead Celestial Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    html, body, #map { height: 100%; margin: 0; padding: 0; }
-    /* Header styling */
+    html, body, #map { height: 100%; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
     #header {
       position: absolute;
       top: 5px;
@@ -15,41 +15,51 @@
       transform: translateX(-50%);
       z-index: 1100;
       background: rgba(255,255,255,0.95);
-      padding: 5px 8px;
+      padding: 4px 6px;
       border-radius: 4px;
-      font-family: sans-serif;
-      font-size: 16px;
+      font-size: 14px;
       text-align: center;
       white-space: nowrap;
     }
-    /* Back button styled as a circular arrow */
     #backButton {
       position: absolute;
       top: 8px;
       left: 10px;
       z-index: 1100;
-      background: #007acc;
-      color: #fff;
-      border: none;
+      background: #fff;
+      border: 1px solid #007acc;
       width: 36px;
       height: 36px;
       border-radius: 50%;
       text-align: center;
-      line-height: 36px;
+      line-height: 34px;
       font-size: 20px;
+      color: #007acc;
       cursor: pointer;
+      padding: 0;
     }
-    /* Legend container in upper right */
+    #helpButton {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      line-height: 26px;
+      border-radius: 50%;
+      border: 1px solid #007acc;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 8px;
+      color: #007acc;
+    }
     #legendContainer {
       position: absolute;
       top: 50px;
       right: 10px;
       z-index: 1100;
-      font-family: sans-serif;
       background: rgba(255,255,255,0.95);
       border: 1px solid #ccc;
       border-radius: 4px;
-      max-width: 200px;
+      max-width: 180px;
       overflow: hidden;
       font-size: 12px;
     }
@@ -57,34 +67,29 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 5px 8px;
+      padding: 4px 6px;
       background: #eee;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 500;
     }
     #legendHeader:hover { background: #ddd; }
-    #legendContent { padding: 5px 8px; display: none; }
+    #legendContent { padding: 4px 6px; display: none; }
     .legendItem {
       display: flex;
       align-items: center;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
       cursor: pointer;
-      padding: 3px;
+      padding: 2px;
       transition: background 0.3s;
     }
     .legendItem:hover { background: #f0f0f0; }
     .legendItem.selected { background: #ccc; }
     .legendCheckbox { margin-right: 4px; cursor: pointer; }
-    .legendColor { width: 12px; height: 12px; margin-right: 4px; border: 1px solid #333; }
+    .legendColor { width: 10px; height: 10px; margin-right: 4px; border: 1px solid #333; }
     .legendName { flex-grow: 1; cursor: pointer; }
-    #allPlanetsContainer {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3px;
-    }
+    #allPlanetsContainer { display: flex; align-items: center; margin-bottom: 2px; }
     #allPlanetsContainer input { margin-right: 4px; cursor: pointer; }
-    #allPlanetsContainer label { font-weight: bold; cursor: pointer; }
-    /* Help modal styling */
+    #allPlanetsContainer label { font-weight: 500; cursor: pointer; }
     .modal {
       display: none;
       position: fixed;
@@ -99,7 +104,7 @@
     .modal-content {
       background-color: #fefefe;
       margin: 15% auto;
-      padding: 20px;
+      padding: 15px;
       border: 1px solid #888;
       width: 80%;
       max-width: 300px;
@@ -109,18 +114,17 @@
     .close {
       color: #aaa;
       float: right;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: -10px;
+      margin-top: -4px;
     }
     .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
-    /* Hide Leaflet's default zoom controls */
   </style>
 </head>
 <body>
   <button id="backButton" onclick="location.href='index.html'">&#8592;</button>
-  <div id="header">Live Overhead Celestial Map <span id="helpButton" style="display:inline-block; width:28px; height:28px; line-height:28px; border-radius:50%; border:1px solid #007acc; text-align:center; cursor:pointer; font-size:16px;">?</span></div>
+  <div id="header">Live Overhead Celestial Map <span id="helpButton">?</span></div>
   <div id="map"></div>
   <div id="legendContainer">
     <div id="legendHeader"><span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9660;</span></div>
@@ -168,7 +172,7 @@
     fetchEphemerisData();
     function computeGMST(date){
       let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
-      if(month<=2){ year-=1; month+=12; }
+      if(month<=2){year-=1; month+=12;}
       let dayFraction = (hour+minute/60+second/3600)/24;
       let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
       let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
