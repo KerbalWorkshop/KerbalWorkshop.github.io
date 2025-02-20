@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-
 exports.handler = async (event, context) => {
   const now = new Date();
   const dateString = now.toISOString().split("T")[0];
@@ -10,18 +9,9 @@ exports.handler = async (event, context) => {
   const apiKey = process.env.ASTRONOMY_API_KEY;
   const apiSecret = process.env.ASTRONOMY_API_SECRET;
   const authHeader = "Basic " + Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
-
   try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Authorization": authHeader,
-        "Content-Type": "application/json"
-      }
-    });
-    if (!response.ok) {
-      return { statusCode: response.status, body: JSON.stringify({ error: "Astronomy API request failed" }) };
-    }
+    const response = await fetch(url, { method: "GET", headers: { "Authorization": authHeader, "Content-Type": "application/json" } });
+    if (!response.ok) { return { statusCode: response.status, body: JSON.stringify({ error: "Astronomy API request failed" }) }; }
     const data = await response.json();
     return { statusCode: 200, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) };
   } catch (error) {
