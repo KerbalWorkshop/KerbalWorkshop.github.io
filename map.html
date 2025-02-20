@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Overhead Celestial Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+    #header {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      background: rgba(255,255,255,0.95);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 18px;
+      text-align: center;
+    }
+    #backButton {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      z-index: 1002;
+      background: #007acc;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 14px;
+    }
+    #legendContainer {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      z-index: 1000;
+      font-family: sans-serif;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      max-width: 220px;
+      overflow: hidden;
+    }
+    #legendHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 10px;
+      background: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    #legendHeader:hover { background: #ddd; }
+    #legendContent { padding: 5px 10px; display: none; }
+    .legendItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      cursor: pointer;
+      padding: 3px;
+      font-size: 13px;
+      transition: background 0.3s;
+    }
+    .legendItem:hover { background: #f0f0f0; }
+    .legendItem.selected { background: #ccc; }
+    .legendCheckbox { margin-right: 5px; cursor: pointer; }
+    .legendColor { width: 14px; height: 14px; margin-right: 5px; border: 1px solid #333; }
+    .legendName { flex-grow: 1; cursor: pointer; }
+    #allPlanetsContainer {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    #allPlanetsContainer input { margin-right: 5px; cursor: pointer; }
+    #allPlanetsContainer label { font-weight: bold; cursor: pointer; }
+    #timeDisplay {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: rgba(255,255,255,0.95);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 14px;
+      z-index: 1000;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 4px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <a id="backButton" href="index.html">Back to Main Page</a>
+  <div id="header">Live Overhead Celestial Map <span id="helpButton">?</span></div>
+  <div id="map"></div>
+  <div id="legendContainer">
+    <div id="legendHeader"><span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9660;</span></div>
+    <div id="legendContent"></div>
+  </div>
+  <div id="timeDisplay"></div>
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <p>This map shows the live locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
+    </div>
+  </div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let celestialObjects = [];
+    const physicalDiameters = {"sun":1392700,"moon":3474,"mercury":4879,"venus":12104,"mars":6792,"jupiter":139820,"saturn":116460,"uranus":50724,"neptune":49244,"pluto":2376};
+    const objectColors = {"sun":"orangered","moon":"whitesmoke","mercury":"dimgray","venus":"darkorange","mars":"crimson","jupiter":"sienna","saturn":"goldenrod","uranus":"deepskyblue","neptune":"royalblue","pluto":"mediumpurple"};
+    let apiInterval = setInterval(fetchEphemerisData,60000);
+    let selectedObject = null;
+    async function fetchEphemerisData(){
+      try{
+        const response = await fetch('/.netlify/functions/astronomy');
+        if(!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        const data = await response.json();
+        let newObjects = [];
+        data.data.table.rows.forEach(row=>{
+          const entry = row.entry;
+          if(entry.id.toLowerCase() === "earth") return;
+          const cell = row.cells[0];
+          const ra_hours = parseFloat(cell.position.equatorial.rightAscension.hours);
+          const ra_deg = ra_hours * 15;
+          const dec_deg = parseFloat(cell.position.equatorial.declination.degrees);
+          const distance_km = parseFloat(cell.distance.fromEarth.km);
+          let angular_size_arcsec;
+          if(cell.angular_size_arcsec){ angular_size_arcsec = parseFloat(cell.angular_size_arcsec); }
+          else{
+            const physDiam = physicalDiameters[entry.id.toLowerCase()];
+            angular_size_arcsec = (physDiam && distance_km>0)? (physDiam/distance_km)*206265 : 0;
+          }
+          newObjects.push({id:entry.id,name:entry.name,ra_deg:ra_deg,dec_deg:dec_deg,angular_size_arcsec:angular_size_arcsec,color:objectColors[entry.id.toLowerCase()]||"white"});
+        });
+        celestialObjects = newObjects;
+        createLegend();
+      } catch(error){ console.error("Error fetching ephemeris data:", error); }
+    }
+    fetchEphemerisData();
+    function updateTimeDisplay(){ document.getElementById("timeDisplay").innerHTML = new Date().toLocaleString(); }
+    setInterval(updateTimeDisplay,1000);
+    updateTimeDisplay();
+    function computeGMST(date){
+      let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
+      if(month<=2){year-=1; month+=12;}
+      let dayFraction = (hour+minute/60+second/3600)/24;
+      let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
+      let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
+      let d = JD - 2451545.0;
+      let gmstHours = 18.697374558+24.06570982441908*d;
+      gmstHours = gmstHours % 24;
+      if(gmstHours<0) gmstHours+=24;
+      return gmstHours*15;
+    }
+    function subCelestialPoint(date, ra_deg, dec_deg){
+      const gmst_deg = computeGMST(date);
+      let lon = ra_deg - gmst_deg;
+      lon = ((lon+180)%360)-180;
+      return {lat:dec_deg, lon:lon};
+    }
+    function destinationPoint(lat, lon, distanceKm, bearing){
+      const R = 6371, bearingRad = bearing*Math.PI/180, latRad = lat*Math.PI/180, lonRad = lon*Math.PI/180, dR = distanceKm/R;
+      const newLatRad = Math.asin(Math.sin(latRad)*Math.cos(dR)+Math.cos(latRad)*Math.sin(dR)*Math.cos(bearingRad));
+      const newLonRad = lonRad + Math.atan2(Math.sin(bearingRad)*Math.sin(dR)*Math.cos(latRad), Math.cos(dR)-Math.sin(latRad)*Math.sin(newLatRad));
+      return {lat:newLatRad*180/Math.PI, lon:newLonRad*180/Math.PI};
+    }
+    function computeCirclePoints(center, distanceKm){
+      let points = [];
+      for(let bearing=0; bearing<360; bearing+=4){
+        let dest = destinationPoint(center.lat, center.lon, distanceKm, bearing);
+        points.push([dest.lat, dest.lon]);
+      }
+      points.push(points[0]);
+      return points;
+    }
+    var map = L.map('map').setView([0,0],2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+    var shapesGroup = L.layerGroup().addTo(map);
+    const objectPolylines = {};
+    function initPolylines(){
+      celestialObjects.forEach(obj=>{
+        if(!objectPolylines[obj.name]){
+          let polyline = L.polyline([], {color:obj.color, weight:5}).addTo(shapesGroup);
+          objectPolylines[obj.name] = polyline;
+        }
+      });
+    }
+    function createLegend(){
+      let legendContent = document.getElementById("legendContent");
+      legendContent.innerHTML = "";
+      let allContainer = document.createElement("div");
+      allContainer.id = "allPlanetsContainer";
+      allContainer.style.display = "flex";
+      allContainer.style.alignItems = "center";
+      let allCheckbox = document.createElement("input");
+      allCheckbox.type = "checkbox";
+      allCheckbox.id = "allPlanetsCheckbox";
+      allCheckbox.checked = true;
+      let allLabel = document.createElement("label");
+      allLabel.textContent = "All";
+      allLabel.style.marginLeft = "5px";
+      allContainer.appendChild(allCheckbox);
+      allContainer.appendChild(allLabel);
+      legendContent.appendChild(allContainer);
+      allCheckbox.addEventListener("change", function(){
+        let allChecked = allCheckbox.checked;
+        document.querySelectorAll(".legendCheckbox").forEach(cb=>{
+          cb.checked = allChecked;
+          let colorIndicator = cb.parentElement.querySelector(".legendColor");
+          let objName = cb.parentElement.getAttribute("data-object");
+          let targetObj = celestialObjects.find(o=>o.name===objName);
+          if(allChecked && targetObj){ colorIndicator.style.backgroundColor = targetObj.color; }
+          else{ colorIndicator.style.backgroundColor = "lightgrey"; }
+        });
+        updateCelestialShapes();
+      });
+      celestialObjects.forEach(obj=>{
+        let item = document.createElement("div");
+        item.className = "legendItem";
+        item.setAttribute("data-object", obj.name);
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "legendCheckbox";
+        checkbox.id = "checkbox_"+obj.name;
+        checkbox.checked = true;
+        let colorIndicator = document.createElement("span");
+        colorIndicator.className = "legendColor";
+        colorIndicator.style.backgroundColor = obj.color;
+        let nameLabel = document.createElement("span");
+        nameLabel.className = "legendName";
+        nameLabel.textContent = obj.name;
+        item.appendChild(checkbox);
+        item.appendChild(colorIndicator);
+        item.appendChild(nameLabel);
+        legendContent.appendChild(item);
+        checkbox.addEventListener("click", function(e){ e.stopPropagation(); });
+        checkbox.addEventListener("change", function(){
+          if(checkbox.checked){ colorIndicator.style.backgroundColor = obj.color; }
+          else{ colorIndicator.style.backgroundColor = "lightgrey"; if(selectedObject===obj.name){ selectedObject=null; updateLegendSelection(); } }
+          let allChecked = true;
+          document.querySelectorAll(".legendCheckbox").forEach(cb=>{ if(!cb.checked) allChecked = false; });
+          document.getElementById("allPlanetsCheckbox").checked = allChecked;
+          updateCelestialShapes();
+        });
+        item.addEventListener("click", function(){
+          if(!checkbox.checked)return;
+          if(selectedObject!==obj.name){
+            selectedObject = obj.name;
+            updateLegendSelection();
+            const poly = objectPolylines[obj.name];
+            if(poly){
+              const bounds = poly.getBounds();
+              map.fitBounds(bounds, {padding:[20,20], maxZoom:12});
+            }
+          }
+        });
+      });
+    }
+    function updateLegendSelection(){
+      document.querySelectorAll('.legendItem').forEach(item=>{
+        if(item.getAttribute("data-object")===selectedObject){ item.classList.add("selected"); }
+        else{ item.classList.remove("selected"); }
+      });
+    }
+    document.getElementById("legendHeader").addEventListener("click", function(e){
+      let allCheckbox = document.getElementById("allPlanetsCheckbox");
+      if(e.target===allCheckbox)return;
+      let content = document.getElementById("legendContent");
+      content.style.display = (content.style.display==="none" || content.style.display==="") ? "block" : "none";
+      this.innerHTML = (content.style.display==="block") ? "Solar System &#9650;" : "Solar System &#9660;";
+    });
+    createLegend();
+    document.getElementById("legendContent").style.display = "block";
+    document.getElementById("legendHeader").innerHTML = '<span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
+    const labelZoomThreshold = 7;
+    const objectLabels = {};
+    function updateLabelsVisibility(){
+      let zoom = map.getZoom();
+      for(let key in objectLabels){
+        let cb = document.getElementById("checkbox_"+key);
+        if(cb && !cb.checked){
+          if(map.hasLayer(objectLabels[key])){ map.removeLayer(objectLabels[key]); }
+          continue;
+        }
+        if(zoom<labelZoomThreshold){
+          if(!map.hasLayer(objectLabels[key])){ map.addLayer(objectLabels[key]); }
+        } else {
+          if(map.hasLayer(objectLabels[key])){ map.removeLayer(objectLabels[key]); }
+        }
+      }
+    }
+    map.on("zoomend", function(){
+      updateLabelsVisibility();
+      if(selectedObject){
+        let targetObj = celestialObjects.find(o=>o.name===selectedObject);
+        if(targetObj){
+          let subCel = subCelestialPoint(new Date(), targetObj.ra_deg, targetObj.dec_deg);
+          map.panTo(subCel, {animate:false});
+        }
+      }
+    });
+    map.on("click", function(){
+      selectedObject = null;
+      updateLegendSelection();
+    });
+    map.on("dragstart", function(){
+      selectedObject = null;
+      updateLegendSelection();
+    });
+    function updateCelestialShapes(){
+      const now = new Date();
+      initPolylines();
+      if(celestialObjects.length===0)return;
+      celestialObjects.forEach(obj=>{
+        let checkbox = document.getElementById("checkbox_"+obj.name);
+        if(checkbox && !checkbox.checked){
+          if(objectPolylines[obj.name] && shapesGroup.hasLayer(objectPolylines[obj.name])){
+            shapesGroup.removeLayer(objectPolylines[obj.name]);
+          }
+          if(objectLabels[obj.name] && map.hasLayer(objectLabels[obj.name])){
+            map.removeLayer(objectLabels[obj.name]);
+          }
+          return;
+        }
+        let angularRadiusDeg = (obj.angular_size_arcsec/2)/3600;
+        let angularRadiusRad = angularRadiusDeg*Math.PI/180;
+        let effectiveDistanceKm = 6371*angularRadiusRad;
+        let subCel = subCelestialPoint(now, obj.ra_deg, obj.dec_deg);
+        let pts = computeCirclePoints(subCel, effectiveDistanceKm);
+        objectPolylines[obj.name].setLatLngs(pts);
+        if(!shapesGroup.hasLayer(objectPolylines[obj.name])){
+          shapesGroup.addLayer(objectPolylines[obj.name]);
+        }
+        if(objectLabels[obj.name]){
+          objectLabels[obj.name].setLatLng(subCel);
+        } else {
+          let marker = L.marker(subCel, {icon: L.divIcon({html: `<div style="font-size:24px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 2px black;">${obj.name}</div>`, className: '', iconAnchor: [0,0]})});
+          marker.on("click", function(e){
+            e.originalEvent.stopPropagation();
+            let cb = document.getElementById("checkbox_"+obj.name);
+            if(cb && cb.checked){
+              selectedObject = obj.name;
+              updateLegendSelection();
+              const poly = objectPolylines[obj.name];
+              if(poly){
+                const bounds = poly.getBounds();
+                map.fitBounds(bounds, {padding:[20,20], maxZoom:12});
+              }
+            }
+          });
+          objectLabels[obj.name] = marker;
+        }
+        if(selectedObject===obj.name){
+          map.panTo(subCel, {animate:true});
+        }
+      });
+      updateLabelsVisibility();
+    }
+    setInterval(updateCelestialShapes,1000);
+    updateCelestialShapes();
+    document.getElementById("helpButton").addEventListener("click", function(){
+      document.getElementById("helpModal").style.display = "block";
+    });
+    document.getElementById("closeModal").addEventListener("click", function(){
+      document.getElementById("helpModal").style.display = "none";
+    });
+    window.addEventListener("click", function(event){
+      if(event.target==document.getElementById("helpModal")){
+        document.getElementById("helpModal").style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
