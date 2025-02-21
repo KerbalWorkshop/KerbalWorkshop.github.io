@@ -16,18 +16,15 @@
       font-size: 14px;
       line-height: 1.6;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { text-decoration: none; color: inherit; }
     /* Header */
     header {
       position: sticky;
       top: 0;
       background: #444;
       color: #fff;
-      padding: 10px 20px;
       z-index: 1000;
+      padding: 10px 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     header .brand {
@@ -73,7 +70,7 @@
       font-size: 0.95em;
       margin-bottom: 20px;
     }
-    /* Grid for Tools buttons (square, three across) */
+    /* Grid for Tools buttons */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -125,10 +122,11 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #333;
+      background: #fff;
+      border: 1px solid #333;
       transition: background 0.3s;
     }
-    footer .social-links a:hover { background: #111; }
+    footer .social-links a:hover { background: #f0f0f0; }
     footer .social-links img {
       width: 20px;
       height: 20px;
@@ -154,13 +152,13 @@
     <p>This page will feature interactive tools and experiments.</p>
     <div class="grid">
       <a href="map.html">
-        <div class="label">Live Map →</div>
+        <div class="label">Live Map &#8594;</div>
       </a>
       <a href="#">
-        <div class="label">Tool 2 →</div>
+        <div class="label">Tool 2 &#8594;</div>
       </a>
       <a href="#">
-        <div class="label">Tool 3 →</div>
+        <div class="label">Tool 3 &#8594;</div>
       </a>
     </div>
   </div>
