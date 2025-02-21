@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hansen Space – Home</title>
+  <!-- Load the Moon font (ensure this URL works for you) -->
+  <link href="https://fonts.cdnfonts.com/css/moon" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* Use Moon for headings, Roboto for body text */
     body {
       margin: 0;
       padding: 0;
@@ -15,8 +18,12 @@
       font-size: 14px;
       line-height: 1.6;
     }
+    h1, h2 {
+      font-family: 'Moon', sans-serif;
+      color: #6A0DAD;
+    }
     header {
-      background: #007acc;
+      background: #6A0DAD;
       color: #fff;
       padding: 15px 20px;
       text-align: center;
@@ -32,79 +39,67 @@
       margin: auto;
       border-bottom: 1px solid #ddd;
     }
-    .section:last-child {
-      border-bottom: none;
-    }
-    .section h2 {
-      font-size: 1.5em;
-      margin-bottom: 15px;
-      font-weight: 500;
-      color: #007acc;
-    }
-    .section p {
-      margin-bottom: 15px;
-    }
-    /* Grid container for square buttons */
+    .section:last-child { border-bottom: none; }
+    .section h2 { font-size: 1.5em; margin-bottom: 15px; font-weight: 500; }
+    .section p { margin-bottom: 15px; }
+    /* Grid for square buttons */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       justify-items: center;
     }
     .grid a {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
+      display: block;
       width: 100px;
       height: 100px;
-      background: #007acc;
+      background: #6A0DAD;
       color: #fff;
       text-decoration: none;
       border-radius: 4px;
       position: relative;
       overflow: hidden;
-      font-size: 0.95em;
       transition: background 0.3s;
     }
-    .grid a:hover {
-      background: #005fa3;
-    }
-    /* Label at the bottom of the square button */
+    .grid a:hover { background: #4B0082; }
     .grid a .label {
       position: absolute;
       bottom: 4px;
       width: 100%;
       text-align: center;
       font-weight: 500;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0,0,0,0.4);
       padding: 2px 0;
+      font-size: 0.9em;
     }
-    .social-links {
-      text-align: center;
-      margin: 30px 0;
-    }
-    .social-links a {
-      display: block;
-      text-decoration: none;
-      background: #007acc;
-      color: #fff;
-      padding: 10px;
-      border-radius: 4px;
-      font-size: 0.95em;
-      transition: background 0.3s;
-      margin: 5px auto;
-      max-width: 200px;
-    }
-    .social-links a:hover {
-      background: #005fa3;
-    }
+    /* Social media footer */
     footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 0.85em;
-      color: #777;
       background: #eee;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.85em;
+      margin-top: 30px;
+    }
+    footer .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    footer .social-links a {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #6A0DAD;
+      text-align: center;
+      line-height: 32px;
+      transition: background 0.3s;
+    }
+    footer .social-links a:hover { background: #4B0082; }
+    footer .social-links img {
+      width: 18px;
+      height: 18px;
     }
   </style>
 </head>
@@ -119,14 +114,13 @@
   <div class="section">
     <h2>Astrophotography</h2>
     <div class="grid">
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <!-- Future background image can be added via CSS background-image -->
+      <a href="moon.html">
         <div class="label">Moon</div>
       </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
+      <a href="planets.html">
         <div class="label">Planets</div>
       </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
+      <a href="deepsky.html">
         <div class="label">Deep Sky</div>
       </a>
     </div>
@@ -145,13 +139,13 @@
       </a>
     </div>
   </div>
-  <div class="social-links">
-    <a href="https://www.youtube.com/hansenspace" target="_blank">YouTube</a>
-    <a href="https://instagram.com/hansenspace" target="_blank">Instagram</a>
-    <a href="https://tiktok.com/@hansen_space" target="_blank">TikTok</a>
-  </div>
   <footer>
-    &copy; 2025 Hansen Space. All rights reserved.
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://simpleicons.org/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://simpleicons.org/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://simpleicons.org/icons/tiktok.svg" alt="TikTok"></a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
   </footer>
 </body>
 </html>
