@@ -6,7 +6,21 @@
   <title>Tools – Hansen Space</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background: #f9f9f9; color: #333; }
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -16,8 +30,16 @@
       z-index: 1000;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    header .brand { font-size: 1.6em; font-weight: 500; text-align: center; display: block; }
-    nav { margin-top: 8px; text-align: center; }
+    header .brand {
+      font-size: 1.6em;
+      font-weight: 500;
+      text-align: center;
+      display: block;
+    }
+    nav {
+      margin-top: 8px;
+      text-align: center;
+    }
     nav ul {
       display: inline-flex;
       white-space: nowrap;
@@ -36,9 +58,53 @@
     nav li a.active {
       border-bottom: 2px solid #fff;
     }
-    .content { padding: 20px; max-width: 800px; margin: auto; }
-    .content h2 { font-size: 1.4em; margin-bottom: 10px; color: #444; }
-    .content p { font-size: 0.95em; }
+    /* Content */
+    .content {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .content h2 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+      color: #444;
+    }
+    .content p {
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+    /* Grid for Tools buttons (square, three across) */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      justify-items: center;
+    }
+    .grid a {
+      display: block;
+      width: 100px;
+      height: 100px;
+      background: #444;
+      color: #fff;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .grid a:hover {
+      background: #222;
+    }
+    .grid a .label {
+      position: absolute;
+      bottom: 4px;
+      width: 100%;
+      text-align: center;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 0;
+      font-size: 0.9em;
+    }
+    /* Footer */
     footer {
       background: #eee;
       padding: 15px;
@@ -56,8 +122,8 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: #333;
       transition: background 0.3s;
@@ -86,7 +152,17 @@
   <div class="content">
     <h2>Tools</h2>
     <p>This page will feature interactive tools and experiments.</p>
-    <!-- Future Tools content goes here -->
+    <div class="grid">
+      <a href="map.html">
+        <div class="label">Live Map →</div>
+      </a>
+      <a href="#">
+        <div class="label">Tool 2 →</div>
+      </a>
+      <a href="#">
+        <div class="label">Tool 3 →</div>
+      </a>
+    </div>
   </div>
   <footer>
     <div class="social-links">
