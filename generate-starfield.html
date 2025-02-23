@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generate Starfields & Unique Overlays</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #222;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    .controls {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 20;
+      background: rgba(0,0,0,0.8);
+      padding: 10px;
+      border-radius: 4px;
+      max-width: 300px;
+    }
+    .controls button {
+      margin: 4px 2px;
+      padding: 6px 10px;
+      font-size: 0.85em;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+    canvas {
+      display: block;
+      margin: 120px auto;
+      border: 1px solid #555;
+    }
+    .instructions {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      z-index: 20;
+      background: rgba(0,0,0,0.8);
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <!-- Starfield layer generation -->
+    <strong>Starfield Layers:</strong>
+    <button onclick="generateLayer(1)">Generate Layer 1 (Front)</button>
+    <button onclick="generateLayer(2)">Generate Layer 2</button>
+    <button onclick="generateLayer(3)">Generate Layer 3</button>
+    <button onclick="generateLayer(4)">Generate Layer 4</button>
+    <button onclick="generateLayer(5)">Generate Layer 5</button>
+    <button onclick="generateLayer(6)">Generate Layer 6 (Back)</button>
+    <hr>
+    <!-- Globular Cluster Overlays -->
+    <strong>Globular Cluster:</strong>
+    <button onclick="clearCanvas(); generateGlobularCluster(1)">Generate Globular Cluster (Close)</button>
+    <button onclick="clearCanvas(); generateGlobularCluster(2)">Generate Globular Cluster (Medium)</button>
+    <button onclick="clearCanvas(); generateGlobularCluster(3)">Generate Globular Cluster (Distant)</button>
+    <!-- Open Cluster Overlays -->
+    <strong>Open Cluster:</strong>
+    <button onclick="clearCanvas(); generateOpenCluster(1)">Generate Open Cluster (Close)</button>
+    <button onclick="clearCanvas(); generateOpenCluster(2)">Generate Open Cluster (Medium)</button>
+    <button onclick="clearCanvas(); generateOpenCluster(3)">Generate Open Cluster (Distant)</button>
+    <!-- Nebula Overlays -->
+    <strong>Nebula:</strong>
+    <button onclick="clearCanvas(); generateNebula(1)">Generate Nebula (Close)</button>
+    <button onclick="clearCanvas(); generateNebula(2)">Generate Nebula (Medium)</button>
+    <button onclick="clearCanvas(); generateNebula(3)">Generate Nebula (Distant)</button>
+  </div>
+  <canvas id="starCanvas" width="1024" height="1024"></canvas>
+  <div class="instructions">
+    <p>
+      Use these buttons to generate starfield layers (save as 1.png–6.png) or unique overlays.
+      Each overlay clears the canvas so it appears on its own.
+    </p>
+  </div>
+  <script>
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // Starfield layer parameters (for images 1.png … 6.png)
+    const layerParams = {
+      1: { numStars: 100, maxSize: 1.5 },
+      2: { numStars: 90,  maxSize: 1.4 },
+      3: { numStars: 80,  maxSize: 1.3 },
+      4: { numStars: 70,  maxSize: 1.2 },
+      5: { numStars: 60,  maxSize: 1.0 },
+      6: { numStars: 50,  maxSize: 0.8 }
+    };
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, width, height);
+    }
+
+    function generateLayer(layerNum) {
+      const params = layerParams[layerNum];
+      if (layerNum === 6) {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        clearCanvas();
+      }
+      for (let i = 0; i < params.numStars; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const radius = Math.random() * Math.random() * params.maxSize;
+        let r = 240, g = 240, b = 240;
+        const variation = Math.random();
+        if (variation < 0.2) {
+          r = 220 + Math.floor(Math.random() * 20);
+          g = 220 + Math.floor(Math.random() * 20);
+          b = 255;
+        } else if (variation > 0.8) {
+          r = 255;
+          g = 200 + Math.floor(Math.random() * 30);
+          b = 200 + Math.floor(Math.random() * 30);
+        }
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        drawStar(x, y, radius);
+        const edgeThreshold = params.maxSize;
+        if (x < edgeThreshold) drawStar(x + width, y, radius);
+        if (x > width - edgeThreshold) drawStar(x - width, y, radius);
+        if (y < edgeThreshold) drawStar(x, y + height, radius);
+        if (y > height - edgeThreshold) drawStar(x, y - height, radius);
+      }
+    }
+
+    function drawStar(x, y, radius) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // --- Globular Cluster Overlay ---
+    function generateGlobularCluster(variation) {
+      clearCanvas();
+      let clusterRadius, starCount, starSizeFactor;
+      if (variation === 1) {
+        clusterRadius = 100; starCount = 300; starSizeFactor = 0.8;
+      } else if (variation === 2) {
+        clusterRadius = 80; starCount = 250; starSizeFactor = 0.7;
+      } else {
+        clusterRadius = 60; starCount = 200; starSizeFactor = 0.6;
+      }
+      const centerX = width / 2, centerY = height / 2;
+      for (let i = 0; i < starCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        let dist = Math.pow(Math.random(), 3) * clusterRadius;
+        if (dist > clusterRadius * 0.3 && Math.random() < 0.85) continue;
+        const x = centerX + dist * Math.cos(angle);
+        const y = centerY + dist * Math.sin(angle);
+        const base = 240;
+        const offset = Math.floor(Math.random() * 10);
+        ctx.fillStyle = `rgb(${base+offset},${base+offset-20},${base-20})`;
+        const starSize = starSizeFactor * (0.5 + Math.random() * 0.5);
+        ctx.beginPath();
+        ctx.arc(x, y, starSize, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      const glowGradient = ctx.createRadialGradient(centerX, centerY, clusterRadius * 0.1, centerX, centerY, clusterRadius * 0.3);
+      glowGradient.addColorStop(0, 'rgba(255,255,220,0.05)');
+      glowGradient.addColorStop(0.4, 'rgba(255,255,220,0.03)');
+      glowGradient.addColorStop(0.7, 'rgba(255,255,220,0.01)');
+      glowGradient.addColorStop(1, 'rgba(255,255,220,0)');
+      ctx.fillStyle = glowGradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, clusterRadius * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // --- Open Cluster Overlay (unchanged) ---
+    function generateOpenCluster(variation) {
+      clearCanvas();
+      const centerX = width / 2, centerY = height / 2;
+      let clusterRadius, starCount, starSizeFactor;
+      if (variation === 1) {
+        clusterRadius = 60; starCount = 60; starSizeFactor = 1.2;
+      } else if (variation === 2) {
+        clusterRadius = 45; starCount = 45; starSizeFactor = 1.0;
+      } else {
+        clusterRadius = 30; starCount = 30; starSizeFactor = 0.8;
+      }
+      for (let i = 0; i < starCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.pow(Math.random(), 3) * clusterRadius;
+        const x = centerX + dist * Math.cos(angle);
+        const y = centerY + dist * Math.sin(angle);
+        const color = (Math.random() < 0.9) ? 'rgb(245,245,250)' : 'rgb(250,230,230)';
+        ctx.fillStyle = color;
+        const starSize = starSizeFactor * (0.5 + Math.random());
+        ctx.beginPath();
+        ctx.arc(x, y, starSize, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // --- Nebula Overlay ---
+    function generateNebula(variation) {
+      clearCanvas();
+      const marginX = width * 0.15;
+      const marginY = height * 0.15;
+      const regionWidth = width - 2 * marginX;
+      const regionHeight = height - 2 * marginY;
+      
+      let numFilaments, baseStrokeAlpha;
+      if (variation === 1) {
+        numFilaments = 10; baseStrokeAlpha = 0.015;
+      } else if (variation === 2) {
+        numFilaments = 8; baseStrokeAlpha = 0.012;
+      } else {
+        numFilaments = 6; baseStrokeAlpha = 0.010;
+      }
+      let filaments = [];
+      for (let i = 0; i < numFilaments; i++) {
+        let pts = [];
+        let startX = marginX + Math.random() * regionWidth;
+        let startY = marginY + Math.random() * regionHeight;
+        pts.push({ x: startX, y: startY });
+        const numPts = 4 + Math.floor(Math.random() * 3);
+        for (let j = 0; j < numPts; j++) {
+          let nextX = startX + (Math.random() - 0.5) * 150 * 0.7;
+          let nextY = startY + (Math.random() - 0.5) * 150 * 0.7;
+          nextX = Math.max(marginX, Math.min(width - marginX, nextX));
+          nextY = Math.max(marginY, Math.min(height - marginY, nextY));
+          pts.push({ x: nextX, y: nextY });
+          startX = nextX;
+          startY = nextY;
+        }
+        filaments.push(pts);
+      }
+      
+      const uniformPalette = [
+        { r: 240, g: 130, b: 160 },
+        { r: 220, g: 140, b: 200 },
+        { r: 200, g: 160, b: 230 },
+        { r: 180, g: 170, b: 240 }
+      ];
+      
+      // Draw the filament network.
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < filaments.length; i++) {
+        const pts = filaments[i];
+        const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
+        ctx.strokeStyle = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},${baseStrokeAlpha})`;
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let j = 1; j < pts.length; j++) {
+          const cpX = (pts[j-1].x + pts[j].x) / 2;
+          const cpY = (pts[j-1].y + pts[j].y) / 2;
+          ctx.quadraticCurveTo(cpX, cpY, pts[j].x, pts[j].y);
+        }
+        ctx.stroke();
+      }
+      
+      // Draw overlapping ellipses along each filament (30% smaller and half opacities).
+      for (let i = 0; i < filaments.length; i++) {
+        const pts = filaments[i];
+        const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
+        for (let j = 0; j < pts.length; j++) {
+          const { x, y } = pts[j];
+          const ellipseWidth = (160 + Math.random() * 120) * 0.7;
+          const ellipseHeight = (130 + Math.random() * 80) * 0.7;
+          let fillColor;
+          if (ellipseWidth < 150 * 0.7) {
+            fillColor = `rgba(190,170,150,0.04)`;
+          } else {
+            fillColor = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},0.05)`;
+          }
+          const gradient = ctx.createRadialGradient(x, y, 0, x, y, ellipseWidth/2);
+          gradient.addColorStop(0, fillColor);
+          gradient.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          if (ctx.ellipse) {
+            ctx.ellipse(x, y, ellipseWidth/2, ellipseHeight/2, Math.random()*Math.PI, 0, Math.PI*2);
+          } else {
+            const avg = (ellipseWidth+ellipseHeight)/4;
+            ctx.arc(x, y, avg, 0, Math.PI*2);
+          }
+          ctx.fill();
+        }
+      }
+      
+      // Draw connecting ellipses between adjacent filament points.
+      for (let i = 0; i < filaments.length; i++) {
+        const pts = filaments[i];
+        for (let j = 0; j < pts.length - 1; j++) {
+          const { x: x1, y: y1 } = pts[j];
+          const { x: x2, y: y2 } = pts[j+1];
+          const midX = (x1 + x2) / 2;
+          const midY = (y1 + y2) / 2;
+          const dx = x2 - x1;
+          const dy = y2 - y1;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const ellipseWidth = dist * 2.0 * 0.7;
+          const ellipseHeight = dist * 1.6 * 0.7;
+          const gradient = ctx.createRadialGradient(midX, midY, 0, midX, midY, ellipseWidth/2);
+          gradient.addColorStop(0, 'rgba(200,180,255,0.01)');
+          gradient.addColorStop(1, 'rgba(200,180,255,0)');
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          if (ctx.ellipse) {
+            ctx.ellipse(midX, midY, ellipseWidth/2, ellipseHeight/2, 0, 0, Math.PI*2);
+          } else {
+            const avg = (ellipseWidth+ellipseHeight)/4;
+            ctx.arc(midX, midY, avg, 0, Math.PI*2);
+          }
+          ctx.fill();
+        }
+      }
+      
+      // Add extra overarching massive smooth ellipses that envelop the nebula.
+      // Draw many large, low-opacity ellipses to cover the whole region.
+      const numMassive = 10; // increase this number for more coverage
+      for (let k = 0; k < numMassive; k++) {
+        const centerX = marginX + Math.random() * regionWidth;
+        const centerY = marginY + Math.random() * regionHeight;
+        // These ellipses are huge: width and height are a significant fraction of the region.
+        const bigWidth = regionWidth * (0.8 + Math.random() * 0.2);
+        const bigHeight = regionHeight * (0.8 + Math.random() * 0.2);
+        // Use a gradient with extremely low opacity to envelop the nebula.
+        const bigGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, bigWidth/2);
+        bigGradient.addColorStop(0, 'rgba(180,160,220,0.001)');
+        bigGradient.addColorStop(1, 'rgba(180,160,220,0)');
+        ctx.fillStyle = bigGradient;
+        ctx.beginPath();
+        if (ctx.ellipse) {
+          ctx.ellipse(centerX, centerY, bigWidth/2, bigHeight/2, 0, 0, Math.PI*2);
+        } else {
+          const avg = (bigWidth+bigHeight)/4;
+          ctx.arc(centerX, centerY, avg, 0, Math.PI*2);
+        }
+        ctx.fill();
+      }
+    }
+  </script>
+</body>
+</html>
