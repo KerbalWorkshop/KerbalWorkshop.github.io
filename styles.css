@@ -1,173 +1,257 @@
 @font-face {
-    font-family: 'Moon Bold';
-    src: url('fonts/Moon Bold.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Moon Bold';
+  src: url('fonts/Moon Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Moon Light';
+  src: url('fonts/Moon Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Moon Light', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+  /* Removed global horizontal padding */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: #444;
+  color: #fff;
+  z-index: 1000;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header .brand {
+  font-family: 'Moon Bold', sans-serif;
+  font-size: 1.6em;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+}
+
+nav {
+  margin-top: 8px;
+  text-align: center;
+}
+
+nav ul {
+  display: inline-flex;
+  white-space: nowrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 15px;
+  font-size: 0.9em;
+}
+
+nav li a {
+  font-family: 'Moon Light', sans-serif;
+  color: #fff;
+  padding: 4px 6px;
+  transition: border-bottom 0.3s;
+  font-size: 0.9em;
+}
+
+nav li a:hover,
+nav li a.active {
+  border-bottom: 2px solid #fff;
+}
+
+/* Mobile adjustments for nav only */
+@media (max-width: 600px) {
+nav ul {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.8em;
+}
+}
+
+/* Hero Section */
+.hero {
+  background: #ddd;
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 1em;
+  color: #666;
+}
+
+/* Main content container: add horizontal margins to prevent text touching the screen edge */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;  /* 20px horizontal padding only inside content */
+}
+
+/* Sections on Home */
+.section {
+  padding: 30px 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  border-bottom: 1px solid #eee;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  font-family: 'Moon Bold', sans-serif;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.section p {
+  font-family: 'Moon Light', sans-serif;
+  margin-bottom: 15px;
+}
+
+.section .btn {
+  display: inline-block;
+  border: 2px solid #444;
+  color: #444;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  transition: background 0.3s, color 0.3s;
+  font-family: 'Moon Light', sans-serif;
+}
+
+.section .btn:hover {
+  background: #444;
+  color: #fff;
+}
+
+.section .btn span.arrow {
+  margin-left: 5px;
+}
+
+/* Footer */
+footer {
+  background: #eee;
+  padding: 15px;
+  text-align: center;
+  font-size: 0.85em;
+  margin-top: 30px;
+  position: relative;
+  z-index: 101;
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+footer .social-links a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #333;
+  transition: background 0.3s;
+}
+
+footer .social-links a:hover {
+  background: #f0f0f0;
+}
+
+footer .social-links img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Section background container with a 16:9 landscape ratio */
+.section-bg {
+  width: 100%;
+  aspect-ratio: 16 / 7.5; /* Forces container to be 16:9 (wider than tall) */
+  background-size: contain; /* Show the whole image without cropping */
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Optionally, you can add a fallback background color */
+  background-color: #f9f9f9;
+}
+
+/* Inner content within each background section */
+.section-bg .inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Center content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Larger white title text */
+.section-bg h2 {
+  font-size: 4em;
+  color: #fff;
+  margin: 0 0 0.5em;
+}
+
+/* Larger white paragraph text */
+.section-bg p {
+  font-size: 1.3em;
+  color: #fff;
+  margin: 0 0 1em;
+}
+
+/* Larger, white outlined button */
+.section-bg .btn {
+  font-size: 1.3em;
+  padding: 12px 18px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  color: #fff;
+  background: transparent;
+  transition: background 0.3s, color 0.3s;
+  text-decoration: none;
+}
+
+.section-bg .btn:hover {
+  background: #fff;
+  color: #444;
+}
+
+/* Mobile-specific: if needed, you can adjust font-sizes within a media query */
+@media (max-width: 600px) {
+  .section-bg h2 {
+    font-size: 2em;
   }
-  
-  @font-face {
-    font-family: 'Moon Light';
-    src: url('fonts/Moon Light.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  /* Global Styles */
-  body {
-    margin: 0;
-    padding: 0;
-    /* Use Moon Light for general text */
-    font-family: 'Moon Light', sans-serif;
-    background: #f9f9f9;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.6;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Header */
-  header {
-    position: sticky;
-    top: 0;
-    background: #444;
-    color: #fff;
-    z-index: 1000;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  header .brand {
-    /* Use Moon Bold for the brand/title */
-    font-family: 'Moon Bold', sans-serif;
-    font-size: 1.6em;
-    font-weight: 500;
-    text-align: center;
-    display: block;
-  }
-  
-  nav {
-    margin-top: 8px;
-    text-align: center;
-  }
-  
-  nav ul {
-    display: inline-flex;
-    white-space: nowrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 15px;
-    font-size: 0.9em;
-  }
-  
-  nav li a {
-    /* Use Moon Light for nav links */
-    font-family: 'Moon Light', sans-serif;
-    color: #fff;
-    padding: 4px 6px;
-    transition: border-bottom 0.3s;
-  }
-  
-  nav li a:hover,
-  nav li a.active {
-    border-bottom: 2px solid #fff;
-  }
-  
-  /* Hero Section */
-  .hero {
-    background: #ddd;
-    padding: 40px 20px;
-    text-align: center;
+  .section-bg p {
     font-size: 1em;
-    color: #666;
   }
-  
-  /* Sections on Home */
-  .section {
-    padding: 30px 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    border-bottom: 1px solid #eee;
+  .section-bg .btn {
+    font-size: 1em;
+    padding: 10px 16px;
   }
-  
-  .section:last-child {
-    border-bottom: none;
-  }
-  
-  .section h2 {
-    /* Use Moon Bold for section titles */
-    font-family: 'Moon Bold', sans-serif;
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: #444;
-  }
-  
-  .section p {
-    /* Use Moon Light for paragraph text */
-    font-family: 'Moon Light', sans-serif;
-    margin-bottom: 15px;
-  }
-  
-  .section .btn {
-    display: inline-block;
-    border: 2px solid #444;
-    color: #444;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    transition: background 0.3s, color 0.3s;
-    /* Use Moon Light for button text */
-    font-family: 'Moon Light', sans-serif;
-  }
-  
-  .section .btn:hover {
-    background: #444;
-    color: #fff;
-  }
-  
-  .section .btn span.arrow {
-    margin-left: 5px;
-  }
-  
-  /* Footer */
-  footer {
-    background: #eee;
-    padding: 15px;
-    text-align: center;
-    font-size: 0.85em;
-    margin-top: 30px;
-  }
-  
-  footer .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
-  }
-  
-  footer .social-links a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid #333;
-    transition: background 0.3s;
-  }
-  
-  footer .social-links a:hover {
-    background: #f0f0f0;
-  }
-  
-  footer .social-links img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-  }
-  
+}

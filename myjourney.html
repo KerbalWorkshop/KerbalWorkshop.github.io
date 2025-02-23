@@ -4,21 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Journey – Hansen Space</title>
-  <!-- Include the parallax CSS for the fixed background layers -->
+  <!-- Parallax CSS for starfields -->
   <link rel="stylesheet" href="parallax.css">
-  <!-- Include your site’s styles (for header and other elements) -->
+  <!-- Your site styles for header, etc. -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Optional: Hide scrollbars if desired -->
   <style>
-    /* For Firefox */
-    html { scrollbar-width: none; }
-    /* For WebKit browsers */
-    html::-webkit-scrollbar { display: none; }
+    /* Ensure the footer appears above the background */
+    footer {
+      position: relative;
+      z-index: 101;
+    }
   </style>
 </head>
 <body>
-  <!-- 24 Fixed Background Layers -->
-  <!-- Starfield layers (images 1–6) -->
+  <!-- Fixed Starfield Layers (images 1–6) -->
   <div id="layer1" class="star-layer"></div>
   <div id="layer2" class="star-layer"></div>
   <div id="layer3" class="star-layer"></div>
@@ -26,32 +25,7 @@
   <div id="layer5" class="star-layer"></div>
   <div id="layer6" class="star-layer"></div>
   
-  <!-- Overlay layers -->
-  <!-- Globular clusters (images 7–12) -->
-  <div id="layer7" class="overlay-layer"></div>
-  <div id="layer8" class="overlay-layer"></div>
-  <div id="layer9" class="overlay-layer"></div>
-  <div id="layer10" class="overlay-layer"></div>
-  <div id="layer11" class="overlay-layer"></div>
-  <div id="layer12" class="overlay-layer"></div>
-  
-  <!-- Open clusters (images 13–18) -->
-  <div id="layer13" class="overlay-layer"></div>
-  <div id="layer14" class="overlay-layer"></div>
-  <div id="layer15" class="overlay-layer"></div>
-  <div id="layer16" class="overlay-layer"></div>
-  <div id="layer17" class="overlay-layer"></div>
-  <div id="layer18" class="overlay-layer"></div>
-  
-  <!-- Nebulae (images 19–24) -->
-  <div id="layer19" class="overlay-layer"></div>
-  <div id="layer20" class="overlay-layer"></div>
-  <div id="layer21" class="overlay-layer"></div>
-  <div id="layer22" class="overlay-layer"></div>
-  <div id="layer23" class="overlay-layer"></div>
-  <div id="layer24" class="overlay-layer"></div>
-  
-  <!-- Header -->
+  <!-- Header (remains above the fixed background) -->
   <header>
     <a class="brand" href="index.html">Hansen Space</a>
     <nav>
@@ -65,50 +39,41 @@
     </nav>
   </header>
   
-  <!-- Main content (with extra height to enable scrolling) -->
+  <!-- Main Content (with extra height to enable scrolling) -->
   <div class="content">
     <h2>My Journey</h2>
     <p>This page details my personal exploration in astronomy, astrophotography, and astrophysics.</p>
-    <!-- Insert extended content so that the page scrolls -->
+    <!-- Extended content forces the page to be tall enough for scrolling -->
     <p style="height:9000px;">[Extended content for scrolling...]</p>
   </div>
   
-  <!-- (No footer, as requested) -->
+  <!-- Footer (now visible when scrolling reaches the bottom) -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
   
   <script>
-    // Hard-coded scroll update for starfield layers (images 1–6)
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
       
+      // Update starfield layers' background positions based on scroll
       document.getElementById('layer1').style.backgroundPosition = 'center -' + (scrollTop * 0.9) + 'px';
       document.getElementById('layer2').style.backgroundPosition = 'center -' + (scrollTop * 0.8) + 'px';
       document.getElementById('layer3').style.backgroundPosition = 'center -' + (scrollTop * 0.7) + 'px';
       document.getElementById('layer4').style.backgroundPosition = 'center -' + (scrollTop * 0.6) + 'px';
       document.getElementById('layer5').style.backgroundPosition = 'center -' + (scrollTop * 0.5) + 'px';
       document.getElementById('layer6').style.backgroundPosition = 'center -' + (scrollTop * 0.4) + 'px';
-      
-      // Overlays: update each with its hard-coded offsets and scroll factors.
-      // Formula: 'calc(50% + Hpx) ' + (V - scrollTop * factor) + 'px'
-      document.getElementById('layer13').style.backgroundPosition = 'calc(50% + 537px) ' + (5348 - scrollTop * 0.60) + 'px';
-      document.getElementById('layer14').style.backgroundPosition = 'calc(50% - 815px) ' + (942 - scrollTop * 0.57) + 'px';
-      document.getElementById('layer15').style.backgroundPosition = 'calc(50% + 305px) ' + (1405 - scrollTop * 0.54) + 'px';
-      document.getElementById('layer16').style.backgroundPosition = 'calc(50% - 48px) ' + (3793 - scrollTop * 0.51) + 'px';
-      document.getElementById('layer17').style.backgroundPosition = 'calc(50% - 512px) ' + (2603 - scrollTop * 0.48) + 'px';
-      document.getElementById('layer18').style.backgroundPosition = 'calc(50% - 309px) ' + (3906 - scrollTop * 0.45) + 'px';
-      
-      document.getElementById('layer19').style.backgroundPosition = 'calc(50% + 456px) ' + (5979 - scrollTop * 0.50) + 'px';
-      document.getElementById('layer20').style.backgroundPosition = 'calc(50% + 614px) ' + (2781 - scrollTop * 0.47) + 'px';
-      document.getElementById('layer21').style.backgroundPosition = 'calc(50% + 238px) ' + (319 - scrollTop * 0.44) + 'px';
-      document.getElementById('layer22').style.backgroundPosition = 'calc(50% - 21px) ' + (2364 - scrollTop * 0.41) + 'px';
-      document.getElementById('layer23').style.backgroundPosition = 'calc(50% + 460px) ' + (3992 - scrollTop * 0.38) + 'px';
-      document.getElementById('layer24').style.backgroundPosition = 'calc(50% - 690px) ' + (2561 - scrollTop * 0.35) + 'px';
-      
-      document.getElementById('layer7').style.backgroundPosition = 'calc(50% + 376px) ' + (5436 - scrollTop * 0.38) + 'px';
-      document.getElementById('layer8').style.backgroundPosition = 'calc(50% - 818px) ' + (4004 - scrollTop * 0.35) + 'px';
-      document.getElementById('layer9').style.backgroundPosition = 'calc(50% - 466px) ' + (637 - scrollTop * 0.32) + 'px';
-      document.getElementById('layer10').style.backgroundPosition = 'calc(50% + 526px) ' + (2848 - scrollTop * 0.30) + 'px';
-      document.getElementById('layer11').style.backgroundPosition = 'calc(50% + 590px) ' + (955 - scrollTop * 0.28) + 'px';
-      document.getElementById('layer12').style.backgroundPosition = 'calc(50% + 311px) ' + (2293 - scrollTop * 0.25) + 'px';
     });
   </script>
 </body>

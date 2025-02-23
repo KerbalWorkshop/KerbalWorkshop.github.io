@@ -1,17 +1,18 @@
 html, body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
-    /* Removed height:100% so the document can grow with content */
+    min-height: 100%; /* Allows document to extend as content grows */
+    /* If you need to hide the scrollbar, you can add scrollbar styles here */
 }
 
-/* Fixed background layers (all 24 layers) */
-div[id^="layer"] {
+/* Starfield layers: fixed, full-viewport divs */
+.star-layer {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
+    background-repeat: repeat;
     background-size: cover;
     background-attachment: scroll;
     background-position: center top;
@@ -24,27 +25,3 @@ div[id^="layer"] {
 #layer4 { background-image: url('images/4.png'); z-index: 70; }
 #layer5 { background-image: url('images/5.png'); z-index: 60; }
 #layer6 { background-image: url('images/6.png'); background-color: #000; z-index: 50; }
-
-/* Open clusters (images 13–18): z-index 99–94 */
-#layer13 { background-image: url('images/13.png'); z-index: 99; background-repeat: no-repeat; }
-#layer14 { background-image: url('images/14.png'); z-index: 98; background-repeat: no-repeat; }
-#layer15 { background-image: url('images/15.png'); z-index: 97; background-repeat: no-repeat; }
-#layer16 { background-image: url('images/16.png'); z-index: 96; background-repeat: no-repeat; }
-#layer17 { background-image: url('images/17.png'); z-index: 95; background-repeat: no-repeat; }
-#layer18 { background-image: url('images/18.png'); z-index: 94; background-repeat: no-repeat; }
-
-/* Nebulae (images 19–24): z-index 79–74 */
-#layer19 { background-image: url('images/19.png'); z-index: 79; background-repeat: no-repeat; }
-#layer20 { background-image: url('images/20.png'); z-index: 78; background-repeat: no-repeat; }
-#layer21 { background-image: url('images/21.png'); z-index: 77; background-repeat: no-repeat; }
-#layer22 { background-image: url('images/22.png'); z-index: 76; background-repeat: no-repeat; }
-#layer23 { background-image: url('images/23.png'); z-index: 75; background-repeat: no-repeat; }
-#layer24 { background-image: url('images/24.png'); z-index: 74; background-repeat: no-repeat; }
-
-/* Globular clusters (images 7–12): z-index 69–64 */
-#layer7  { background-image: url('images/7.png');  z-index: 69;  background-repeat: no-repeat; }
-#layer8  { background-image: url('images/8.png');  z-index: 68;  background-repeat: no-repeat; }
-#layer9  { background-image: url('images/9.png');  z-index: 67;  background-repeat: no-repeat; }
-#layer10 { background-image: url('images/10.png'); z-index: 66;  background-repeat: no-repeat; }
-#layer11 { background-image: url('images/11.png'); z-index: 65;  background-repeat: no-repeat; }
-#layer12 { background-image: url('images/12.png'); z-index: 64;  background-repeat: no-repeat; }
