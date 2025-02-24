@@ -5,6 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hansen Space – Home</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Ensure all elements include padding in width calculations */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Adjust the inner content within each section background */
+    .section-bg .inner {
+      padding: 20px;
+      /* Force inner content to always be at most the container width minus 40px */
+      width: calc(100% - 100px);
+      margin: 0 auto;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    /* For screens up to 600px, reduce padding and scale down text moderately */
+    @media (max-width: 600px) {
+      .section-bg .inner {
+        padding: 15px;
+        width: calc(100% - 80px);
+      }
+      .section-bg h2 {
+        font-size: 2em;
+      }
+      .section-bg p {
+        font-size: 1em;
+      }
+      .section-bg .btn {
+        font-size: 1em;
+        padding: 10px 16px;
+      }
+    }
+
+    /* For very narrow screens (up to 400px), further reduce sizes */
+    @media (max-width: 400px) {
+      .section-bg .inner {
+        padding: 10px;
+        width: calc(100% - 60px);
+      }
+      .section-bg h2 {
+        font-size: 1.5em;
+      }
+      .section-bg p {
+        font-size: 0.85em;
+      }
+      .section-bg .btn {
+        font-size: 0.85em;
+        padding: 8px 12px;
+      }
+    }
+  </style>
 </head>
 <body class="home">
   <header>
@@ -24,7 +76,7 @@
     <p>Welcome to Hansen Space – a journey through the cosmos.</p>
   </div>
   
-
+  <!-- Section for My Journey -->
   <div class="section section-bg" style="background-image: url('images/myjourney-bg.jpg');">
     <div class="inner">
       <h2>My Journey</h2>
@@ -32,20 +84,26 @@
       <a class="btn" href="myjourney.html">See My Journey <span class="arrow">&#8594;</span></a>
     </div>
   </div>
+  
+  <!-- Section for Photography -->
   <div class="section section-bg" style="background-image: url('images/photography-bg.png');">
     <div class="inner">
       <h2>Photography</h2>
       <p>Explore my astrophotography from the Moon to deep space.</p>
-      <a class="btn" href="photography.html">View Photography<span class="arrow">&#8594;</span></a>
+      <a class="btn" href="photography.html">See Photography <span class="arrow">&#8594;</span></a>
     </div>
   </div>
+  
+  <!-- Section for Articles -->
   <div class="section section-bg" style="background-image: url('images/articles-bg.png');">
     <div class="inner">
       <h2>Articles</h2>
       <p>Read my articles on astrophysics and my videos.</p>
-      <a class="btn" href="articles.html">Read Articles <span class="arrow">&#8594;</span></a>
+      <a class="btn" href="articles.html">See Articles <span class="arrow">&#8594;</span></a>
     </div>
   </div>
+  
+  <!-- Section for Tools -->
   <div class="section section-bg" style="background-image: url('images/tools-bg.png');">
     <div class="inner">
       <h2>Tools</h2>
