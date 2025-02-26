@@ -82,9 +82,11 @@ nav li a {
   font-size: 1.1em;       /* Increased font size */
 }
 
-nav li a:hover,
-nav li a.active {
-  border-bottom: 2px solid #333;  /* Updated border color */
+nav ul li a.active {
+  border-bottom: 2px solid #333;
+}
+nav ul li a:hover {
+  border-bottom: 2px solid #333;
 }
 
 header .brand img {
@@ -114,6 +116,7 @@ header .brand img {
 
 /* Main content container */
 .content {
+  padding-top: 70px;
   max-width: 900px;
   margin: 0 auto;
   padding: 30px 20px;  /* internal padding to keep text away from edges */
