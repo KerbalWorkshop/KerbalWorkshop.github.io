@@ -59,53 +59,8 @@
   </style>
 </head>
 <body class="home">
-
-  <div id="header-placeholder"></div>
-  <script>
-    // Fetch the shared header from header.html and then initialize behaviors.
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-        setActiveNav();       // Set the active navigation link
-        initHeaderScroll();   // Enable dynamic hide/show on scroll
-      })
-      .catch(error => console.error('Error loading header:', error));
-      
-    // Dynamically set the active navigation link based on the current page's filename.
-    function setActiveNav() {
-      let currentPath = window.location.pathname.split('/').pop();
-      if (currentPath === "" || currentPath === "index.html") {
-        currentPath = "index.html";
-      }
-      document.querySelectorAll("nav ul li a").forEach(link => {
-        if(link.getAttribute("href") === currentPath) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
-      });
-    }
-
-    // Initialize scroll-detection to hide header on scroll down and show on scroll up.
-    function initHeaderScroll() {
-      let lastScrollY = window.scrollY;
-      const header = document.querySelector('header');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > lastScrollY) {
-          // Scrolling down – hide header.
-          header.classList.add('header-hidden');
-        } else {
-          // Scrolling up – show header (sticky at the top).
-          header.classList.remove('header-hidden');
-        }
-        lastScrollY = window.scrollY;
-      });
-    }
-  </script>
-
-
-  <!-- <header>
+  
+  <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
     </a>
@@ -118,7 +73,7 @@
         <li><a href="tools.html">Tools</a></li>
       </ul>
     </nav>
-  </header> -->
+  </header>
   
   <div class="hero">
     <p>Welcome to Hansen Space – a journey through the cosmos.</p>
@@ -174,5 +129,6 @@
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
+
 </body>
 </html>
