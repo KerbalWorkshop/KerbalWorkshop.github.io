@@ -37,12 +37,17 @@ a {
 header {
   position: sticky;
   top: 0;
-  background: #444;
-  color: #fff;
+  background: #fff;
+  color: #333;
   z-index: 1000;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   width: 100%;
+  transition: transform 0.3s ease-in-out;  /* Smooth transition */
+}
+
+header.header-hidden {
+  transform: translateY(-100%);
 }
 
 header .brand {
@@ -71,15 +76,21 @@ nav ul {
 
 nav li a {
   font-family: 'Moon Light', sans-serif;
-  color: #fff;
-  padding: 4px 6px;
+  color: #333;            /* Updated text color */
+  padding: 8px 10px;      /* Increased padding */
   transition: border-bottom 0.3s;
-  font-size: 0.9em;
+  font-size: 1.1em;       /* Increased font size */
 }
 
 nav li a:hover,
 nav li a.active {
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #333;  /* Updated border color */
+}
+
+header .brand img {
+  max-height: 50px;   /* Adjust as needed */
+  display: block;
+  margin: 10px auto;
 }
 
 /* Mobile adjustments for nav */
@@ -103,7 +114,7 @@ nav li a.active {
 
 /* Main content container */
 .content {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px 20px;  /* internal padding to keep text away from edges */
 }
@@ -111,8 +122,8 @@ nav li a.active {
 /* Sections on Home */
 .section {
   padding: 30px 20px;
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 1000px;
+  margin: 30px auto;
   border-bottom: 1px solid #eee;
   box-sizing: border-box;
 }
