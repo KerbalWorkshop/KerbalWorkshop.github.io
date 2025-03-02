@@ -112,7 +112,7 @@ header .brand img {
 /* Main content container */
 .content {
   padding-top: 70px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 30px 20px;  /* internal padding to keep text away from edges */
 }
