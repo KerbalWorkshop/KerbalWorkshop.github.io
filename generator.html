@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cosmic Event Data Generator</title>
   <style>
     body { font-family: sans-serif; padding: 20px; }
     textarea { width: 100%; height: 300px; }
   </style>
-  <!-- Load Astronomy Engine (browser version) from jsDelivr -->
+  <!-- Load Astronomy Engine from jsDelivr (browser version) -->
   <script src="https://cdn.jsdelivr.net/gh/cosinekitty/astronomy@master/source/js/astronomy.browser.js"></script>
 </head>
 <body>
@@ -16,14 +16,15 @@
   <p>This tool computes cosmic events between January 1, 2025 and December 31, 3000. It currently calculates:</p>
   <ul>
     <li>Full Moons (when the MoonPhase is within ±5° of 180°)</li>
-    <li>Oppositions for Mars, Jupiter, and Saturn (when the heliocentric relative ecliptic longitude between the planet and Sun is within 5° of 180°)</li>
+    <li>Oppositions for Mars, Jupiter, and Saturn (when the difference between the planet's and Sun's ecliptic longitude is within 5° of 180°)</li>
+    <li>Lunar and Solar Eclipses (partial/total for lunar; partial/total/annular for solar)</li>
   </ul>
   <p>Each event is output as an object with a <code>date</code> (YYYY-MM-DD) and a <code>types</code> array. When complete, copy the JSON (one line) from the box below.</p>
   <textarea id="output" readonly></textarea>
   <p id="status">Computing cosmic events...</p>
   
   <script>
-    // Helper: Format a Date object as "YYYY-MM-DD"
+    // Helper: format date as "YYYY-MM-DD"
     function formatDate(date) {
       const y = date.getFullYear();
       const m = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -32,93 +33,115 @@
     }
     
     // Define the calendar range
-    const startDate = new Date("2025-01-01T00:00:00Z");
-    const endDate   = new Date("3000-12-31T23:59:59Z");
+    const startDate = new Date("2025-01-01T00:00:00");
+    const endDate = new Date("3000-12-31T23:59:59");
     
     // Object to hold events keyed by date
     const eventsByDate = {};
     
-    // -------------------------------
-    // 1. Compute Full Moon Events
-    // -------------------------------
+    // Compute full moon events using Astronomy.MoonPhase (if available)
     if (typeof Astronomy !== 'undefined' && typeof Astronomy.MoonPhase === 'function') {
-      // Step through each day and check if the MoonPhase is near 180° (full moon)
       let d = new Date(startDate);
       while (d <= endDate) {
-        const phase = Astronomy.MoonPhase(d); // returns phase in degrees (0=new, 180=full)
-        if (Math.abs(phase - 180) < 5) { // within ±5° of full moon
+        const phase = Astronomy.MoonPhase(d); // phase in degrees (0=new, 180=full)
+        if (Math.abs(phase - 180) < 5) { // within ±5 degrees of full moon
           const dateStr = formatDate(d);
           if (!eventsByDate[dateStr]) eventsByDate[dateStr] = [];
-          eventsByDate[dateStr].push("fullmoon");
+          if (!eventsByDate[dateStr].includes("fullmoon")) {
+            eventsByDate[dateStr].push("fullmoon");
+          }
         }
-        d = new Date(d.getTime() + 86400000); // next day (86,400,000 ms = 1 day)
+        d = new Date(d.getTime() + 86400000);
       }
       console.log("Full moon events computed:", Object.keys(eventsByDate).length);
     } else {
       console.warn("Astronomy.MoonPhase not available; skipping full moon calculations.");
     }
     
-    // -------------------------------
-    // 2. Compute Planetary Oppositions
-    // -------------------------------
-    // For a superior planet, opposition is when the heliocentric relative ecliptic longitude
-    // difference between the planet and the Sun is 180°. We use Astronomy.SearchRelativeLongitude
-    // to jump from one opposition to the next.
-    const oppositionPlanets = ["Mars", "Jupiter", "Saturn"];
-    if (typeof Astronomy !== 'undefined' && typeof Astronomy.SearchRelativeLongitude === 'function') {
-      oppositionPlanets.forEach(function(planet) {
-        // Start at the beginning of the range.
-        let currentTime = new Astronomy.AstroTime(startDate);
-        while (currentTime.date <= endDate) {
-          try {
-            // Search for the next time when the relative ecliptic longitude is 180°.
-            // (SearchRelativeLongitude returns an AstroTime object.)
-            const oppTime = Astronomy.SearchRelativeLongitude(planet, 0, currentTime);
-            if (!oppTime) break;
-            const oppDateStr = formatDate(oppTime.date);
-            if (!eventsByDate[oppDateStr]) eventsByDate[oppDateStr] = [];
-            eventsByDate[oppDateStr].push(planet.toLowerCase() + "opposition");
-            // Advance currentTime a few days past the found opposition to search for the next event.
-            currentTime = oppTime.AddDays(10);
-          } catch (err) {
-            console.error("Error finding opposition for " + planet + ": " + err);
-            break;
-          }
-        }
-      });
-      console.log("Opposition events computed.");
-    } else if (typeof Astronomy !== 'undefined' && typeof Astronomy.EclipticLongitude === 'function') {
-      // Fallback: if SearchRelativeLongitude is not available, compute daily
+    // Compute oppositions for Mars, Jupiter, and Saturn using Astronomy.EclipticLongitude (if available)
+    const planets = ["Mars", "Jupiter", "Saturn"];
+    if (typeof Astronomy !== 'undefined' && typeof Astronomy.EclipticLongitude === 'function') {
       let d = new Date(startDate);
-      const planets = ["Mars", "Jupiter", "Saturn"];
       while (d <= endDate) {
         const dateStr = formatDate(d);
-        const sunLon = Astronomy.EclipticLongitude("Sun", d);
+        // Instead of calculating for the Sun (which causes an error),
+        // compute the Earth's heliocentric ecliptic longitude and add 180° to get the Sun's geocentric longitude.
+        const earthLon = Astronomy.EclipticLongitude("Earth", d);
+        const sunLon = (earthLon + 180) % 360;
         planets.forEach(planet => {
           const planetLon = Astronomy.EclipticLongitude(planet, d);
-          // Compute the minimal angular difference modulo 360
+          // Compute minimal angular difference (centered on 180°)
           let diff = Math.abs(((planetLon - sunLon) % 360 + 360) % 360 - 180);
-          if (diff < 5) { // within 5° of opposition
+          if (diff < 5) { // within 5 degrees of opposition
+            const tag = planet.toLowerCase() + "opposition";
             if (!eventsByDate[dateStr]) eventsByDate[dateStr] = [];
-            eventsByDate[dateStr].push(planet.toLowerCase() + "opposition");
+            if (!eventsByDate[dateStr].includes(tag)) {
+              eventsByDate[dateStr].push(tag);
+            }
           }
         });
         d = new Date(d.getTime() + 86400000);
       }
-      console.log("Opposition events computed (fallback daily search).");
+      console.log("Opposition events computed (if available).");
     } else {
-      console.warn("Neither Astronomy.SearchRelativeLongitude nor Astronomy.EclipticLongitude available; skipping planetary opposition calculations.");
+      console.warn("Astronomy.EclipticLongitude not available; skipping planetary opposition calculations.");
     }
     
-    // -------------------------------
-    // 3. Convert eventsByDate to a sorted JSON array and output it
-    // -------------------------------
+    // Compute Lunar Eclipses (partial or total) using Astronomy.SearchLunarEclipse (if available)
+    if (typeof Astronomy !== 'undefined' && typeof Astronomy.SearchLunarEclipse === 'function') {
+      let t = startDate;
+      while (true) {
+        const eclipse = Astronomy.SearchLunarEclipse(t);
+        if (eclipse.peak > endDate) break;
+        const eclipseDate = formatDate(eclipse.peak);
+        // Assume eclipse.type is a string like "total" or "partial"
+        const tag = (eclipse.type === "total") ? "totallunareclipse" : "partiallunareclipse";
+        if (!eventsByDate[eclipseDate]) eventsByDate[eclipseDate] = [];
+        if (!eventsByDate[eclipseDate].includes(tag)) {
+          eventsByDate[eclipseDate].push(tag);
+        }
+        // Advance past the current eclipse to avoid duplicates
+        t = new Date(eclipse.peak.getTime() + 86400000);
+      }
+      console.log("Lunar eclipse events computed.");
+    } else {
+      console.warn("Astronomy.SearchLunarEclipse not available; skipping lunar eclipse calculations.");
+    }
+    
+    // Compute Solar Eclipses (partial, total, annular) using Astronomy.SearchGlobalSolarEclipse (if available)
+    if (typeof Astronomy !== 'undefined' && typeof Astronomy.SearchGlobalSolarEclipse === 'function') {
+      let t = startDate;
+      while (true) {
+        const eclipse = Astronomy.SearchGlobalSolarEclipse(t);
+        if (eclipse.peak > endDate) break;
+        const eclipseDate = formatDate(eclipse.peak);
+        let tag;
+        if (eclipse.type === "total") {
+          tag = "totalsolareclipse";
+        } else if (eclipse.type === "annular") {
+          tag = "annularsolareclipse";
+        } else {
+          tag = "partialsolareclipse";
+        }
+        if (!eventsByDate[eclipseDate]) eventsByDate[eclipseDate] = [];
+        if (!eventsByDate[eclipseDate].includes(tag)) {
+          eventsByDate[eclipseDate].push(tag);
+        }
+        t = new Date(eclipse.peak.getTime() + 86400000);
+      }
+      console.log("Solar eclipse events computed.");
+    } else {
+      console.warn("Astronomy.SearchGlobalSolarEclipse not available; skipping solar eclipse calculations.");
+    }
+    
+    // Convert eventsByDate into an array of objects sorted by date
     const cosmicEvents = [];
     for (const date in eventsByDate) {
       cosmicEvents.push({ date: date, types: eventsByDate[date] });
     }
     cosmicEvents.sort((a, b) => a.date.localeCompare(b.date));
     
+    // Output the JSON as one line
     const outputJSON = JSON.stringify(cosmicEvents);
     document.getElementById("output").value = outputJSON;
     document.getElementById("status").textContent = "Cosmic event calculation complete. Total events: " + cosmicEvents.length;

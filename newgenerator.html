@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Generator - Astronomy Engine</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 300px; }
+  </style>
+  <!-- Load Astronomy Engine (browser build) -->
+  <script src="https://cdn.jsdelivr.net/gh/cosinekitty/astronomy@latest/source/js/astronomy.browser.js"></script>
+</head>
+<body>
+  <h1>New Generator - Cosmic Events</h1>
+  <p id="status">Computing events...</p>
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    // Grab everything we need from Astronomy.
+    const {
+      Body,
+      EclipseKind,
+      SearchMoonPhase,
+      SearchRelativeLongitude,
+      SearchPeakMagnitude,
+      SearchGlobalSolarEclipse,
+      SearchLunarEclipse,
+      SearchTransit
+    } = Astronomy;
+
+    // Helper to format a JS Date in YYYY-MM-DD (UTC).
+    function formatDate(date) {
+      const y = date.getUTCFullYear();
+      const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const d = String(date.getUTCDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    // We'll store events keyed by date string.
+    const eventsByDate = {};
+
+    // Utility to add an event to the dictionary.
+    function addEvent(jsDate, eventTag) {
+      const dateStr = formatDate(jsDate);
+      if (!eventsByDate[dateStr]) {
+        eventsByDate[dateStr] = [];
+      }
+      // Avoid duplicates if code logic accidentally re-hits the same day:
+      if (!eventsByDate[dateStr].includes(eventTag)) {
+        eventsByDate[dateStr].push(eventTag);
+      }
+    }
+
+    // Define your date range here.
+    const startDate = new Date("2025-01-01T00:00:00Z");
+    const endDate   = new Date("3000-12-31T23:59:59Z");
+
+    //----------------------------------------------------------------
+    // 1) Full Moons
+    //----------------------------------------------------------------
+    function computeFullMoons() {
+      console.log("Computing Full Moons...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          // Search for a full moon (phase=180) within ~40 days of searchTime.
+          const found = SearchMoonPhase(180, searchTime, 40);
+          if (!found) break; // no more events
+          const eventTime = found.date; // AstroTime => JS Date
+          if (eventTime.getTime() > endDate.getTime()) break;
+          addEvent(eventTime, "fullmoon");
+
+          // Jump 1 day past the found event to find the next one.
+          searchTime = new Date(eventTime.getTime() + 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing full moons:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 2) Mars Oppositions
+    //----------------------------------------------------------------
+    // If your version yields conjunctions instead of oppositions, flip 180 -> 0.
+    function computeMarsOppositions() {
+      console.log("Computing Mars oppositions...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const found = SearchRelativeLongitude(Body.Mars, 0, searchTime);
+          if (!found) break;
+          const eventTime = found.date;
+          if (eventTime.getTime() > endDate.getTime()) break;
+          addEvent(eventTime, "marsopposition");
+          // Jump 7 days
+          searchTime = new Date(eventTime.getTime() + 7 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Mars oppositions:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 3) Jupiter Oppositions
+    //----------------------------------------------------------------
+    function computeJupiterOppositions() {
+      console.log("Computing Jupiter oppositions...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const found = SearchRelativeLongitude(Body.Jupiter, 0, searchTime);
+          if (!found) break;
+          const eventTime = found.date;
+          if (eventTime.getTime() > endDate.getTime()) break;
+          addEvent(eventTime, "jupiteropposition");
+          // Jump 7 days
+          searchTime = new Date(eventTime.getTime() + 7 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Jupiter oppositions:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 4) Saturn Oppositions
+    //----------------------------------------------------------------
+    function computeSaturnOppositions() {
+      console.log("Computing Saturn oppositions...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const found = SearchRelativeLongitude(Body.Saturn, 0, searchTime);
+          if (!found) break;
+          const eventTime = found.date;
+          if (eventTime.getTime() > endDate.getTime()) break;
+          addEvent(eventTime, "saturnopposition");
+          // Jump 7 days
+          searchTime = new Date(eventTime.getTime() + 7 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Saturn oppositions:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 5) Venus Max Magnitude
+    //----------------------------------------------------------------
+    function computeVenusMaxMagnitude() {
+      console.log("Computing Venus max magnitude events...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const info = SearchPeakMagnitude(Body.Venus, searchTime);
+          if (!info) break;
+          const eventTime = info.time.date; // AstroTime => JS Date
+          if (eventTime.getTime() > endDate.getTime()) break;
+          addEvent(eventTime, "venusmaxbrightness");
+          // Jump ~30 days to skip re-finding the same event
+          searchTime = new Date(eventTime.getTime() + 30 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Venus peak magnitude events:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 6) Global Solar Eclipses
+    //----------------------------------------------------------------
+    function computeSolarEclipses() {
+      console.log("Computing global solar eclipses...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const eclipse = SearchGlobalSolarEclipse(searchTime);
+          if (!eclipse) break;
+          const peakDate = eclipse.peak.date;
+          if (peakDate.getTime() > endDate.getTime()) break;
+
+          switch (eclipse.kind) {
+            case Astronomy.EclipseKind.Partial:
+              addEvent(peakDate, "partialsolareclipse");
+              break;
+            case Astronomy.EclipseKind.Total:
+              addEvent(peakDate, "totalsolareclipse");
+              break;
+            case Astronomy.EclipseKind.Annular:
+              addEvent(peakDate, "annularsolareclipse");
+              break;
+            case Astronomy.EclipseKind.AnnularTotal:
+              // Rare "hybrid" solar eclipse.
+              addEvent(peakDate, "hybridsolareclipse");
+              break;
+          }
+
+          // Move forward ~10 days from the peak to find next eclipse
+          searchTime = new Date(peakDate.getTime() + 10 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing solar eclipses:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 7) Global Lunar Eclipses
+    //----------------------------------------------------------------
+    function computeLunarEclipses() {
+      console.log("Computing global lunar eclipses...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const eclipse = SearchLunarEclipse(searchTime);
+          if (!eclipse) break;
+          const peakDate = eclipse.peak.date;
+          if (peakDate.getTime() > endDate.getTime()) break;
+
+          switch (eclipse.kind) {
+            case Astronomy.EclipseKind.Partial:
+              addEvent(peakDate, "partiallunareclipse");
+              break;
+            case Astronomy.EclipseKind.Total:
+              addEvent(peakDate, "totallunareclipse");
+              break;
+            case Astronomy.EclipseKind.Penumbral:
+              addEvent(peakDate, "penumbrallunareclipse");
+              break;
+          }
+          // Move forward ~10 days from the peak
+          searchTime = new Date(peakDate.getTime() + 10 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing lunar eclipses:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 8) Mercury Transits
+    //----------------------------------------------------------------
+    function computeMercuryTransits() {
+      console.log("Computing Mercury transits...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const transit = SearchTransit(Body.Mercury, searchTime);
+          if (!transit) break;
+          const startDateObj = transit.start.date;
+          if (startDateObj.getTime() > endDate.getTime()) break;
+          addEvent(startDateObj, "mercurytransit");
+          // Jump ~30 days from start to skip re-finding same event
+          searchTime = new Date(startDateObj.getTime() + 30 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Mercury transits:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // 9) Venus Transits
+    //----------------------------------------------------------------
+    function computeVenusTransits() {
+      console.log("Computing Venus transits...");
+      try {
+        let searchTime = new Date(startDate);
+        while (true) {
+          const transit = SearchTransit(Body.Venus, searchTime);
+          if (!transit) break;
+          const startDateObj = transit.start.date;
+          if (startDateObj.getTime() > endDate.getTime()) break;
+          addEvent(startDateObj, "venustransit");
+          // Jump ~1 year from start
+          searchTime = new Date(startDateObj.getTime() + 365 * 86400000);
+        }
+      } catch (err) {
+        console.error("Error computing Venus transits:", err);
+      }
+    }
+
+    //----------------------------------------------------------------
+    // Now run all computations. (Uncomment or comment as needed.)
+    //----------------------------------------------------------------
+    computeFullMoons();
+    computeMarsOppositions();
+    computeJupiterOppositions();
+    computeSaturnOppositions();
+    computeVenusMaxMagnitude();
+    computeSolarEclipses();
+    computeLunarEclipses();
+    computeMercuryTransits();
+    computeVenusTransits();
+
+    //----------------------------------------------------------------
+    // Convert eventsByDate to an array of objects sorted by date.
+    //----------------------------------------------------------------
+    const cosmicEvents = [];
+    for (const dateStr in eventsByDate) {
+      cosmicEvents.push({
+        date: dateStr,
+        types: eventsByDate[dateStr]
+      });
+    }
+    cosmicEvents.sort((a, b) => a.date.localeCompare(b.date));
+
+    //----------------------------------------------------------------
+    // Output the JSON as one line.
+    //----------------------------------------------------------------
+    const outputJSON = JSON.stringify(cosmicEvents);
+    document.getElementById("output").value = outputJSON;
+    document.getElementById("status").textContent =
+      "Cosmic events found: " + cosmicEvents.length;
+    console.log("Cosmic events:", cosmicEvents);
+  </script>
+</body>
+</html>
