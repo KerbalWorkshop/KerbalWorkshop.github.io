@@ -291,7 +291,7 @@
             </tr>
             <tr>
               <td>
-                <span class="cosmic-icon" style="background-image: url('https://static.wikia.nocookie.net/solar-system-exploration-2/images/d/dc/Venus.png/revision/latest?cb=20230317011228'); background-size: cover;"></span>
+                <span class="cosmic-icon" style="background-image: url('https://cdn.pixabay.com/photo/2013/07/13/11/22/sun-158027_1280.png'); background-size: 150%; background-position: calc(50% + 2px) calc(50% + 2px);"></span>
               </td>
               <td>Venus Maximum Brightness</td>
             </tr>
@@ -315,8 +315,7 @@
             </tr>
             <tr>
               <td>
-                <!-- Venus Transit marker (using the Venus transit mapping below) -->
-                <div style="width:30px; height:30px; border-radius:50%; background: #F5DEB3;"></div>
+                <span class="cosmic-icon" style="background-image: url('https://imageio.forbes.com/specials-images/imageserve/62977622bbcd08eda96222a0/The-transit-of-Venus-on-June-5--2012-from-Mauna-Kea-volcano--Hawaii-captured-by/960x0.jpg'); background-size: 105%; background-position: center center;"></span>
               </td>
               <td>Venus Transit</td>
             </tr>
@@ -387,8 +386,12 @@
           tooltip: "Full Moon"
         },
         "venusmaxbrightness": {
-          icon: "https://static.wikia.nocookie.net/solar-system-exploration-2/images/d/dc/Venus.png/revision/latest?cb=20230317011228",
-          tooltip: "Venus Maximum Brightness"
+          icon: "background-image: url('https://cdn.pixabay.com/photo/2013/07/13/11/22/sun-158027_1280.png')",
+          tooltip: "Venus Maximum Brightness",
+          crop: {
+            backgroundPosition: "calc(50% + 2px) calc(50% + 2px)",
+            backgroundSize: "150%"
+          }
         },
         "marsopposition": {
           icon: "https://www.aquinas.edu/foster-planet-walk/images/mars.png",
