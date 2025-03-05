@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular Size Comparer – Hansen Space</title>
+  
+  <!-- Standard site styles (header, footer, etc.) -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <!-- Page-specific CSS overrides -->
+  <style>
+    /* Full-page layout */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    header, footer {
+      flex: 0 0 auto;
+    }
+    main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    #backButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      background: #fff;
+      border: 1px solid #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    /* Main page content */
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      font-family: inherit;
+    }
+    .top-text-section {
+      flex: 0 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .split-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Each half is wrapped in a container */
+    .main-half {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+    }
+    .vertical-divider-main {
+      width: 1px;
+      background: #ccc;
+      height: 100%;
+      margin: 0 20px;
+    }
+    .object-label {
+      color: gray;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    /* Plus button styling */
+    .plus-button {
+      background-color: #80bfff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 32px;
+      cursor: pointer;
+    }
+    /* Selected display style */
+    .selected-display {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px;
+    }
+    /* Edit button styling: larger, top left, hollow white with dark outline */
+    .edit-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #fff;
+      border: 2px solid #000;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      width: 60%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: inherit;
+    }
+    .modal-header-top {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-header-top h2 {
+      margin: 0;
+    }
+    .close {
+      cursor: pointer;
+      font-size: 24px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 0;
+    }
+    .modal-main {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .option-selector-container {
+      padding: 0 20px;
+      margin: 20px 0;
+    }
+    .option-selector {
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+    .option-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      background-color: #f0f0f0;
+      font-weight: normal;
+      cursor: pointer;
+    }
+    .option-tab.selected {
+      background-color: #fff;
+      font-weight: bold;
+    }
+    .modal-body-split {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .modal-body-left, .modal-body-right {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .vertical-divider-modal {
+      width: 1px;
+      background: #ccc;
+    }
+    /* Fade out inactive text/menu items only */
+    .fade-out * {
+      opacity: 0.5;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .modal-footer {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 10px 20px;
+    }
+    .cancel-button, .done-button {
+      border: 2px solid #000;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .cancel-button {
+      color: #000;
+    }
+    .done-button {
+      color: #000;
+    }
+    
+    /* Dropdown list styling */
+    .dropdown-list {
+      max-height: 100%;
+      overflow-y: auto;
+    }
+    .dropdown-item {
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .dropdown-header {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+    .dropdown-header .triangle {
+      display: inline-block;
+      margin-right: 8px;
+      transition: transform 0.3s ease;
+    }
+    .dropdown-item.expanded .dropdown-header .triangle {
+      transform: rotate(90deg);
+    }
+    .dropdown-item .dropdown-content {
+      display: none;
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+    .dropdown-item.expanded .dropdown-content {
+      display: block;
+    }
+    .dropdown-item .dropdown-content label {
+      display: block;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Standard Header -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Hansen Space Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Section -->
+  <main>
+    <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
+    <div class="content-wrapper">
+      <!-- Top Text Section -->
+      <div class="top-text-section">
+        <h1>Angular Size Comparer</h1>
+        <p>This is a work in progress. Will eventually include photos to visualize relativee angular size.</p>
+      </div>
+      <!-- Split Section -->
+      <div class="split-section">
+        <div class="main-half" id="mainLeftContainer">
+          <p class="object-label">Add Object 1</p>
+          <button class="plus-button" id="plusLeft">+</button>
+        </div>
+        <div class="vertical-divider-main"></div>
+        <div class="main-half" id="mainRightContainer">
+          <p class="object-label">Add Object 2</p>
+          <button class="plus-button" id="plusRight">+</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Standard Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+  
+  <!-- Modal for Left Button (Select Object 1) -->
+  <div id="modalLeft" class="modal">
+    <div class="modal-content">
+      <div class="modal-header-top">
+        <h2>Select Object 1</h2>
+        <span class="close" data-modal="modalLeft">&times;</span>
+      </div>
+      <hr>
+      <div class="modal-main">
+        <div class="option-selector-container">
+          <div class="option-selector">
+            <div id="modalLeft-option-object" class="option-tab">Object</div>
+            <div id="modalLeft-option-body" class="option-tab">Object on Body</div>
+          </div>
+        </div>
+        <div class="modal-body-split">
+          <div class="modal-body-left" id="modalLeft-left-panel">
+            <div class="dropdown-list" id="modalLeft-dropdown-left"></div>
+          </div>
+          <div class="vertical-divider-modal"></div>
+          <div class="modal-body-right" id="modalLeft-right-panel">
+            <div class="dropdown-list" id="modalLeft-dropdown-right"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="modal-footer">
+        <button class="cancel-button" data-modal="modalLeft">Cancel</button>
+        <button class="done-button" data-modal="modalLeft" id="modalLeft-done">Done</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for Right Button (Select Object 2) -->
+  <div id="modalRight" class="modal">
+    <div class="modal-content">
+      <div class="modal-header-top">
+        <h2>Select Object 2</h2>
+        <span class="close" data-modal="modalRight">&times;</span>
+      </div>
+      <hr>
+      <div class="modal-main">
+        <div class="option-selector-container">
+          <div class="option-selector">
+            <div id="modalRight-option-object" class="option-tab">Object</div>
+            <div id="modalRight-option-body" class="option-tab">Object on Body</div>
+          </div>
+        </div>
+        <div class="modal-body-split">
+          <div class="modal-body-left" id="modalRight-left-panel">
+            <div class="dropdown-list" id="modalRight-dropdown-left"></div>
+          </div>
+          <div class="vertical-divider-modal"></div>
+          <div class="modal-body-right" id="modalRight-right-panel">
+            <div class="dropdown-list" id="modalRight-dropdown-right"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="modal-footer">
+        <button class="cancel-button" data-modal="modalRight">Cancel</button>
+        <button class="done-button" data-modal="modalRight" id="modalRight-done">Done</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Define categories for the "Object" side.
+      // Updated "Moons" category includes all moons over ~20 km.
+      var objectCategories = [
+        {
+          name: "Artificial Satellites",
+          options: ["ISS", "Hubble", "Tiangong", "Starlink Satellite", "Other Notable LEO Sats", "Juno", "Perseverance", "Voyager 1", "Voyager 2"]
+        },
+        {
+          name: "Planets",
+          options: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+        },
+        {
+          name: "Moons",
+          options: [
+            "Moon (Earth)",
+            "Phobos (Mars)",
+            "Deimos (Mars)",
+            "Io (Jupiter)",
+            "Europa (Jupiter)",
+            "Ganymede (Jupiter)",
+            "Callisto (Jupiter)",
+            "Amalthea (Jupiter)",
+            "Thebe (Jupiter)",
+            "Metis (Jupiter)",
+            "Adrastea (Jupiter)",
+            "Himalia (Jupiter)",
+            "Elara (Jupiter)",
+            "Pasiphae (Jupiter)",
+            "Sinope (Jupiter)",
+            "Leda (Jupiter)",
+            "Titan (Saturn)",
+            "Rhea (Saturn)",
+            "Iapetus (Saturn)",
+            "Dione (Saturn)",
+            "Tethys (Saturn)",
+            "Enceladus (Saturn)",
+            "Hyperion (Saturn)",
+            "Phoebe (Saturn)",
+            "Titania (Uranus)",
+            "Oberon (Uranus)",
+            "Umbriel (Uranus)",
+            "Miranda (Uranus)",
+            "Triton (Neptune)"
+          ]
+        },
+        {
+          name: "Asteroids",
+          options: ["Ceres", "Vesta", "Pallas", "Hygiea", "Interamnia", "Davida", "Eunomia", "Juno", "Psyche", "Herculina", "Euphrosyne", "Bamberga", "Iris", "Flora", "Metis", "Parthenope", "Lutetia", "Massalia", "Themis", "Melpomene", "Sylvia", "Cybele", "Pomona", "Adeona", "Eos", "Koronis", "Maria", "Icarus", "Hestia", "Agamemnon"]
+        },
+        {
+          name: "Minor Bodies",
+          options: ["Pluto", "Charon (Pluto)", "Eris", "Dysnomia (Eris)", "Haumea", "Namaka (Haumea)", "Hi'iaka (Haumea)", "Makemake", "Quaoar", "Weywot (Quaoar)", "Orcus", "Vanth (Orcus)", "Sedna"]
+        },
+        {
+          name: "Stars",
+          options: ["Sun", "Sirius", "Canopus", "Arcturus", "Alpha Centauri", "Vega", "Capella", "Rigel", "Procyon", "Betelgeuse", "Achernar", "Hadar", "Altair", "Acrux", "Aldebaran", "Antares", "Spica", "Pollux", "Fomalhaut", "Deneb", "Regulus", "Castor", "Bellatrix", "Proxima Centauri", "Mira", "Alnilam", "Alnitak", "Saiph", "Mimosa", "Dubhe"]
+        },
+        {
+          name: "Intragalactic Objects",
+          options: ["Crab Pulsar", "Vela Pulsar", "Geminga", "Sgr A*", "Cygnus X-1", "PSR B1257+12"]
+        },
+        {
+          name: "Nebulae",
+          options: ["Orion Nebula", "Eagle Nebula", "Crab Nebula", "Carina Nebula", "Lagoon Nebula", "Trifid Nebula", "Helix Nebula", "Rosette Nebula", "Ring Nebula (M57)", "Horsehead Nebula"]
+        },
+        {
+          name: "Galaxies",
+          options: ["Milky Way", "Andromeda Galaxy", "Triangulum Galaxy", "Large Magellanic Cloud", "Small Magellanic Cloud", "Messier 81", "Messier 82", "Sombrero Galaxy", "Whirlpool Galaxy (M51)", "Pinwheel Galaxy (M101)", "Centaurus A", "NGC 1300", "NGC 6946", "Messier 87", "IC 1101"]
+        }
+      ];
+      
+      // Object data: store distance (in km) and diameter (in km) for every option.
+      // These values are approximate.
+      var objectData = {
+        "Artificial Satellites": {
+          "ISS": { distance: 408, diameter: 0.109 },
+          "Hubble": { distance: 540, diameter: 0.0132 },
+          "Tiangong": { distance: 340, diameter: 0.01 },
+          "Starlink Satellite": { distance: 550, diameter: 0.0028 },
+          "Other Notable LEO Sats": { distance: 500, diameter: 0.005 },
+          "Juno": { distance: 600000000, diameter: 0.0032 },
+          "Perseverance": { distance: 55000000, diameter: 0.0027 },
+          "Voyager 1": { distance: 23000000000, diameter: 0.0037 },
+          "Voyager 2": { distance: 18000000000, diameter: 0.0037 }
+        },
+        "Planets": {
+          "Mercury": { distance: 77000000, diameter: 4880 },
+          "Venus": { distance: 38000000, diameter: 12104 },
+          "Earth": { distance: 149600000, diameter: 12742 },
+          "Mars": { distance: 55000000, diameter: 6779 },
+          "Jupiter": { distance: 588000000, diameter: 139820 },
+          "Saturn": { distance: 1200000000, diameter: 116460 },
+          "Uranus": { distance: 2600000000, diameter: 50724 },
+          "Neptune": { distance: 2700000000, diameter: 49244 }
+        },
+        "Moons": {
+          "Moon (Earth)": { distance: 384400, diameter: 3474 },
+          "Phobos (Mars)": { distance: 55000000, diameter: 22 },
+          "Deimos (Mars)": { distance: 55000000, diameter: 12 },
+          "Io (Jupiter)": { distance: 588000000, diameter: 3643 },
+          "Europa (Jupiter)": { distance: 588000000, diameter: 3122 },
+          "Ganymede (Jupiter)": { distance: 588000000, diameter: 5268 },
+          "Callisto (Jupiter)": { distance: 588000000, diameter: 4820 },
+          "Amalthea (Jupiter)": { distance: 588000000, diameter: 250 },
+          "Thebe (Jupiter)": { distance: 588000000, diameter: 100 },
+          "Metis (Jupiter)": { distance: 588000000, diameter: 40 },
+          "Adrastea (Jupiter)": { distance: 588000000, diameter: 20 },
+          "Himalia (Jupiter)": { distance: 588000000, diameter: 170 },
+          "Elara (Jupiter)": { distance: 588000000, diameter: 80 },
+          "Pasiphae (Jupiter)": { distance: 588000000, diameter: 60 },
+          "Sinope (Jupiter)": { distance: 588000000, diameter: 38 },
+          "Leda (Jupiter)": { distance: 588000000, diameter: 20 },
+          "Titan (Saturn)": { distance: 1200000000, diameter: 5150 },
+          "Rhea (Saturn)": { distance: 1200000000, diameter: 1528 },
+          "Iapetus (Saturn)": { distance: 1200000000, diameter: 1469 },
+          "Dione (Saturn)": { distance: 1200000000, diameter: 1120 },
+          "Tethys (Saturn)": { distance: 1200000000, diameter: 1066 },
+          "Enceladus (Saturn)": { distance: 1200000000, diameter: 504 },
+          "Hyperion (Saturn)": { distance: 1200000000, diameter: 270 },
+          "Phoebe (Saturn)": { distance: 1200000000, diameter: 213 },
+          "Titania (Uranus)": { distance: 2600000000, diameter: 1578 },
+          "Oberon (Uranus)": { distance: 2600000000, diameter: 1523 },
+          "Umbriel (Uranus)": { distance: 2600000000, diameter: 1169 },
+          "Miranda (Uranus)": { distance: 2600000000, diameter: 471 },
+          "Triton (Neptune)": { distance: 2700000000, diameter: 2706 }
+        },
+        "Asteroids": {
+          "Ceres": { distance: 300000000, diameter: 940 },
+          "Vesta": { distance: 260000000, diameter: 525 },
+          "Pallas": { distance: 320000000, diameter: 512 },
+          "Hygiea": { distance: 360000000, diameter: 430 },
+          "Interamnia": { distance: 370000000, diameter: 350 },
+          "Davida": { distance: 400000000, diameter: 270 },
+          "Eunomia": { distance: 310000000, diameter: 268 },
+          "Juno": { distance: 300000000, diameter: 233 },
+          "Psyche": { distance: 340000000, diameter: 226 },
+          "Herculina": { distance: 330000000, diameter: 225 },
+          "Euphrosyne": { distance: 350000000, diameter: 255 },
+          "Bamberga": { distance: 360000000, diameter: 230 },
+          "Iris": { distance: 320000000, diameter: 200 },
+          "Flora": { distance: 310000000, diameter: 140 },
+          "Metis": { distance: 300000000, diameter: 40 },
+          "Parthenope": { distance: 300000000, diameter: 100 },
+          "Lutetia": { distance: 310000000, diameter: 100 },
+          "Massalia": { distance: 320000000, diameter: 145 },
+          "Themis": { distance: 330000000, diameter: 200 },
+          "Melpomene": { distance: 340000000, diameter: 141 },
+          "Sylvia": { distance: 350000000, diameter: 280 },
+          "Cybele": { distance: 360000000, diameter: 273 },
+          "Pomona": { distance: 370000000, diameter: 86 },
+          "Adeona": { distance: 380000000, diameter: 126 },
+          "Eos": { distance: 390000000, diameter: 95 },
+          "Koronis": { distance: 400000000, diameter: 100 },
+          "Maria": { distance: 410000000, diameter: 70 },
+          "Icarus": { distance: 420000000, diameter: 1.4 },
+          "Hestia": { distance: 430000000, diameter: 70 },
+          "Agamemnon": { distance: 440000000, diameter: 100 }
+        },
+        "Minor Bodies": {
+          "Pluto": { distance: 5900000000, diameter: 2376 },
+          "Charon (Pluto)": { distance: 5900000000, diameter: 1212 },
+          "Eris": { distance: 9600000000, diameter: 2326 },
+          "Dysnomia (Eris)": { distance: 9600000000, diameter: 700 },
+          "Haumea": { distance: 6500000000, diameter: 1160 },
+          "Namaka (Haumea)": { distance: 6500000000, diameter: 170 },
+          "Hi'iaka (Haumea)": { distance: 6500000000, diameter: 310 },
+          "Makemake": { distance: 6800000000, diameter: 1430 },
+          "Quaoar": { distance: 6800000000, diameter: 1070 },
+          "Weywot (Quaoar)": { distance: 6800000000, diameter: 140 },
+          "Orcus": { distance: 7000000000, diameter: 910 },
+          "Vanth (Orcus)": { distance: 7000000000, diameter: 475 },
+          "Sedna": { distance: 8000000000, diameter: 1000 }
+        },
+        "Stars": {
+          "Sun": { distance: 149600000, diameter: 1392700 },
+          "Sirius": { distance: 8.14e+13, diameter: 1700000 },
+          "Canopus": { distance: 2.94e+15, diameter: 65000000 },
+          "Arcturus": { distance: 3.48e+14, diameter: 25000000 },
+          "Alpha Centauri": { distance: 4.13e+13, diameter: 1600000 },
+          "Vega": { distance: 2.36e+14, diameter: 2400000 },
+          "Capella": { distance: 3.99e+14, diameter: 12000000 },
+          "Rigel": { distance: 8.14e+15, diameter: 78000000 },
+          "Procyon": { distance: 1.08e+14, diameter: 2000000 },
+          "Betelgeuse": { distance: 6.07e+15, diameter: 1200000000 },
+          "Achernar": { distance: 1.32e+15, diameter: 10000000 },
+          "Hadar": { distance: 3.31e+15, diameter: 12000000 },
+          "Altair": { distance: 1.58e+14, diameter: 2000000 },
+          "Acrux": { distance: 3.02e+15, diameter: 7300000 },
+          "Aldebaran": { distance: 6.15e+14, diameter: 44000000 },
+          "Antares": { distance: 5.20e+15, diameter: 883000000 },
+          "Spica": { distance: 2.36e+15, diameter: 8800000 },
+          "Pollux": { distance: 3.22e+14, diameter: 8800000 },
+          "Fomalhaut": { distance: 2.36e+14, diameter: 6000000 },
+          "Deneb": { distance: 2.46e+16, diameter: 203000000 },
+          "Regulus": { distance: 7.47e+14, diameter: 3800000 },
+          "Castor": { distance: 4.82e+14, diameter: 3000000 },
+          "Bellatrix": { distance: 2.36e+15, diameter: 6500000 },
+          "Proxima Centauri": { distance: 4.01e+13, diameter: 200000 },
+          "Mira": { distance: 1.89e+15, diameter: 400000000 },
+          "Alnilam": { distance: 1.89e+16, diameter: 70000000 },
+          "Alnitak": { distance: 7.57e+15, diameter: 25000000 },
+          "Saiph": { distance: 6.82e+15, diameter: 22000000 },
+          "Mimosa": { distance: 3.31e+16, diameter: 55000000 },
+          "Dubhe": { distance: 1.16e+15, diameter: 10000000 }
+        },
+        "Intragalactic Objects": {
+          "Crab Pulsar": { distance: 6.16e+16, diameter: 20 },
+          "Vela Pulsar": { distance: 1.06e+16, diameter: 20 },
+          "Geminga": { distance: 7.57e+15, diameter: 20 },
+          "Sgr A*": { distance: 2.46e+17, diameter: 24000000 },
+          "Cygnus X-1": { distance: 5.73e+16, diameter: 150 },
+          "PSR B1257+12": { distance: 2.18e+16, diameter: 20 }
+        },
+        "Nebulae": {
+          "Orion Nebula": { distance: 1.27e+16, diameter: 2.27e+14 },
+          "Eagle Nebula": { distance: 6.62e+16, diameter: 6.62e+14 },
+          "Crab Nebula": { distance: 6.16e+16, diameter: 1.04e+14 },
+          "Carina Nebula": { distance: 8.04e+16, diameter: 2.46e+15 },
+          "Lagoon Nebula": { distance: 3.88e+16, diameter: 9.46e+14 },
+          "Trifid Nebula": { distance: 4.92e+16, diameter: 4.73e+14 },
+          "Helix Nebula": { distance: 6.15e+15, diameter: 2.37e+13 },
+          "Rosette Nebula": { distance: 4.92e+16, diameter: 1.23e+15 },
+          "Ring Nebula (M57)": { distance: 2.18e+16, diameter: 1.32e+13 },
+          "Horsehead Nebula": { distance: 1.42e+16, diameter: 3.31e+13 }
+        },
+        "Galaxies": {
+          "Milky Way": { distance: 0, diameter: 9.46e+17 },
+          "Andromeda Galaxy": { distance: 2.4e+19, diameter: 2.08e+18 },
+          "Triangulum Galaxy": { distance: 2.84e+19, diameter: 5.68e+17 },
+          "Large Magellanic Cloud": { distance: 1.54e+18, diameter: 1.32e+17 },
+          "Small Magellanic Cloud": { distance: 1.84e+18, diameter: 6.62e+16 },
+          "Messier 81": { distance: 1.11e+20, diameter: 9.46e+17 },
+          "Messier 82": { distance: 1.09e+20, diameter: 5.20e+17 },
+          "Sombrero Galaxy": { distance: 2.62e+20, diameter: 4.64e+17 },
+          "Whirlpool Galaxy (M51)": { distance: 2.01e+20, diameter: 7.19e+17 },
+          "Pinwheel Galaxy (M101)": { distance: 1.83e+20, diameter: 1.61e+18 },
+          "Centaurus A": { distance: 1.14e+20, diameter: 6.62e+17 },
+          "NGC 1300": { distance: 5.77e+20, diameter: 1.04e+18 },
+          "NGC 6946": { distance: 1.67e+20, diameter: 7.19e+17 },
+          "Messier 87": { distance: 5.0e+20, diameter: 1.13e+18 },
+          "IC 1101": { distance: 9.83e+20, diameter: 5.68e+19 }
+        }
+      };
+      
+      // Attach object data to each option.
+      objectCategories.forEach(function(category) {
+        category.options = category.options.map(function(opt) {
+          return { name: opt, data: (objectData[category.name] && objectData[category.name][opt]) ? objectData[category.name][opt] : { distance: 0, diameter: 0 } };
+        });
+      });
+      
+      // Global form state for each modal.
+      var savedFormState = {
+        modalLeft: { selection: 'object', dropdowns: [], selected: null },
+        modalRight: { selection: 'object', dropdowns: [], selected: null }
+      };
+      var tempFormState = {
+        modalLeft: { selection: 'object', dropdowns: [], selected: null },
+        modalRight: { selection: 'object', dropdowns: [], selected: null }
+      };
+      
+      // Initialize dropdown state for a modal
+      function initDropdownState(modalId) {
+        if (savedFormState[modalId].dropdowns.length === 0) {
+          var state = objectCategories.map(function(cat) {
+            return cat.options.map(function(opt) { return false; });
+          });
+          savedFormState[modalId].dropdowns = state;
+        }
+      }
+      
+      // When a checkbox is changed, clear all and record the selected index.
+      function handleCheckboxChange(modalId, catIndex, optIndex) {
+        tempFormState[modalId].dropdowns.forEach(function(cat, i) {
+          cat.forEach(function(val, j) {
+            tempFormState[modalId].dropdowns[i][j] = false;
+          });
+        });
+        tempFormState[modalId].dropdowns[catIndex][optIndex] = true;
+        tempFormState[modalId].selected = { cat: catIndex, opt: optIndex };
+        // Update checkboxes in UI
+        var container = document.getElementById(modalId + '-dropdown-left');
+        var inputs = container.querySelectorAll('input[type="checkbox"]');
+        inputs.forEach(function(input) {
+          var c = parseInt(input.getAttribute('data-cat-index'));
+          var o = parseInt(input.getAttribute('data-opt-index'));
+          input.checked = (c === catIndex && o === optIndex);
+        });
+      }
+      
+      // Generate dropdown list for a modal and side
+      function generateDropdownList(modalId, side) {
+        var container = document.getElementById(modalId + '-dropdown-' + side);
+        container.innerHTML = '';
+        if (side === 'left') {
+          if (tempFormState[modalId].dropdowns.length === 0) {
+            initDropdownState(modalId);
+            tempFormState[modalId].dropdowns = JSON.parse(JSON.stringify(savedFormState[modalId].dropdowns));
+            tempFormState[modalId].selected = savedFormState[modalId].selected;
+          }
+          objectCategories.forEach(function(category, i) {
+            var dropdownItem = document.createElement('div');
+            dropdownItem.className = 'dropdown-item';
+            dropdownItem.setAttribute('data-index', i);
+            
+            var header = document.createElement('div');
+            header.className = 'dropdown-header';
+            var triangle = document.createElement('span');
+            triangle.className = 'triangle';
+            triangle.innerHTML = '&#9654;';
+            var title = document.createElement('span');
+            title.innerText = category.name;
+            header.appendChild(triangle);
+            header.appendChild(title);
+            header.addEventListener('click', function() {
+              dropdownItem.classList.toggle('expanded');
+            });
+            dropdownItem.appendChild(header);
+            
+            var content = document.createElement('div');
+            content.className = 'dropdown-content';
+            category.options.forEach(function(opt, j) {
+              var label = document.createElement('label');
+              var checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.setAttribute('data-cat-index', i);
+              checkbox.setAttribute('data-opt-index', j);
+              checkbox.checked = tempFormState[modalId].dropdowns[i][j];
+              checkbox.addEventListener('change', function() {
+                handleCheckboxChange(modalId, i, j);
+              });
+              label.appendChild(checkbox);
+              label.appendChild(document.createTextNode(" " + opt.name));
+              content.appendChild(label);
+            });
+            dropdownItem.appendChild(content);
+            container.appendChild(dropdownItem);
+          });
+        } else {
+          container.innerHTML = '<p style="text-align:center; padding-top:20px;">Coming Soon</p>';
+        }
+      }
+      
+      // Open/close modal functions
+      function openModal(modalId) {
+        if (modalId === 'modalLeft' || modalId === 'modalRight') {
+          tempFormState[modalId].selection = savedFormState[modalId].selection;
+          tempFormState[modalId].dropdowns = JSON.parse(JSON.stringify(savedFormState[modalId].dropdowns));
+          tempFormState[modalId].selected = savedFormState[modalId].selected;
+          generateDropdownList(modalId, 'left');
+          generateDropdownList(modalId, 'right');
+        }
+        updateModalUI(modalId);
+        document.getElementById(modalId).style.display = 'flex';
+      }
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+      }
+      
+      // Update modal UI based on state
+      function updateModalUI(modalId) {
+        if (modalId === 'modalLeft' || modalId === 'modalRight') {
+          if (tempFormState[modalId].selection === 'object') {
+            document.getElementById(modalId + '-option-object').classList.add('selected');
+            document.getElementById(modalId + '-option-body').classList.remove('selected');
+            document.getElementById(modalId + '-left-panel').classList.remove('fade-out');
+            document.getElementById(modalId + '-right-panel').classList.add('fade-out');
+          } else {
+            document.getElementById(modalId + '-option-object').classList.remove('selected');
+            document.getElementById(modalId + '-option-body').classList.add('selected');
+            document.getElementById(modalId + '-left-panel').classList.add('fade-out');
+            document.getElementById(modalId + '-right-panel').classList.remove('fade-out');
+          }
+        }
+      }
+      
+      // Option selector listeners
+      document.getElementById('modalLeft-option-object').addEventListener('click', function() {
+        tempFormState.modalLeft.selection = 'object';
+        updateModalUI('modalLeft');
+      });
+      document.getElementById('modalLeft-option-body').addEventListener('click', function() {
+        tempFormState.modalLeft.selection = 'objectOnBody';
+        updateModalUI('modalLeft');
+      });
+      document.getElementById('modalRight-option-object').addEventListener('click', function() {
+        tempFormState.modalRight.selection = 'object';
+        updateModalUI('modalRight');
+      });
+      document.getElementById('modalRight-option-body').addEventListener('click', function() {
+        tempFormState.modalRight.selection = 'objectOnBody';
+        updateModalUI('modalRight');
+      });
+      
+      // Function to calculate angular size (in degrees)
+      function calculateAngularSize(distance, diameter) {
+        if (distance == 0) return "N/A";
+        var radians = diameter / distance;
+        var degrees = radians * (180 / Math.PI);
+        return degrees.toFixed(4) + "°";
+      }
+      
+      // Update main page display based on saved state.
+      function updateMainDisplay(modalId) {
+        var containerId = (modalId === 'modalLeft') ? 'mainLeftContainer' : 'mainRightContainer';
+        var container = document.getElementById(containerId);
+        if (savedFormState[modalId].selected !== null) {
+          var catIndex = savedFormState[modalId].selected.cat;
+          var optIndex = savedFormState[modalId].selected.opt;
+          var selectedObj = objectCategories[catIndex].options[optIndex];
+          var selectedName = selectedObj.name;
+          var data = selectedObj.data;
+          var angularSize = (data.distance === 0) ? "N/A" : calculateAngularSize(data.distance, data.diameter);
+          container.innerHTML = '<div class="selected-display">' + selectedName + '<br>Angular Size: ' + angularSize + '</div>' +
+            '<button class="edit-button" id="' + containerId + '-edit">Edit</button>';
+          document.getElementById(containerId + '-edit').addEventListener('click', function() {
+            openModal(modalId);
+          });
+        } else {
+          var defaultLabel = (modalId === 'modalLeft') ? "Add Object 1" : "Add Object 2";
+          var plusButtonId = (modalId === 'modalLeft') ? "plusLeft" : "plusRight";
+          container.innerHTML = '<p class="object-label">' + defaultLabel + '</p>' +
+            '<button class="plus-button" id="' + plusButtonId + '">+</button>';
+          document.getElementById(plusButtonId).addEventListener('click', function() {
+            openModal(modalId);
+          });
+        }
+      }
+      
+      // Done button event listeners
+      document.getElementById('modalLeft-done').addEventListener('click', function() {
+        savedFormState.modalLeft.selection = tempFormState.modalLeft.selection;
+        savedFormState.modalLeft.dropdowns = JSON.parse(JSON.stringify(tempFormState.modalLeft.dropdowns));
+        savedFormState.modalLeft.selected = tempFormState.modalLeft.selected;
+        console.log('ModalLeft saved state:', savedFormState.modalLeft);
+        closeModal('modalLeft');
+        updateMainDisplay('modalLeft');
+      });
+      document.getElementById('modalRight-done').addEventListener('click', function() {
+        savedFormState.modalRight.selection = tempFormState.modalRight.selection;
+        savedFormState.modalRight.dropdowns = JSON.parse(JSON.stringify(tempFormState.modalRight.dropdowns));
+        savedFormState.modalRight.selected = tempFormState.modalRight.selected;
+        console.log('ModalRight saved state:', savedFormState.modalRight);
+        closeModal('modalRight');
+        updateMainDisplay('modalRight');
+      });
+      
+      // Cancel and close (X) buttons
+      document.querySelectorAll('.cancel-button, .close').forEach(function(elem) {
+        elem.addEventListener('click', function() {
+          var modalId = this.getAttribute('data-modal');
+          closeModal(modalId);
+        });
+      });
+      window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+          closeModal(event.target.id);
+        }
+      });
+      
+      // Initial plus button event listeners (if still present)
+      var plusLeft = document.getElementById('plusLeft');
+      if (plusLeft) {
+        plusLeft.addEventListener('click', function() { openModal('modalLeft'); });
+      }
+      var plusRight = document.getElementById('plusRight');
+      if (plusRight) {
+        plusRight.addEventListener('click', function() { openModal('modalRight'); });
+      }
+      
+      // Initialize main displays (default: nothing selected)
+      updateMainDisplay('modalLeft');
+      updateMainDisplay('modalRight');
+    });
+  </script>
+</body>
+</html>
