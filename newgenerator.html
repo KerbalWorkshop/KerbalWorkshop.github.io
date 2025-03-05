@@ -81,7 +81,6 @@
     //----------------------------------------------------------------
     // 2) Mars Oppositions
     //----------------------------------------------------------------
-    // If your version yields conjunctions instead of oppositions, flip 180 -> 0.
     function computeMarsOppositions() {
       console.log("Computing Mars oppositions...");
       try {
@@ -275,6 +274,64 @@
     }
 
     //----------------------------------------------------------------
+    // 10) Manual Events
+    //----------------------------------------------------------------
+    // Adds additional events in three groups: Other, Halley's, and Mutual Planetary.
+    function addManualEvents() {
+      // --- Other Events (each with a unique tag) ---
+      addEvent(new Date("2029-04-13T00:00:00Z"), "other_asteroid_apophis_flyby");
+      addEvent(new Date("2032-12-25T00:00:00Z"), "other_asteroid_2024YR4_flyby");
+      addEvent(new Date("2100-03-24T00:00:00Z"), "other_polaris_furthest_north");
+
+      // --- Halley's Events (all with the same tag) ---
+      const halleyTag = "halleys_comet_perihelion";
+      addEvent(new Date("2061-07-28T00:00:00Z"), halleyTag);
+      addEvent(new Date("2134-03-27T00:00:00Z"), halleyTag);
+      addEvent(new Date("2209-02-03T00:00:00Z"), halleyTag);
+      addEvent(new Date("2282-11-04T00:00:00Z"), halleyTag);
+      addEvent(new Date("2356-08-04T00:00:00Z"), halleyTag);
+      addEvent(new Date("2430-05-05T00:00:00Z"), halleyTag);
+      addEvent(new Date("2504-02-03T00:00:00Z"), halleyTag);
+      addEvent(new Date("2577-11-04T00:00:00Z"), halleyTag);
+      addEvent(new Date("2651-08-05T00:00:00Z"), halleyTag);
+      addEvent(new Date("2725-05-06T00:00:00Z"), halleyTag);
+      addEvent(new Date("2799-02-04T00:00:00Z"), halleyTag);
+      addEvent(new Date("2872-11-04T00:00:00Z"), halleyTag);
+      addEvent(new Date("2946-08-05T00:00:00Z"), halleyTag);
+
+      // --- Mutual Planetary Events (each with a unique tag) ---
+      addEvent(new Date("2065-11-22T00:00:00Z"), "mutual_20651122_jupitervenuspartial");
+      addEvent(new Date("2079-05-11T00:00:00Z"), "mutual_20790511_marsmercurytotal");
+      addEvent(new Date("2088-10-27T00:00:00Z"), "mutual_20881027_jupitermercurypartial");
+      addEvent(new Date("2094-04-07T00:00:00Z"), "mutual_20940407_jupitermercurytotal");
+      addEvent(new Date("2132-09-12T00:00:00Z"), "mutual_21320912_jupitervenustotal");
+      addEvent(new Date("2126-07-29T00:00:00Z"), "mutual_21260729_marsmercurypartial");
+      addEvent(new Date("2243-12-12T00:00:00Z"), "mutual_22431212_saturnvenuspartial");
+      addEvent(new Date("2251-03-04T00:00:00Z"), "mutual_22510304_uranusvenustotal");
+      addEvent(new Date("2284-10-24T00:00:00Z"), "mutual_22841024_uranusvenuspartial");
+      addEvent(new Date("2335-10-08T00:00:00Z"), "mutual_23351008_jupitervenuspartial");
+      addEvent(new Date("2351-04-07T00:00:00Z"), "mutual_23510407_uranusvenustotal");
+      addEvent(new Date("2419-12-30T00:00:00Z"), "mutual_24191230_uranusvenustotal");
+      addEvent(new Date("2427-01-14T00:00:00Z"), "mutual_24270114_jupitermarstotal");
+      addEvent(new Date("2515-04-03T00:00:00Z"), "mutual_25150403_neptunemarspartial");
+      addEvent(new Date("2518-01-25T00:00:00Z"), "mutual_25180125_saturnvenustotal");
+      addEvent(new Date("2649-02-16T00:00:00Z"), "mutual_26490216_neptunevenustotal");
+      addEvent(new Date("2781-12-03T00:00:00Z"), "mutual_27811203_neptunevenuspartial");
+      addEvent(new Date("2816-03-25T00:00:00Z"), "mutual_28160325_jupitermercurytotal");
+      addEvent(new Date("2817-03-07T00:00:00Z"), "mutual_28170307_saturnvenustotal");
+      addEvent(new Date("2818-04-18T00:00:00Z"), "mutual_28180418_marsmercurypartial");
+      addEvent(new Date("2824-08-06T00:00:00Z"), "mutual_28240806_venusmercurytotal");
+      addEvent(new Date("2828-02-06T00:00:00Z"), "mutual_28280206_uranusmarstotal");
+      addEvent(new Date("2833-07-20T00:00:00Z"), "mutual_28330720_jupitermercurypartial");
+      addEvent(new Date("2910-02-12T00:00:00Z"), "mutual_29100212_jupitervenuspartial");
+      addEvent(new Date("2954-11-08T00:00:00Z"), "mutual_29541108_jupitervenuspartial");
+      addEvent(new Date("2959-03-09T00:00:00Z"), "mutual_29590309_jupitermarstotal");
+      addEvent(new Date("2965-10-05T00:00:00Z"), "mutual_29651005_jupitermercurytotal");
+      addEvent(new Date("2986-08-13T00:00:00Z"), "mutual_29860813_jupitervenuspartial");
+      addEvent(new Date("2991-03-22T00:00:00Z"), "mutual_29910322_neptunevenuspartial");
+    }
+
+    //----------------------------------------------------------------
     // Now run all computations. (Uncomment or comment as needed.)
     //----------------------------------------------------------------
     computeFullMoons();
@@ -286,6 +343,9 @@
     computeLunarEclipses();
     computeMercuryTransits();
     computeVenusTransits();
+
+    // Add the manual events.
+    addManualEvents();
 
     //----------------------------------------------------------------
     // Convert eventsByDate to an array of objects sorted by date.

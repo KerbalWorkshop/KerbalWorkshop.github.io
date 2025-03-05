@@ -14,6 +14,14 @@
       position: relative;
       z-index: 101;
     }
+    .white {
+      color: white !important;
+    }
+    .content {
+      position: relative;
+      z-index: 200;
+      background: transparent;
+    }
   </style>
 </head>
 <body>
@@ -43,10 +51,10 @@
   
   <!-- Main Content (with extra height to enable scrolling) -->
   <div class="content">
-    <h2>My Journey</h2>
-    <p>This page details my personal exploration in astronomy, astrophotography, and astrophysics.</p>
+    <!-- <h2 class="white">My Journey</h2> -->
+    <p class="white">Coming soon.</p>
     <!-- Extended content forces the page to be tall enough for scrolling -->
-    <p style="height:9000px;">[Extended content for scrolling...]</p>
+    <p style="height:9000px;"></p>
   </div>
   
   <!-- Footer (now visible when scrolling reaches the bottom) -->
