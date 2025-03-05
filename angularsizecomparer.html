@@ -5,20 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Angular Size Comparer – Hansen Space</title>
   
-  <!-- Standard site styles (header, footer, etc.) -->
+  <!-- Font-face declarations -->
+  <style>
+    @font-face {
+      font-family: 'Moon';
+      src: url('fonts/Moon-Regular.woff2') format('woff2'),
+           url('fonts/Moon-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Moon Bold';
+      src: url('fonts/Moon-Bold.woff2') format('woff2'),
+           url('fonts/Moon-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    /* Set default font to Moon, and for bold text use Moon Bold */
+    body {
+      font-family: 'Moon', sans-serif;
+    }
+    strong, b {
+      font-family: 'Moon Bold', sans-serif;
+    }
+  </style>
+  
+  <!-- Standard site styles -->
   <link rel="stylesheet" href="styles.css">
   
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   
-  <!-- Page-specific CSS overrides -->
+  <!-- Page-specific CSS -->
   <style>
-    /* Full-page layout */
+    /* Base styles */
     html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      overflow: hidden;
+      overflow-y: auto; /* allow main page scrolling if needed */
       display: flex;
       flex-direction: column;
     }
@@ -28,7 +53,7 @@
     main {
       flex: 1;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto;
     }
     #backButton {
       position: absolute;
@@ -52,21 +77,21 @@
     .content-wrapper {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      font-family: inherit;
+      min-height: 100%;
     }
     .top-text-section {
       flex: 0 0 auto;
-      padding: 20px;
+      padding: 10px; /* reduced padding */
       text-align: center;
+      font-size: 1.2em;
     }
     .split-section {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
-    /* Each half is wrapped in a container */
     .main-half {
       flex: 1;
       position: relative;
@@ -74,7 +99,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: inherit;
     }
     .vertical-divider-main {
       width: 1px;
@@ -84,10 +108,9 @@
     }
     .object-label {
       color: gray;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       font-size: 16px;
     }
-    /* Plus button styling */
     .plus-button {
       background-color: #80bfff;
       color: white;
@@ -97,27 +120,29 @@
       height: 60px;
       font-size: 32px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    /* Selected display style */
     .selected-display {
       text-align: center;
       font-size: 24px;
       font-weight: bold;
-      padding: 20px;
+      padding: 10px;
     }
-    /* Edit button styling: larger, top left, hollow white with dark outline */
     .edit-button {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 5px;
+      left: 5px;
       background: #fff;
       border: 2px solid #000;
       padding: 8px 12px;
       cursor: pointer;
       font-size: 18px;
+      border-radius: 50px; /* makes it nicely round */
     }
     
-    /* Modal styling */
+    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -129,20 +154,20 @@
     }
     .modal-content {
       background: #fff;
-      width: 60%;
-      height: 60%;
+      width: 80%;
+      height: 80%;
       display: flex;
       flex-direction: column;
       border-radius: 8px;
       overflow: hidden;
-      font-family: inherit;
     }
     .modal-header-top {
       flex: 0 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
+      padding: 10px; /* reduced padding */
+      font-size: 1.2em;
     }
     .modal-header-top h2 {
       margin: 0;
@@ -163,8 +188,8 @@
       flex-direction: column;
     }
     .option-selector-container {
-      padding: 0 20px;
-      margin: 20px 0;
+      padding: 0 10px;
+      margin: 10px 0;
     }
     .option-selector {
       display: flex;
@@ -175,10 +200,11 @@
     .option-tab {
       flex: 1;
       text-align: center;
-      padding: 10px 0;
+      padding: 8px 0;
       background-color: #f0f0f0;
       font-weight: normal;
       cursor: pointer;
+      font-size: 1em;
     }
     .option-tab.selected {
       background-color: #fff;
@@ -191,14 +217,14 @@
     }
     .modal-body-left, .modal-body-right {
       flex: 1;
-      padding: 20px;
+      padding: 10px;
       overflow-y: auto;
+      font-size: 1em;
     }
     .vertical-divider-modal {
       width: 1px;
       background: #ccc;
     }
-    /* Fade out inactive text/menu items only */
     .fade-out * {
       opacity: 0.5;
       transition: opacity 0.3s;
@@ -209,7 +235,8 @@
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      padding: 10px 20px;
+      padding: 10px;
+      font-size: 1em;
     }
     .cancel-button, .done-button {
       border: 2px solid #000;
@@ -239,6 +266,7 @@
       display: flex;
       align-items: center;
       user-select: none;
+      font-size: 1em;
     }
     .dropdown-header .triangle {
       display: inline-block;
@@ -252,6 +280,7 @@
       display: none;
       padding-left: 20px;
       margin-top: 5px;
+      font-size: 0.9em;
     }
     .dropdown-item.expanded .dropdown-content {
       display: block;
@@ -260,10 +289,55 @@
       display: block;
       margin-bottom: 4px;
     }
+    
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .split-section {
+        flex-direction: column;
+      }
+      .vertical-divider-main {
+        display: none;
+      }
+      .main-half {
+        margin-bottom: 20px;
+      }
+      .plus-button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      .selected-display {
+        font-size: 20px;
+        padding: 10px;
+      }
+      .edit-button {
+        font-size: 16px;
+        padding: 6px 10px;
+      }
+      .modal-content {
+        width: 90%;
+        height: 90%;
+      }
+      .modal-header-top, .modal-footer {
+        padding: 10px;
+      }
+      .option-selector-container {
+        margin: 10px 0;
+        padding: 0 10px;
+      }
+      .option-tab {
+        padding: 8px 0;
+        font-size: 14px;
+      }
+      .modal-body-left, .modal-body-right {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Standard Header -->
+  <!-- Header -->
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -283,12 +357,10 @@
   <main>
     <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
     <div class="content-wrapper">
-      <!-- Top Text Section -->
       <div class="top-text-section">
-        <h1>Angular Size Comparer</h1>
-        <p>This is a work in progress. Will eventually include photos to visualize relativee angular size.</p>
+        <h1>Placeholder Title</h1>
+        <p>This is a placeholder paragraph for the Angular Size Comparer.</p>
       </div>
-      <!-- Split Section -->
       <div class="split-section">
         <div class="main-half" id="mainLeftContainer">
           <p class="object-label">Add Object 1</p>
@@ -303,7 +375,7 @@
     </div>
   </main>
   
-  <!-- Standard Footer -->
+  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -319,7 +391,7 @@
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
   
-  <!-- Modal for Left Button (Select Object 1) -->
+  <!-- Modal for Left (Object 1) -->
   <div id="modalLeft" class="modal">
     <div class="modal-content">
       <div class="modal-header-top">
@@ -352,7 +424,7 @@
     </div>
   </div>
   
-  <!-- Modal for Right Button (Select Object 2) -->
+  <!-- Modal for Right (Object 2) -->
   <div id="modalRight" class="modal">
     <div class="modal-content">
       <div class="modal-header-top">
@@ -388,19 +460,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Define categories for the "Object" side.
-      // Updated "Moons" category includes all moons over ~20 km.
       var objectCategories = [
-        {
-          name: "Artificial Satellites",
-          options: ["ISS", "Hubble", "Tiangong", "Starlink Satellite", "Other Notable LEO Sats", "Juno", "Perseverance", "Voyager 1", "Voyager 2"]
-        },
-        {
-          name: "Planets",
-          options: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
-        },
-        {
-          name: "Moons",
-          options: [
+        { name: "Artificial Satellites", options: ["ISS", "Hubble", "Tiangong", "Starlink Satellite", "Other Notable LEO Sats", "Juno", "Perseverance", "Voyager 1", "Voyager 2"] },
+        { name: "Planets", options: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"] },
+        { name: "Moons", options: [
             "Moon (Earth)",
             "Phobos (Mars)",
             "Deimos (Mars)",
@@ -432,34 +495,15 @@
             "Triton (Neptune)"
           ]
         },
-        {
-          name: "Asteroids",
-          options: ["Ceres", "Vesta", "Pallas", "Hygiea", "Interamnia", "Davida", "Eunomia", "Juno", "Psyche", "Herculina", "Euphrosyne", "Bamberga", "Iris", "Flora", "Metis", "Parthenope", "Lutetia", "Massalia", "Themis", "Melpomene", "Sylvia", "Cybele", "Pomona", "Adeona", "Eos", "Koronis", "Maria", "Icarus", "Hestia", "Agamemnon"]
-        },
-        {
-          name: "Minor Bodies",
-          options: ["Pluto", "Charon (Pluto)", "Eris", "Dysnomia (Eris)", "Haumea", "Namaka (Haumea)", "Hi'iaka (Haumea)", "Makemake", "Quaoar", "Weywot (Quaoar)", "Orcus", "Vanth (Orcus)", "Sedna"]
-        },
-        {
-          name: "Stars",
-          options: ["Sun", "Sirius", "Canopus", "Arcturus", "Alpha Centauri", "Vega", "Capella", "Rigel", "Procyon", "Betelgeuse", "Achernar", "Hadar", "Altair", "Acrux", "Aldebaran", "Antares", "Spica", "Pollux", "Fomalhaut", "Deneb", "Regulus", "Castor", "Bellatrix", "Proxima Centauri", "Mira", "Alnilam", "Alnitak", "Saiph", "Mimosa", "Dubhe"]
-        },
-        {
-          name: "Intragalactic Objects",
-          options: ["Crab Pulsar", "Vela Pulsar", "Geminga", "Sgr A*", "Cygnus X-1", "PSR B1257+12"]
-        },
-        {
-          name: "Nebulae",
-          options: ["Orion Nebula", "Eagle Nebula", "Crab Nebula", "Carina Nebula", "Lagoon Nebula", "Trifid Nebula", "Helix Nebula", "Rosette Nebula", "Ring Nebula (M57)", "Horsehead Nebula"]
-        },
-        {
-          name: "Galaxies",
-          options: ["Milky Way", "Andromeda Galaxy", "Triangulum Galaxy", "Large Magellanic Cloud", "Small Magellanic Cloud", "Messier 81", "Messier 82", "Sombrero Galaxy", "Whirlpool Galaxy (M51)", "Pinwheel Galaxy (M101)", "Centaurus A", "NGC 1300", "NGC 6946", "Messier 87", "IC 1101"]
-        }
+        { name: "Asteroids", options: ["Ceres", "Vesta", "Pallas", "Hygiea", "Interamnia", "Davida", "Eunomia", "Juno", "Psyche", "Herculina", "Euphrosyne", "Bamberga", "Iris", "Flora", "Metis", "Parthenope", "Lutetia", "Massalia", "Themis", "Melpomene", "Sylvia", "Cybele", "Pomona", "Adeona", "Eos", "Koronis", "Maria", "Icarus", "Hestia", "Agamemnon"] },
+        { name: "Minor Bodies", options: ["Pluto", "Charon (Pluto)", "Eris", "Dysnomia (Eris)", "Haumea", "Namaka (Haumea)", "Hi'iaka (Haumea)", "Makemake", "Quaoar", "Weywot (Quaoar)", "Orcus", "Vanth (Orcus)", "Sedna"] },
+        { name: "Stars", options: ["Sun", "Sirius", "Canopus", "Arcturus", "Alpha Centauri", "Vega", "Capella", "Rigel", "Procyon", "Betelgeuse", "Achernar", "Hadar", "Altair", "Acrux", "Aldebaran", "Antares", "Spica", "Pollux", "Fomalhaut", "Deneb", "Regulus", "Castor", "Bellatrix", "Proxima Centauri", "Mira", "Alnilam", "Alnitak", "Saiph", "Mimosa", "Dubhe"] },
+        { name: "Intragalactic Objects", options: ["Crab Pulsar", "Vela Pulsar", "Geminga", "Sgr A*", "Cygnus X-1", "PSR B1257+12"] },
+        { name: "Nebulae", options: ["Orion Nebula", "Eagle Nebula", "Crab Nebula", "Carina Nebula", "Lagoon Nebula", "Trifid Nebula", "Helix Nebula", "Rosette Nebula", "Ring Nebula (M57)", "Horsehead Nebula"] },
+        { name: "Galaxies", options: ["Milky Way", "Andromeda Galaxy", "Triangulum Galaxy", "Large Magellanic Cloud", "Small Magellanic Cloud", "Messier 81", "Messier 82", "Sombrero Galaxy", "Whirlpool Galaxy (M51)", "Pinwheel Galaxy (M101)", "Centaurus A", "NGC 1300", "NGC 6946", "Messier 87", "IC 1101"] }
       ];
       
-      // Object data: store distance (in km) and diameter (in km) for every option.
-      // These values are approximate.
+      // Object data: approximate values (in km)
       var objectData = {
         "Artificial Satellites": {
           "ISS": { distance: 408, diameter: 0.109 },
@@ -638,7 +682,7 @@
         });
       });
       
-      // Global form state for each modal.
+      // Global form state.
       var savedFormState = {
         modalLeft: { selection: 'object', dropdowns: [], selected: null },
         modalRight: { selection: 'object', dropdowns: [], selected: null }
@@ -648,7 +692,6 @@
         modalRight: { selection: 'object', dropdowns: [], selected: null }
       };
       
-      // Initialize dropdown state for a modal
       function initDropdownState(modalId) {
         if (savedFormState[modalId].dropdowns.length === 0) {
           var state = objectCategories.map(function(cat) {
@@ -658,7 +701,6 @@
         }
       }
       
-      // When a checkbox is changed, clear all and record the selected index.
       function handleCheckboxChange(modalId, catIndex, optIndex) {
         tempFormState[modalId].dropdowns.forEach(function(cat, i) {
           cat.forEach(function(val, j) {
@@ -667,7 +709,6 @@
         });
         tempFormState[modalId].dropdowns[catIndex][optIndex] = true;
         tempFormState[modalId].selected = { cat: catIndex, opt: optIndex };
-        // Update checkboxes in UI
         var container = document.getElementById(modalId + '-dropdown-left');
         var inputs = container.querySelectorAll('input[type="checkbox"]');
         inputs.forEach(function(input) {
@@ -677,7 +718,6 @@
         });
       }
       
-      // Generate dropdown list for a modal and side
       function generateDropdownList(modalId, side) {
         var container = document.getElementById(modalId + '-dropdown-' + side);
         container.innerHTML = '';
@@ -730,7 +770,6 @@
         }
       }
       
-      // Open/close modal functions
       function openModal(modalId) {
         if (modalId === 'modalLeft' || modalId === 'modalRight') {
           tempFormState[modalId].selection = savedFormState[modalId].selection;
@@ -746,7 +785,6 @@
         document.getElementById(modalId).style.display = 'none';
       }
       
-      // Update modal UI based on state
       function updateModalUI(modalId) {
         if (modalId === 'modalLeft' || modalId === 'modalRight') {
           if (tempFormState[modalId].selection === 'object') {
@@ -763,7 +801,6 @@
         }
       }
       
-      // Option selector listeners
       document.getElementById('modalLeft-option-object').addEventListener('click', function() {
         tempFormState.modalLeft.selection = 'object';
         updateModalUI('modalLeft');
@@ -781,7 +818,6 @@
         updateModalUI('modalRight');
       });
       
-      // Function to calculate angular size (in degrees)
       function calculateAngularSize(distance, diameter) {
         if (distance == 0) return "N/A";
         var radians = diameter / distance;
@@ -789,7 +825,6 @@
         return degrees.toFixed(12) + "°";
       }
       
-      // Update main page display based on saved state.
       function updateMainDisplay(modalId) {
         var containerId = (modalId === 'modalLeft') ? 'mainLeftContainer' : 'mainRightContainer';
         var container = document.getElementById(containerId);
@@ -803,7 +838,7 @@
           container.innerHTML = '<div class="selected-display">' + selectedName + '<br>Angular Size: ' + angularSize + '</div>' +
             '<button class="edit-button" id="' + containerId + '-edit">Edit</button>';
           document.getElementById(containerId + '-edit').addEventListener('click', function() {
-            openModal(modalId);
+            openModal(modalId === 'mainLeftContainer' ? 'modalLeft' : 'modalRight');
           });
         } else {
           var defaultLabel = (modalId === 'modalLeft') ? "Add Object 1" : "Add Object 2";
@@ -811,12 +846,11 @@
           container.innerHTML = '<p class="object-label">' + defaultLabel + '</p>' +
             '<button class="plus-button" id="' + plusButtonId + '">+</button>';
           document.getElementById(plusButtonId).addEventListener('click', function() {
-            openModal(modalId);
+            openModal(modalId === 'mainLeftContainer' ? 'modalLeft' : 'modalRight');
           });
         }
       }
       
-      // Done button event listeners
       document.getElementById('modalLeft-done').addEventListener('click', function() {
         savedFormState.modalLeft.selection = tempFormState.modalLeft.selection;
         savedFormState.modalLeft.dropdowns = JSON.parse(JSON.stringify(tempFormState.modalLeft.dropdowns));
@@ -834,7 +868,6 @@
         updateMainDisplay('modalRight');
       });
       
-      // Cancel and close (X) buttons
       document.querySelectorAll('.cancel-button, .close').forEach(function(elem) {
         elem.addEventListener('click', function() {
           var modalId = this.getAttribute('data-modal');
@@ -847,7 +880,6 @@
         }
       });
       
-      // Initial plus button event listeners (if still present)
       var plusLeft = document.getElementById('plusLeft');
       if (plusLeft) {
         plusLeft.addEventListener('click', function() { openModal('modalLeft'); });
@@ -857,7 +889,6 @@
         plusRight.addEventListener('click', function() { openModal('modalRight'); });
       }
       
-      // Initialize main displays (default: nothing selected)
       updateMainDisplay('modalLeft');
       updateMainDisplay('modalRight');
     });
