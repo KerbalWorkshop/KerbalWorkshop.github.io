@@ -18,10 +18,27 @@ html, body {
     background-position: center top;
 }
 
-/* Starfield layers (images 1–6) */
-#layer1 { background-image: url('images/1.png'); z-index: 100; }
-#layer2 { background-image: url('images/2.png'); z-index: 90; }
-#layer3 { background-image: url('images/3.png'); z-index: 80; }
-#layer4 { background-image: url('images/4.png'); z-index: 70; }
-#layer5 { background-image: url('images/5.png'); z-index: 60; }
-#layer6 { background-image: url('images/6.png'); background-color: #000; z-index: 50; }
+/* Starfield layers (images 1–17) */
+#layer1  { background-image: url('images/1.png');  z-index: 100; }
+#layer2  { background-image: url('images/2.png');  z-index: 95; }
+#layer3  { background-image: url('images/3.png');  z-index: 90; }
+#layer4  { background-image: url('images/4.png');  z-index: 85; }
+#layer5  { background-image: url('images/5.png');  z-index: 80; }
+#layer6  { background-image: url('images/6.png');  z-index: 75; }
+#layer7  { background-image: url('images/7.png');  z-index: 70; }
+#layer8  { background-image: url('images/8.png');  z-index: 65; }
+#layer9  { background-image: url('images/9.png');  z-index: 60; }
+#layer10 { background-image: url('images/10.png'); z-index: 55; }
+#layer11 { background-image: url('images/11.png'); z-index: 50; }
+#layer12 { background-image: url('images/12.png'); z-index: 45; }
+#layer13 { background-image: url('images/13.png'); z-index: 40; }
+#layer14 { background-image: url('images/14.png'); z-index: 35; }
+#layer15 { background-image: url('images/15.png'); z-index: 30; }
+#layer16 { background-image: url('images/16.png'); z-index: 25; }
+#layer17 { background-image: url('images/17.png'); z-index: 20; }
+
+/* Layer 18: background galaxies */
+#layer18 { 
+    background: #000; 
+    z-index: 15; 
+}

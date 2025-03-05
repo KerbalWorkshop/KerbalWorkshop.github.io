@@ -41,13 +41,25 @@
     </nav>
   </header>
   
-  <!-- Fixed Starfield Layers (images 1–6) -->
+  <!-- Fixed Starfield Layers (images 1–18) -->
   <div id="layer1" class="star-layer"></div>
   <div id="layer2" class="star-layer"></div>
   <div id="layer3" class="star-layer"></div>
   <div id="layer4" class="star-layer"></div>
   <div id="layer5" class="star-layer"></div>
   <div id="layer6" class="star-layer"></div>
+  <div id="layer7" class="star-layer"></div>
+  <div id="layer8" class="star-layer"></div>
+  <div id="layer9" class="star-layer"></div>
+  <div id="layer10" class="star-layer"></div>
+  <div id="layer11" class="star-layer"></div>
+  <div id="layer12" class="star-layer"></div>
+  <div id="layer13" class="star-layer"></div>
+  <div id="layer14" class="star-layer"></div>
+  <div id="layer15" class="star-layer"></div>
+  <div id="layer16" class="star-layer"></div>
+  <div id="layer17" class="star-layer"></div>
+  <div id="layer18" class="star-layer"></div>
   
   <!-- Main Content (with extra height to enable scrolling) -->
   <div class="content">
@@ -76,14 +88,15 @@
   <script>
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
+      const totalLayers = 18;
+      const startCoef = 0.9;
+      const endCoef = 0.05;
+      const interval = (startCoef - endCoef) / (totalLayers - 1);
       
-      // Update starfield layers' background positions based on scroll
-      document.getElementById('layer1').style.backgroundPosition = 'center -' + (scrollTop * 0.9) + 'px';
-      document.getElementById('layer2').style.backgroundPosition = 'center -' + (scrollTop * 0.8) + 'px';
-      document.getElementById('layer3').style.backgroundPosition = 'center -' + (scrollTop * 0.7) + 'px';
-      document.getElementById('layer4').style.backgroundPosition = 'center -' + (scrollTop * 0.6) + 'px';
-      document.getElementById('layer5').style.backgroundPosition = 'center -' + (scrollTop * 0.5) + 'px';
-      document.getElementById('layer6').style.backgroundPosition = 'center -' + (scrollTop * 0.4) + 'px';
+      for (let i = 1; i <= totalLayers; i++) {
+        const coef = startCoef - (i - 1) * interval;
+        document.getElementById('layer' + i).style.backgroundPosition = 'center -' + (scrollTop * coef) + 'px';
+      }
     });
   </script>
 </body>
