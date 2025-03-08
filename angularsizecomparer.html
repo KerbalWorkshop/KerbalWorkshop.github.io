@@ -42,8 +42,8 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow-y: auto; /* allow main page scrolling if needed */
+      min-height: 100vh;
+      overflow-y: auto; /* allow page scrolling */
       display: flex;
       flex-direction: column;
     }
@@ -54,6 +54,7 @@
       flex: 1;
       position: relative;
       overflow-y: auto;
+      min-height: 120vh; /* make main section taller */
     }
     #backButton {
       position: absolute;
@@ -139,7 +140,7 @@
       padding: 8px 12px;
       cursor: pointer;
       font-size: 18px;
-      border-radius: 50px; /* makes it nicely round */
+      border-radius: 50px; /* nicely rounded */
     }
     
     /* Modal styles */
@@ -160,6 +161,7 @@
       flex-direction: column;
       border-radius: 8px;
       overflow: hidden;
+      font-family: inherit;
     }
     .modal-header-top {
       flex: 0 0 auto;
@@ -503,7 +505,7 @@
         { name: "Galaxies", options: ["Milky Way", "Andromeda Galaxy", "Triangulum Galaxy", "Large Magellanic Cloud", "Small Magellanic Cloud", "Messier 81", "Messier 82", "Sombrero Galaxy", "Whirlpool Galaxy (M51)", "Pinwheel Galaxy (M101)", "Centaurus A", "NGC 1300", "NGC 6946", "Messier 87", "IC 1101"] }
       ];
       
-      // Object data: approximate values (in km)
+      // Object data (approximate, in km)
       var objectData = {
         "Artificial Satellites": {
           "ISS": { distance: 408, diameter: 0.109 },
@@ -838,7 +840,7 @@
           container.innerHTML = '<div class="selected-display">' + selectedName + '<br>Angular Size: ' + angularSize + '</div>' +
             '<button class="edit-button" id="' + containerId + '-edit">Edit</button>';
           document.getElementById(containerId + '-edit').addEventListener('click', function() {
-            openModal(modalId === 'mainLeftContainer' ? 'modalLeft' : 'modalRight');
+            openModal(modalId);
           });
         } else {
           var defaultLabel = (modalId === 'modalLeft') ? "Add Object 1" : "Add Object 2";
@@ -846,7 +848,7 @@
           container.innerHTML = '<p class="object-label">' + defaultLabel + '</p>' +
             '<button class="plus-button" id="' + plusButtonId + '">+</button>';
           document.getElementById(plusButtonId).addEventListener('click', function() {
-            openModal(modalId === 'mainLeftContainer' ? 'modalLeft' : 'modalRight');
+            openModal(modalId);
           });
         }
       }
