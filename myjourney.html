@@ -22,6 +22,53 @@
       z-index: 200;
       background: transparent;
     }
+    /* Journey Container – added inside main content */
+    .journey-container {
+      position: relative;
+      z-index: 210;
+      width: 100%;
+      height: auto;
+    }
+    /* Styles for journey components on desktop */
+    .text-box {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 300px;
+      color: white;
+    }
+    .image-box {
+      position: absolute;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      width: 200px;
+    }
+    .image-box:hover {
+      transform: scale(1.05);
+    }
+    /* 
+      Mobile styles – on narrow screens, override the absolute positioning 
+      so that journey modules stack in a linear, centered layout.
+    */
+    @media (max-width: 600px) {
+      .journey-container .text-box,
+      .journey-container .image-box {
+        position: relative;
+        left: 0 !important;
+        margin: 20px auto;
+        display: block;
+        max-width: 90%;
+      }
+      /* Optionally adjust font sizes or padding for mobile */
+      .journey-container .text-box {
+        padding: 15px;
+        font-size: 0.9em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -43,33 +90,38 @@
   
   <!-- Fixed Starfield Layers (images 1–18) -->
   <div id="layer1" class="star-layer"></div>
-  <div id="layer2" class="star-layer"></div>
+  <!-- <div id="layer2" class="star-layer"></div> -->
   <div id="layer3" class="star-layer"></div>
-  <div id="layer4" class="star-layer"></div>
+  <!-- <div id="layer4" class="star-layer"></div> -->
   <div id="layer5" class="star-layer"></div>
-  <div id="layer6" class="star-layer"></div>
+  <!-- <div id="layer6" class="star-layer"></div> -->
   <div id="layer7" class="star-layer"></div>
-  <div id="layer8" class="star-layer"></div>
+  <!-- <div id="layer8" class="star-layer"></div> -->
   <div id="layer9" class="star-layer"></div>
-  <div id="layer10" class="star-layer"></div>
+  <!-- <div id="layer10" class="star-layer"></div> -->
   <div id="layer11" class="star-layer"></div>
-  <div id="layer12" class="star-layer"></div>
+  <!-- <div id="layer12" class="star-layer"></div> -->
   <div id="layer13" class="star-layer"></div>
-  <div id="layer14" class="star-layer"></div>
+  <!-- <div id="layer14" class="star-layer"></div> -->
   <div id="layer15" class="star-layer"></div>
-  <div id="layer16" class="star-layer"></div>
+  <!-- <div id="layer16" class="star-layer"></div> -->
   <div id="layer17" class="star-layer"></div>
   <div id="layer18" class="star-layer"></div>
   
   <!-- Main Content (with extra height to enable scrolling) -->
   <div class="content">
-    <!-- <h2 class="white">My Journey</h2> -->
+    <!-- Insert new Journey content here (between header and footer) -->
+    <div id="journeyContainer" class="journey-container">
+      <!-- Journey modules will be appended here -->
+    </div>
+    
+    <!-- Existing placeholder content -->
     <p class="white">Coming soon.</p>
     <!-- Extended content forces the page to be tall enough for scrolling -->
     <p style="height:9000px;"></p>
   </div>
   
-  <!-- Footer (now visible when scrolling reaches the bottom) -->
+  <!-- Footer (remains as the very bottom of the page) -->
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -86,6 +138,7 @@
   </footer>
   
   <script>
+    // Existing parallax scroll functionality
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
       const totalLayers = 18;
@@ -94,9 +147,105 @@
       const interval = (startCoef - endCoef) / (totalLayers - 1);
       
       for (let i = 1; i <= totalLayers; i++) {
-        const coef = startCoef - (i - 1) * interval;
-        document.getElementById('layer' + i).style.backgroundPosition = 'center -' + (scrollTop * coef) + 'px';
+        const layer = document.getElementById('layer' + i);
+        if (layer) {
+          const coef = startCoef - (i - 1) * interval;
+          layer.style.backgroundPosition = 'center -' + (scrollTop * coef) + 'px';
+        }
       }
+    });
+
+    // --------------------------------------------------
+    // Modular Journey Components Functions
+    // --------------------------------------------------
+    function createTextBox(text, x, y, id) {
+      const div = document.createElement('div');
+      div.className = 'text-box';
+      if (id) div.id = id;
+      div.style.left = x + 'px';
+      div.style.top = y + 'px';
+      div.innerHTML = text;
+      return div;
+    }
+
+    function createImageBox(src, alt, x, y, id) {
+      const img = document.createElement('img');
+      img.className = 'image-box';
+      if (id) img.id = id;
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+      img.src = src;
+      img.alt = alt;
+      // Example click interaction (could open a modal)
+      img.addEventListener('click', function() {
+        alert('Clicked image: ' + alt);
+      });
+      return img;
+    }
+
+    // --------------------------------------------------
+    // Build Sample Journey Content on Window Load
+    // --------------------------------------------------
+    window.addEventListener('load', function() {
+      const journeyContainer = document.getElementById('journeyContainer');
+
+      // Sample content block 1: Text Box
+      const textBox1 = createTextBox(
+        '<h3>My First Stargazing Experience</h3><p>The night sky captivated me.</p>',
+        100, 300, 'textBox1'
+      );
+      journeyContainer.appendChild(textBox1);
+
+      // Sample content block 2: Image Box
+      const imageBox1 = createImageBox(
+        'https://via.placeholder.com/200', 'First Stars',
+        400, 450, 'imageBox1'
+      );
+      journeyContainer.appendChild(imageBox1);
+
+      // Sample content block 3: Another Text Box
+      const textBox2 = createTextBox(
+        '<h3>Discovering Astronomy</h3><p>The cosmos opened up new mysteries.</p>',
+        100, 600, 'textBox2'
+      );
+      journeyContainer.appendChild(textBox2);
+
+      // Sample content block 4: Another Image Box
+      const imageBox2 = createImageBox(
+        'https://via.placeholder.com/200', 'My Telescope',
+        400, 750, 'imageBox2'
+      );
+      journeyContainer.appendChild(imageBox2);
+
+      // Additional placeholders for a better layout preview
+
+      // Sample content block 5: Text Box
+      const textBox3 = createTextBox(
+        '<h3>Exploring the Universe</h3><p>Each discovery led me to new adventures in space.</p>',
+        150, 900, 'textBox3'
+      );
+      journeyContainer.appendChild(textBox3);
+
+      // Sample content block 6: Image Box
+      const imageBox3 = createImageBox(
+        'https://via.placeholder.com/200', 'Galaxies',
+        450, 1050, 'imageBox3'
+      );
+      journeyContainer.appendChild(imageBox3);
+
+      // Sample content block 7: Text Box
+      const textBox4 = createTextBox(
+        '<h3>Astronomy in Action</h3><p>Hands-on experiences with telescopes and stars.</p>',
+        100, 1200, 'textBox4'
+      );
+      journeyContainer.appendChild(textBox4);
+
+      // Sample content block 8: Image Box
+      const imageBox4 = createImageBox(
+        'https://via.placeholder.com/200', 'Night Sky',
+        400, 1350, 'imageBox4'
+      );
+      journeyContainer.appendChild(imageBox4);
     });
   </script>
 </body>
