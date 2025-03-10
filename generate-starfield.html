@@ -21,6 +21,8 @@
       padding: 10px;
       border-radius: 4px;
       max-width: 300px;
+      max-height: calc(100vh - 20px);
+      overflow-y: auto;
     }
     .controls button {
       margin: 4px 2px;
@@ -36,16 +38,10 @@
       margin: 120px auto;
       border: 1px solid #555;
     }
-    .instructions {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      z-index: 20;
-      background: rgba(0,0,0,0.8);
-      padding: 10px;
-      border-radius: 4px;
-      font-size: 0.9em;
-      max-width: 300px;
+    /* Container for tall canvases */
+    #tallContainer {
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -53,7 +49,7 @@
   <div class="controls">
     <!-- Starfield layer generation (18 layers) -->
     <strong>Starfield Layers:</strong>
-    <!-- Layers 1–17 will generate stars; layer 18 renders faint background galaxies -->
+    <!-- Layers 1–18 generate stars -->
     <button onclick="generateLayer(1)">Generate Layer 1 (Front)</button>
     <button onclick="generateLayer(2)">Generate Layer 2</button>
     <button onclick="generateLayer(3)">Generate Layer 3</button>
@@ -71,36 +67,33 @@
     <button onclick="generateLayer(15)">Generate Layer 15</button>
     <button onclick="generateLayer(16)">Generate Layer 16</button>
     <button onclick="generateLayer(17)">Generate Layer 17</button>
-    <button onclick="generateLayer(18)">Generate Layer 18 (Galaxies)</button>
+    <button onclick="generateLayer(18)">Generate Layer 18 (Faint Stars)</button>
     <hr>
-    <!-- Globular Cluster, Open Cluster, Nebula Overlays (unchanged) -->
-    <strong>Globular Cluster:</strong>
-    <button onclick="clearCanvas(); generateGlobularCluster(1)">Generate Globular Cluster (Close)</button>
-    <button onclick="clearCanvas(); generateGlobularCluster(2)">Generate Globular Cluster (Medium)</button>
-    <button onclick="clearCanvas(); generateGlobularCluster(3)">Generate Globular Cluster (Distant)</button>
-    <strong>Open Cluster:</strong>
-    <button onclick="clearCanvas(); generateOpenCluster(1)">Generate Open Cluster (Close)</button>
-    <button onclick="clearCanvas(); generateOpenCluster(2)">Generate Open Cluster (Medium)</button>
-    <button onclick="clearCanvas(); generateOpenCluster(3)">Generate Open Cluster (Distant)</button>
-    <strong>Nebula:</strong>
-    <button onclick="clearCanvas(); generateNebula(1)">Generate Nebula (Close)</button>
-    <button onclick="clearCanvas(); generateNebula(2)">Generate Nebula (Medium)</button>
-    <button onclick="clearCanvas(); generateNebula(3)">Generate Nebula (Distant)</button>
+    <!-- New Tall Cluster/Nebula Generators -->
+    <strong>Tall Globular Cluster:</strong>
+    <button onclick="generateTallGlobularCluster(1)">Generate Tall Globular Cluster (Close)</button>
+    <button onclick="generateTallGlobularCluster(2)">Generate Tall Globular Cluster (Medium)</button>
+    <button onclick="generateTallGlobularCluster(3)">Generate Tall Globular Cluster (Distant)</button>
+    <strong>Tall Open Cluster:</strong>
+    <button onclick="generateTallOpenCluster(1)">Generate Tall Open Cluster (Close)</button>
+    <button onclick="generateTallOpenCluster(2)">Generate Tall Open Cluster (Medium)</button>
+    <button onclick="generateTallOpenCluster(3)">Generate Tall Open Cluster (Distant)</button>
+    <strong>Tall Nebula:</strong>
+    <button onclick="generateTallNebula(1)">Generate Tall Nebula (Close)</button>
+    <button onclick="generateTallNebula(2)">Generate Tall Nebula (Medium)</button>
+    <button onclick="generateTallNebula(3)">Generate Tall Nebula (Distant)</button>
   </div>
   <canvas id="starCanvas" width="1024" height="1024"></canvas>
-  <div class="instructions">
-    <p>
-      Use these buttons to generate starfield layers (save as 1.png–18.png) or unique overlays.
-      Each overlay clears the canvas so it appears on its own.
-    </p>
-  </div>
+  <!-- Container for tall canvases -->
+  <div id="tallContainer"></div>
   <script>
+    // Starfield and helper functions.
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
     
-    // Clears the entire canvas.
+    // Clears the main canvas.
     function clearCanvas() {
       ctx.clearRect(0, 0, width, height);
     }
@@ -112,93 +105,58 @@
       ctx.fill();
     }
     
-    // --- Updated Starfield Generation ---
+    // --- Starfield Generation ---
     function generateLayer(layerNum) {
-      // Layer 18: background galaxies instead of stars.
+      const totalStarLayers = 18;
+      let t;
       if (layerNum === 18) {
-        // Black background
+        // For layer 18, fill with a black background.
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, width, height);
-        // Generate faint background galaxies as bigger, fewer, tiny beige ellipses.
-        const numGalaxies = 30;  // Reduced number
-        for (let i = 0; i < numGalaxies; i++) {
-          const x = Math.random() * width;
-          const y = Math.random() * height;
-          // Bigger ellipses: increased minimum and range.
-          const ellipseWidth = 5 + Math.random() * 10;
-          const ellipseHeight = 5 + Math.random() * 10;
-          const grad = ctx.createRadialGradient(x, y, 0, x, y, Math.max(ellipseWidth, ellipseHeight) / 2);
-          grad.addColorStop(0, 'rgba(245,235,220,0.1)');
-          grad.addColorStop(1, 'rgba(245,235,220,0)');
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          if (ctx.ellipse) {
-            ctx.ellipse(x, y, ellipseWidth / 2, ellipseHeight / 2, 0, 0, Math.PI * 2);
-          } else {
-            const avg = (ellipseWidth + ellipseHeight) / 4;
-            ctx.arc(x, y, avg, 0, Math.PI * 2);
-          }
-          ctx.fill();
-        }
-        return;
+        // Use the same interpolation as layer 17.
+        t = (17 - 1) / (totalStarLayers - 1);
+      } else {
+        clearCanvas();
+        t = (layerNum - 1) / (totalStarLayers - 1);
       }
       
-      // For layers 1-17, generate stars.
-      // Calculate parameters using linear interpolation:
-      // - Front layer (layer 1): many stars (e.g., 120) with larger max size (e.g., 2.0)
-      // - Back layer (layer 17): fewer stars (e.g., 40) with smaller max size (e.g., 0.5)
-      const totalStarLayers = 17;
-      const startStars = 120, endStars = 40;
-      const startSize = 2.0, endSize = 0.5;
-      const t = (layerNum - 1) / (totalStarLayers - 1);
+      const startStars = 120, endStars = 30;
+      const startSize = 2.0, endSize = 0.3;
       const numStars = Math.floor(startStars - t * (startStars - endStars));
       const maxSize = startSize - t * (startSize - endSize);
-      
-      // Clear the canvas.
-      clearCanvas();
       
       for (let i = 0; i < numStars; i++) {
         const x = Math.random() * width;
         const y = Math.random() * height;
         let baseRadius = Math.random() * Math.random() * maxSize;
-        
-        // Determine star type to vary color and brightness.
-        // Blue stars: brighter and slightly larger.
-        // Red stars: fainter (with a chance for deep orange red dwarfs).
-        // Others: average white/yellow or a slight mix.
         const starType = Math.random();
         let r, g, b;
         let brightnessAdjustment = 1.0, sizeAdjustment = 1.0;
         
         if (starType < 0.1) {
-          // Blue star – brighter.
           brightnessAdjustment = 1.2;
           sizeAdjustment = 1.1;
           r = 200 + Math.floor(Math.random() * 55);
           g = 220 + Math.floor(Math.random() * 35);
           b = 255;
         } else if (starType < 0.2) {
-          // Red star – fainter.
           brightnessAdjustment = 0.8;
           sizeAdjustment = 0.9;
           r = 255;
           g = 160 + Math.floor(Math.random() * 40);
           b = 160 + Math.floor(Math.random() * 40);
-          // Occasionally, generate a deep orange (red dwarf).
           if (Math.random() < 0.3) {
             r = 255;
             g = 100 + Math.floor(Math.random() * 30);
             b = 50 + Math.floor(Math.random() * 20);
           }
         } else if (starType < 0.5) {
-          // Average star (white/yellowish).
           brightnessAdjustment = 1.0;
           sizeAdjustment = 1.0;
           r = 240;
           g = 240;
           b = 240;
         } else {
-          // Slight variation between a blueish and an orange tint.
           brightnessAdjustment = 1.0;
           sizeAdjustment = 1.0;
           if (Math.random() < 0.5) {
@@ -212,15 +170,11 @@
           }
         }
         
-        // Adjust the base radius by the star’s type.
         baseRadius *= sizeAdjustment;
-        
-        // Occasionally add a bright outlier.
         if (Math.random() < 0.05) {
           baseRadius *= 1.5 + Math.random();
         }
         
-        // Adjust color brightness without oversaturating.
         r = Math.min(255, Math.floor(r * brightnessAdjustment));
         g = Math.min(255, Math.floor(g * brightnessAdjustment));
         b = Math.min(255, Math.floor(b * brightnessAdjustment));
@@ -237,9 +191,24 @@
       }
     }
     
-    // --- Cluster and Nebula Functions (unchanged) ---
-    function generateGlobularCluster(variation) {
-      clearCanvas();
+    // --- New Tall Cluster/Nebula Generators ---
+    // Helper function to clear the tall container.
+    function clearTallContainer() {
+      document.getElementById('tallContainer').innerHTML = "";
+    }
+    
+    // Tall Globular Cluster: center allowed anywhere.
+    function generateTallGlobularCluster(variation) {
+      clearTallContainer();
+      const tallCanvas = document.createElement('canvas');
+      tallCanvas.width = canvas.width;
+      tallCanvas.height = 4000;
+      tallCanvas.style.border = "1px solid #555";
+      tallCanvas.style.display = "block";
+      tallCanvas.style.margin = "20px auto";
+      document.getElementById('tallContainer').appendChild(tallCanvas);
+      const tallCtx = tallCanvas.getContext('2d');
+      
       let clusterRadius, starCount, starSizeFactor;
       if (variation === 1) {
         clusterRadius = 100; starCount = 300; starSizeFactor = 0.8;
@@ -248,7 +217,11 @@
       } else {
         clusterRadius = 60; starCount = 200; starSizeFactor = 0.6;
       }
-      const centerX = width / 2, centerY = height / 2;
+      const newWidth = tallCanvas.width;
+      const newHeight = tallCanvas.height;
+      const centerX = Math.random() * newWidth;
+      const centerY = Math.random() * newHeight;
+      
       for (let i = 0; i < starCount; i++) {
         const angle = Math.random() * Math.PI * 2;
         let dist = Math.pow(Math.random(), 3) * clusterRadius;
@@ -257,26 +230,35 @@
         const y = centerY + dist * Math.sin(angle);
         const base = 240;
         const offset = Math.floor(Math.random() * 10);
-        ctx.fillStyle = `rgb(${base+offset},${base+offset-20},${base-20})`;
+        tallCtx.fillStyle = `rgb(${base+offset},${base+offset-20},${base-20})`;
         const starSize = starSizeFactor * (0.5 + Math.random() * 0.5);
-        ctx.beginPath();
-        ctx.arc(x, y, starSize, 0, Math.PI * 2);
-        ctx.fill();
+        tallCtx.beginPath();
+        tallCtx.arc(x, y, starSize, 0, Math.PI * 2);
+        tallCtx.fill();
       }
-      const glowGradient = ctx.createRadialGradient(centerX, centerY, clusterRadius * 0.1, centerX, centerY, clusterRadius * 0.3);
+      const glowGradient = tallCtx.createRadialGradient(centerX, centerY, clusterRadius * 0.1, centerX, centerY, clusterRadius * 0.3);
       glowGradient.addColorStop(0, 'rgba(255,255,220,0.05)');
       glowGradient.addColorStop(0.4, 'rgba(255,255,220,0.03)');
       glowGradient.addColorStop(0.7, 'rgba(255,255,220,0.01)');
       glowGradient.addColorStop(1, 'rgba(255,255,220,0)');
-      ctx.fillStyle = glowGradient;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, clusterRadius * 0.3, 0, Math.PI * 2);
-      ctx.fill();
+      tallCtx.fillStyle = glowGradient;
+      tallCtx.beginPath();
+      tallCtx.arc(centerX, centerY, clusterRadius * 0.3, 0, Math.PI * 2);
+      tallCtx.fill();
     }
     
-    function generateOpenCluster(variation) {
-      clearCanvas();
-      const centerX = width / 2, centerY = height / 2;
+    // Tall Open Cluster: center allowed anywhere.
+    function generateTallOpenCluster(variation) {
+      clearTallContainer();
+      const tallCanvas = document.createElement('canvas');
+      tallCanvas.width = canvas.width;
+      tallCanvas.height = 4000;
+      tallCanvas.style.border = "1px solid #555";
+      tallCanvas.style.display = "block";
+      tallCanvas.style.margin = "20px auto";
+      document.getElementById('tallContainer').appendChild(tallCanvas);
+      const tallCtx = tallCanvas.getContext('2d');
+      
       let clusterRadius, starCount, starSizeFactor;
       if (variation === 1) {
         clusterRadius = 60; starCount = 60; starSizeFactor = 1.2;
@@ -285,26 +267,40 @@
       } else {
         clusterRadius = 30; starCount = 30; starSizeFactor = 0.8;
       }
+      const newWidth = tallCanvas.width;
+      const newHeight = tallCanvas.height;
+      const centerX = Math.random() * newWidth;
+      const centerY = Math.random() * newHeight;
+      
       for (let i = 0; i < starCount; i++) {
         const angle = Math.random() * Math.PI * 2;
         const dist = Math.pow(Math.random(), 3) * clusterRadius;
         const x = centerX + dist * Math.cos(angle);
         const y = centerY + dist * Math.sin(angle);
         const color = (Math.random() < 0.9) ? 'rgb(245,245,250)' : 'rgb(250,230,230)';
-        ctx.fillStyle = color;
+        tallCtx.fillStyle = color;
         const starSize = starSizeFactor * (0.5 + Math.random());
-        ctx.beginPath();
-        ctx.arc(x, y, starSize, 0, Math.PI * 2);
-        ctx.fill();
+        tallCtx.beginPath();
+        tallCtx.arc(x, y, starSize, 0, Math.PI * 2);
+        tallCtx.fill();
       }
     }
     
-    function generateNebula(variation) {
-      clearCanvas();
-      const marginX = width * 0.15;
-      const marginY = height * 0.15;
-      const regionWidth = width - 2 * marginX;
-      const regionHeight = height - 2 * marginY;
+    // Tall Nebula: extended, more complex filaments.
+    function generateTallNebula(variation) {
+      clearTallContainer();
+      const tallCanvas = document.createElement('canvas');
+      tallCanvas.width = canvas.width;
+      tallCanvas.height = 4000;
+      tallCanvas.style.border = "1px solid #555";
+      tallCanvas.style.display = "block";
+      tallCanvas.style.margin = "20px auto";
+      document.getElementById('tallContainer').appendChild(tallCanvas);
+      const tallCtx = tallCanvas.getContext('2d');
+      
+      // Use the full canvas.
+      const regionWidth = tallCanvas.width;
+      const regionHeight = tallCanvas.height;
       
       let numFilaments, baseStrokeAlpha;
       if (variation === 1) {
@@ -315,17 +311,20 @@
         numFilaments = 6; baseStrokeAlpha = 0.010;
       }
       let filaments = [];
+      // Increase the number of points per filament for greater complexity.
       for (let i = 0; i < numFilaments; i++) {
         let pts = [];
-        let startX = marginX + Math.random() * regionWidth;
-        let startY = marginY + Math.random() * regionHeight;
+        let startX = Math.random() * regionWidth;
+        let startY = Math.random() * regionHeight;
         pts.push({ x: startX, y: startY });
-        const numPts = 4 + Math.floor(Math.random() * 3);
+        const numPts = 8 + Math.floor(Math.random() * 5); // 8 to 12 points.
         for (let j = 0; j < numPts; j++) {
-          let nextX = startX + (Math.random() - 0.5) * 150 * 0.7;
-          let nextY = startY + (Math.random() - 0.5) * 150 * 0.7;
-          nextX = Math.max(marginX, Math.min(width - marginX, nextX));
-          nextY = Math.max(marginY, Math.min(height - marginY, nextY));
+          // Increase displacement for longer filaments.
+          let nextX = startX + (Math.random() - 0.5) * 300;
+          let nextY = startY + (Math.random() - 0.5) * 300;
+          // Clamp values to remain within the canvas.
+          nextX = Math.max(0, Math.min(regionWidth, nextX));
+          nextY = Math.max(0, Math.min(regionHeight, nextY));
           pts.push({ x: nextX, y: nextY });
           startX = nextX;
           startY = nextY;
@@ -340,52 +339,53 @@
         { r: 180, g: 170, b: 240 }
       ];
       
-      // Draw the filament network.
-      ctx.lineWidth = 1.5;
+      // Draw the filament curves.
+      tallCtx.lineWidth = 1.5;
       for (let i = 0; i < filaments.length; i++) {
         const pts = filaments[i];
         const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
-        ctx.strokeStyle = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},${baseStrokeAlpha})`;
-        ctx.beginPath();
-        ctx.moveTo(pts[0].x, pts[0].y);
+        tallCtx.strokeStyle = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},${baseStrokeAlpha})`;
+        tallCtx.beginPath();
+        tallCtx.moveTo(pts[0].x, pts[0].y);
         for (let j = 1; j < pts.length; j++) {
           const cpX = (pts[j-1].x + pts[j].x) / 2;
           const cpY = (pts[j-1].y + pts[j].y) / 2;
-          ctx.quadraticCurveTo(cpX, cpY, pts[j].x, pts[j].y);
+          tallCtx.quadraticCurveTo(cpX, cpY, pts[j].x, pts[j].y);
         }
-        ctx.stroke();
+        tallCtx.stroke();
       }
       
-      // Draw overlapping ellipses along each filament.
+      // Draw larger ellipses along each filament.
       for (let i = 0; i < filaments.length; i++) {
         const pts = filaments[i];
         const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
         for (let j = 0; j < pts.length; j++) {
           const { x, y } = pts[j];
-          const ellipseWidth = (160 + Math.random() * 120) * 0.7;
-          const ellipseHeight = (130 + Math.random() * 80) * 0.7;
+          // Increase ellipse size for a more dramatic effect.
+          const ellipseWidth = (320 + Math.random() * 240) * 0.7;
+          const ellipseHeight = (260 + Math.random() * 160) * 0.7;
           let fillColor;
           if (ellipseWidth < 150 * 0.7) {
             fillColor = `rgba(190,170,150,0.04)`;
           } else {
             fillColor = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},0.05)`;
           }
-          const gradient = ctx.createRadialGradient(x, y, 0, x, y, ellipseWidth/2);
+          const gradient = tallCtx.createRadialGradient(x, y, 0, x, y, ellipseWidth/2);
           gradient.addColorStop(0, fillColor);
           gradient.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          if (ctx.ellipse) {
-            ctx.ellipse(x, y, ellipseWidth/2, ellipseHeight/2, Math.random()*Math.PI, 0, Math.PI*2);
+          tallCtx.fillStyle = gradient;
+          tallCtx.beginPath();
+          if (tallCtx.ellipse) {
+            tallCtx.ellipse(x, y, ellipseWidth/2, ellipseHeight/2, Math.random()*Math.PI, 0, Math.PI*2);
           } else {
             const avg = (ellipseWidth+ellipseHeight)/4;
-            ctx.arc(x, y, avg, 0, Math.PI*2);
+            tallCtx.arc(x, y, avg, 0, Math.PI*2);
           }
-          ctx.fill();
+          tallCtx.fill();
         }
       }
       
-      // Draw connecting ellipses between adjacent filament points.
+      // Draw connecting ellipses between filament points with increased factors.
       for (let i = 0; i < filaments.length; i++) {
         const pts = filaments[i];
         for (let j = 0; j < pts.length - 1; j++) {
@@ -396,42 +396,42 @@
           const dx = x2 - x1;
           const dy = y2 - y1;
           const dist = Math.sqrt(dx*dx + dy*dy);
-          const ellipseWidth = dist * 2.0 * 0.7;
-          const ellipseHeight = dist * 1.6 * 0.7;
-          const gradient = ctx.createRadialGradient(midX, midY, 0, midX, midY, ellipseWidth/2);
+          const ellipseWidth = dist * 2.5 * 0.7;
+          const ellipseHeight = dist * 2.0 * 0.7;
+          const gradient = tallCtx.createRadialGradient(midX, midY, 0, midX, midY, ellipseWidth/2);
           gradient.addColorStop(0, 'rgba(200,180,255,0.01)');
           gradient.addColorStop(1, 'rgba(200,180,255,0)');
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          if (ctx.ellipse) {
-            ctx.ellipse(midX, midY, ellipseWidth/2, ellipseHeight/2, 0, 0, Math.PI*2);
+          tallCtx.fillStyle = gradient;
+          tallCtx.beginPath();
+          if (tallCtx.ellipse) {
+            tallCtx.ellipse(midX, midY, ellipseWidth/2, ellipseHeight/2, 0, 0, Math.PI*2);
           } else {
             const avg = (ellipseWidth+ellipseHeight)/4;
-            ctx.arc(midX, midY, avg, 0, Math.PI*2);
+            tallCtx.arc(midX, midY, avg, 0, Math.PI*2);
           }
-          ctx.fill();
+          tallCtx.fill();
         }
       }
       
       // Add extra massive, smooth ellipses to envelop the nebula.
       const numMassive = 10;
       for (let k = 0; k < numMassive; k++) {
-        const centerX = marginX + Math.random() * regionWidth;
-        const centerY = marginY + Math.random() * regionHeight;
+        const centerX = Math.random() * regionWidth;
+        const centerY = Math.random() * regionHeight;
         const bigWidth = regionWidth * (0.8 + Math.random() * 0.2);
         const bigHeight = regionHeight * (0.8 + Math.random() * 0.2);
-        const bigGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, bigWidth/2);
+        const bigGradient = tallCtx.createRadialGradient(centerX, centerY, 0, centerX, centerY, bigWidth/2);
         bigGradient.addColorStop(0, 'rgba(180,160,220,0.001)');
         bigGradient.addColorStop(1, 'rgba(180,160,220,0)');
-        ctx.fillStyle = bigGradient;
-        ctx.beginPath();
-        if (ctx.ellipse) {
-          ctx.ellipse(centerX, centerY, bigWidth/2, bigHeight/2, 0, 0, Math.PI*2);
+        tallCtx.fillStyle = bigGradient;
+        tallCtx.beginPath();
+        if (tallCtx.ellipse) {
+          tallCtx.ellipse(centerX, centerY, bigWidth/2, bigHeight/2, 0, 0, Math.PI*2);
         } else {
           const avg = (bigWidth+bigHeight)/4;
-          ctx.arc(centerX, centerY, avg, 0, Math.PI*2);
+          tallCtx.arc(centerX, centerY, avg, 0, Math.PI*2);
         }
-        ctx.fill();
+        tallCtx.fill();
       }
     }
   </script>
