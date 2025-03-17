@@ -21,23 +21,29 @@
       font-weight: bold;
       font-style: normal;
     }
-    /* Ensure static page: full viewport, no scrolling */
+    /* Ensure full viewport, no scrolling */
     html, body {
       height: 100vh;
       margin: 0;
       padding: 0;
       overflow: hidden;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
     }
     body {
       font-family: 'Moon', sans-serif;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     strong, b {
       font-family: 'Moon Bold', sans-serif;
     }
     
-    /* Header exactly as in original base code */
+    /* Header */
     header {
       flex: 0 0 auto;
       background: #f4f4f4;
@@ -45,7 +51,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-sizing: border-box;
       width: 100%;
     }
     header .brand {
@@ -68,14 +73,13 @@
       color: #000;
     }
     
-    /* Footer as in original base code */
+    /* Footer */
     footer {
       flex: 0 0 auto;
       background: #f4f4f4;
       padding: 10px 20px;
       text-align: center;
       font-size: 14px;
-      box-sizing: border-box;
       width: 100%;
     }
     .social-links a img {
@@ -84,7 +88,7 @@
       margin: 0 5px;
     }
     
-    /* Main occupies remaining space */
+    /* Main content area */
     main {
       flex: 1 0 auto;
       position: relative;
@@ -92,25 +96,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
       width: 100%;
+      padding: 20px;
     }
     
-    /* Background video styling - fixed to cover entire viewport */
-    #bgVideo {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-    }
-    
-    /* Back button (unchanged) */
+    /* Back button */
     #backButton {
       position: absolute;
       top: 10px;
@@ -129,23 +119,29 @@
       padding: 0;
     }
     
-    /* Content Wrapper: full width */
+    /* Content wrapper */
     .content-wrapper {
       width: 100%;
+      max-width: 1200px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-sizing: border-box;
       padding: 0 20px;
     }
     
-    /* Progress Bar Container: positioned with margin-top -180px */
+    /* Title */
+    .monitor-title {
+      font-size: 2rem;
+      color: #000;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    /* Progress Bar */
     .progress-container {
-      width: 80%;
-      max-width: 1200px;
+      width: 100%;
       position: relative;
-      margin-top: -180px;
-      margin-bottom: 0;
+      margin: 20px 0;
     }
     .progress-bar {
       position: relative;
@@ -154,6 +150,7 @@
       border: 2px solid #000;
       border-radius: 12px;
       overflow: hidden;
+      width: 100%;
     }
     .progress-fill {
       height: 100%;
@@ -161,10 +158,10 @@
       width: 0%;
       transition: width 0.5s ease;
     }
-    /* Milestone icons placed along the progress bar */
+    /* Milestone icons */
     .milestone {
       position: absolute;
-      top: calc(50% - 15px); /* For desktop, centers a 30px icon vertically */
+      top: calc(50% - 15px); /* For desktop, centers 30px icon vertically */
       cursor: pointer;
       transform: translateX(-50%);
       transition: transform 0.2s;
@@ -177,7 +174,6 @@
       align-items: center;
       justify-content: center;
       font-size: 12px;
-      /* Set the icon image as background, cropped to center */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -186,7 +182,7 @@
       transform: translateX(-50%) scale(1.2);
     }
     
-    /* Custom tooltip styling */
+    /* Tooltip */
     .tooltip {
       position: absolute;
       background: rgba(0,0,0,0.8);
@@ -201,7 +197,7 @@
       transition: opacity 0.2s ease;
     }
     
-    /* Modal overlay for milestone details */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -230,26 +226,31 @@
       font-size: 24px;
       cursor: pointer;
     }
-    /* Modal image styling */
     #modalImage {
       max-width: 100%;
       margin-top: 10px;
       display: block;
     }
     
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
+    /* Media queries */
+    @media (max-width: 1000px) {
       header, footer, .content-wrapper {
         width: 100%;
+        max-width: 100%;
         padding: 10px;
       }
       header nav ul {
         flex-wrap: wrap;
         justify-content: center;
       }
-      /* Adjust milestone icon position for mobile: center a 10px dot vertically */
+    }
+    @media (max-width: 600px) {
+      /* For mobile, milestone dots become 10px and are centered in the 25px bar */
       .milestone {
         top: calc(50% - 5px);
+      }
+      .monitor-title {
+        font-size: 1.5rem; /* Ensure title text doesn't wrap */
       }
     }
   </style>
@@ -257,7 +258,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Header (as per original base code) -->
+  <!-- Header -->
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -275,15 +276,10 @@
   
   <!-- Main Section -->
   <main>
-    <!-- Background Video -->
-    <video autoplay muted loop playsinline id="bgVideo">
-      <source src="videos/background.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    
     <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
-    
     <div class="content-wrapper">
+      <!-- Title -->
+      <h1 class="monitor-title">Human Progress Monitor</h1>
       <!-- Progress Bar Container -->
       <div class="progress-container">
         <div class="progress-bar" id="progressBar">
@@ -294,7 +290,7 @@
     </div>
   </main>
   
-  <!-- Footer (as per original base code) -->
+  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -310,24 +306,23 @@
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
   
-  <!-- Custom Tooltip Element -->
+  <!-- Tooltip -->
   <div id="customTooltip" class="tooltip"></div>
   
-  <!-- Modal for Milestone Details (popup overlay) -->
+  <!-- Modal for Milestone Details -->
   <div class="modal" id="infoModal">
     <div class="modal-content">
       <span class="modal-close" id="modalClose">&times;</span>
       <h2 id="modalTitle"></h2>
       <p id="modalDescription"></p>
-      <!-- The following line that sets the modal image has been commented out.
-           Placeholder image code is commented out; we'll add it back in later.
-      <img id="modalImage" alt="Milestone Image" /> -->
+      <!-- The modal image code is commented out; we'll add it back in later -->
+      <!-- <img id="modalImage" alt="Milestone Image" /> -->
     </div>
   </div>
   
   <!-- JavaScript for milestone rendering, tooltip & scramble-reveal effects -->
   <script>
-    // Milestone data array with 22 entries from your list
+    // Milestone data array with 22 entries
     const milestones = [
       { id: 1, title: "Fire", description: "Humans started combusting natural fuels about 1.5 million years ago. Used for cooking, protection, toolmaking. Allowed them to move beyond basic survival.", image: "https://example.com/mastery_of_fire_image", icon: "https://t4.ftcdn.net/jpg/03/38/92/81/360_F_338928104_6b4Nhr5PxIIVc1RxB8zCP9YWw8kgqnEm.jpg", achieved: true },
       { id: 2, title: "Agriculture", description: "Around 10,000 BC, humans figured out farming. Stopped roaming, started building settlements. Population exploded. Societies started forming.", image: "https://example.com/agricultural_revolution_image", icon: "https://cdn2.vectorstock.com/i/1000x1000/92/76/simple-wheat-symbol-vector-18629276.jpg", achieved: true },
@@ -387,29 +382,12 @@
       return array.join('');
     }
     
-    // Function to update milestone icon styles based on viewport width
-    function updateMilestoneIcons() {
-      const circles = document.querySelectorAll('.milestone .circle');
-      circles.forEach(circle => {
-        if (window.innerWidth < 600) {
-          // Mobile: use black dots
-          circle.style.backgroundImage = "none";
-          circle.style.backgroundColor = "black";
-          circle.style.width = "10px";
-          circle.style.height = "10px";
-        } else {
-          // Desktop: restore original icon from data attribute
-          if (circle.dataset.icon) {
-            circle.style.backgroundImage = "url(" + circle.dataset.icon + ")";
-          }
-          circle.style.backgroundColor = "";
-          circle.style.width = "30px";
-          circle.style.height = "30px";
-        }
-      });
-    }
+    // We want the first milestone at 3% and the last at 97%
+    // That means the range is from 3% to 97% (a 94% span)
+    // The fill should reflect exactly the last achieved milestone's position
+    const n = milestones.length; // total number of milestones
     
-    // Render milestone icons along the progress bar
+    // Create each milestone icon
     milestones.forEach((ms, index) => {
       const msElement = document.createElement('div');
       msElement.classList.add('milestone');
@@ -417,18 +395,16 @@
       
       const circle = document.createElement('div');
       circle.classList.add('circle');
-      // Store the original icon in a data attribute
       circle.dataset.icon = ms.icon;
       circle.style.backgroundImage = "url(" + ms.icon + ")";
       circle.setAttribute('data-final-tooltip', ms.title);
-      
       msElement.appendChild(circle);
       
-      // Evenly space icons along the progress bar
-      const positionPercent = (index / (milestones.length - 1)) * 100;
-      msElement.style.left = positionPercent + '%';
+      // Calculate left position from 3% to 97%
+      const leftPos = 3 + (index / (n - 1)) * 94;
+      msElement.style.left = leftPos + '%';
       
-      // Only add tooltip event listeners on desktop (width > 600px)
+      // Tooltip on desktop only
       if (window.innerWidth > 600) {
         msElement.addEventListener('mouseenter', () => {
           const rect = circle.getBoundingClientRect();
@@ -442,7 +418,7 @@
         });
       }
       
-      // Click => modal overlay (always active); also hide tooltip on click.
+      // Click => open modal, hide tooltip
       msElement.addEventListener('click', () => {
         tooltipEl.style.opacity = 0;
         showModal(ms);
@@ -451,20 +427,41 @@
       progressContainer.appendChild(msElement);
     });
     
-    // Fill progress bar to last achieved milestone
+    // Now set the fill width to match the last achieved milestone
     const lastAchievedIndex = milestones.map(ms => ms.achieved).lastIndexOf(true);
-    let progressPercent = 0;
+    let fillPos = 0;
     if (lastAchievedIndex !== -1) {
-      progressPercent = (lastAchievedIndex / (milestones.length - 1)) * 100;
+      fillPos = 3 + (lastAchievedIndex / (n - 1)) * 94;
     }
-    progressFill.style.width = progressPercent + '%';
+    progressFill.style.width = fillPos + '%';
+    
+    // Adjust icons based on viewport width
+    function updateMilestoneIcons() {
+      const circles = document.querySelectorAll('.milestone .circle');
+      circles.forEach(circle => {
+        if (window.innerWidth < 600) {
+          // Mobile: black dots
+          circle.style.backgroundImage = "none";
+          circle.style.backgroundColor = "black";
+          circle.style.width = "10px";
+          circle.style.height = "10px";
+        } else {
+          // Desktop: restore icon
+          if (circle.dataset.icon) {
+            circle.style.backgroundImage = "url(" + circle.dataset.icon + ")";
+          }
+          circle.style.backgroundColor = "";
+          circle.style.width = "30px";
+          circle.style.height = "30px";
+        }
+      });
+    }
     
     // Modal functionality
     const modal = document.getElementById('infoModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
-    // The following line that sets the modal image source is commented out.
-    // Placeholder image code is commented out; we'll put them back in later.
+    // The line that sets the modal image source is commented out
     // const modalImage = document.getElementById('modalImage');
     const modalClose = document.getElementById('modalClose');
     
@@ -474,8 +471,7 @@
       modalDescription.textContent = "";
       scrambleRevealWordEffect(modalTitle, milestone.title);
       scrambleRevealWordEffect(modalDescription, milestone.description);
-      // Commented out: set modal image source (to be added back later)
-      // modalImage.src = milestone.image;
+      // modalImage.src = milestone.image; // commented out
     }
     modalClose.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -486,11 +482,9 @@
       }
     });
     
-    // Initial call and on resize update milestone icons and reattach tooltip events if needed.
+    // Initial update
     updateMilestoneIcons();
-    window.addEventListener('resize', () => {
-      updateMilestoneIcons();
-    });
+    window.addEventListener('resize', updateMilestoneIcons);
   </script>
 </body>
 </html>

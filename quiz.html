@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starfield Quiz – Hansen Space</title>
+  
+  <!-- Font-face declarations (remove or adjust if you don't have these fonts) -->
+  <style>
+    @font-face {
+      font-family: 'Moon';
+      src: url('fonts/Moon-Regular.woff2') format('woff2'),
+           url('fonts/Moon-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Moon Bold';
+      src: url('fonts/Moon-Bold.woff2') format('woff2'),
+           url('fonts/Moon-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    /* Set default font to Moon, and for bold text use Moon Bold */
+    body {
+      font-family: 'Moon', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    strong, b {
+      font-family: 'Moon Bold', sans-serif;
+    }
+    
+    /* Universal layout styles */
+    header, footer {
+      flex: 0 0 auto;
+    }
+    main {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Back button styling */
+    #backButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      background: #fff;
+      border: 1px solid #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    /* Styling for the Starfield Quiz settings */
+    #quizContainer {
+      text-align: center;
+      margin-top: 50px;
+    }
+    #quizContainer h1 {
+      margin-bottom: 20px;
+    }
+    .placeholder-dropdowns label {
+      display: block;
+      margin: 10px 0;
+    }
+    #startQuizButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-family: 'Moon Bold', sans-serif;
+      cursor: pointer;
+      border: 1px solid #000;
+      background-color: #fff;
+    }
+    
+    /* Styling for the game session */
+    #gameContainer {
+      display: flex;
+      width: 80%;
+      max-width: 900px;
+      margin: auto;
+    }
+    #gameLeft {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      min-height: 300px;
+      margin-right: 20px;
+    }
+    #gameRight {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #gameRight h2 {
+      margin-bottom: 20px;
+    }
+    #mcqContainer button {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 5px 0;
+      padding: 8px;
+      cursor: pointer;
+      border: 1px solid #000;
+      background-color: #fff;
+      font-family: 'Moon', sans-serif;
+    }
+    #exitGameButton {
+      margin-top: 20px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  
+  <!-- Standard site styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Hansen Space Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Section with Back Button -->
+  <main>
+    <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
+    
+    <!-- Starfield Quiz Settings -->
+    <div id="quizContainer">
+      <h1>Starfield Quiz</h1>
+      <div class="placeholder-dropdowns">
+        <label for="dropdown1">
+          Select Difficulty:
+          <select id="dropdown1">
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </label>
+        <label for="dropdown2">
+          Select Category:
+          <select id="dropdown2">
+            <option>Planets</option>
+            <option>Stars</option>
+            <option>Galaxies</option>
+          </select>
+        </label>
+      </div>
+      <button id="startQuizButton">Start</button>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+  
+  <!-- JavaScript to handle game start, API call, and exit -->
+  <script>
+    // When Start is clicked, begin the game session
+    document.getElementById("startQuizButton").addEventListener("click", startGame);
+    
+    function startGame() {
+      // Hide the quiz settings
+      const quizContainer = document.getElementById("quizContainer");
+      quizContainer.style.display = "none";
+      
+      // Create the game container with two sections
+      const gameContainer = document.createElement("div");
+      gameContainer.id = "gameContainer";
+      gameContainer.innerHTML = `
+        <div id="gameLeft">
+          <!-- Starfield image will be loaded here -->
+          <p>Loading starfield...</p>
+        </div>
+        <div id="gameRight">
+          <h2>Select the correct star</h2>
+          <div id="mcqContainer">
+            <button class="mcq">Option 1</button>
+            <button class="mcq">Option 2</button>
+            <button class="mcq">Option 3</button>
+            <button class="mcq">Option 4</button>
+          </div>
+          <button id="exitGameButton">x</button>
+        </div>
+      `;
+      
+      // Append the game container to the main area
+      document.querySelector("main").appendChild(gameContainer);
+      
+      // Load the starfield image from the Netlify function (which calls Astronomy API)
+      loadStarfieldImage();
+      
+      // Add event listener to the exit button to end the game session
+      document.getElementById("exitGameButton").addEventListener("click", exitGame);
+    }
+    
+    // Function to call the Netlify function for generating a starfield image
+    async function loadStarfieldImage() {
+      try {
+        // We now call the SAME function "astronomy" with ?ra=0&dec=0
+        const response = await fetch('/.netlify/functions/astronomy?ra=0&dec=0');
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        // The star chart image URL is typically at data.data.imageUrl
+        const imageUrl = data.data.imageUrl;
+        document.getElementById("gameLeft").innerHTML = `<img src="${imageUrl}" alt="Starfield (RA=0, DEC=0)" style="max-width:100%; height:auto;">`;
+      } catch (error) {
+        console.error("Error loading starfield image:", error);
+        document.getElementById("gameLeft").innerHTML = `<p>Error loading starfield image.</p>`;
+      }
+    }
+    
+    function exitGame() {
+      // Remove the game container
+      const gameContainer = document.getElementById("gameContainer");
+      if (gameContainer) {
+        gameContainer.parentNode.removeChild(gameContainer);
+      }
+      // Restore the quiz settings
+      const quizContainer = document.getElementById("quizContainer");
+      quizContainer.style.display = "block";
+    }
+  </script>
+</body>
+</html>

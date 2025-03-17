@@ -25,7 +25,7 @@
     }
     
     /* -------------------------------------------------------------------
-       Starfield Background Layers (unchanged)
+       Starfield Background Layers (unchanged except for scroll speed)
     ------------------------------------------------------------------- */
     .star-layer {
       background-size: auto !important;
@@ -89,11 +89,12 @@
       display: block;
       margin-bottom: 20px;
     }
-    /* Main paragraph text: use EB Garamond with slightly larger spacing between title and paragraphs */
+    /* Increased paragraph text size using EB Garamond */
     .group-text p {
       font-family: 'EB Garamond', serif !important;
       margin-top: 10px;
       margin-bottom: 0;
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
     }
     .group-grid {
       display: grid;
@@ -121,7 +122,7 @@
       grid-gap: 10px;
       grid-template-columns: repeat(3, 1fr);
     }
-    /* New rule: Display the top row of January Shorts side by side */
+    /* Display the top row of January Shorts side by side */
     .jan-shorts-top {
       display: flex;
       flex-wrap: wrap;
@@ -227,21 +228,17 @@
   </header>
   
   <!-- -------------------------------------------------------------------
-       Starfield Background Layers (unchanged)
+       Starfield Background Layers (unchanged, except scroll adjustment)
   ------------------------------------------------------------------- -->
-  <div id="layer1" class="star-layer" style="background-image: url('images/1.png'); z-index: 10;"></div>
-  <div id="layer2" class="star-layer" style="background-image: url('images/27.png'); z-index: 9.99;"></div>
-  <div id="layer5" class="star-layer" style="background-image: url('images/3.png'); z-index: 9;"></div>
-  <div id="layer6" class="star-layer" style="background-image: url('images/5.png'); z-index: 8;"></div>
-  <div id="layer7" class="star-layer" style="background-image: url('images/7.png'); z-index: 7;"></div>
-  <div id="layer8" class="star-layer" style="background-image: url('images/9.png'); z-index: 6;"></div>
-  <div id="layer9" class="star-layer" style="background-image: url('images/26.png'); z-index: 5.99;"></div>
-  <div id="layer12" class="star-layer" style="background-image: url('images/11.png'); z-index: 5;"></div>
-  <div id="layer13" class="star-layer" style="background-image: url('images/13.png'); z-index: 4;"></div>
-  <div id="layer14" class="star-layer" style="background-image: url('images/15.png'); z-index: 3;"></div>
-  <div id="layer15" class="star-layer" style="background-image: url('images/17.png'); z-index: 2;"></div>
-  <div id="layer16" class="star-layer" style="background-image: url('images/25.png'); z-index: 1.99;"></div>
-  <div id="layer19" class="star-layer" style="background-image: url('images/18.png'); z-index: 1;"></div>
+  <div id="layer1" class="star-layer" style="background-image: url('images/1.png'); z-index: 9;"></div>
+  <div id="layer5" class="star-layer" style="background-image: url('images/2.png'); z-index: 8;"></div>
+  <div id="layer6" class="star-layer" style="background-image: url('images/3.png'); z-index: 7;"></div>
+  <div id="layer2" class="star-layer" style="background-image: url('images/27.png'); z-index: 6;"></div>
+  <div id="layer7" class="star-layer" style="background-image: url('images/4.png'); z-index: 5;"></div>
+  <div id="layer9" class="star-layer" style="background-image: url('images/26.png'); z-index: 4;"></div>
+  <div id="layer8" class="star-layer" style="background-image: url('images/5.png'); z-index: 3;"></div>
+  <div id="layer16" class="star-layer" style="background-image: url('images/25.png'); z-index: 2;"></div>
+  <div id="layer19" class="star-layer" style="background-image: url('images/6.png'); z-index: 1;"></div>
   
   <!-- -------------------------------------------------------------------
        Scroll Indicator Section
@@ -286,12 +283,12 @@
   </div>
   
   <script>
-    // Parallax scroll functionality (unchanged)
+    // Parallax scroll functionality with updated endCoef for the bottom layer.
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
       const totalLayers = 19;
       const startCoef = 0.9;
-      const endCoef = 0.05;
+      const endCoef = 0.5; // Increased so the bottom layer scrolls faster
       const interval = (startCoef - endCoef) / (totalLayers - 1);
       for (let i = 1; i <= totalLayers; i++) {
         const layer = document.getElementById('layer' + i);
@@ -597,7 +594,7 @@
       const novGroup = document.createElement('div');
       novGroup.className = 'journey-group';
       novGroup.appendChild(createTextBox(
-"NOVEMBER 2024\n\nNovember was a great month for the Moon. During the first week of the month, the Moon paid a close visit to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
+"NOVEMBER 2024\n\nNovember was a great month for the Moon. During the first week of the month, the Moon paid a _close visit to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
         'nov2024Text'
       ));
       const novGrid = document.createElement('div');
@@ -693,7 +690,7 @@
       const janOccultGroup = document.createElement('div');
       janOccultGroup.className = 'journey-group';
       janOccultGroup.appendChild(createTextBox(
-"JANUARY 13 2025\n\nI prepared to capture a major cosmic event—a Moon-Mars occultation—on the night of January 13. I +set up both of my telescopes+(1) in front of my house and invited neighbors to watch the event with me while I filmed through my larger scope. Due to the low altitude of ingress in the sky, I could only see +Mars enter the occultation+(2) clearly through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, my +final image+(4) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
+"JANUARY 13 2025\n\nI prepared to capture a major cosmic event—a Moon-Mars occultation—on the night of January 13. I +set up both of my telescopes+(2) in front of my house and invited neighbors to watch the event with me while I filmed through my larger scope. Due to the low altitude of ingress in the sky, I could only see +Mars enter the occultation+(1) clearly through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, my +final image+(3) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
         'janOccultText'
       ));
       const janOccultGrid = document.createElement('div');
@@ -718,7 +715,7 @@
       const janPlanGroup = document.createElement('div');
       janPlanGroup.className = 'journey-group';
       janPlanGroup.appendChild(createTextBox(
-"JANUARY 2025\n\nI seized every clear night I had in January to go outside and “astronomize”. Due to my DSLR issues, I focused on planetary photography. Jupiter had just passed opposition but was still big and bright in the sky, and Mars was in its angular size prime. I even invested in Bob’s Knobs to hone in my collimation. I captured rotation time lapses of both planets and pushed for as much surface detail as I could with my scope. By the end of the month, the planets had sadly faded in the sky as the Earth left them behind.",
+"JANUARY 2025\n\nI seized every clear night I had in January to go outside and “astronomize”. Due to my DSLR issues, I focused on planetary photography. Jupiter had just passed opposition but was still big and bright in the sky, and Mars was in its angular size prime. I even invested in Bob’s Knobs to hone in my collimation, although they were quite frustrating to use at times. I captured rotation time lapses of both planets and pushed for as much surface detail as I could with my scope. By the end of the month, the planets had sadly faded in the sky as the Earth left them behind.",
         'janPlanText'
       ));
       const janPlanGrid = document.createElement('div');
