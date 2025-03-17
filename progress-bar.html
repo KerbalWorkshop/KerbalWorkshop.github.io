@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Progress Monitor – Hansen Space</title>
+  
+  <!-- Font-face declarations (DO NOT change fonts) -->
+  <style>
+    @font-face {
+      font-family: 'Moon';
+      src: url('fonts/Moon-Regular.woff2') format('woff2'),
+           url('fonts/Moon-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Moon Bold';
+      src: url('fonts/Moon-Bold.woff2') format('woff2'),
+           url('fonts/Moon-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    /* Ensure static page: full viewport, no scrolling */
+    html, body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      font-family: 'Moon', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    strong, b {
+      font-family: 'Moon Bold', sans-serif;
+    }
+    
+    /* Header exactly as in original base code */
+    header {
+      flex: 0 0 auto;
+      background: #f4f4f4;
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    header .brand {
+      margin-bottom: 5px;
+    }
+    header .brand img {
+      max-height: 40px;
+    }
+    header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+    }
+    header nav ul li a {
+      text-decoration: none;
+      color: #000;
+    }
+    
+    /* Footer as in original base code */
+    footer {
+      flex: 0 0 auto;
+      background: #f4f4f4;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 14px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .social-links a img {
+      width: 24px;
+      height: 24px;
+      margin: 0 5px;
+    }
+    
+    /* Main occupies remaining space */
+    main {
+      flex: 1 0 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    
+    /* Background video styling - fixed to cover entire viewport */
+    #bgVideo {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    /* Back button (unchanged) */
+    #backButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      background: #fff;
+      border: 1px solid #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    /* Content Wrapper: full width */
+    .content-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+    
+    /* Progress Bar Container: positioned with margin-top -180px */
+    .progress-container {
+      width: 80%;
+      max-width: 1200px;
+      position: relative;
+      margin-top: -180px;
+      margin-bottom: 0;
+    }
+    .progress-bar {
+      position: relative;
+      height: 25px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #4caf50;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    /* Milestone icons placed along the progress bar */
+    .milestone {
+      position: absolute;
+      top: calc(50% - 15px); /* For desktop, centers a 30px icon vertically */
+      cursor: pointer;
+      transform: translateX(-50%);
+      transition: transform 0.2s;
+    }
+    .milestone .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      /* Set the icon image as background, cropped to center */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .milestone:hover {
+      transform: translateX(-50%) scale(1.2);
+    }
+    
+    /* Custom tooltip styling */
+    .tooltip {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 3px 6px;
+      font-size: 12px;
+      border-radius: 3px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 1200;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    
+    /* Modal overlay for milestone details */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      width: 80%;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 8px;
+      position: relative;
+      font-family: inherit;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    /* Modal image styling */
+    #modalImage {
+      max-width: 100%;
+      margin-top: 10px;
+      display: block;
+    }
+    
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      header, footer, .content-wrapper {
+        width: 100%;
+        padding: 10px;
+      }
+      header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      /* Adjust milestone icon position for mobile: center a 10px dot vertically */
+      .milestone {
+        top: calc(50% - 5px);
+      }
+    }
+  </style>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header (as per original base code) -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Hansen Space Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Section -->
+  <main>
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="videos/background.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
+    
+    <div class="content-wrapper">
+      <!-- Progress Bar Container -->
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <!-- Milestone icons will be inserted here by JS -->
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer (as per original base code) -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+  
+  <!-- Custom Tooltip Element -->
+  <div id="customTooltip" class="tooltip"></div>
+  
+  <!-- Modal for Milestone Details (popup overlay) -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+      <!-- The following line that sets the modal image has been commented out.
+           Placeholder image code is commented out; we'll add it back in later.
+      <img id="modalImage" alt="Milestone Image" /> -->
+    </div>
+  </div>
+  
+  <!-- JavaScript for milestone rendering, tooltip & scramble-reveal effects -->
+  <script>
+    // Milestone data array with 22 entries from your list
+    const milestones = [
+      { id: 1, title: "Fire", description: "Humans started combusting natural fuels about 1.5 million years ago. Used for cooking, protection, toolmaking. Allowed them to move beyond basic survival.", image: "https://example.com/mastery_of_fire_image", icon: "https://t4.ftcdn.net/jpg/03/38/92/81/360_F_338928104_6b4Nhr5PxIIVc1RxB8zCP9YWw8kgqnEm.jpg", achieved: true },
+      { id: 2, title: "Agriculture", description: "Around 10,000 BC, humans figured out farming. Stopped roaming, started building settlements. Population exploded. Societies started forming.", image: "https://example.com/agricultural_revolution_image", icon: "https://cdn2.vectorstock.com/i/1000x1000/92/76/simple-wheat-symbol-vector-18629276.jpg", achieved: true },
+      { id: 3, title: "Writing", description: "Around 3,300 BC, humans started carving symbols into tablets. First proper system to store and pass down knowledge. Allowed generational progress to compound on itself.", image: "https://example.com/invention_of_writing_image", icon: "https://www.shutterstock.com/image-photo/sumerian-clay-tablet-isolated-on-260nw-2446460097.jpg", achieved: true },
+      { id: 4, title: "Wheel", description: "Circa 3,500 BC, humans put wheels on carts. Movement of goods, people, and ideas sped up. Machines got more efficient.", image: "https://example.com/wheel_and_axle_image", icon: "https://img.freepik.com/premium-photo/ancient-wooden-wheel-with-spokes-isolate_94132-1774.jpg?w=360", achieved: true },
+      { id: 5, title: "Printing Press", description: "1440 AD, humans started pressing ink onto paper in bulk. Suddenly, information and ideas spread fast.", image: "https://example.com/printing_press_image", icon: "https://www.shutterstock.com/image-vector/gutenberg-printing-press-icon-simple-600nw-2387867473.jpg", achieved: true },
+      { id: 6, title: "Industry", description: "1760–1840 AD, humans built machines to do their work. Steam power, urbanization, mass production. Completely transformed their way of living.", image: "https://example.com/industrial_revolution_image", icon: "https://media.istockphoto.com/id/625963170/vector/factory-isometric-3d-icon.jpg?s=170x170&k=20&c=YQlBiUm29LV7aL7D0hVJGPWQWzin9lZAHU6crgM9XZA=", achieved: true },
+      { id: 7, title: "Moon Landing", description: "1969 CE, humans sent two of their species to their Moon. First time they stepped on another world.", image: "https://example.com/moon_landing_image", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2-xLM8jsCDQhgD9rJntZGi2LLPEOI12gQTA&s", achieved: true },
+      { id: 8, title: "Global Network", description: "Late 20th century, they created what they call the “Internet”. Instant communication, information flow through electric signals. Society started shifting to digital existence.", image: "https://example.com/global_internet_integration_image", icon: "https://thumb.ac-illust.com/f4/f4d2ac07261436d1bc4c655b47801b20_t.jpeg", achieved: true },
+      { id: 9, title: "Mars Landing", description: "Soon, they will send people to Mars. First step to making it their second home.", image: "https://example.com/crewed_mars_landing_image", icon: "https://i.insider.com/5d56df35cd9784327a10032a?width=700", achieved: false },
+      { id: 10, title: "Nuclear Fusion Reactor", description: "Trying to replicate their star in a controlled way. If they pull it off, they would have unlimited power, no emissions.", image: "https://example.com/sustainable_nuclear_fusion_image", icon: "https://media.istockphoto.com/id/1202037894/vector/nuclear-fusion-gradient-fill-color-paper-cut-style-icon-design.jpg?s=612x612&w=0&k=20&c=krsq-Ijp3a0RfKO6aa6TG2WFUgebe2iEDeOclRLsvg4=", achieved: false },
+      { id: 11, title: "Lunar Base", description: "Humans will inevitably make the Moon a long-term outpost. Eventually, a fully sustainable settlement.", image: "https://example.com/permanent_lunar_base_image", icon: "https://room.eu.com/images/contents/ICON-MoonWorks.png", achieved: false },
+      { id: 12, title: "Mars Colony", description: "Would be the first human colony on another planet. Important for long-term species survival.", image: "https://example.com/mars_colony_image", icon: "https://media.istockphoto.com/id/1168451194/photo/terraforming-mars-with-an-outpost-colony.jpg?s=612x612&w=0&k=20&c=D-Hw3uYQGIm5pzzoKmRnEdTBXsqg3u59JfoyTlrAXXI=", achieved: false },
+      { id: 13, title: "Artificial General Intelligence", description: "If humans crack full AGI and integrate this technology into their machines and societies, their progress could be accelerated or prematurely ended. Huge wildcard", image: "https://example.com/agi_image", icon: "https://img.freepik.com/premium-vector/artificial-intelligence-microchip-digital-graphic-brain-ai-chip-board-circuit-line-icon-neural_502272-2016.jpg", achieved: false },
+      { id: 14, title: "Asteroid Mining", description: "Humans already understand the potential of mining asteroids. It is only a matter of time until they figure out the technology to do so. Could reshape their economy.", image: "https://example.com/asteroid_mining_image", icon: "https://undark.org/wp-content/uploads/2024/05/psyche_2000.jpg", achieved: false },
+      { id: 15, title: "Total Control Over Earth's Climate", description: "Full planetary environmental control is a natural step in civilization development.", image: "https://example.com/climate_control_image", icon: "https://i.natgeofe.com/n/f5453fe7-0483-42f1-b3e7-160e1d2019f8/940.jpg?w=413&h=310", achieved: false },
+      { id: 16, title: "Colonization of the Solar System", description: "Bases, habitats, industry spread across all major moons and planets in humans’ system.", image: "https://example.com/solar_system_colonization_image", icon: "https://cdn-icons-png.flaticon.com/512/12086/12086602.png", achieved: false },
+      { id: 17, title: "Terraforming Mars", description: "If humans can change the atmosphere and temperature of Mars, they make a second Earth.", image: "https://example.com/terraforming_mars_image", icon: "https://www.vice.com/wp-content/uploads/sites/2/2024/07/d86b11f584c1d9369279bcae14c9dfa0.jpg", achieved: false },
+      { id: 18, title: "Interstellar Travel", description: "Humans will grow out of their own star system. They will develop tech to send crewed missions beyond. Closest target: Alpha Centauri.", image: "https://example.com/interstellar_travel_image", icon: "https://scx2.b-cdn.net/gfx/news/2016/1-whysailingto.jpg", achieved: false },
+      { id: 19, title: "Dyson Swarm", description: "Energy production needs to keep growing. Humans may capture and use nearly all of their star’s output. Major step toward expansion into the galaxy.", image: "https://example.com/dyson_swarm_image", icon: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Dyson_swarm.png", achieved: false },
+      { id: 20, title: "Warp Drive", description: "They call it an Alcubierre Drive. The idea is to manipulate spacetime itself to bypass speed limits. This is a long way off.", image: "https://example.com/warp_drive_image", icon: "https://i.cdn.newsbytesapp.com/images/l99620240512101602.jpeg", achieved: false },
+      { id: 21, title: "Universal Simulation", description: "If humans get powerful enough, they will simulate entire realities.", image: "https://example.com/universal_simulation_image", icon: "https://services.meteored.com/img/article/um-dos-maiores-supercomputadores-do-mundo-fez-a-maior-simulacao-do-universo-1733626222613_512.png", achieved: false },
+      { id: 22, title: "Transcendence of Physical Form", description: "Humans might not stay biological. Moving their minds into machines or something would mean the end of them as they know it.", image: "https://example.com/transcendence_image", icon: "https://dailygalaxy.com/wp-content/uploads/2025/02/Physicists-May-Have-Just-Unlocked-the-Secret-of-Whats-Inside-a-Black-Hole-1200x727.jpg", achieved: false }
+    ];
+    
+    const progressContainer = document.querySelector('.progress-container');
+    const progressFill = document.getElementById('progressFill');
+    const tooltipEl = document.getElementById('customTooltip');
+    
+    /* 
+      scrambleRevealWordEffect:
+      Splits finalText into words and, for a fixed number of iterations,
+      replaces each word with a randomly scrambled version (shuffling its letters).
+      After the iteration count, the final text is revealed.
+    */
+    function scrambleRevealWordEffect(element, finalText, iterationCount = 8, intervalTime = 30) {
+      const words = finalText.split(' ');
+      let currentIteration = 0;
+      const scrambleInterval = setInterval(() => {
+        let scrambledWords = words.map(word => scrambleWord(word));
+        element.textContent = scrambledWords.join(' ');
+        currentIteration++;
+        if (currentIteration >= iterationCount) {
+          clearInterval(scrambleInterval);
+          element.textContent = finalText;
+        }
+      }, intervalTime);
+    }
+    
+    // Randomly shuffle letters of a word
+    function scrambleWord(word) {
+      let array = word.split('');
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array.join('');
+    }
+    
+    // Function to update milestone icon styles based on viewport width
+    function updateMilestoneIcons() {
+      const circles = document.querySelectorAll('.milestone .circle');
+      circles.forEach(circle => {
+        if (window.innerWidth < 600) {
+          // Mobile: use black dots
+          circle.style.backgroundImage = "none";
+          circle.style.backgroundColor = "black";
+          circle.style.width = "10px";
+          circle.style.height = "10px";
+        } else {
+          // Desktop: restore original icon from data attribute
+          if (circle.dataset.icon) {
+            circle.style.backgroundImage = "url(" + circle.dataset.icon + ")";
+          }
+          circle.style.backgroundColor = "";
+          circle.style.width = "30px";
+          circle.style.height = "30px";
+        }
+      });
+    }
+    
+    // Render milestone icons along the progress bar
+    milestones.forEach((ms, index) => {
+      const msElement = document.createElement('div');
+      msElement.classList.add('milestone');
+      msElement.setAttribute('data-id', ms.id);
+      
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+      // Store the original icon in a data attribute
+      circle.dataset.icon = ms.icon;
+      circle.style.backgroundImage = "url(" + ms.icon + ")";
+      circle.setAttribute('data-final-tooltip', ms.title);
+      
+      msElement.appendChild(circle);
+      
+      // Evenly space icons along the progress bar
+      const positionPercent = (index / (milestones.length - 1)) * 100;
+      msElement.style.left = positionPercent + '%';
+      
+      // Only add tooltip event listeners on desktop (width > 600px)
+      if (window.innerWidth > 600) {
+        msElement.addEventListener('mouseenter', () => {
+          const rect = circle.getBoundingClientRect();
+          tooltipEl.style.left = rect.left + rect.width / 2 + "px";
+          tooltipEl.style.top = rect.bottom + window.scrollY + 5 + "px";
+          tooltipEl.style.opacity = 1;
+          scrambleRevealWordEffect(tooltipEl, ms.title);
+        });
+        msElement.addEventListener('mouseleave', () => {
+          tooltipEl.style.opacity = 0;
+        });
+      }
+      
+      // Click => modal overlay (always active); also hide tooltip on click.
+      msElement.addEventListener('click', () => {
+        tooltipEl.style.opacity = 0;
+        showModal(ms);
+      });
+      
+      progressContainer.appendChild(msElement);
+    });
+    
+    // Fill progress bar to last achieved milestone
+    const lastAchievedIndex = milestones.map(ms => ms.achieved).lastIndexOf(true);
+    let progressPercent = 0;
+    if (lastAchievedIndex !== -1) {
+      progressPercent = (lastAchievedIndex / (milestones.length - 1)) * 100;
+    }
+    progressFill.style.width = progressPercent + '%';
+    
+    // Modal functionality
+    const modal = document.getElementById('infoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    // The following line that sets the modal image source is commented out.
+    // Placeholder image code is commented out; we'll put them back in later.
+    // const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+    
+    function showModal(milestone) {
+      modal.style.display = 'flex';
+      modalTitle.textContent = "";
+      modalDescription.textContent = "";
+      scrambleRevealWordEffect(modalTitle, milestone.title);
+      scrambleRevealWordEffect(modalDescription, milestone.description);
+      // Commented out: set modal image source (to be added back later)
+      // modalImage.src = milestone.image;
+    }
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    window.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+    
+    // Initial call and on resize update milestone icons and reattach tooltip events if needed.
+    updateMilestoneIcons();
+    window.addEventListener('resize', () => {
+      updateMilestoneIcons();
+    });
+  </script>
+</body>
+</html>
