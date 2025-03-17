@@ -340,20 +340,20 @@
       ];
       
       // Draw the filament curves.
-      tallCtx.lineWidth = 1.5;
-      for (let i = 0; i < filaments.length; i++) {
-        const pts = filaments[i];
-        const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
-        tallCtx.strokeStyle = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},${baseStrokeAlpha})`;
-        tallCtx.beginPath();
-        tallCtx.moveTo(pts[0].x, pts[0].y);
-        for (let j = 1; j < pts.length; j++) {
-          const cpX = (pts[j-1].x + pts[j].x) / 2;
-          const cpY = (pts[j-1].y + pts[j].y) / 2;
-          tallCtx.quadraticCurveTo(cpX, cpY, pts[j].x, pts[j].y);
-        }
-        tallCtx.stroke();
-      }
+      // tallCtx.lineWidth = 1.5;
+      // for (let i = 0; i < filaments.length; i++) {
+      //   const pts = filaments[i];
+      //   const baseColor = uniformPalette[Math.floor(Math.random() * uniformPalette.length)];
+      //   tallCtx.strokeStyle = `rgba(${baseColor.r},${baseColor.g},${baseColor.b},${baseStrokeAlpha})`;
+      //   tallCtx.beginPath();
+      //   tallCtx.moveTo(pts[0].x, pts[0].y);
+      //   for (let j = 1; j < pts.length; j++) {
+      //     const cpX = (pts[j-1].x + pts[j].x) / 2;
+      //     const cpY = (pts[j-1].y + pts[j].y) / 2;
+      //     tallCtx.quadraticCurveTo(cpX, cpY, pts[j].x, pts[j].y);
+      //   }
+      //   tallCtx.stroke();
+      // }
       
       // Draw larger ellipses along each filament.
       for (let i = 0; i < filaments.length; i++) {
@@ -372,6 +372,7 @@
           }
           const gradient = tallCtx.createRadialGradient(x, y, 0, x, y, ellipseWidth/2);
           gradient.addColorStop(0, fillColor);
+          gradient.addColorStop(0.7, fillColor); // Keep the same color until 70% of the radius.
           gradient.addColorStop(1, 'rgba(0,0,0,0)');
           tallCtx.fillStyle = gradient;
           tallCtx.beginPath();

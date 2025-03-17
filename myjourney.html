@@ -4,16 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Journey – Hansen Space</title>
-  <!-- Parallax CSS for starfields -->
+  <!-- Import EB Garamond for main paragraph text -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+  <!-- Parallax CSS for starfields (unchanged) -->
   <link rel="stylesheet" href="parallax.css">
-  <!-- Your site styles for header, etc. -->
+  <!-- Your site styles for header, etc. (unchanged) -->
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* All star layers display as transparent PNGs, except for layer19 (which uses 18.png) */
+    /* -------------------------------------------------------------------
+       Universal Group Spacing:
+       Every journey group (except the first) gets a top margin.
+    ------------------------------------------------------------------- */
+    .journey-group:not(:first-child) {
+      margin-top: 200px;
+    }
+    @media (max-width: 600px) {
+      .journey-group:not(:first-child) {
+        margin-top: 250px;
+      }
+    }
+    
+    /* -------------------------------------------------------------------
+       Starfield Background Layers (unchanged)
+    ------------------------------------------------------------------- */
+    .star-layer {
+      background-size: auto !important;
+      background-repeat: repeat !important;
+    }
+    @media (min-width: 1001px) {
+      #layer2,  /* 27.png */
+      #layer9,  /* 26.png */
+      #layer16  /* 25.png */ {
+        background-size: 100% auto !important;
+        background-repeat: repeat-x !important;
+      }
+    }
     .star-layer:not(#layer19) {
       background-color: transparent;
     }
-    /* Ensure the footer appears above the background */
     footer {
       position: relative;
       z-index: 101;
@@ -26,7 +54,11 @@
       z-index: 200;
       background: transparent;
     }
-    /* Journey Container: centered, max-width 1000px with equal side padding */
+    
+    /* -------------------------------------------------------------------
+       Main Content Area (Journey Container)
+         Maximum width of 1000px; responsive padding.
+    ------------------------------------------------------------------- */
     .journey-container {
       position: relative;
       z-index: 210;
@@ -35,54 +67,150 @@
       margin: 0 auto;
       padding: 40px;
       box-sizing: border-box;
-      height: auto;
     }
-    /* Journey Components – Desktop */
-    .text-box {
-      position: absolute;
+    
+    /* -------------------------------------------------------------------
+       Group Structure:
+         Each group has a text box on top and a grid of images below.
+    ------------------------------------------------------------------- */
+    .group-text {
       background: rgba(0, 0, 0, 0.8);
       border: 1px solid #fff;
       padding: 20px;
       border-radius: 8px;
-      max-width: 250px;
       color: white;
       font-size: clamp(0.8rem, 1vw, 1rem);
       box-sizing: border-box;
     }
-    .image-box {
-      position: absolute;
+    /* Date titles: bold and larger with extra bottom margin */
+    .date-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      display: block;
+      margin-bottom: 20px;
+    }
+    /* Main paragraph text: use EB Garamond with slightly larger spacing between title and paragraphs */
+    .group-text p {
+      font-family: 'EB Garamond', serif !important;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+    .group-grid {
+      display: grid;
+      grid-gap: 20px;
+      margin-top: 20px;
+      /* Constrain the grid's width so it doesn't span as wide as the text */
+      width: 90%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    /* Custom nested containers for December YouTube Launch and January Shorts */
+    .yt-container, .jan-shorts-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto 0 auto;
+    }
+    .yt-bottom, .jan-shorts-bottom {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    /* New rule: Display the top row of January Shorts side by side */
+    .jan-shorts-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    /* Spring 2025 – Always one column */
+    .spring-grid {
+      display: grid;
+      grid-gap: 20px;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      grid-template-columns: 1fr;
+    }
+    
+    .group-grid img,
+    .yt-container img,
+    .jan-shorts-container img,
+    .spring-grid img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
       border: 2px solid #fff;
       border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.3s;
-      width: clamp(120px, 15vw, 180px);
       box-sizing: border-box;
     }
-    .image-box:hover {
-      transform: scale(1.05);
+    
+    /* Flash animation for scroll links */
+    .flash {
+      animation: flash 0.5s ease-out;
     }
-    /* Mobile: vertical, centered layout with smaller text */
+    @keyframes flash {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.1); filter: brightness(2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+    
+    /* -------------------------------------------------------------------
+       Scroll Indicator Section
+    ------------------------------------------------------------------- */
+    .scroll-indicator-container {
+      position: relative;
+      z-index: 300;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .scroll-indicator {
+      font-size: 2rem;
+      color: white;
+    }
+    
+    /* -------------------------------------------------------------------
+       Mobile Adjustments:
+         Scale down spacing, font size, grid gaps, and reduce minimum column width.
+    ------------------------------------------------------------------- */
     @media (max-width: 600px) {
       .journey-container {
         padding: 20px;
       }
-      .journey-container .text-box,
-      .journey-container .image-box {
-        position: relative;
-        left: 0 !important;
-        margin: 20px auto;
-        display: block;
-        max-width: 90%;
-      }
-      .journey-container .text-box {
-        padding: 15px;
+      .group-text {
         font-size: 0.75em;
+        padding: 15px;
       }
+      .group-grid {
+        grid-gap: 15px;
+        max-width: 80%;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      .yt-container, .jan-shorts-container, .spring-grid {
+        max-width: 80%;
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       Hyperlink Styling in Text Boxes:
+       Make all links (generated by the + markup) a lighter shade of blue and underlined.
+    ------------------------------------------------------------------- */
+    .group-text a.scroll-link, .group-text a.external-link {
+      color: #66ccff;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -98,41 +226,42 @@
     </nav>
   </header>
   
-  <!-- Starfield Background Layers (re‑numbered 1–19 in scroll order) -->
-  <!-- Original Star Layers (using your file names) -->
+  <!-- -------------------------------------------------------------------
+       Starfield Background Layers (unchanged)
+  ------------------------------------------------------------------- -->
   <div id="layer1" class="star-layer" style="background-image: url('images/1.png'); z-index: 10;"></div>
   <div id="layer2" class="star-layer" style="background-image: url('images/27.png'); z-index: 9.99;"></div>
-  <!-- <div id="layer3" class="star-layer" style="background-image: url('images/24.png'); z-index: 9.66;"></div>
-  <div id="layer4" class="star-layer" style="background-image: url('images/21.png'); z-index: 9.33;"></div> -->
   <div id="layer5" class="star-layer" style="background-image: url('images/3.png'); z-index: 9;"></div>
   <div id="layer6" class="star-layer" style="background-image: url('images/5.png'); z-index: 8;"></div>
   <div id="layer7" class="star-layer" style="background-image: url('images/7.png'); z-index: 7;"></div>
   <div id="layer8" class="star-layer" style="background-image: url('images/9.png'); z-index: 6;"></div>
   <div id="layer9" class="star-layer" style="background-image: url('images/26.png'); z-index: 5.99;"></div>
-  <!-- <div id="layer10" class="star-layer" style="background-image: url('images/23.png'); z-index: 5.66;"></div>
-  <div id="layer11" class="star-layer" style="background-image: url('images/20.png'); z-index: 5.33;"></div> -->
   <div id="layer12" class="star-layer" style="background-image: url('images/11.png'); z-index: 5;"></div>
   <div id="layer13" class="star-layer" style="background-image: url('images/13.png'); z-index: 4;"></div>
   <div id="layer14" class="star-layer" style="background-image: url('images/15.png'); z-index: 3;"></div>
   <div id="layer15" class="star-layer" style="background-image: url('images/17.png'); z-index: 2;"></div>
-  <!-- New Layers interleaved with originals -->
   <div id="layer16" class="star-layer" style="background-image: url('images/25.png'); z-index: 1.99;"></div>
-  <!-- <div id="layer17" class="star-layer" style="background-image: url('images/22.png'); z-index: 1.66;"></div>
-  <div id="layer18" class="star-layer" style="background-image: url('images/19.png'); z-index: 1.33;"></div> -->
-  <!-- The only non-transparent background: 18.png -->
   <div id="layer19" class="star-layer" style="background-image: url('images/18.png'); z-index: 1;"></div>
   
-  <!-- Main Content (with extra height for scrolling) -->
-  <div class="content">
-    <!-- Journey Content Container -->
-    <div id="journeyContainer" class="journey-container">
-      <!-- Journey modules (text boxes, image boxes) will be dynamically added here -->
+  <!-- -------------------------------------------------------------------
+       Scroll Indicator Section
+  ------------------------------------------------------------------- -->
+  <div class="scroll-indicator-container">
+    <div class="scroll-indicator">
+      &#x2193; scroll &#x2193;
     </div>
-    <!-- Extended content to allow scrolling -->
+  </div>
+  
+  <!-- -------------------------------------------------------------------
+       Main Content Area
+  ------------------------------------------------------------------- -->
+  <div class="content">
+    <div id="journeyContainer" class="journey-container">
+      <!-- Journey content will be inserted here by JavaScript -->
+    </div>
     <p style="height:9000px;"></p>
   </div>
   
-  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -148,15 +277,22 @@
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
   
+  <!-- -------------------------------------------------------------------
+       Modal for Full-Screen Image Popup
+  ------------------------------------------------------------------- -->
+  <div id="modal" class="modal">
+    <span id="modalClose" class="modal-close">&times;</span>
+    <img id="modalImage" class="modal-content" src="">
+  </div>
+  
   <script>
-    // Parallax scroll functionality: Loop over layers 1 to 19.
+    // Parallax scroll functionality (unchanged)
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
       const totalLayers = 19;
       const startCoef = 0.9;
-      const endCoef = 0.005;
+      const endCoef = 0.05;
       const interval = (startCoef - endCoef) / (totalLayers - 1);
-      
       for (let i = 1; i <= totalLayers; i++) {
         const layer = document.getElementById('layer' + i);
         if (layer) {
@@ -165,85 +301,462 @@
         }
       }
     });
-
-    // Modular Journey Components Functions
-    function createTextBox(text, x, y, id) {
+    
+    // Helper functions for journey components.
+    function createTextBox(text, id) {
       const div = document.createElement('div');
-      div.className = 'text-box';
+      div.className = 'group-text';
       if (id) div.id = id;
-      div.style.left = typeof x === 'string' ? x : x + 'px';
-      div.style.top = y + 'px';
-      div.innerHTML = text;
+      // Process asterisk italic formatting (remove the asterisks)
+      text = text.replace(/\*(.*?)\*/g, "<i>$1</i>");
+      // Process underscore italic formatting
+      text = text.replace(/_(.*?)_/g, "<i>$1</i>");
+      // Process plus-markup for hyperlinks:
+      // Matches: +some text+(...content...)
+      // If the content in parentheses is digits, treat it as a scroll link;
+      // otherwise, treat it as an external link.
+      text = text.replace(/\+([^+]+)\+\(([^)]+)\)/g, function(match, p1, p2) {
+          if (/^\d+$/.test(p2.trim())) {
+            return '<a href="#" class="scroll-link" data-img="' + p2.trim() + '">' + p1 + '</a>';
+          } else {
+            return '<a href="' + p2.trim().replace(/^link to\s*/i, "") + '" target="_blank" class="external-link">' + p1 + '</a>';
+          }
+      });
+      // Split text by double-newline; wrap the first block in a span with class "date-title"
+      // and subsequent blocks in <p> tags.
+      const parts = text.split("\n\n").map(part => part.trim()).filter(Boolean);
+      if (parts.length > 0) {
+        let html = "<span class='date-title'>" + parts[0] + "</span>";
+        for (let i = 1; i < parts.length; i++) {
+          html += "<p>" + parts[i] + "</p>";
+        }
+        div.innerHTML = html;
+      } else {
+        div.innerHTML = text;
+      }
       return div;
     }
-
-    function createImageBox(src, alt, x, y, id) {
+    
+    function createImageBox(src, alt, id) {
       const img = document.createElement('img');
       img.className = 'image-box';
       if (id) img.id = id;
-      img.style.left = typeof x === 'string' ? x : x + 'px';
-      img.style.top = y + 'px';
       img.src = src;
       img.alt = alt;
-      img.addEventListener('click', function() {
-        alert('Clicked image: ' + alt);
-      });
       return img;
     }
-
-    // Build Sample Journey Content on Window Load
+    
+    // Function to handle scroll link click
+    function handleScrollLink(event) {
+      event.preventDefault();
+      const link = event.currentTarget;
+      const targetIndex = parseInt(link.getAttribute('data-img'), 10) - 1;
+      // Find the closest journey-group container
+      const group = link.closest('.journey-group');
+      if (!group) return;
+      // Look for a container with either .group-grid or .spring-grid
+      const grid = group.querySelector('.group-grid, .spring-grid');
+      if (!grid) return;
+      const images = grid.querySelectorAll('img');
+      if (targetIndex < 0 || targetIndex >= images.length) return;
+      const targetImage = images[targetIndex];
+      // Scroll to the target image smoothly
+      targetImage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Flash and bulge the target image
+      targetImage.classList.add('flash');
+      setTimeout(() => {
+        targetImage.classList.remove('flash');
+      }, 500);
+    }
+    
+    // After content is built, attach click handlers to scroll links
+    function attachScrollLinkHandlers() {
+      const links = document.querySelectorAll('.scroll-link');
+      links.forEach(link => {
+        link.addEventListener('click', handleScrollLink);
+      });
+    }
+    
+    // Build the journey content.
     window.addEventListener('load', function() {
       const journeyContainer = document.getElementById('journeyContainer');
-
-      // Example desktop layout with percentage horizontal positioning:
-      const textBox1 = createTextBox(
-        '<h3>My First Stargazing Experience</h3><p>The night sky captivated me.</p>',
-        "10%", 300, 'textBox1'
-      );
-      journeyContainer.appendChild(textBox1);
-
-      const imageBox1 = createImageBox(
-        'https://via.placeholder.com/200', 'First Stars',
-        "60%", 350, 'imageBox1'
-      );
-      journeyContainer.appendChild(imageBox1);
-
-      const textBox2 = createTextBox(
-        '<h3>Discovering Astronomy</h3><p>The cosmos opened up new mysteries.</p>',
-        "60%", 600, 'textBox2'
-      );
-      journeyContainer.appendChild(textBox2);
-
-      const imageBox2 = createImageBox(
-        'https://via.placeholder.com/200', 'My Telescope',
-        "10%", 650, 'imageBox2'
-      );
-      journeyContainer.appendChild(imageBox2);
-
-      const textBox3 = createTextBox(
-        '<h3>Exploring the Universe</h3><p>Each discovery led me to new adventures in space.</p>',
-        "10%", 900, 'textBox3'
-      );
-      journeyContainer.appendChild(textBox3);
-
-      const imageBox3 = createImageBox(
-        'https://via.placeholder.com/200', 'Galaxies',
-        "60%", 950, 'imageBox3'
-      );
-      journeyContainer.appendChild(imageBox3);
-
-      const textBox4 = createTextBox(
-        '<h3>Astronomy in Action</h3><p>Hands-on experiences with telescopes and stars.</p>',
-        "60%", 1200, 'textBox4'
-      );
-      journeyContainer.appendChild(textBox4);
-
-      const imageBox4 = createImageBox(
-        'https://via.placeholder.com/200', 'Night Sky',
-        "10%", 1250, 'imageBox4'
-      );
-      journeyContainer.appendChild(imageBox4);
+      journeyContainer.innerHTML = "";
+      
+      // --- Group 1: SUMMER 2024 ---
+      const summerGroup = document.createElement('div');
+      summerGroup.className = 'journey-group';
+      summerGroup.appendChild(createTextBox(
+"SUMMER 2024\n\nOne night, I decided to point my phone at the sky and take a long exposure photo. To my surprise, the image had revealed the band of the Milky Way like I had never seen it before.\n\nThat summer, I would take my phone out to the backyard every night and hold it up to the sky as it would collect light for 10 seconds. I would be able to zoom into those photos and see more stars than ever before.\n\nWhile my phone was able to cut through my neighborhood’s light pollution and show me the unfettered night sky, I longed to see the same view with my own eyes.",
+        'summerText'
+      ));
+      const summerGrid = document.createElement('div');
+      summerGrid.className = 'group-grid summer-grid';
+      summerGrid.appendChild(createImageBox('journeyimages/2024-07-26.jpg', 'Long Exposure Shot 1', 'summerImg1'));
+      summerGrid.appendChild(createImageBox('journeyimages/2024-08-28 (2).jpg', 'Long Exposure Shot 2', 'summerImg2'));
+      summerGrid.appendChild(createImageBox('journeyimages/2024-08-28.jpg', 'Long Exposure Shot 3', 'summerImg3'));
+      summerGrid.appendChild(createImageBox('journeyimages/2024-08-29.jpg', 'Long Exposure Shot 4', 'summerImg4'));
+      summerGroup.appendChild(summerGrid);
+      journeyContainer.appendChild(summerGroup);
+      
+      // --- Group 2: SEPTEMBER 1 2024 ---
+      const sepGroup = document.createElement('div');
+      sepGroup.className = 'journey-group';
+      sepGroup.appendChild(createTextBox(
+"SEPTEMBER 1 2024\n\nOver 2024’s Labor Day weekend, I spent one night camping on California’s Point Reyes seashore. Having recently learned of the Bortle scale, I knew that I would be distant enough from civilization to be situated in a Bortle 3 zone—an area with skies dark enough to see the Milky Way and thousands of stars.\n\nWhen the Sun set that evening, I could not keep my eyes off the sky until I Milky Way came into view.\n\nEarlier that day, I had downloaded Stellarium, a stargazing app, on my phone. While exploring the app after the night was underway, I noticed a large oval on the screen labeled “M31”. Clicking it, I realized the oval was marking where to find the Andromeda Galaxy in the sky. I was impressed that the app included such arcane celestial objects in its representation of the night sky, though it seemed obvious that I would never see distant galaxies firsthand. Yet when I trained my eyes between Mirach and Schedar, I saw it. A faint but noticeable +smudge of light+(2) in the sky.\n\nOnly hours after glimpsing M31 did it truly hit me—that smudge of light was an entire galaxy, a behemoth. Billions of stars, worlds colliding, coalescing, and possibly harboring life, humbly lurking overhead as nothing more than a gentle, soft patch of light. Wow.",
+        'sepText'
+      ));
+      const sepGrid = document.createElement('div');
+      sepGrid.className = 'group-grid september-grid';
+      sepGrid.appendChild(createImageBox('journeyimages/2024-09-01.jpg', 'Dark Skies Shot 2', 'sepImg2'));
+      sepGrid.appendChild(createImageBox('journeyimages/2024-09-02.jpg', 'Dark Skies Shot 3', 'sepImg3'));
+      sepGroup.appendChild(sepGrid);
+      journeyContainer.appendChild(sepGroup);
+      
+      // --- Group 3: SEPTEMBER 14 2024 ---
+      const sep2Group = document.createElement('div');
+      sep2Group.className = 'journey-group';
+      sep2Group.appendChild(createTextBox(
+"SEPTEMBER 14 2024\n\nWith a newfound fascination for the night sky, I pulled out my old telescope—a 90mm Cassegrain—and pointed it at the Moon. I had done this many times, but this time I decided to snap a +picture of the view of the Moon+(2) by placing my phone against the eyepiece. I did the same for +Saturn+(1).\n\nThese pictures immortalized my observations, letting me relive the experience whenever I wanted.",
+        'sep2Text'
+      ));
+      const sep2Grid = document.createElement('div');
+      sep2Grid.className = 'group-grid september-grid';
+      let img;
+      img = createImageBox('journeyimages/2024-09-14 (2).jpg', 'Telescope View 1', 'sep2Img1');
+      img.style.aspectRatio = "3 / 4";
+      sep2Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-09-14.jpg', 'Telescope View 2', 'sep2Img2');
+      img.style.aspectRatio = "3 / 4";
+      sep2Grid.appendChild(img);
+      sep2Group.appendChild(sep2Grid);
+      journeyContainer.appendChild(sep2Group);
+      
+      // --- Group 4: OCTOBER 2024 ---
+      const octGroup = document.createElement('div');
+      octGroup.className = 'journey-group';
+      octGroup.appendChild(createTextBox(
+"OCTOBER 2024\n\nOctober was a month of learning for me. I taught myself the constellations. I learned the names of stars and deep sky objects. I realized that Jupiter and Mars were both lurking in the winter hexagon, a rich starry region of the sky augmented by the presence of the two bright planets.\n\nOne night, I stayed up past 3 am to catch a glimpse of this winter hexagon, letting sidereal time progress until the coming months’ night sky was overhead. It was dazzling. Sirius, Betelgeuse, Rigel, Procyon, Aldebaran, Capella, punctuated by Jupiter and Mars.\n\nI looked at the Orion Nebula through my telescope for the first time, amazed. I took a +10 second exposure of the nebula+(6) with my phone, surprised to see blue and purple nebulosity in the image. I was hooked, determined to improve at photographing space.",
+        'octText'
+      ));
+      const octGrid = document.createElement('div');
+      octGrid.className = 'group-grid';
+      img = createImageBox('journeyimages/2024-10-04 (2).jpg', 'October Nebula 1', 'octImg1');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-04 (3).jpg', 'October Nebula 2', 'octImg2');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-04.jpg', 'October Nebula 3', 'octImg3');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-05.jpg', 'October Nebula 4', 'octImg4');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-05 (2).jpg', 'October Nebula 5', 'octImg5');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-05 (3).jpg', 'October Nebula 6', 'octImg6');
+      img.style.aspectRatio = "4 / 3";
+      octGrid.appendChild(img);
+      octGroup.appendChild(octGrid);
+      journeyContainer.appendChild(octGroup);
+      
+      // --- Group 5: OCTOBER 10 2024 ---
+      const oct10Group = document.createElement('div');
+      oct10Group.className = 'journey-group';
+      oct10Group.appendChild(createTextBox(
+"OCTOBER 10 2024\n\nI bought a +new telescope+(1)—a Celestron C8N, a huge upgrade over my old one—and when it arrived, I literally could not wait to use it. I set it up instantly and brought it outside to look at the Moon in broad daylight. +What I saw+(2) astonished me. I could see small craters, valleys, and mountains. The details were incredible, and I felt like I was *there*, on the Moon.\n\nThat night, I pointed the new telescope at +Saturn+(3). It looked WAY bigger, brighter, and more real in this telescope than in my old one. I stayed up until the early morning hours to see the Orion Nebula and wasn’t disappointed. I +captured it+(4) with my phone, this time resolving far more detail than I had ever seen before.",
+        'oct10Text'
+      ));
+      const oct10Grid = document.createElement('div');
+      oct10Grid.className = 'group-grid';
+      img = createImageBox('journeyimages/placeholder_telescope_image.jpg', 'Telescope Image', 'oct10Img1');
+      img.style.aspectRatio = "4 / 3";
+      oct10Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-10 (2).jpg', 'October 10 Shot 2', 'oct10Img2');
+      img.style.aspectRatio = "4 / 3";
+      oct10Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-12.jpg', 'October 10 Shot 3', 'oct10Img3');
+      img.style.aspectRatio = "4 / 3";
+      oct10Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-10.jpg', 'October 10 Shot 4', 'oct10Img4');
+      img.style.aspectRatio = "4 / 3";
+      oct10Grid.appendChild(img);
+      oct10Group.appendChild(oct10Grid);
+      journeyContainer.appendChild(oct10Group);
+      
+      // --- Group 6: OCTOBER 13 2024 ---
+      const oct13Group = document.createElement('div');
+      oct13Group.className = 'journey-group';
+      oct13Group.appendChild(createTextBox(
+"OCTOBER 13 2024\n\nOn this day, my new Barlow lens and a ZWO planetary camera arrived in the mail. That night, I eagerly aimed the telescope with its new equipment at the planets. I realized that, although directly observing these worlds through an eyepiece felt more visceral, capturing them with a camera revealed stunning amounts of detail. These first attempts at planetary imaging were amateur work—but I felt proud nonetheless.\n\nOh, and I also +saw a comet+(4) paying a visit to the inner solar system.",
+        'oct13Text'
+      ));
+      const oct13Grid = document.createElement('div');
+      oct13Grid.className = 'group-grid';
+      // New order: 1, then 3, then 2, then 4
+      img = createImageBox('journeyimages/2024-10-13 (2).jpg', 'October 13 Shot 1', 'oct13Img1');
+      img.style.aspectRatio = "2 / 1";
+      oct13Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-13.jpg', 'October 13 Shot 3', 'oct13Img3');
+      img.style.aspectRatio = "16 / 9";
+      oct13Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-13 (3).jpg', 'October 13 Shot 2', 'oct13Img2');
+      img.style.aspectRatio = "1 / 1";
+      oct13Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-14.jpg', 'October 13 Shot 4', 'oct13Img4');
+      img.style.aspectRatio = "1 / 1";
+      oct13Grid.appendChild(img);
+      oct13Group.appendChild(oct13Grid);
+      journeyContainer.appendChild(oct13Group);
+      
+      // --- Group 7: OCTOBER 15 2024 ---
+      const oct15Group = document.createElement('div');
+      oct15Group.className = 'journey-group';
+      oct15Group.appendChild(createTextBox(
+"OCTOBER 15 2024\n\nRecalling that September night when I'd first seen the Andromeda Galaxy with my own eyes, I wondered how it would look through my telescope. +Photographing Andromeda+(1) and other deep-sky objects proved technically challenging with my limited equipment, optimized more for planets than nebulae or galaxies. Yet, in a single night, I managed to capture satisfying images of six different cosmic targets. These images were remarkable to me—the +Deer Lick galaxy+(5) is 40 million light years away!",
+        'oct15Text'
+      ));
+      const oct15Grid = document.createElement('div');
+      oct15Grid.className = 'group-grid';
+      // New order: 1,2,3, then 5, then 4, then 6
+      img = createImageBox('journeyimages/2024-10-15 (2).jpg', 'October 15 Shot 1', 'oct15Img1');
+      img.style.aspectRatio = "4 / 3";
+      oct15Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-15.jpg', 'October 15 Shot 2', 'oct15Img2');
+      img.style.aspectRatio = "4 / 3";
+      oct15Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-19 (2).jpg', 'October 15 Shot 3', 'oct15Img3');
+      img.style.aspectRatio = "4 / 3";
+      oct15Grid.appendChild(img);
+      // Then image originally in position 5 comes next:
+      img = createImageBox('journeyimages/2024-10-19 (4).jpg', 'October 15 Shot 5', 'oct15Img5');
+      img.style.aspectRatio = "4 / 3";
+      oct15Grid.appendChild(img);
+      // Then the image originally in position 4:
+      img = createImageBox('journeyimages/2024-10-19 (3).jpg', 'October 15 Shot 4', 'oct15Img4');
+      img.style.aspectRatio = "1 / 1";
+      oct15Grid.appendChild(img);
+      // Finally, image 6 remains:
+      img = createImageBox('journeyimages/2024-10-19 (5).jpg', 'October 15 Shot 6', 'oct15Img6');
+      img.style.aspectRatio = "3 / 4";
+      oct15Grid.appendChild(img);
+      oct15Group.appendChild(oct15Grid);
+      journeyContainer.appendChild(oct15Group);
+      
+      // --- Group 8: OCTOBER 29 2024 ---
+      const oct29Group = document.createElement('div');
+      oct29Group.className = 'journey-group';
+      oct29Group.appendChild(createTextBox(
+"OCTOBER 29 2024\n\nOver the month of October, I spent hours with my telescope each clear night. I improved at collimation, polar alignment, lucky capture, and image stacking and processing. My planetary images steadily improved. In these images from October, I resolved +Saturn’s Cassini Division and moon Titan+(1), +Mars’ surface detail+(2), the +planet Neptune+(3), and +craters and rilles in the Moon’s Mare Crisium+(4).",
+        'oct29Text'
+      ));
+      const oct29Grid = document.createElement('div');
+      oct29Grid.className = 'group-grid';
+      // Enforce: Image 1: 1:1, Image 2: 1:1, Images 3 & 4: 16:9.
+      img = createImageBox('journeyimages/2024-10-19 (8).jpg', 'October 29 Shot 1', 'oct29Img1');
+      img.style.aspectRatio = "1 / 1";
+      oct29Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-19 (9).jpg', 'October 29 Shot 2', 'oct29Img2');
+      img.style.aspectRatio = "1 / 1";
+      oct29Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-19 (7).jpg', 'October 29 Shot 3', 'oct29Img3');
+      img.style.aspectRatio = "16 / 9";
+      oct29Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-10-19.jpg', 'October 29 Shot 4', 'oct29Img4');
+      img.style.aspectRatio = "16 / 9";
+      oct29Grid.appendChild(img);
+      oct29Group.appendChild(oct29Grid);
+      journeyContainer.appendChild(oct29Group);
+      
+      // --- Group 9: NOVEMBER 2 2024 ---
+      const nov2Group = document.createElement('div');
+      nov2Group.className = 'journey-group';
+      nov2Group.appendChild(createTextBox(
+"NOVEMBER 2 2024\n\nAfter much experimentation, I managed to rig my old Nikon DSLR with a custom 3D-printed adapter, allowing me to connect it to my telescope. The setup was a pain to use, but it worked. I was able to capture much wider fields than I previously had been able to with my planetary camera. I photographed the +Horsehead Nebula+(1), the +Pleiades+(2), the +Eagle Nebula+(3), the +Orion Nebula+(4), and more.",
+        'nov2Text'
+      ));
+      const nov2Grid = document.createElement('div');
+      nov2Grid.className = 'group-grid';
+      img = createImageBox('journeyimages/2024-11-02 (2).jpg', 'November 2 Shot 1', 'nov2Img1');
+      img.style.aspectRatio = "1564 / 1000";
+      nov2Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-02.jpg', 'November 2 Shot 2', 'nov2Img2');
+      img.style.aspectRatio = "1564 / 1000";
+      nov2Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-03 (3).jpg', 'November 2 Shot 3', 'nov2Img3');
+      img.style.aspectRatio = "4 / 3";
+      nov2Grid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-03.jpg', 'November 2 Shot 4', 'nov2Img4');
+      img.style.aspectRatio = "1564 / 1000";
+      nov2Grid.appendChild(img);
+      nov2Group.appendChild(nov2Grid);
+      journeyContainer.appendChild(nov2Group);
+      
+      // --- Group 10: NOVEMBER 2024 ---
+      const novGroup = document.createElement('div');
+      novGroup.className = 'journey-group';
+      novGroup.appendChild(createTextBox(
+"NOVEMBER 2024\n\nNovember was a great month for the Moon. During the first week of the month, the Moon paid a _close visit to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
+        'nov2024Text'
+      ));
+      const novGrid = document.createElement('div');
+      novGrid.className = 'group-grid';
+      img = createImageBox('journeyimages/2024-11-15.jpg', 'November Shot 1', 'novImg1');
+      img.style.aspectRatio = "3 / 4";
+      novGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-18.jpg', 'November Shot 2', 'novImg2');
+      img.style.aspectRatio = "3 / 4";
+      novGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-10.jpg', 'November Shot 3', 'novImg3');
+      img.style.aspectRatio = "16 / 9";
+      novGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-11-20.jpg', 'November Shot 4', 'novImg4');
+      img.style.aspectRatio = "4 / 3";
+      novGrid.appendChild(img);
+      novGroup.appendChild(novGrid);
+      journeyContainer.appendChild(novGroup);
+      
+      // --- Group 11: DECEMBER 2024 (Deep Sky) ---
+      const decGroup = document.createElement('div');
+      decGroup.className = 'journey-group';
+      decGroup.appendChild(createTextBox(
+"DECEMBER 2024\n\nI eventually realized that my DSLR’s red channel was broken. It was far less sensitive than its blue and green channels. This unfortunate fact led to failed attempts at photographing faint red objects like the Cone and Rosette nebulae. I decided to focus my efforts on brighter and bluer targets such as the +Pacman Nebula+(1), the +Orion Nebula+(2), +Bode’s Galaxy+(3), and the +Cigar Galaxy+(4).",
+        'decText'
+      ));
+      const decGrid = document.createElement('div');
+      decGrid.className = 'group-grid';
+      img = createImageBox('journeyimages/2024-12-02 (2).jpg', 'Deep Sky Shot 1', 'decImg1');
+      img.style.aspectRatio = "4 / 3";
+      decGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-12-17 (2).jpg', 'Deep Sky Shot 2', 'decImg2');
+      img.style.aspectRatio = "4 / 3";
+      decGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-12-17.jpg', 'Deep Sky Shot 3', 'decImg3');
+      img.style.aspectRatio = "4 / 3";
+      decGrid.appendChild(img);
+      img = createImageBox('journeyimages/2024-12-01.jpg', 'Deep Sky Shot 4', 'decImg4');
+      img.style.aspectRatio = "4 / 3";
+      decGrid.appendChild(img);
+      decGroup.appendChild(decGrid);
+      journeyContainer.appendChild(decGroup);
+      
+      // --- Group 12: DECEMBER 2024 (YouTube Launch) ---
+      const ytGroup = document.createElement('div');
+      ytGroup.className = 'journey-group';
+      ytGroup.appendChild(createTextBox(
+"DECEMBER 2024\n\nFueled by my passion for astronomy, I launched a YouTube channel called +HansenSpace+(https://youtube.com/@hansenspace). I posted a video called +“How To Find Earth in the Universe”+(https://www.youtube.com/watch?v=uUuM8NdmaAU), which explored a highly theoretical scenario where celestial “landmarks”—local stars, clusters, nebulae, galaxies, and galactic filaments—could guide a lost space traveler back to Earth. The video was highly successful, inspiring me to make more space visualizations like it. The core tenet behind every HansenSpace video is that it must be an eye-opening presentation of information delivered in a creative way.",
+        'ytText'
+      ));
+      const ytContainer = document.createElement('div');
+      ytContainer.className = 'yt-container';
+      const ytTop = document.createElement('div');
+      ytTop.appendChild(createImageBox('journeyimages/2024-12-25.jpg', 'YouTube Launch Shot 1', 'ytImg1'));
+      const ytBottom = document.createElement('div');
+      ytBottom.className = 'yt-bottom';
+      ytBottom.appendChild(createImageBox('journeyimages/2024-12-28.jpg', 'YouTube Launch Shot 2', 'ytImg2'));
+      ytBottom.appendChild(createImageBox('journeyimages/2024-12-29.jpg', 'YouTube Launch Shot 3', 'ytImg3'));
+      ytBottom.appendChild(createImageBox('journeyimages/2025-01-02.jpg', 'YouTube Launch Shot 4', 'ytImg4'));
+      ytBottom.style.marginTop = "10px";
+      ytContainer.appendChild(ytTop);
+      ytContainer.appendChild(ytBottom);
+      ytContainer.style.marginTop = "10px";
+      ytGroup.appendChild(ytContainer);
+      journeyContainer.appendChild(ytGroup);
+      
+      // --- Group 13: JANUARY 2025 (Astrophotography Shorts) ---
+      const janShortsGroup = document.createElement('div');
+      janShortsGroup.className = 'journey-group';
+      janShortsGroup.appendChild(createTextBox(
+"JANUARY 2025\n\nI began documenting my astrophotography journey, posting short videos on YouTube, Instagram, and TikTok. My goal was to share the wonder of astrophotography with a wider audience and encourage others to look up at the sky or even buy their own telescope.",
+        'janShortsText'
+      ));
+      const janShortsContainer = document.createElement('div');
+      janShortsContainer.className = 'jan-shorts-container';
+      const janShortsTop = document.createElement('div');
+      janShortsTop.className = 'jan-shorts-top';
+      janShortsTop.appendChild(createImageBox('journeyimages/2025-01-12 (3).jpg', 'Shorts Shot 1', 'janShortsImg1'));
+      janShortsTop.appendChild(createImageBox('journeyimages/2025-01-12 (2).jpg', 'Shorts Shot 2', 'janShortsImg2'));
+      const janShortsBottom = document.createElement('div');
+      janShortsBottom.className = 'jan-shorts-bottom';
+      janShortsBottom.appendChild(createImageBox('journeyimages/2025-01-05 (3).jpg', 'Shorts Shot 3', 'janShortsImg3'));
+      janShortsBottom.appendChild(createImageBox('journeyimages/2025-01-05 (2).jpg', 'Shorts Shot 4', 'janShortsImg4'));
+      janShortsBottom.appendChild(createImageBox('journeyimages/2025-01-21.jpg', 'Shorts Shot 5', 'janShortsImg5'));
+      janShortsBottom.style.marginTop = "10px";
+      janShortsContainer.appendChild(janShortsTop);
+      janShortsContainer.appendChild(janShortsBottom);
+      janShortsContainer.style.marginTop = "10px";
+      janShortsGroup.appendChild(janShortsContainer);
+      journeyContainer.appendChild(janShortsGroup);
+      
+      // --- Group 14: JANUARY 13 2025 ---
+      const janOccultGroup = document.createElement('div');
+      janOccultGroup.className = 'journey-group';
+      janOccultGroup.appendChild(createTextBox(
+"JANUARY 13 2025\n\nI prepared to capture a major cosmic event—a Moon-Mars occultation—on the night of January 13. I +set up both of my telescopes+(2) in front of my house and invited neighbors to watch the event with me while I filmed through my larger scope. Due to the low altitude of ingress in the sky, I could only see +Mars enter the occultation+(1) clearly through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, my +final image+(3) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
+        'janOccultText'
+      ));
+      const janOccultGrid = document.createElement('div');
+      janOccultGrid.className = 'group-grid';
+      img = createImageBox('journeyimages/2025-01-12.jpg', 'Occultation Shot 1', 'janOccultImg1');
+      img.style.aspectRatio = "3 / 4";
+      janOccultGrid.appendChild(img);
+      img = createImageBox('journeyimages/2025-01-13.jpg', 'Occultation Shot 2', 'janOccultImg2');
+      img.style.aspectRatio = "3 / 4";
+      janOccultGrid.appendChild(img);
+      // Occultation Shot 3 uses file 2025-01-13 (2).jpg
+      img = createImageBox('journeyimages/2025-01-13 (2).jpg', 'Occultation Shot 3', 'janOccultImg3');
+      img.style.aspectRatio = "4 / 3";
+      janOccultGrid.appendChild(img);
+      img = createImageBox('journeyimages/2025-01-13 (3).jpg', 'Occultation Shot 4', 'janOccultImg4');
+      img.style.aspectRatio = "4 / 3";
+      janOccultGrid.appendChild(img);
+      janOccultGroup.appendChild(janOccultGrid);
+      journeyContainer.appendChild(janOccultGroup);
+      
+      // --- Group 15: JANUARY 2025 (Planetary Astrophotography) ---
+      const janPlanGroup = document.createElement('div');
+      janPlanGroup.className = 'journey-group';
+      janPlanGroup.appendChild(createTextBox(
+"JANUARY 2025\n\nI seized every clear night I had in January to go outside and “astronomize”. Due to my DSLR issues, I focused on planetary photography. Jupiter had just passed opposition but was still big and bright in the sky, and Mars was in its angular size prime. I even invested in Bob’s Knobs to hone in my collimation, although they were quite frustrating to use at times. I captured rotation time lapses of both planets and pushed for as much surface detail as I could with my scope. By the end of the month, the planets had sadly faded in the sky as the Earth left them behind.",
+        'janPlanText'
+      ));
+      const janPlanGrid = document.createElement('div');
+      janPlanGrid.className = 'group-grid';
+      img = createImageBox('journeyimages/2025-01-05.jpg', 'Planetary Shot 1', 'janPlanImg1');
+      img.style.aspectRatio = "1 / 1";
+      janPlanGrid.appendChild(img);
+      img = createImageBox('journeyimages/2025-01-18.jpg', 'Planetary Shot 2', 'janPlanImg2');
+      img.style.aspectRatio = "1 / 1";
+      janPlanGrid.appendChild(img);
+      janPlanGroup.appendChild(janPlanGrid);
+      journeyContainer.appendChild(janPlanGroup);
+      
+      // --- Group 16: SPRING 2025 ---
+      const springGroup = document.createElement('div');
+      springGroup.className = 'journey-group';
+      springGroup.appendChild(createTextBox(
+"SPRING 2025\n\nThis spring, I focused exclusively on photographing the Moon.  I spent two nights and many hours capturing more than 100 individual panels of the waxing gibbous Moon with my Barlow lens, stitching them together into a +highly detailed mosaic+(1).\n\nOn March 13, I attempted to capture the most spectacular celestial event of the year—a total lunar eclipse. Unfortunately, as totality approached, thick clouds moved in as forecasted. The +image sequence I captured+(2) not only shows the Moon vanishing into Earth's shadow but also fading behind the encroaching clouds. My experience confirmed one of the long-standing, totally scientific laws of astronomy: the spectacularity of the night sky is directly proportional to the damn clouds’ commitment to ruining it.",
+        'springText'
+      ));
+      const springGrid = document.createElement('div');
+      springGrid.className = 'spring-grid';
+      springGrid.appendChild(createImageBox('journeyimages/2025-02-11.jpg', 'Lunar Focus Shot 1', 'springImg1'));
+      springGrid.appendChild(createImageBox('journeyimages/2025-03-13.jpg', 'Lunar Focus Shot 2', 'springImg2'));
+      springGroup.appendChild(springGrid);
+      journeyContainer.appendChild(springGroup);
+      
+      // Attach event listeners for scroll links
+      attachScrollLinkHandlers();
     });
+    
+    // Attach scroll link click handler to all links with class "scroll-link"
+    function attachScrollLinkHandlers() {
+      const links = document.querySelectorAll('.scroll-link');
+      links.forEach(link => {
+        link.addEventListener('click', handleScrollLink);
+      });
+    }
   </script>
 </body>
 </html>
