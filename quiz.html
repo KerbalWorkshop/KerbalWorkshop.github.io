@@ -5,25 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Starfield Quiz – Hansen Space</title>
   
-  <!-- Font-face declarations (remove or adjust if you don't have these fonts) -->
+  <!-- Font-face declarations (Moon Light + Moon Bold OTF) -->
   <style>
     @font-face {
-      font-family: 'Moon';
-      src: url('fonts/Moon-Regular.woff2') format('woff2'),
-           url('fonts/Moon-Regular.woff') format('woff');
-      font-weight: normal;
+      font-family: 'Moon Light';
+      src: url('fonts/Moon-Light.otf') format('opentype');
+      font-weight: 300;
       font-style: normal;
     }
     @font-face {
       font-family: 'Moon Bold';
-      src: url('fonts/Moon-Bold.woff2') format('woff2'),
-           url('fonts/Moon-Bold.woff') format('woff');
-      font-weight: bold;
+      src: url('fonts/Moon-Bold.otf') format('opentype');
+      font-weight: 700;
       font-style: normal;
     }
-    /* Set default font to Moon, and for bold text use Moon Bold */
+    /* Use "Moon Light" as the default body font, "Moon Bold" for bold text */
     body {
-      font-family: 'Moon', sans-serif;
+      font-family: 'Moon Light', sans-serif;
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -121,7 +119,7 @@
       cursor: pointer;
       border: 1px solid #000;
       background-color: #fff;
-      font-family: 'Moon', sans-serif;
+      font-family: 'Moon Light', sans-serif;
     }
     #exitGameButton {
       margin-top: 20px;
@@ -246,7 +244,7 @@
     // Function to call the Netlify function for generating a starfield image
     async function loadStarfieldImage() {
       try {
-        // We now call the SAME function "astronomy" with ?ra=0&dec=0
+        // We now call the same "astronomy" function with ?ra=0&dec=0
         const response = await fetch('/.netlify/functions/astronomy?ra=0&dec=0');
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
