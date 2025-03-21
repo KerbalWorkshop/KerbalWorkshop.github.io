@@ -32,14 +32,14 @@
       background-repeat: repeat !important;
     }
     @media (min-width: 1001px) {
-      #layer2,  /* 27.png */
-      #layer9,  /* 26.png */
-      #layer16  /* 25.png */ {
+      #layer4,  /* 27.png */
+      #layer6,  /* 26.png */
+      #layer8  /* 25.png */ {
         background-size: 100% auto !important;
         background-repeat: repeat-x !important;
       }
     }
-    .star-layer:not(#layer19) {
+    .star-layer:not(#layer9) {
       background-color: transparent;
     }
     footer {
@@ -231,14 +231,14 @@
        Starfield Background Layers (unchanged, except scroll adjustment)
   ------------------------------------------------------------------- -->
   <div id="layer1" class="star-layer" style="background-image: url('images/1.png'); z-index: 9;"></div>
-  <div id="layer5" class="star-layer" style="background-image: url('images/2.png'); z-index: 8;"></div>
-  <div id="layer6" class="star-layer" style="background-image: url('images/3.png'); z-index: 7;"></div>
-  <div id="layer2" class="star-layer" style="background-image: url('images/27.png'); z-index: 6;"></div>
-  <div id="layer7" class="star-layer" style="background-image: url('images/4.png'); z-index: 5;"></div>
-  <div id="layer9" class="star-layer" style="background-image: url('images/26.png'); z-index: 4;"></div>
-  <div id="layer8" class="star-layer" style="background-image: url('images/5.png'); z-index: 3;"></div>
-  <div id="layer16" class="star-layer" style="background-image: url('images/25.png'); z-index: 2;"></div>
-  <div id="layer19" class="star-layer" style="background-image: url('images/6.png'); z-index: 1;"></div>
+  <div id="layer2" class="star-layer" style="background-image: url('images/2.png'); z-index: 8;"></div>
+  <div id="layer3" class="star-layer" style="background-image: url('images/3.png'); z-index: 7;"></div>
+  <div id="layer4" class="star-layer" style="background-image: url('images/27.png'); z-index: 6;"></div>
+  <div id="layer5" class="star-layer" style="background-image: url('images/4.png'); z-index: 5;"></div>
+  <div id="layer6" class="star-layer" style="background-image: url('images/26.png'); z-index: 4;"></div>
+  <div id="layer7" class="star-layer" style="background-image: url('images/5.png'); z-index: 3;"></div>
+  <div id="layer8" class="star-layer" style="background-image: url('images/25.png'); z-index: 2;"></div>
+  <div id="layer9" class="star-layer" style="background-image: url('images/6.png'); z-index: 1;"></div>
   
   <!-- -------------------------------------------------------------------
        Scroll Indicator Section
@@ -286,9 +286,9 @@
     // Parallax scroll functionality with updated endCoef for the bottom layer.
     window.addEventListener('scroll', function() {
       const scrollTop = window.scrollY;
-      const totalLayers = 19;
+      const totalLayers = 9;
       const startCoef = 0.9;
-      const endCoef = 0.5; // Increased so the bottom layer scrolls faster
+      const endCoef = 0.2; // Increased so the bottom layer scrolls faster
       const interval = (startCoef - endCoef) / (totalLayers - 1);
       for (let i = 1; i <= totalLayers; i++) {
         const layer = document.getElementById('layer' + i);
@@ -399,7 +399,7 @@
       const sepGroup = document.createElement('div');
       sepGroup.className = 'journey-group';
       sepGroup.appendChild(createTextBox(
-"SEPTEMBER 1 2024\n\nOver 2024’s Labor Day weekend, I spent one night camping on California’s Point Reyes seashore. Having recently learned of the Bortle scale, I knew that I would be distant enough from civilization to be situated in a Bortle 3 zone—an area with skies dark enough to see the Milky Way and thousands of stars.\n\nWhen the Sun set that evening, I could not keep my eyes off the sky until I Milky Way came into view.\n\nEarlier that day, I had downloaded Stellarium, a stargazing app, on my phone. While exploring the app after the night was underway, I noticed a large oval on the screen labeled “M31”. Clicking it, I realized the oval was marking where to find the Andromeda Galaxy in the sky. I was impressed that the app included such arcane celestial objects in its representation of the night sky, though it seemed obvious that I would never see distant galaxies firsthand. Yet when I trained my eyes between Mirach and Schedar, I saw it. A faint but noticeable +smudge of light+(2) in the sky.\n\nOnly hours after glimpsing M31 did it truly hit me—that smudge of light was an entire galaxy, a behemoth. Billions of stars, worlds colliding, coalescing, and possibly harboring life, humbly lurking overhead as nothing more than a gentle, soft patch of light. Wow.",
+"SEPTEMBER 1 2024\n\nOver 2024’s Labor Day weekend, I spent one night camping on California’s Point Reyes seashore. Having recently learned of the Bortle scale, I knew that I would be distant enough from civilization to be situated in a Bortle 3 zone—an area with skies dark enough to see the Milky Way and thousands of stars.\n\nWhen the Sun set that evening, I could not keep my eyes off the sky until the Milky Way came into view.\n\nEarlier that day, I had downloaded Stellarium, a stargazing app, on my phone. While exploring the app after the night was underway, I noticed a large oval on the screen labeled “M31”. Clicking it, I realized the oval was marking where to find the Andromeda Galaxy in the sky. I was impressed that the app included such arcane celestial objects in its representation of the night sky, though it seemed obvious that I would never see distant galaxies firsthand. Yet when I trained my eyes between Mirach and Schedar, I saw it. A faint but noticeable +smudge of light+(2) in the sky.\n\nOnly later did it truly hit me—that smudge of light was an entire galaxy, a behemoth. Billions of stars, worlds colliding, coalescing, and possibly harboring life, humbly lurking overhead as nothing more than a gentle, soft patch of light. Wow.",
         'sepText'
       ));
       const sepGrid = document.createElement('div');
@@ -432,7 +432,7 @@
       const octGroup = document.createElement('div');
       octGroup.className = 'journey-group';
       octGroup.appendChild(createTextBox(
-"OCTOBER 2024\n\nOctober was a month of learning for me. I taught myself the constellations. I learned the names of stars and deep sky objects. I realized that Jupiter and Mars were both lurking in the winter hexagon, a rich starry region of the sky augmented by the presence of the two bright planets.\n\nOne night, I stayed up past 3 am to catch a glimpse of this winter hexagon, letting sidereal time progress until the coming months’ night sky was overhead. It was dazzling. Sirius, Betelgeuse, Rigel, Procyon, Aldebaran, Capella, punctuated by Jupiter and Mars.\n\nI looked at the Orion Nebula through my telescope for the first time, amazed. I took a +10 second exposure of the nebula+(6) with my phone, surprised to see blue and purple nebulosity in the image. I was hooked, determined to improve at photographing space.",
+"OCTOBER 2024\n\nOctober was a month of learning for me. I taught myself the constellations. I learned the names of stars and deep sky objects. I realized that Jupiter and Mars were both lurking in the winter hexagon, a rich starry region of the sky augmented by the presence of the two bright planets.\n\nOne night, I stayed up past 3 am to catch a glimpse of this winter hexagon, letting sidereal time progress until the winter's night sky was overhead. It was dazzling. Sirius, Betelgeuse, Rigel, Procyon, Aldebaran, Capella, punctuated by Jupiter and Mars.\n\nI looked at the Orion Nebula through my telescope for the first time, amazed. I took a +10 second exposure of the nebula+(6) with my phone, surprised to see blue and purple nebulosity in the image. I was hooked, determined to improve at photographing space.",
         'octText'
       ));
       const octGrid = document.createElement('div');
@@ -486,7 +486,7 @@
       const oct13Group = document.createElement('div');
       oct13Group.className = 'journey-group';
       oct13Group.appendChild(createTextBox(
-"OCTOBER 13 2024\n\nOn this day, my new Barlow lens and a ZWO planetary camera arrived in the mail. That night, I eagerly aimed the telescope with its new equipment at the planets. I realized that, although directly observing these worlds through an eyepiece felt more visceral, capturing them with a camera revealed stunning amounts of detail. These first attempts at planetary imaging were amateur work—but I felt proud nonetheless.\n\nOh, and I also +saw a comet+(4) paying a visit to the inner solar system.",
+"OCTOBER 13 2024\n\nOn this day, my new Barlow lens and a ZWO planetary camera arrived in the mail. That night, I eagerly aimed the telescope with its new equipment at the planets. I realized that, although directly observing these worlds through an eyepiece felt more visceral, capturing them with a camera revealed stunning amounts of detail. These first attempts at planetary imaging were amateur work, but I felt proud nonetheless.\n\nOh, and I also +saw a comet+(4) paying a visit to the inner solar system.",
         'oct13Text'
       ));
       const oct13Grid = document.createElement('div');
@@ -594,7 +594,7 @@
       const novGroup = document.createElement('div');
       novGroup.className = 'journey-group';
       novGroup.appendChild(createTextBox(
-"NOVEMBER 2024\n\nNovember was a great month for the Moon. During the first week of the month, the Moon paid a _close visit to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
+"NOVEMBER 2024\n\nNovember was a great month for the Moon. During the first week of the month, the Moon passed _close to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
         'nov2024Text'
       ));
       const novGrid = document.createElement('div');
@@ -690,7 +690,7 @@
       const janOccultGroup = document.createElement('div');
       janOccultGroup.className = 'journey-group';
       janOccultGroup.appendChild(createTextBox(
-"JANUARY 13 2025\n\nI prepared to capture a major cosmic event—a Moon-Mars occultation—on the night of January 13. I +set up both of my telescopes+(2) in front of my house and invited neighbors to watch the event with me while I filmed through my larger scope. Due to the low altitude of ingress in the sky, I could only see +Mars enter the occultation+(1) clearly through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, my +final image+(3) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
+"JANUARY 13 2025\n\nI prepared to capture a major cosmic event—a Moon-Mars occultation—on the night of January 13. I +set up both of my telescopes+(3) in front of my house and invited neighbors to watch the event with me while I filmed through my larger scope. Due to the low altitude of ingress in the sky, I could only see +Mars enter the occultation+(2) clearly through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, the quality of my +final image+(4) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
         'janOccultText'
       ));
       const janOccultGrid = document.createElement('div');
