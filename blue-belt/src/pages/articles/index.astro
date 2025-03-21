@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const spotlight = articles.find((a) => a.data.spotlight === true);
+const others = articles.filter((a) => a !== spotlight);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles – Hansen Space</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Hansen Space Logo" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/myjourney.html">My Journey</a></li>
+          <li><a href="/photography.html">Photography</a></li>
+          <li><a href="/articles" class="active">Articles</a></li>
+          <li><a href="/tools.html">Tools</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="content">
+      <h2>Articles</h2>
+
+      {spotlight && (
+        <div class="spotlight">
+          <h3>
+            <a href={`/articles/${spotlight.slug}`}>🌟 {spotlight.data.title}</a>
+          </h3>
+          <p>{spotlight.data.description}</p>
+        </div>
+      )}
+
+      <ul>
+        {others.map((article) => (
+          <li>
+            <a href={`/articles/${article.slug}`}>
+              <h3>{article.data.title}</h3>
+              <p>{article.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <footer>
+      <div class="social-links">
+        <a href="https://www.youtube.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
+        </a>
+        <a href="https://instagram.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
+        </a>
+        <a href="https://tiktok.com/@hansen_space" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
+        </a>
+      </div>
+      <p>&copy; 2025 Hansen Space.</p>
+    </footer>
+  </body>
+</html>
