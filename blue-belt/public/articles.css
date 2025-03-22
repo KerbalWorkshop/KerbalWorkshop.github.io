@@ -1,0 +1,105 @@
+/* General article layout */
+.content {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  /* font-family: sans-serif; */
+  line-height: 1.6;
+  color: #222;
+}
+
+/* Article headings */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraph spacing */
+p {
+  margin-bottom: 1rem;
+}
+
+/* Date formatting */
+.content em {
+  display: block;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Code blocks */
+pre {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 5px;
+  margin: 1.5rem 0;
+}
+
+code {
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+/* Inline code */
+p code {
+  background: #eee;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #aaa;
+  padding-left: 1rem;
+  color: #555;
+  margin: 1rem 0;
+}
+
+/* Lists */
+ul,
+ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+th {
+  background: #f2f2f2;
+}

@@ -1,12 +1,31 @@
 ---
-title: "My First Blog Post"
-description: "This is a test article with formatting."
-pubDate: "2025-03-21" # ✅ Change this to a string
+title: "Markdown Test"
+description: "A full-featured Markdown article showing all styles."
+pubDate: 2025-03-21
 spotlight: true
 ---
 
-![Image](/images/logo.png)
+# Heading 1
 
-## Hello from Astro
+_This is italicized text._  
+**This is bold text.**  
+`Inline code` is also supported.
 
-This is a real article! You can format text, add links, images, code, whatever.
+## Heading 2
+
+Here’s a paragraph followed by a list:
+
+- Item 1
+- Item 2
+- Item 3
+
+### Heading 3
+
+> This is a blockquote. It’s good for quoting text.
+
+Here’s a code block:
+
+```js
+function helloWorld() {
+  console.log("Hello, world!");
+}

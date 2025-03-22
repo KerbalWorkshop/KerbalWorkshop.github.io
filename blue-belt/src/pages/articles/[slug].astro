@@ -4,12 +4,13 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
   return articles.map((article) => ({
-    params: { slug: article.slug }, // ✅ Correct param passing
-    props: { post: article }, // ✅ Ensure props are correctly passed
+    params: { slug: article.slug },
+    props: { post: article },
   }));
 }
 
 const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
 <!DOCTYPE html>
@@ -19,6 +20,7 @@ const { post } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{post.data.title} – Hansen Space</title>
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/articles.css" />
   </head>
   <body>
     <header>
@@ -30,7 +32,7 @@ const { post } = Astro.props;
           <li><a href="/index.html">Home</a></li>
           <li><a href="/myjourney.html">My Journey</a></li>
           <li><a href="/photography.html">Photography</a></li>
-          <li><a href="/articles" class="active">Articles</a></li>
+          <li><a href="/articles">Articles</a></li>
           <li><a href="/tools.html">Tools</a></li>
         </ul>
       </nav>
@@ -38,9 +40,10 @@ const { post } = Astro.props;
 
     <div class="content">
       <h1>{post.data.title}</h1>
-      <p><em>{post.data.pubDate}</em></p>
+      <p><em>{new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</em></p>
+
       <article>
-        {post.body}
+        <Content />
       </article>
     </div>
 
