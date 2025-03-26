@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tool – Hansen Space</title>
+  
+  <!-- Font-face declarations -->
+  <style>
+    @font-face {
+      font-family: 'Moon';
+      src: url('fonts/Moon-Regular.woff2') format('woff2'),
+           url('fonts/Moon-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Moon Bold';
+      src: url('fonts/Moon-Bold.woff2') format('woff2'),
+           url('fonts/Moon-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    
+    body {
+      font-family: 'Moon', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #f8f8f8;
+    }
+    
+    header, footer {
+      flex: 0 0 auto;
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Intro section with instructions */
+    #intro {
+      width: 100%;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    #intro h2 {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #intro ol {
+      font-size: 14px;
+      font-weight: normal;
+      margin-left: 20px;
+      line-height: 1.4;
+    }
+    #intro li {
+      margin-bottom: 5px;
+    }
+    
+    /* Back button styling */
+    #backButton {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      background: #fff;
+      border: 1px solid #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    /* Graph container styling */
+    #graphContainer {
+      width: 600px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    /* Popup styling (appears next to the click) */
+    #popup {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      z-index: 2000;
+      display: none;
+      font-size: 16px;
+      font-family: 'Moon', sans-serif;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      white-space: pre-wrap;
+    }
+    #popup .close-btn {
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    /* Dynamic number color */
+    .dynamic {
+      color: darkblue;
+      font-weight: bold;
+    }
+  </style>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Hansen Space Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main content -->
+  <main>
+    <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
+    
+    <!-- Intro section with numbered instructions -->
+    <section id="intro">
+      <h2>Delta Cephei Light Curve</h2>
+      <ol>
+        <li>Hover over the graph to see a dark blue vertical line indicating the time offset (in days) relative to now.</li>
+        <li>The labels show how many days in the future (or past) that point represents.</li>
+        <li>Click on the graph while hovering to lock the blue line and see detailed information in a popup.</li>
+        <li>The popup displays the predicted magnitude, the time offset, and the corresponding UTC and local times.</li>
+        <li>Click the "×" in the popup or click elsewhere on the graph to close it and resume hover behavior.</li>
+      </ol>
+    </section>
+    
+    <!-- Graph container -->
+    <section id="graphContainer">
+      <canvas id="lightCurveChart" width="600" height="400"></canvas>
+      <!-- Popup (positioned absolutely within graphContainer) -->
+      <div id="popup">
+        <span class="close-btn" id="popupClose">&times;</span>
+        <div id="popupContent"></div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p style="font-size:16px; font-weight:bold;">&copy; 2025 Hansen Space.</p>
+  </footer>
+  
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Global Chart.js font defaults -->
+  <script>
+    Chart.defaults.font.family = "Moon, sans-serif";
+    Chart.defaults.font.size = 16;
+    Chart.defaults.font.weight = "bold";
+  </script>
+  
+  <!-- Custom plugin: fixed red "NOW" line and hover blue line -->
+  <script>
+    let hoverX = null; // current mouse x position (canvas coords)
+    let stuckX = null; // if set, the blue line remains locked at this x
+    
+    const verticalLinePlugin = {
+      id: 'verticalLinePlugin',
+      afterDraw: function(chart) {
+        const ctx = chart.ctx;
+        const xScale = chart.scales.x;
+        const yScale = chart.scales.y;
+        
+        // Draw fixed red line at x = 0
+        const fixedX = xScale.getPixelForValue(0);
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(fixedX, yScale.top);
+        ctx.lineTo(fixedX, yScale.bottom);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+        ctx.restore();
+        
+        // Draw "NOW" label below the chart (centered at fixedX)
+        ctx.save();
+        ctx.font = "bold 16px 'Moon Bold', sans-serif";
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.fillText("NOW", fixedX, yScale.bottom + 20);
+        ctx.restore();
+        
+        // Determine the x coordinate for blue line: if stuck, use that; otherwise use hoverX.
+        let drawX = (stuckX !== null) ? stuckX : hoverX;
+        
+        // Only draw blue line if drawX is valid and inside the chart area.
+        if (drawX !== null && drawX >= xScale.left && drawX <= xScale.right) {
+          const blueValue = xScale.getValueForPixel(drawX);
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(drawX, yScale.top);
+          ctx.lineTo(drawX, yScale.bottom);
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'darkblue';
+          ctx.stroke();
+          ctx.restore();
+          
+          // Create label for blue line.
+          let label = "";
+          if (Math.abs(blueValue) < 0.01) {
+            label = "Now";
+          } else if (blueValue > 0) {
+            label = "in " + blueValue.toFixed(2) + " days";
+          } else {
+            label = Math.abs(blueValue).toFixed(2) + " days ago";
+          }
+          ctx.save();
+          ctx.font = "bold 16px 'Moon Bold', sans-serif";
+          ctx.fillStyle = 'darkblue';
+          ctx.textAlign = 'center';
+          ctx.fillText(label, drawX, yScale.bottom + 20);
+          ctx.restore();
+        }
+      }
+    };
+    
+    Chart.register(verticalLinePlugin);
+  </script>
+  
+  <!-- Script for CSV, chart update, hover, click, and popup behavior -->
+  <script>
+    let epochJD = null;
+    let period = null;
+    let originalScatterData = []; // original CSV data: {phase, mag}
+    let myChart = null;
+    
+    // Get current Julian Date.
+    function getCurrentJD() {
+      return (Date.now() / 86400000) + 2440587.5;
+    }
+    
+    // Fetch CSV.
+    async function fetchCSV(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to load CSV file.");
+      }
+      return response.text();
+    }
+    
+    // Parse CSV: first row = [epochJD, period]; subsequent rows = [phase, magnitude]
+    function parseCSV(csvText) {
+      const lines = csvText.split("\n").filter(line => line.trim() !== "");
+      if (lines.length === 0) return [];
+      const firstLine = lines[0].split(",").map(s => s.trim());
+      epochJD = parseFloat(firstLine[0]);
+      period = parseFloat(firstLine[1]);
+      const dataLines = lines.slice(1);
+      originalScatterData = dataLines.map(line => {
+        const parts = line.split(",").map(s => s.trim());
+        const phase = parseFloat(parts[0]);
+        const mag = parseFloat(parts[1]);
+        return { phase: phase, mag: mag };
+      }).filter(point => !isNaN(point.phase) && !isNaN(point.mag));
+      return originalScatterData;
+    }
+    
+    // Transform data into time offset values relative to the current phase.
+    function transformData(currentPhase) {
+      return originalScatterData.map(point => {
+        let diff = point.phase - currentPhase;
+        if (diff > 0.5) diff -= 1;
+        if (diff < -0.5) diff += 1;
+        return { x: diff * period, y: point.mag };
+      });
+    }
+    
+    // Update chart data based on current phase.
+    function updateChart() {
+      const jdNow = getCurrentJD();
+      let currentPhase = ((jdNow - epochJD) / period) % 1;
+      if (currentPhase < 0) currentPhase += 1;
+      if (myChart) {
+        const newData = transformData(currentPhase);
+        myChart.data.datasets[0].data = newData;
+        myChart.options.scales.x.min = -period / 2;
+        myChart.options.scales.x.max = period / 2;
+        myChart.update();
+      }
+    }
+    
+    // Show popup next to click with dynamic info.
+    function showPopup(stuckPixelX) {
+      const xScale = myChart.scales.x;
+      const blueValue = xScale.getValueForPixel(stuckPixelX); // time offset (days)
+      // Find nearest data point for magnitude.
+      let nearest = null;
+      let minDiff = Infinity;
+      myChart.data.datasets[0].data.forEach(pt => {
+        const diff = Math.abs(pt.x - blueValue);
+        if (diff < minDiff) {
+          minDiff = diff;
+          nearest = pt;
+        }
+      });
+      let magText = (nearest) ? nearest.y.toFixed(2) : "N/A";
+      let offsetText = "";
+      if (Math.abs(blueValue) < 0.01) {
+        offsetText = "Now";
+      } else if (blueValue > 0) {
+        offsetText = "in " + blueValue.toFixed(2) + " days";
+      } else {
+        offsetText = Math.abs(blueValue).toFixed(2) + " days ago";
+      }
+      
+      // Calculate target time by adding blueValue days to current time.
+      let now = new Date();
+      let targetTime = new Date(now.getTime() + blueValue * 86400000);
+      
+      // Format the dates in a consistent, simple format.
+      let formatDate = dt => dt.toLocaleString(undefined, { hour12: false });
+      
+      // Build popup message with dynamic values colored.
+      let popupMessage = 
+        "Delta Cep will be at <span class='dynamic'>" + magText + "</span> magnitude " +
+        "<span class='dynamic'>" + offsetText + "</span>.\n\n" +
+        "UTC time: <span class='dynamic'>" + targetTime.toUTCString() + "</span>\n" +
+        "Local time: <span class='dynamic'>" + formatDate(targetTime) + "</span>";
+      
+      const popup = document.getElementById("popup");
+      document.getElementById("popupContent").innerHTML = popupMessage;
+      
+      // Position the popup near the click.
+      // We'll position it so that its top left is at (stuckPixelX + container's left offset, container's top offset + 20)
+      const container = document.getElementById("graphContainer").getBoundingClientRect();
+      const canvas = document.getElementById("lightCurveChart").getBoundingClientRect();
+      // Calculate x relative to graph container.
+      let popupX = stuckPixelX + canvas.left - container.left + 10;
+      let popupY = canvas.bottom - container.top - 60; // 60px above bottom of graph container
+      
+      popup.style.left = popupX + "px";
+      popup.style.top = popupY + "px";
+      popup.style.display = "block";
+    }
+    
+    // Close popup and release locked blue line.
+    function closePopup() {
+      stuckX = null;
+      document.getElementById("popup").style.display = "none";
+      myChart.draw();
+    }
+    
+    // Create chart.
+    async function createLightCurveChart() {
+      try {
+        const csvText = await fetchCSV("tools/curves/DEL_CEP.csv");
+        parseCSV(csvText);
+        const jdNow = getCurrentJD();
+        let currentPhase = ((jdNow - epochJD) / period) % 1;
+        if (currentPhase < 0) currentPhase += 1;
+        const transformedData = transformData(currentPhase);
+        
+        const ctx = document.getElementById("lightCurveChart").getContext("2d");
+        myChart = new Chart(ctx, {
+          type: "scatter",
+          data: {
+            datasets: [{
+              label: "Delta Cephei",
+              data: transformedData,
+              backgroundColor: "rgba(75, 192, 192, 1)",
+              pointRadius: 3,
+              hoverRadius: 3
+            }]
+          },
+          options: {
+            responsive: false,
+            hover: { mode: null },
+            plugins: {
+              legend: { display: false },
+              tooltip: { enabled: false }
+            },
+            scales: {
+              x: {
+                type: "linear",
+                position: "bottom",
+                min: -period / 2,
+                max: period / 2,
+                title: {
+                  display: true,
+                  text: "Time Offset (days)",
+                  font: {
+                    family: "Moon Bold, sans-serif",
+                    size: 16,
+                    weight: "bold"
+                  }
+                },
+                ticks: {
+                  font: {
+                    family: "Moon Bold, sans-serif",
+                    size: 16,
+                    weight: "bold"
+                  },
+                  callback: function(value, index, ticks) {
+                    const tickValues = ticks.map(t => t.value);
+                    const min = tickValues[0];
+                    const max = tickValues[tickValues.length - 1];
+                    if (value === min || value === max) {
+                      if (Math.abs(value) < 0.01) return "Now";
+                      if (value < 0) return Math.abs(value).toFixed(2) + " days ago";
+                      else return "in " + value.toFixed(2) + " days";
+                    }
+                    return "";
+                  }
+                }
+              },
+              y: {
+                min: 3,
+                max: 5,
+                reverse: true,
+                title: {
+                  display: true,
+                  text: "Magnitude",
+                  font: {
+                    family: "Moon Bold, sans-serif",
+                    size: 16,
+                    weight: "bold"
+                  }
+                },
+                ticks: {
+                  font: {
+                    family: "Moon Bold, sans-serif",
+                    size: 16,
+                    weight: "bold"
+                  }
+                }
+              }
+            }
+          }
+        });
+        
+        // Set up mouse move for hover blue line.
+        const canvas = document.getElementById("lightCurveChart");
+        canvas.addEventListener("mousemove", function(event) {
+          const rect = canvas.getBoundingClientRect();
+          // Update hoverX only if mouse is within canvas.
+          if (
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom
+          ) {
+            if (stuckX === null) {
+              hoverX = event.clientX - rect.left;
+            }
+          } else {
+            if (stuckX === null) {
+              hoverX = null;
+            }
+          }
+          myChart.draw();
+        });
+        
+        // Clear hover when mouse leaves canvas.
+        canvas.addEventListener("mouseout", function() {
+          if (stuckX === null) {
+            hoverX = null;
+          }
+          myChart.draw();
+        });
+        
+        // On click, if hover is active and not already stuck, lock blue line and show popup.
+        canvas.addEventListener("click", function(event) {
+          const rect = canvas.getBoundingClientRect();
+          if (stuckX === null && hoverX !== null) {
+            stuckX = hoverX;
+            showPopup(stuckX);
+          }
+        });
+        
+        updateChart();
+        setInterval(updateChart, 60000);
+      } catch (error) {
+        console.error("Error loading or parsing CSV:", error);
+      }
+    }
+    
+    createLightCurveChart();
+    
+    // Popup close events.
+    document.getElementById("popupClose").addEventListener("click", function() {
+      closePopup();
+    });
+    // Also close popup if clicking outside it in the graph container.
+    document.getElementById("graphContainer").addEventListener("click", function(e) {
+      if (e.target.id !== "popup" && e.target.id !== "popupClose") {
+        closePopup();
+      }
+    });
+  </script>
+</body>
+</html>
