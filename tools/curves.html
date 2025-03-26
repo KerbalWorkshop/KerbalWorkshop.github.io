@@ -9,15 +9,15 @@
   <style>
     @font-face {
       font-family: 'Moon';
-      src: url('fonts/Moon-Regular.woff2') format('woff2'),
-           url('fonts/Moon-Regular.woff') format('woff');
+      src: url('/fonts/Moon-Regular.woff2') format('woff2'),
+           url('/fonts/Moon-Regular.woff') format('woff');
       font-weight: normal;
       font-style: normal;
     }
     @font-face {
       font-family: 'Moon Bold';
-      src: url('fonts/Moon-Bold.woff2') format('woff2'),
-           url('fonts/Moon-Bold.woff') format('woff');
+      src: url('/fonts/Moon-Bold.woff2') format('woff2'),
+           url('/fonts/Moon-Bold.woff') format('woff');
       font-weight: bold;
       font-style: normal;
     }
@@ -50,7 +50,7 @@
     #intro {
       width: 100%;
       background: #fff;
-      padding: 15px;
+      padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
       margin-bottom: 20px;
@@ -105,19 +105,20 @@
       margin-bottom: 20px;
     }
     
-    /* Popup styling (appears next to the click) */
+    /* Popup with position: fixed so it can go anywhere on screen */
     #popup {
-      position: absolute;
+      position: fixed; /* key: not relative to chart container */
       background: #fff;
       border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-      z-index: 2000;
+      border-radius: 4px;
+      margin: 0;
+      padding: 2px 6px; /* minimal padding */
+      z-index: 3000;
       display: none;
       font-size: 16px;
       font-family: 'Moon', sans-serif;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-      white-space: pre-wrap;
+      white-space: normal;
     }
     #popup .close-btn {
       position: absolute;
@@ -128,57 +129,54 @@
       font-weight: bold;
       color: #333;
     }
-    /* Dynamic number color */
     .dynamic {
       color: darkblue;
       font-weight: bold;
     }
   </style>
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <!-- Header -->
   <header>
-    <a class="brand" href="index.html">
-      <img src="images/logo.png" alt="Hansen Space Logo">
+    <a class="brand" href="/index.html">
+      <img src="/images/logo.png" alt="Hansen Space Logo">
     </a>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="myjourney.html">My Journey</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="tools.html">Tools</a></li>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/myjourney.html">My Journey</a></li>
+        <li><a href="/photography.html">Photography</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/tools.html">Tools</a></li>
       </ul>
     </nav>
   </header>
   
   <!-- Main content -->
   <main>
-    <button id="backButton" onclick="location.href='tools.html'">&#8592;</button>
+    <button id="backButton" onclick="location.href='../tools.html'">&#8592;</button>
     
-    <!-- Intro section with numbered instructions -->
+    <!-- Intro section with general instructions -->
     <section id="intro">
-      <h2>Delta Cephei Light Curve</h2>
+      <h2>Light Curve Viewer</h2>
       <ol>
-        <li>Hover over the graph to see a dark blue vertical line indicating the time offset (in days) relative to now.</li>
-        <li>The labels show how many days in the future (or past) that point represents.</li>
-        <li>Click on the graph while hovering to lock the blue line and see detailed information in a popup.</li>
-        <li>The popup displays the predicted magnitude, the time offset, and the corresponding UTC and local times.</li>
-        <li>Click the "×" in the popup or click elsewhere on the graph to close it and resume hover behavior.</li>
+        <li>Graphs show variable stars' live position on phase curve.</li>
+        <li>Click anywhere on the graph to when the star will be at that brightness.</li>
       </ol>
     </section>
     
     <!-- Graph container -->
     <section id="graphContainer">
       <canvas id="lightCurveChart" width="600" height="400"></canvas>
-      <!-- Popup (positioned absolutely within graphContainer) -->
-      <div id="popup">
-        <span class="close-btn" id="popupClose">&times;</span>
-        <div id="popupContent"></div>
-      </div>
     </section>
+    
+    <!-- Popup (position: fixed, can go outside the chart) -->
+    <div id="popup">
+      <span class="close-btn" id="popupClose">&times;</span>
+      <div id="popupContent"></div>
+    </div>
   </main>
   
   <!-- Footer -->
@@ -207,11 +205,8 @@
     Chart.defaults.font.weight = "bold";
   </script>
   
-  <!-- Custom plugin: fixed red "NOW" line and hover blue line -->
+  <!-- Global vertical line plugin (modular version) -->
   <script>
-    let hoverX = null; // current mouse x position (canvas coords)
-    let stuckX = null; // if set, the blue line remains locked at this x
-    
     const verticalLinePlugin = {
       id: 'verticalLinePlugin',
       afterDraw: function(chart) {
@@ -219,7 +214,7 @@
         const xScale = chart.scales.x;
         const yScale = chart.scales.y;
         
-        // Draw fixed red line at x = 0
+        // Draw fixed red line at x=0 and label "NOW" below.
         const fixedX = xScale.getPixelForValue(0);
         ctx.save();
         ctx.beginPath();
@@ -230,7 +225,6 @@
         ctx.stroke();
         ctx.restore();
         
-        // Draw "NOW" label below the chart (centered at fixedX)
         ctx.save();
         ctx.font = "bold 16px 'Moon Bold', sans-serif";
         ctx.fillStyle = 'red';
@@ -238,11 +232,9 @@
         ctx.fillText("NOW", fixedX, yScale.bottom + 20);
         ctx.restore();
         
-        // Determine the x coordinate for blue line: if stuck, use that; otherwise use hoverX.
-        let drawX = (stuckX !== null) ? stuckX : hoverX;
+        let drawX = (chart.myStuckX != null) ? chart.myStuckX : chart.myHoverX;
         
-        // Only draw blue line if drawX is valid and inside the chart area.
-        if (drawX !== null && drawX >= xScale.left && drawX <= xScale.right) {
+        if (drawX != null && drawX >= xScale.left && drawX <= xScale.right) {
           const blueValue = xScale.getValueForPixel(drawX);
           ctx.save();
           ctx.beginPath();
@@ -253,7 +245,6 @@
           ctx.stroke();
           ctx.restore();
           
-          // Create label for blue line.
           let label = "";
           if (Math.abs(blueValue) < 0.01) {
             label = "Now";
@@ -275,145 +266,123 @@
     Chart.register(verticalLinePlugin);
   </script>
   
-  <!-- Script for CSV, chart update, hover, click, and popup behavior -->
+  <!-- Modular chart initialization function -->
   <script>
-    let epochJD = null;
-    let period = null;
-    let originalScatterData = []; // original CSV data: {phase, mag}
-    let myChart = null;
-    
-    // Get current Julian Date.
-    function getCurrentJD() {
-      return (Date.now() / 86400000) + 2440587.5;
-    }
-    
-    // Fetch CSV.
-    async function fetchCSV(url) {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to load CSV file.");
+    function initLightCurveChart(options) {
+      // options: { canvasId, csvPath, starName }
+      const canvas = document.getElementById(options.canvasId);
+      const ctx = canvas.getContext("2d");
+      
+      let epochJD = null;
+      let period = null;
+      let originalScatterData = [];
+      let myChart = null;
+      
+      function getCurrentJD() {
+        return (Date.now() / 86400000) + 2440587.5;
       }
-      return response.text();
-    }
-    
-    // Parse CSV: first row = [epochJD, period]; subsequent rows = [phase, magnitude]
-    function parseCSV(csvText) {
-      const lines = csvText.split("\n").filter(line => line.trim() !== "");
-      if (lines.length === 0) return [];
-      const firstLine = lines[0].split(",").map(s => s.trim());
-      epochJD = parseFloat(firstLine[0]);
-      period = parseFloat(firstLine[1]);
-      const dataLines = lines.slice(1);
-      originalScatterData = dataLines.map(line => {
-        const parts = line.split(",").map(s => s.trim());
-        const phase = parseFloat(parts[0]);
-        const mag = parseFloat(parts[1]);
-        return { phase: phase, mag: mag };
-      }).filter(point => !isNaN(point.phase) && !isNaN(point.mag));
-      return originalScatterData;
-    }
-    
-    // Transform data into time offset values relative to the current phase.
-    function transformData(currentPhase) {
-      return originalScatterData.map(point => {
-        let diff = point.phase - currentPhase;
-        if (diff > 0.5) diff -= 1;
-        if (diff < -0.5) diff += 1;
-        return { x: diff * period, y: point.mag };
-      });
-    }
-    
-    // Update chart data based on current phase.
-    function updateChart() {
-      const jdNow = getCurrentJD();
-      let currentPhase = ((jdNow - epochJD) / period) % 1;
-      if (currentPhase < 0) currentPhase += 1;
-      if (myChart) {
-        const newData = transformData(currentPhase);
-        myChart.data.datasets[0].data = newData;
-        myChart.options.scales.x.min = -period / 2;
-        myChart.options.scales.x.max = period / 2;
-        myChart.update();
-      }
-    }
-    
-    // Show popup next to click with dynamic info.
-    function showPopup(stuckPixelX) {
-      const xScale = myChart.scales.x;
-      const blueValue = xScale.getValueForPixel(stuckPixelX); // time offset (days)
-      // Find nearest data point for magnitude.
-      let nearest = null;
-      let minDiff = Infinity;
-      myChart.data.datasets[0].data.forEach(pt => {
-        const diff = Math.abs(pt.x - blueValue);
-        if (diff < minDiff) {
-          minDiff = diff;
-          nearest = pt;
+      
+      async function fetchCSV(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Failed to load CSV file.");
         }
-      });
-      let magText = (nearest) ? nearest.y.toFixed(2) : "N/A";
-      let offsetText = "";
-      if (Math.abs(blueValue) < 0.01) {
-        offsetText = "Now";
-      } else if (blueValue > 0) {
-        offsetText = "in " + blueValue.toFixed(2) + " days";
-      } else {
-        offsetText = Math.abs(blueValue).toFixed(2) + " days ago";
+        return response.text();
       }
       
-      // Calculate target time by adding blueValue days to current time.
-      let now = new Date();
-      let targetTime = new Date(now.getTime() + blueValue * 86400000);
+      function parseCSV(csvText) {
+        const lines = csvText.split("\n").filter(line => line.trim() !== "");
+        if (lines.length === 0) return [];
+        const firstLine = lines[0].split(",").map(s => s.trim());
+        epochJD = parseFloat(firstLine[0]);
+        period = parseFloat(firstLine[1]);
+        const dataLines = lines.slice(1);
+        originalScatterData = dataLines.map(line => {
+          const parts = line.split(",").map(s => s.trim());
+          const phase = parseFloat(parts[0]);
+          const mag = parseFloat(parts[1]);
+          return { phase: phase, mag: mag };
+        }).filter(point => !isNaN(point.phase) && !isNaN(point.mag));
+        return originalScatterData;
+      }
       
-      // Format the dates in a consistent, simple format.
-      let formatDate = dt => dt.toLocaleString(undefined, { hour12: false });
+      function transformData(currentPhase) {
+        return originalScatterData.map(point => {
+          let diff = point.phase - currentPhase;
+          if (diff > 0.5) diff -= 1;
+          if (diff < -0.5) diff += 1;
+          return { x: diff * period, y: point.mag };
+        });
+      }
       
-      // Build popup message with dynamic values colored.
-      let popupMessage = 
-        "Delta Cep will be at <span class='dynamic'>" + magText + "</span> magnitude " +
-        "<span class='dynamic'>" + offsetText + "</span>.\n\n" +
-        "UTC time: <span class='dynamic'>" + targetTime.toUTCString() + "</span>\n" +
-        "Local time: <span class='dynamic'>" + formatDate(targetTime) + "</span>";
+      function updateChart() {
+        const jdNow = getCurrentJD();
+        let currentPhase = ((jdNow - epochJD) / period) % 1;
+        if (currentPhase < 0) currentPhase += 1;
+        if (myChart) {
+          const newData = transformData(currentPhase);
+          myChart.data.datasets[0].data = newData;
+          myChart.options.scales.x.min = -period / 2;
+          myChart.options.scales.x.max = period / 2;
+          myChart.update();
+        }
+      }
       
-      const popup = document.getElementById("popup");
-      document.getElementById("popupContent").innerHTML = popupMessage;
+      // Format date as "YYYY-MM-DD HH:mm"
+      function formatDateSimple(dt, utc = false) {
+        let year = utc ? dt.getUTCFullYear() : dt.getFullYear();
+        let month = (utc ? dt.getUTCMonth() : dt.getMonth()) + 1;
+        let day = utc ? dt.getUTCDate() : dt.getDate();
+        let hours = utc ? dt.getUTCHours() : dt.getHours();
+        let minutes = utc ? dt.getUTCMinutes() : dt.getMinutes();
+        return year + "-" +
+               (month < 10 ? "0" + month : month) + "-" +
+               (day < 10 ? "0" + day : day) + " " +
+               (hours < 10 ? "0" + hours : hours) + ":" +
+               (minutes < 10 ? "0" + minutes : minutes);
+      }
       
-      // Position the popup near the click.
-      // We'll position it so that its top left is at (stuckPixelX + container's left offset, container's top offset + 20)
-      const container = document.getElementById("graphContainer").getBoundingClientRect();
-      const canvas = document.getElementById("lightCurveChart").getBoundingClientRect();
-      // Calculate x relative to graph container.
-      let popupX = stuckPixelX + canvas.left - container.left + 10;
-      let popupY = canvas.bottom - container.top - 60; // 60px above bottom of graph container
+      // Show popup using fixed coords from the click event.
+      function showPopup(clickEvent, stuckPixelX) {
+        const xScale = myChart.scales.x;
+        const blueValue = xScale.getValueForPixel(stuckPixelX);
+        let now = new Date();
+        let targetTime = new Date(now.getTime() + blueValue * 86400000);
+        
+        const message = "UTC: <span class='dynamic'>" + formatDateSimple(targetTime, true) + "</span><br>" +
+                        "LOCAL: <span class='dynamic'>" + formatDateSimple(targetTime) + "</span>";
+        
+        const popup = document.getElementById("popup");
+        document.getElementById("popupContent").innerHTML = message;
+        
+        // Use event.clientX / clientY for the entire viewport
+        let popupX = clickEvent.clientX + 10;
+        let popupY = clickEvent.clientY + 10;
+        popup.style.left = popupX + "px";
+        popup.style.top = popupY + "px";
+        popup.style.display = "block";
+      }
       
-      popup.style.left = popupX + "px";
-      popup.style.top = popupY + "px";
-      popup.style.display = "block";
-    }
-    
-    // Close popup and release locked blue line.
-    function closePopup() {
-      stuckX = null;
-      document.getElementById("popup").style.display = "none";
-      myChart.draw();
-    }
-    
-    // Create chart.
-    async function createLightCurveChart() {
-      try {
-        const csvText = await fetchCSV("tools/curves/DEL_CEP.csv");
+      function closePopup() {
+        myChart.myStuckX = null;
+        document.getElementById("popup").style.display = "none";
+        myChart.draw();
+      }
+      
+      // Load CSV, parse data, create chart.
+      fetchCSV(options.csvPath)
+      .then(csvText => {
         parseCSV(csvText);
         const jdNow = getCurrentJD();
         let currentPhase = ((jdNow - epochJD) / period) % 1;
         if (currentPhase < 0) currentPhase += 1;
         const transformedData = transformData(currentPhase);
         
-        const ctx = document.getElementById("lightCurveChart").getContext("2d");
         myChart = new Chart(ctx, {
           type: "scatter",
           data: {
             datasets: [{
-              label: "Delta Cephei",
+              label: options.starName,
               data: transformedData,
               backgroundColor: "rgba(75, 192, 192, 1)",
               pointRadius: 3,
@@ -425,7 +394,16 @@
             hover: { mode: null },
             plugins: {
               legend: { display: false },
-              tooltip: { enabled: false }
+              tooltip: { enabled: false },
+              title: {
+                display: true,
+                text: options.starName + " Light Curve",
+                font: {
+                  family: "Moon Bold, sans-serif",
+                  size: 20,
+                  weight: "bold"
+                }
+              }
             },
             scales: {
               x: {
@@ -486,63 +464,79 @@
           }
         });
         
-        // Set up mouse move for hover blue line.
-        const canvas = document.getElementById("lightCurveChart");
+        // Initialize per-chart hover/stuck props
+        myChart.myHoverX = null;
+        myChart.myStuckX = null;
+        
+        // Mouse events
         canvas.addEventListener("mousemove", function(event) {
           const rect = canvas.getBoundingClientRect();
-          // Update hoverX only if mouse is within canvas.
           if (
             event.clientX >= rect.left &&
             event.clientX <= rect.right &&
             event.clientY >= rect.top &&
             event.clientY <= rect.bottom
           ) {
-            if (stuckX === null) {
-              hoverX = event.clientX - rect.left;
+            if (myChart.myStuckX === null) {
+              myChart.myHoverX = event.clientX - rect.left;
             }
           } else {
-            if (stuckX === null) {
-              hoverX = null;
+            if (myChart.myStuckX === null) {
+              myChart.myHoverX = null;
             }
           }
           myChart.draw();
         });
         
-        // Clear hover when mouse leaves canvas.
         canvas.addEventListener("mouseout", function() {
-          if (stuckX === null) {
-            hoverX = null;
+          if (myChart.myStuckX === null) {
+            myChart.myHoverX = null;
           }
           myChart.draw();
         });
         
-        // On click, if hover is active and not already stuck, lock blue line and show popup.
         canvas.addEventListener("click", function(event) {
-          const rect = canvas.getBoundingClientRect();
-          if (stuckX === null && hoverX !== null) {
-            stuckX = hoverX;
-            showPopup(stuckX);
+          event.stopPropagation();
+          const popup = document.getElementById("popup");
+          // If popup is open, close it
+          if (popup.style.display === "block") {
+            closePopup();
+            return;
           }
+          // Otherwise lock line and show popup
+          if (myChart.myStuckX === null && myChart.myHoverX !== null) {
+            myChart.myStuckX = myChart.myHoverX;
+            showPopup(event, myChart.myStuckX);
+          }
+        });
+        
+        // Document click: close if outside popup
+        document.addEventListener("click", function(e) {
+          const popup = document.getElementById("popup");
+          if (popup.style.display === "block" && !popup.contains(e.target)) {
+            closePopup();
+          }
+        });
+        
+        // Popup "×" close
+        document.getElementById("popupClose").addEventListener("click", function(e) {
+          e.stopPropagation();
+          closePopup();
         });
         
         updateChart();
         setInterval(updateChart, 60000);
-      } catch (error) {
+      })
+      .catch(error => {
         console.error("Error loading or parsing CSV:", error);
-      }
+      });
     }
     
-    createLightCurveChart();
-    
-    // Popup close events.
-    document.getElementById("popupClose").addEventListener("click", function() {
-      closePopup();
-    });
-    // Also close popup if clicking outside it in the graph container.
-    document.getElementById("graphContainer").addEventListener("click", function(e) {
-      if (e.target.id !== "popup" && e.target.id !== "popupClose") {
-        closePopup();
-      }
+    // Initialize chart for Delta Cephei
+    initLightCurveChart({
+      canvasId: "lightCurveChart",
+      csvPath: "curves/DEL_CEP.csv",
+      starName: "Delta Cephei"
     });
   </script>
 </body>
