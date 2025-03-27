@@ -72,22 +72,6 @@
       padding: 20px;
     }
     
-    /* Back button placed as static element within main area */
-    #backButton {
-      display: inline-block;
-      background: #fff;
-      border: 1px solid #000;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 36px;
-      font-size: 18px;
-      color: #000;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
-    
     /* Intro section with instructions */
     #intro {
       width: 100%;
@@ -171,12 +155,6 @@
       #intro h2 {
         font-size: 20px;
       }
-      #backButton {
-        width: 32px;
-        height: 32px;
-        line-height: 32px;
-        font-size: 16px;
-      }
       .graphContainer {
         width: 100%;
         height: auto;
@@ -193,12 +171,6 @@
       }
       #intro ol {
         font-size: 12px;
-      }
-      #backButton {
-        width: 28px;
-        height: 28px;
-        line-height: 28px;
-        font-size: 14px;
       }
     }
   </style>
@@ -224,9 +196,6 @@
   
   <!-- Main content -->
   <main>
-    <!-- Back button now within main area -->
-    <button id="backButton" onclick="location.href='../tools.html'">&#8592;</button>
-    
     <!-- Intro section with instructions -->
     <section id="intro">
       <h2>Light Curve Viewer</h2>
@@ -494,7 +463,8 @@
             }]
           },
           options: {
-            responsive: false,
+            responsive: false,    // We use fixed width/height in HTML
+            devicePixelRatio: 1, // Turn off auto-scaling for high DPI
             hover: { mode: null },
             plugins: {
               legend: { display: false },
@@ -574,45 +544,45 @@
         myChart.myHoverX = null;
         myChart.myStuckX = null;
         
-        canvas.addEventListener("mousemove", function(event) {
-          const rect = canvas.getBoundingClientRect();
-          if (
-            event.clientX >= rect.left &&
-            event.clientX <= rect.right &&
-            event.clientY >= rect.top &&
-            event.clientY <= rect.bottom
-          ) {
-            if (myChart.myStuckX === null) {
-              myChart.myHoverX = event.clientX - rect.left;
-            }
-          } else {
-            if (myChart.myStuckX === null) {
-              myChart.myHoverX = null;
-            }
+        // Convert CSS-pixel mouse position -> chart's internal pixel coords
+        canvas.addEventListener("mousemove", function(e) {
+          // Only move the blue line if not "stuck"
+          if (myChart.myStuckX === null) {
+            const rect = canvas.getBoundingClientRect();
+            // canvas.width is in "chart" px (now exactly 600) because devicePixelRatio = 1
+            const ratioX = canvas.width / rect.width;
+            const mouseXCss = e.clientX - rect.left;
+            const mouseXCanvas = mouseXCss * ratioX; 
+            
+            myChart.myHoverX = mouseXCanvas;
+            myChart.draw();
           }
-          myChart.draw();
         });
         
         canvas.addEventListener("mouseout", function() {
+          // Clear the hover line if not stuck
           if (myChart.myStuckX === null) {
             myChart.myHoverX = null;
+            myChart.draw();
           }
-          myChart.draw();
         });
         
         canvas.addEventListener("click", function(event) {
           event.stopPropagation();
           const popup = document.getElementById("popup");
           if (popup.style.display === "block") {
+            // Close popup if already open
             closePopup();
             return;
           }
+          // If line not stuck, stick it at the current hover
           if (myChart.myStuckX === null && myChart.myHoverX !== null) {
             myChart.myStuckX = myChart.myHoverX;
             showPopup(event, myChart.myStuckX);
           }
         });
         
+        // Close popup if user clicks outside
         document.addEventListener("click", function(e) {
           const popup = document.getElementById("popup");
           if (popup.style.display === "block" && !popup.contains(e.target)) {
@@ -620,11 +590,13 @@
           }
         });
         
+        // Close popup if user clicks the 'X'
         document.getElementById("popupClose").addEventListener("click", function(e) {
           e.stopPropagation();
           closePopup();
         });
         
+        // Update data every 60 seconds
         updateChart();
         setInterval(updateChart, 60000);
       })

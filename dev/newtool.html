@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tool – Hansen Space</title>
+  
+  <!-- Font-face declarations -->
+  <style>
+    @font-face {
+      font-family: 'Moon';
+      src: url('fonts/Moon-Regular.woff2') format('woff2'),
+           url('fonts/Moon-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Moon Bold';
+      src: url('fonts/Moon-Bold.woff2') format('woff2'),
+           url('fonts/Moon-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    /* Set default font to Moon, and for bold text use Moon Bold */
+    body {
+      font-family: 'Moon', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    strong, b {
+      font-family: 'Moon Bold', sans-serif;
+    }
+    
+    /* Universal layout styles */
+    header, footer {
+      flex: 0 0 auto;
+    }
+    main {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+  </style>
+  
+  <!-- Standard site styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Hansen Space Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Section -->
+  <main>
+  
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+</body>
+</html>
