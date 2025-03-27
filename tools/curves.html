@@ -22,28 +22,70 @@
       font-style: normal;
     }
     
+    /* Global box-sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Moon', sans-serif;
       margin: 0;
       padding: 0;
-      min-height: 100vh;
+      background: #f8f8f8;
       display: flex;
       flex-direction: column;
-      background: #f8f8f8;
+      min-height: 100vh;
     }
     
     header, footer {
       flex: 0 0 auto;
     }
     
-    main {
-      flex: 1;
+    header {
+      width: 100%;
+      background: #fff;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    
+    header .brand img {
+      max-height: 50px;
+    }
+    
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      justify-content: center;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    
+    main {
+      position: relative;
+      width: 90%;
       max-width: 800px;
-      margin: 0 auto;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    /* Back button placed as static element within main area */
+    #backButton {
+      display: inline-block;
+      background: #fff;
+      border: 1px solid #000;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      margin-bottom: 20px;
     }
     
     /* Intro section with instructions */
@@ -72,47 +114,29 @@
       margin-bottom: 5px;
     }
     
-    /* Back button styling */
-    #backButton {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 1100;
-      background: #fff;
-      border: 1px solid #000;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 36px;
-      font-size: 18px;
-      color: #000;
-      cursor: pointer;
-      padding: 0;
-    }
-    
     /* Graph container styling */
-    #graphContainer {
+    .graphContainer {
       width: 600px;
+      max-width: 100%;
       height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 4px;
+      margin: 0 auto 20px auto;
       position: relative;
-      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
-    /* Popup with position: fixed so it can go anywhere on screen */
+    /* Popup styling (position: fixed so it can appear anywhere) */
     #popup {
-      position: fixed; /* key: not relative to chart container */
+      position: fixed;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 4px;
       margin: 0;
-      padding: 2px 6px; /* minimal padding */
+      padding: 2px 6px;
       z-index: 3000;
       display: none;
       font-size: 16px;
@@ -132,6 +156,50 @@
     .dynamic {
       color: darkblue;
       font-weight: bold;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      main {
+        padding: 15px;
+        margin: 10px;
+      }
+      #intro ol {
+        margin-left: 15px;
+        font-size: 13px;
+      }
+      #intro h2 {
+        font-size: 20px;
+      }
+      #backButton {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 16px;
+      }
+      .graphContainer {
+        width: 100%;
+        height: auto;
+      }
+      canvas {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      #intro h2 {
+        font-size: 18px;
+      }
+      #intro ol {
+        font-size: 12px;
+      }
+      #backButton {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+      }
     }
   </style>
   
@@ -156,23 +224,36 @@
   
   <!-- Main content -->
   <main>
+    <!-- Back button now within main area -->
     <button id="backButton" onclick="location.href='../tools.html'">&#8592;</button>
     
-    <!-- Intro section with general instructions -->
+    <!-- Intro section with instructions -->
     <section id="intro">
       <h2>Light Curve Viewer</h2>
       <ol>
-        <li>Graphs show variable stars' live position on phase curve.</li>
-        <li>Click anywhere on the graph to when the star will be at that brightness.</li>
+        <li>Graphs show variable stars' live position on the phase curve.</li>
+        <li>Click anywhere on a graph to see when the star will be at that brightness.</li>
       </ol>
     </section>
     
-    <!-- Graph container -->
-    <section id="graphContainer">
-      <canvas id="lightCurveChart" width="600" height="400"></canvas>
+    <!-- Graph containers for each star -->
+    <section class="graphContainer">
+      <canvas id="lightCurveChart1" width="600" height="400"></canvas>
+    </section>
+    <section class="graphContainer">
+      <canvas id="lightCurveChart2" width="600" height="400"></canvas>
+    </section>
+    <section class="graphContainer">
+      <canvas id="lightCurveChart3" width="600" height="400"></canvas>
+    </section>
+    <section class="graphContainer">
+      <canvas id="lightCurveChart4" width="600" height="400"></canvas>
+    </section>
+    <section class="graphContainer">
+      <canvas id="lightCurveChart5" width="600" height="400"></canvas>
     </section>
     
-    <!-- Popup (position: fixed, can go outside the chart) -->
+    <!-- Popup (position: fixed, can appear anywhere) -->
     <div id="popup">
       <span class="close-btn" id="popupClose">&times;</span>
       <div id="popupContent"></div>
@@ -205,7 +286,7 @@
     Chart.defaults.font.weight = "bold";
   </script>
   
-  <!-- Global vertical line plugin (modular version) -->
+  <!-- Global vertical line plugin -->
   <script>
     const verticalLinePlugin = {
       id: 'verticalLinePlugin',
@@ -271,12 +352,17 @@
     function initLightCurveChart(options) {
       // options: { canvasId, csvPath, starName }
       const canvas = document.getElementById(options.canvasId);
+      if (!canvas) {
+        console.error("Canvas not found: " + options.canvasId);
+        return;
+      }
       const ctx = canvas.getContext("2d");
       
       let epochJD = null;
       let period = null;
       let originalScatterData = [];
       let myChart = null;
+      let computedYMin = null, computedYMax = null;
       
       function getCurrentJD() {
         return (Date.now() / 86400000) + 2440587.5;
@@ -285,7 +371,7 @@
       async function fetchCSV(url) {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error("Failed to load CSV file.");
+          throw new Error("Failed to load CSV file: " + url);
         }
         return response.text();
       }
@@ -293,16 +379,32 @@
       function parseCSV(csvText) {
         const lines = csvText.split("\n").filter(line => line.trim() !== "");
         if (lines.length === 0) return [];
+        // First row => epoch JD, period
         const firstLine = lines[0].split(",").map(s => s.trim());
         epochJD = parseFloat(firstLine[0]);
         period = parseFloat(firstLine[1]);
+        
+        // The rest => phase, magnitude
         const dataLines = lines.slice(1);
         originalScatterData = dataLines.map(line => {
           const parts = line.split(",").map(s => s.trim());
           const phase = parseFloat(parts[0]);
           const mag = parseFloat(parts[1]);
           return { phase: phase, mag: mag };
-        }).filter(point => !isNaN(point.phase) && !isNaN(point.mag));
+        }).filter(pt => !isNaN(pt.phase) && !isNaN(pt.mag));
+        
+        // Auto-compute Y range from the data with 10% margin.
+        const mags = originalScatterData.map(pt => pt.mag);
+        computedYMin = Math.min(...mags);
+        computedYMax = Math.max(...mags);
+        let range = computedYMax - computedYMin;
+        if (range < 0.01) {
+          computedYMin -= 1;
+          computedYMax += 1;
+        } else {
+          computedYMin -= range * 0.1;
+          computedYMax += range * 0.1;
+        }
         return originalScatterData;
       }
       
@@ -324,6 +426,8 @@
           myChart.data.datasets[0].data = newData;
           myChart.options.scales.x.min = -period / 2;
           myChart.options.scales.x.max = period / 2;
+          myChart.options.scales.y.min = computedYMin;
+          myChart.options.scales.y.max = computedYMax;
           myChart.update();
         }
       }
@@ -342,22 +446,22 @@
                (minutes < 10 ? "0" + minutes : minutes);
       }
       
-      // Show popup using fixed coords from the click event.
+      // Show popup at click location with date info only
       function showPopup(clickEvent, stuckPixelX) {
         const xScale = myChart.scales.x;
         const blueValue = xScale.getValueForPixel(stuckPixelX);
-        let now = new Date();
-        let targetTime = new Date(now.getTime() + blueValue * 86400000);
         
+        const now = new Date();
+        const targetTime = new Date(now.getTime() + blueValue * 86400000);
         const message = "UTC: <span class='dynamic'>" + formatDateSimple(targetTime, true) + "</span><br>" +
                         "LOCAL: <span class='dynamic'>" + formatDateSimple(targetTime) + "</span>";
         
         const popup = document.getElementById("popup");
         document.getElementById("popupContent").innerHTML = message;
         
-        // Use event.clientX / clientY for the entire viewport
-        let popupX = clickEvent.clientX + 10;
-        let popupY = clickEvent.clientY + 10;
+        // Use viewport coordinates for popup positioning.
+        const popupX = clickEvent.clientX + 10;
+        const popupY = clickEvent.clientY + 10;
         popup.style.left = popupX + "px";
         popup.style.top = popupY + "px";
         popup.style.display = "block";
@@ -369,10 +473,10 @@
         myChart.draw();
       }
       
-      // Load CSV, parse data, create chart.
       fetchCSV(options.csvPath)
       .then(csvText => {
         parseCSV(csvText);
+        
         const jdNow = getCurrentJD();
         let currentPhase = ((jdNow - epochJD) / period) % 1;
         if (currentPhase < 0) currentPhase += 1;
@@ -440,8 +544,10 @@
                 }
               },
               y: {
-                min: 3,
-                max: 5,
+                type: "linear",
+                position: "left",
+                min: computedYMin,
+                max: computedYMax,
                 reverse: true,
                 title: {
                   display: true,
@@ -464,11 +570,10 @@
           }
         });
         
-        // Initialize per-chart hover/stuck props
+        // Initialize per-chart hover/stuck properties.
         myChart.myHoverX = null;
         myChart.myStuckX = null;
         
-        // Mouse events
         canvas.addEventListener("mousemove", function(event) {
           const rect = canvas.getBoundingClientRect();
           if (
@@ -498,19 +603,16 @@
         canvas.addEventListener("click", function(event) {
           event.stopPropagation();
           const popup = document.getElementById("popup");
-          // If popup is open, close it
           if (popup.style.display === "block") {
             closePopup();
             return;
           }
-          // Otherwise lock line and show popup
           if (myChart.myStuckX === null && myChart.myHoverX !== null) {
             myChart.myStuckX = myChart.myHoverX;
             showPopup(event, myChart.myStuckX);
           }
         });
         
-        // Document click: close if outside popup
         document.addEventListener("click", function(e) {
           const popup = document.getElementById("popup");
           if (popup.style.display === "block" && !popup.contains(e.target)) {
@@ -518,7 +620,6 @@
           }
         });
         
-        // Popup "×" close
         document.getElementById("popupClose").addEventListener("click", function(e) {
           e.stopPropagation();
           closePopup();
@@ -532,11 +633,31 @@
       });
     }
     
-    // Initialize chart for Delta Cephei
+    // Initialize charts:
     initLightCurveChart({
-      canvasId: "lightCurveChart",
+      canvasId: "lightCurveChart1",
       csvPath: "curves/DEL_CEP.csv",
       starName: "Delta Cephei"
+    });
+    initLightCurveChart({
+      canvasId: "lightCurveChart2",
+      csvPath: "curves/ALGOL.csv",
+      starName: "Algol"
+    });
+    initLightCurveChart({
+      canvasId: "lightCurveChart3",
+      csvPath: "curves/MIRA.csv",
+      starName: "Mira"
+    });
+    initLightCurveChart({
+      canvasId: "lightCurveChart4",
+      csvPath: "curves/BETA_LYRAE.csv",
+      starName: "Beta Lyrae"
+    });
+    initLightCurveChart({
+      canvasId: "lightCurveChart5",
+      csvPath: "curves/ETA_AQUILAE.csv",
+      starName: "Eta Aquilae"
     });
   </script>
 </body>
