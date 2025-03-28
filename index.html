@@ -1,65 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hansen Space – Home</title>
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
   <style>
-    /* Ensure all elements include padding in width calculations */
-    *, *::before, *::after {
+    :root {
+      --side-padding: clamp(20px, 6vw, 60px);
+      --max-width: 1200px;
+    }
+
+    * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Adjust the inner content within each section background */
-    .section-bg .inner {
-      padding: 20px;
-      /* Force inner content to always be at most the container width minus 40px */
-      width: calc(100% - 100px);
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: clamp(14px, 2vw, 18px);
+      line-height: 1.6;
+      color: #111;
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px var(--side-padding);
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1001;
+    }
+
+    .brand img {
+      height: clamp(40px, 5vw, 60px);
+      display: block;
+      margin: auto 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav li a {
+      text-decoration: none;
+      color: #111;
+      font-size: 1em;
+      border-bottom: 2px solid transparent;
+      padding: 4px 0;
+    }
+
+    nav li a:hover,
+    nav li a.active {
+      border-color: #111;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 14px;
+    }
+
+    .hero,
+    .journey {
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px var(--side-padding);
+    }
+
+    .hero {
+      background-image: url('journeyimages/2025-02-11.jpg');
+      aspect-ratio: 3 / 1;
+    }
+
+    .journey {
+      background-image: url('journeyimages/2024-09-01(2).jpg');
+      aspect-ratio: 3 / 1;
+    }
+
+    .hero h1, .journey h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(28px, 5vw, 48px);
+      margin-bottom: 1rem;
+    }
+
+    .hero a, .journey a {
+      font-size: 1em;
+      padding: 10px 18px;
+      border: 2px solid white;
+      border-radius: 4px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .hero a:hover, .journey a:hover {
+      background: white;
+      color: #222;
+    }
+
+    .about-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      max-width: var(--max-width);
+      padding: 60px var(--side-padding);
       margin: 0 auto;
-      word-break: break-word;
-      overflow-wrap: break-word;
     }
 
-    /* For screens up to 600px, reduce padding and scale down text moderately */
-    @media (max-width: 600px) {
-      .section-bg .inner {
-        padding: 15px;
-        width: calc(100% - 80px);
-      }
-      .section-bg h2 {
-        font-size: 2em;
-      }
-      .section-bg p {
-        font-size: 1em;
-      }
-      .section-bg .btn {
-        font-size: 1em;
-        padding: 10px 16px;
-      }
+    .about-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(32px, 6vw, 60px);
+      white-space: nowrap;
+      line-height: 1;
+      display: flex;
+      align-items: center;
     }
 
-    /* For very narrow screens (up to 400px), further reduce sizes */
-    @media (max-width: 400px) {
-      .section-bg .inner {
-        padding: 10px;
-        width: calc(100% - 60px);
+    .about-text {
+      font-size: 1em;
+      max-width: 600px;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(24px, 5vw, 40px);
+      text-align: center;
+      margin: 50px 0 20px;
+    }
+
+    .scroll-wrapper {
+      padding: 0 var(--side-padding);
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-scroll-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 20px;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .card-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      flex: 0 0 clamp(180px, 20vw, 250px);
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      text-align: center;
+      font-size: 1em;
+    }
+
+    .card img {
+      width: 100%;
+      height: clamp(100px, 12vw, 150px);
+      object-fit: cover;
+    }
+
+    .card a {
+      display: block;
+      padding: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #111;
+    }
+
+    .scroll-buttons {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid black;
+      border-radius: 50%;
+      font-size: 1.2em;
+      cursor: pointer;
+      z-index: 10;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scroll-left { left: var(--side-padding); }
+    .scroll-right { right: var(--side-padding); }
+
+    footer {
+      background: #eee;
+      padding: 15px var(--side-padding);
+      text-align: center;
+      font-size: clamp(0.8rem, 2vw, 0.95rem);
+    }
+
+    footer .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    footer .social-links a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #333;
+    }
+
+    footer .social-links img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 260px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: right 0.3s ease;
+      z-index: 1002;
+    }
+
+    .modal a {
+      text-decoration: none;
+      color: #111;
+      font-size: 1.1em;
+    }
+
+    .modal.open { right: 0; }
+    .modal-backdrop.open { display: block; }
+
+    @media (max-width: 850px) {
+      nav { display: none; }
+      .menu-icon { display: block; font-size: 1.2em; padding: 12px; }
+      .about-section {
+        flex-wrap: nowrap;
+        align-items: flex-start;
       }
-      .section-bg h2 {
-        font-size: 1.5em;
-      }
-      .section-bg p {
-        font-size: 0.85em;
-      }
-      .section-bg .btn {
-        font-size: 0.85em;
-        padding: 8px 12px;
+      .hero, .journey {
+        aspect-ratio: 5 / 3;
       }
     }
   </style>
 </head>
-<body class="home">
-  
+<body>
+
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -73,62 +298,75 @@
         <li><a href="tools.html">Tools</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">&#9776;</div>
   </header>
-  
-  <div class="hero">
-    <p>Welcome to the Hansen Space website - here you can find photography, tools, articles, and extra info related to my videos.</p>
-  </div>
-  
-  <!-- Section for My Journey -->
-  <div class="section section-bg" style="background-image: url('images/myjourney-bg.jpg');">
-    <div class="inner">
-      <h2>My Journey</h2>
-      <p>A glimpse into how I discovered astronomy.</p>
-      <a class="btn" href="myjourney.html">See My Journey <span class="arrow">&#8594;</span></a>
+
+  <section class="hero">
+    <h1>CAPTURING THE COSMOS</h1>
+    <a href="photography.html">SEE PHOTOGRAPHY →</a>
+  </section>
+
+  <section class="about-section">
+    <div class="about-title">ABOUT ME</div>
+    <div class="about-text">
+      <p>This is my personal website about astrophotography and exploring the wonders of the night sky. Here, I share my journey into the world of astronomy as well as articles and tools for those who want to learn more about our amazing universe.</p>
     </div>
-  </div>
-  
-  <!-- Section for Photography -->
-  <div class="section section-bg" style="background-image: url('images/photography-bg.png');">
-    <div class="inner">
-      <h2>Photography</h2>
-      <p>See my photos of space.</p>
-      <a class="btn" href="photography.html">See Photography <span class="arrow">&#8594;</span></a>
+  </section>
+
+  <section class="journey">
+    <h2>MY JOURNEY</h2>
+    <a href="myjourney.html">SEE MY JOURNEY →</a>
+  </section>
+
+  <h2 class="section-title">ARTICLES</h2>
+  <div class="scroll-wrapper">
+    <button class="scroll-buttons scroll-left" onclick="document.getElementById('articles').scrollBy({ left: -300, behavior: 'smooth' })">&#8592;</button>
+    <div class="card-scroll-container" id="articles">
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Article 1</a></div>
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Article 2</a></div>
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Article 3</a></div>
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Article 4</a></div>
     </div>
+    <button class="scroll-buttons scroll-right" onclick="document.getElementById('articles').scrollBy({ left: 300, behavior: 'smooth' })">&#8594;</button>
   </div>
-  
-  <!-- Section for Articles -->
-  <div class="section section-bg" style="background-image: url('images/articles-bg.png');">
-    <div class="inner">
-      <h2>Articles</h2>
-      <p>Read my articles on astrophysics and my videos.</p>
-      <a class="btn" href="articles1.html">See Articles <span class="arrow">&#8594;</span></a>
+
+  <h2 class="section-title">TOOLS</h2>
+  <div class="scroll-wrapper">
+    <button class="scroll-buttons scroll-left" onclick="document.getElementById('tools').scrollBy({ left: -300, behavior: 'smooth' })">&#8592;</button>
+    <div class="card-scroll-container" id="tools">
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Tool 1</a></div>
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Tool 2</a></div>
+      <div class="card"><img src="https://via.placeholder.com/300x140"><a href="#">Tool 3</a></div>
     </div>
+    <button class="scroll-buttons scroll-right" onclick="document.getElementById('tools').scrollBy({ left: 300, behavior: 'smooth' })">&#8594;</button>
   </div>
-  
-  <!-- Section for Tools -->
-  <div class="section section-bg" style="background-image: url('images/tools-bg.png');">
-    <div class="inner">
-      <h2>Tools</h2>
-      <p>Discover interactive tools for exploring celestial data.</p>
-      <a class="btn" href="tools.html">See Tools <span class="arrow">&#8594;</span></a>
-    </div>
-  </div>
-  
+
   <footer>
     <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
+      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
+
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html">My Journey</a>
+    <a href="photography.html">Photography</a>
+    <a href="articles1.html">Articles</a>
+    <a href="tools.html">Tools</a>
+  </div>
+
+  <script>
+    function toggleModal() {
+      const modal = document.getElementById('modal');
+      const backdrop = document.getElementById('modal-backdrop');
+      modal.classList.toggle('open');
+      backdrop.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
