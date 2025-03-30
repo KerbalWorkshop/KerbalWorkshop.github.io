@@ -1,19 +1,19 @@
 ---
-title: "Markdown Test"
-description: "A full-featured Markdown article showing all styles."
+title: "Test"
+description: "Testing Markdown styles."
 pubDate: 2025-03-21
 spotlight: true
 ---
 
 # Heading 1
 
-_This is italicized text._  
-**This is bold text.**  
-`Inline code` is also supported.
+_Italicized text._  
+**Bold text.**  
+`Inline code` test.
 
 ## Heading 2
 
-Here’s a paragraph followed by a list:
+Paragraph + list:
 
 - Item 1
 - Item 2
@@ -21,9 +21,9 @@ Here’s a paragraph followed by a list:
 
 ### Heading 3
 
-> This is a blockquote. It’s good for quoting text.
+> Blockquote.
 
-Here’s a code block:
+Code block:
 
 ```js
 function helloWorld() {

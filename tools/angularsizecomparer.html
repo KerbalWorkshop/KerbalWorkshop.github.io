@@ -147,22 +147,26 @@
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0,0,0,0.5);
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
       z-index: 2000;
       justify-content: center;
       align-items: center;
     }
+
     .modal-content {
-      background: #fff;
       width: 80%;
       height: 80%;
+      background: #fff;
       display: flex;
       flex-direction: column;
-      border-radius: 8px;
-      overflow: hidden;
       font-family: inherit;
+      border-radius: 12px; /* rounded corners */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
+
     .modal-header-top {
       flex: 0 0 auto;
       display: flex;
@@ -349,11 +353,24 @@
         <li><a href="/index.html">Home</a></li>
         <li><a href="/myjourney.html">My Journey</a></li>
         <li><a href="/photography.html">Photography</a></li>
-        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="/tools.html">Tools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
+  
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="/index.html">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  
   
   <!-- Main Section -->
   <main>

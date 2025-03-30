@@ -25,7 +25,7 @@ const { Content } = await post.render();
   <body>
     <header>
       <a class="brand" href="/index.html">
-        <img src="/images/logo.png" alt="Hansen Space Logo" />
+        <img src="/images/logo.png" alt="Hansen Space Logo">
       </a>
       <nav>
         <ul>
@@ -34,9 +34,21 @@ const { Content } = await post.render();
           <li><a href="/photography.html">Photography</a></li>
           <li><a href="/articles">Articles</a></li>
           <li><a href="/tools.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
+      <div class="menu-icon" onclick="toggleModal()">☰</div>
     </header>
+    
+    <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+    <div class="modal" id="modal">
+      <a href="/index.html">Home</a>
+      <a href="/myjourney.html">My Journey</a>
+      <a href="/photography.html">Photography</a>
+      <a href="/articles">Articles</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+    </div>
 
     <div class="content">
       <h1>{post.data.title}</h1>
@@ -61,5 +73,8 @@ const { Content } = await post.render();
       </div>
       <p>&copy; 2025 Hansen Space.</p>
     </footer>
+    
+    <script is:raw src="/scripts.js"></script>
+
   </body>
 </html>

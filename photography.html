@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Photography – Hansen Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Main content container */
     .content {
       max-width: 1500px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 30px var(--padding-desktop, 120px);
+    }
+
+    /* ABOUT PHOTOGRAPHY SECTION */
+    .intro-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+
+    .intro-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      white-space: nowrap;
+    }
+
+    .intro-text {
+      font-size: clamp(1rem, 1.15vw, 1.2rem);
+      max-width: 800px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 850px) {
+      .content {
+        padding: 30px var(--padding-mobile, 28px);
+      }
+
+      .intro-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .intro-title {
+        white-space: normal;
+        text-align: center;
+      }
+
+      .intro-text {
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -25,24 +70,89 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="myjourney.html">My Journey</a></li>
         <li><a href="photography.html" class="active">Photography</a></li>
-        <li><a href="articles.html">Articles</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="tools.html">Tools</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
   
-  <!-- Main Content -->
-  <div class="content">
-    <h2>Photography</h2>
-    <p>See a collection of my favorite snapshots of the cosmos—all taken from my backyard.</p>
-    
-    <!-- Elfsight Photo Gallery | HansenSpace website -->
-    <script src="https://static.elfsight.com/platform/platform.js" async></script>
-    <div class="elfsight-app-2ce8894c-c8ba-4002-a2a2-70b895f74a65" data-elfsight-app-lazy></div>
-    
+  <!-- Modal Nav -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html">My Journey</a>
+    <a href="photography.html" class="active">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html">Contact</a>
   </div>
   
-  <!-- Standard Footer -->
+
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- About Photography -->
+    <div class="intro-section">
+      <h2 class="intro-title">PHOTOGRAPHY</h2>
+      <p class="intro-text">
+        Since October 2024, I've been taking pictures of space through my backyard telescope. Below are the best photos I've taken. Prior to beginning astrophotography, I'd never realized there was so much beauty overhead that could be revealed by an amateur telescope sitting in a suburban backyard, and that discovery has been a welcome one. Taking pictures like these isn't easy — there's a laborious process that goes into creating each one — but at least I get to spend my time sitting under the stars.
+      </p>     
+      <p class="intro-text">
+        
+      </p>     
+    </div>
+
+    <!-- Elfsight Gallery -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-2ce8894c-c8ba-4002-a2a2-70b895f74a65" data-elfsight-app-lazy></div>
+
+    <!-- Placeholder Section with Two Buttons -->
+    <div class="messier-section" style="text-align: center; margin: 60px 0;">
+      <div style="display: inline-flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+        <a href="myjourney.html" style="
+          display: inline-block;
+          padding: clamp(10px, 1vw, 14px) clamp(20px, 2vw, 28px);
+          font-size: clamp(1rem, 1.15vw, 1.2rem);
+          font-family: 'Poppins', sans-serif;
+          font-weight: 700;
+          background: black;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+        ">
+          See My Journey →
+        </a>
+        <a href="messier.html" style="
+          display: inline-block;
+          padding: clamp(10px, 1vw, 14px) clamp(20px, 2vw, 28px);
+          font-size: clamp(1rem, 1.15vw, 1.2rem);
+          font-family: 'Poppins', sans-serif;
+          font-weight: 700;
+          background: black;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+        ">
+          See Messier Gallery →
+        </a>
+      </div>
+    </div>
+
+    <!-- Additional Text Section -->
+    <div class="extra-text" style="font-family: 'Nunito Sans', sans-serif; font-size: clamp(1rem, 1.15vw, 1.2rem); line-height: 1.7; max-width: 800px; margin: 0 auto 80px auto;">
+      <p><strong>Gear Used:</strong></p>
+      <ul style="padding-left: 1.2em; margin: 0; list-style-type: disc;">
+        <li>Celestron C8 Newtonian</li>
+        <li>ZWO ASI 662 MC</li>
+        <li>Nikon D3300</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -57,5 +167,7 @@
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
+
+  <script src="scripts.js"></script>
 </body>
 </html>

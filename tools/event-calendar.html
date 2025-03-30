@@ -215,7 +215,7 @@
   
 </head>
 <body>
-  <header id="header">
+  <header>
     <a class="brand" href="/index.html">
       <img src="/images/logo.png" alt="Hansen Space Logo">
     </a>
@@ -224,11 +224,23 @@
         <li><a href="/index.html">Home</a></li>
         <li><a href="/myjourney.html">My Journey</a></li>
         <li><a href="/photography.html">Photography</a></li>
-        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="/tools.html">Tools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
+  
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="/index.html">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/contact.html">Contact</a>
+  </div>
   
   <!-- Navigation Buttons -->
   <div id="backToTop" onclick="scrollToTop()">Back to Top ↑</div>
@@ -339,7 +351,7 @@
             <tr>
               <td>
                 <!-- PLACEHOLDER URL: Adjust this to your aggregated mutual events image -->
-                <span class="cosmic-icon legend-icon" style="background-image: url('https://www.occultations.net/Venus-Jupiter-transit-1818.jpg'); background-size: 120%; background-position: calc(50% + 0px) calc(50% + 0px);"></span>
+                <span class="cosmic-icon legend-icon" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s'); background-size: 120%; background-position: calc(50% + 0px) calc(50% + 0px);"></span>
               </td>
               <td>Mutual Planetary Occultation</td>
               <td><input type="checkbox" class="scroll-toggle" data-event="mutualplanetary"></td>
@@ -376,7 +388,7 @@
       /* ------------------ Define General Mutual Occultation Images ------------------ */
       // These two variables hold the general images for mutual occultations.
       // Adjust these URLs to point to your images.
-      const mutualTotalIcon = "https://www.occultations.net/Venus-Jupiter-transit-1818.jpg";     // PLACEHOLDER URL for total occultations.
+      const mutualTotalIcon = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s";     // PLACEHOLDER URL for total occultations.
       const mutualPartialIcon = "https://www.bogan.ca/astro/occultations/oclt2079.gif";   // PLACEHOLDER URL for partial occultations.
       // Default crop settings for mutual images (both key and calendar).
       const mutualTotalCrop = { backgroundSize: "120%", backgroundPosition: "calc(50% + 0px) calc(50% + 0px)" };

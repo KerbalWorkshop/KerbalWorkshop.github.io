@@ -4,27 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools – Hansen Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Responsive Grid for Tool Buttons */
+    .content {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px var(--padding-desktop, 120px);
+    }
+
+    .intro-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+
+    .intro-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      white-space: nowrap;
+    }
+
+    .intro-text {
+      font-size: clamp(1rem, 1.15vw, 1.2rem);
+      max-width: 800px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 850px) {
+      .content {
+        padding: 30px var(--padding-mobile, 28px);
+      }
+
+      .intro-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .intro-title {
+        white-space: normal;
+        text-align: center;
+      }
+
+      .intro-text {
+        text-align: center;
+      }
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 10px;
       max-width: 800px;
       margin: 30px auto;
-      padding: 0 20px; /* ensures side padding determines wrapping */
+      padding: 0 20px;
     }
-    /* Tool Button Styling with internal padding */
+
     .grid .btn {
       width: 100%;
-      aspect-ratio: 1/1; /* keeps a square shape */
-      /* Remove the background-image inline style now handled by <img> */
+      aspect-ratio: 1/1;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border: 2px solid #fff;  /* white outline */
+      border: 2px solid #fff;
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -34,25 +82,16 @@
       text-align: center;
       text-decoration: none;
       transition: filter 0.3s;
-      padding: 10px; /* internal padding so text doesn't hit the edges */
+      padding: 10px;
       box-sizing: border-box;
       position: relative;
       overflow: hidden;
     }
+
     .grid .btn:hover {
       filter: brightness(0.8);
     }
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-      .grid {
-        gap: 8px;
-        padding: 0 15px;
-      }
-      .grid .btn {
-        font-size: 1em;
-      }
-    }
-    /* New CSS to handle the image and text overlay inside .btn */
+
     .btn img {
       position: absolute;
       top: 0;
@@ -63,15 +102,27 @@
       filter: brightness(0.5);
       z-index: 0;
     }
+
     .btn span {
       position: relative;
       z-index: 1;
       display: block;
     }
+
+    @media (max-width: 600px) {
+      .grid {
+        gap: 8px;
+        padding: 0 15px;
+      }
+
+      .grid .btn {
+        font-size: 1em;
+      }
+    }
   </style>
 </head>
 <body class="home">
- 
+
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -81,46 +132,58 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="myjourney.html">My Journey</a></li>
         <li><a href="photography.html">Photography</a></li>
-        <li><a href="articles.html">Articles</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="tools.html" class="active">Tools</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
   
-  <!-- Main Content -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html">My Journey</a>
+    <a href="photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="tools.html" class="active">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  
+
   <div class="content">
-    <h2>Tools</h2>
-    <p>This page features interactive tools and experiments. Try them out!</p>
+
+    <div class="intro-section">
+      <h2 class="intro-title">TOOLS</h2>
+      <p class="intro-text">
+        Explore interactive utilities and simulations I’ve built to deepen our understanding of space. These tools offer fun, hands-on ways to grasp concepts like angular size, real-time subcelestial positions, and light curves.
+      </p>
+    </div>
+
     <div class="grid">
-      <!-- Changed from inline background-image to using an img and span -->
       <a class="btn" href="tools/live-map.html">
         <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points">
         <span>Subcelestial Points</span>
       </a>
-    
+
       <a class="btn" href="tools/angularsizecomparer.html">
         <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer">
         <span>Angular Size Comparer</span>
       </a>
-    
+
       <a class="btn" href="tools/curves.html">
         <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves">
         <span>Live Light Curves</span>
       </a>
-    
+
       <a class="btn" href="tools/event-calendar.html">
-        <img src="https://www.occultations.net/Venus-Jupiter-transit-1818.jpg" alt="Cosmic Event Calendar">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar">
         <span>Cosmic Event Calendar</span>
       </a>
-   
-      <!-- <a class="btn" href="quiz.html">
-        <img src="https://www.apple.com/logo" alt="Starfield Quiz">
-        <span>Starfield Quiz</span> -->
-      </a>
     </div>
-    
+
   </div>
-  
+
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -135,6 +198,7 @@
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
-  
+
+  <script src="scripts.js"></script>
 </body>
 </html>

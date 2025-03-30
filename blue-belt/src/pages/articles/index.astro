@@ -8,65 +8,162 @@ const others = articles.filter((a) => a !== spotlight);
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Articles – Hansen Space</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <header>
-      <a class="brand" href="/index.html">
-        <img src="/images/logo.png" alt="Hansen Space Logo" />
-      </a>
-      <nav>
-        <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/myjourney.html">My Journey</a></li>
-          <li><a href="/photography.html">Photography</a></li>
-          <li><a href="/articles" class="active">Articles</a></li>
-          <li><a href="/tools.html">Tools</a></li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articles – Hansen Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .content {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px var(--padding-desktop, 120px);
+    }
 
-    <div class="content">
-      <h2>Articles</h2>
+    .intro-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      font-family: 'Nunito Sans', sans-serif;
+    }
 
-      {spotlight && (
-        <div class="spotlight">
-          <h3>
-            <a href={`/articles/${spotlight.slug}`}>🌟 {spotlight.data.title}</a>
-          </h3>
-          <p>{spotlight.data.description}</p>
-        </div>
-      )}
+    .intro-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      white-space: nowrap;
+    }
 
+    .intro-text {
+      font-size: clamp(1rem, 1.15vw, 1.2rem);
+      max-width: 800px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 850px) {
+      .content {
+        padding: 30px var(--padding-mobile, 28px);
+      }
+
+      .intro-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .intro-title {
+        white-space: normal;
+        text-align: center;
+      }
+
+      .intro-text {
+        text-align: center;
+      }
+    }
+
+    .spotlight {
+      margin-bottom: 40px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 30px;
+    }
+
+    li h3 {
+      margin-bottom: 5px;
+    }
+
+    a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body class="home">
+
+  <header>
+    <a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo" /></a>
+    <nav>
       <ul>
-        {others.map((article) => (
-          <li>
-            <a href={`/articles/${article.slug}`}>
-              <h3>{article.data.title}</h3>
-              <p>{article.data.description}</p>
-            </a>
-          </li>
-        ))}
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/myjourney.html">My Journey</a></li>
+        <li><a href="/photography.html">Photography</a></li>
+        <li><a href="/articles" class="active">Articles</a></li>
+        <li><a href="/tools.html">Tools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
+    </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
+  </header>
+
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="/index.html">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
+    <a href="/articles" class="active">Articles</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+
+
+  <div class="content">
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+      <h2 class="intro-title">ARTICLES</h2>
+      <p class="intro-text">
+        Video spotlights, astrophotography articles, personal essays coming soon.
+      </p>
     </div>
 
-    <footer>
-      <div class="social-links">
-        <a href="https://www.youtube.com/hansenspace" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
-        </a>
-        <a href="https://instagram.com/hansenspace" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
-        </a>
-        <a href="https://tiktok.com/@hansen_space" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
-        </a>
+    <!-- Spotlight Article -->
+    {spotlight && (
+      <div class="spotlight">
+        <h3>
+          <a href={`/articles/${spotlight.slug}`}>🌟 {spotlight.data.title}</a>
+        </h3>
+        <p>{spotlight.data.description}</p>
       </div>
-      <p>&copy; 2025 Hansen Space.</p>
-    </footer>
-  </body>
+    )}
+
+    <!-- All Other Articles -->
+    <ul>
+      {others.map((article) => (
+        <li>
+          <a href={`/articles/${article.slug}`}>
+            <h3>{article.data.title}</h3>
+            <p>{article.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+  </div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+
+  <script is:raw src="/scripts.js"></script>
+</body>
 </html>

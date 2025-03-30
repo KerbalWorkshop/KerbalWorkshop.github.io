@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – Hansen Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .content {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px var(--padding-desktop, 120px);
+      font-family: 'Nunito Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50vh;
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    }
+
+    @media (max-width: 850px) {
+      .content {
+        padding: 30px var(--padding-mobile, 28px);
+        text-align: center;
+      }
+    }
+
+    a.email {
+      color: #007bff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="home">
+
+  <header>
+    <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="myjourney.html">My Journey</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="/articles">Articles</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
+  </header>
+
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html">My Journey</a>
+    <a href="photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+
+  <div class="content">
+    Reach out at <a href="mailto:contact@hansenspace.io" class="email">contact@hansenspace.io</a>
+  </div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
+      </a>
+      <a href="https://instagram.com/hansenspace" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
+      </a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

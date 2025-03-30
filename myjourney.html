@@ -4,17 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Journey – Hansen Space</title>
-  <!-- Import EB Garamond for main paragraph text -->
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
-  <!-- Parallax CSS for starfields (unchanged) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="parallax.css">
-  <!-- Your site styles for header, etc. (unchanged) -->
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* -------------------------------------------------------------------
-       Universal Group Spacing:
-       Every journey group (except the first) gets a top margin.
-    ------------------------------------------------------------------- */
     .journey-group:not(:first-child) {
       margin-top: 200px;
     }
@@ -23,18 +16,13 @@
         margin-top: 250px;
       }
     }
-    
-    /* -------------------------------------------------------------------
-       Starfield Background Layers (unchanged except for scroll speed)
-    ------------------------------------------------------------------- */
+
     .star-layer {
       background-size: auto !important;
       background-repeat: repeat !important;
     }
     @media (min-width: 1001px) {
-      #layer4,  /* 27.png */
-      #layer6,  /* 26.png */
-      #layer8  /* 25.png */ {
+      #layer4, #layer6, #layer8 {
         background-size: 100% auto !important;
         background-repeat: repeat-x !important;
       }
@@ -46,19 +34,12 @@
       position: relative;
       z-index: 101;
     }
-    .white {
-      color: white !important;
-    }
     .content {
       position: relative;
       z-index: 200;
       background: transparent;
     }
-    
-    /* -------------------------------------------------------------------
-       Main Content Area (Journey Container)
-         Maximum width of 1000px; responsive padding.
-    ------------------------------------------------------------------- */
+
     .journey-container {
       position: relative;
       z-index: 210;
@@ -68,47 +49,42 @@
       padding: 40px;
       box-sizing: border-box;
     }
-    
-    /* -------------------------------------------------------------------
-       Group Structure:
-         Each group has a text box on top and a grid of images below.
-    ------------------------------------------------------------------- */
+
     .group-text {
       background: rgba(0, 0, 0, 0.8);
       border: 1px solid #fff;
       padding: 20px;
       border-radius: 8px;
       color: white;
-      font-size: clamp(0.8rem, 1vw, 1rem);
       box-sizing: border-box;
     }
-    /* Date titles: bold and larger with extra bottom margin */
+
     .date-title {
-      font-weight: bold;
-      font-size: 1.2em;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1rem, 1.2vw, 1.3rem);
+      font-weight: 600;
       display: block;
       margin-bottom: 20px;
     }
-    /* Increased paragraph text size using EB Garamond */
+
     .group-text p {
-      font-family: 'EB Garamond', serif !important;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
       margin-top: 10px;
       margin-bottom: 0;
-      font-size: clamp(1rem, 1.2vw, 1.2rem);
     }
+
     .group-grid {
       display: grid;
       grid-gap: 20px;
       margin-top: 20px;
-      /* Constrain the grid's width so it doesn't span as wide as the text */
       width: 90%;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-    
-    /* Custom nested containers for December YouTube Launch and January Shorts */
+
     .yt-container, .jan-shorts-container {
       display: flex;
       flex-direction: column;
@@ -117,19 +93,19 @@
       max-width: 600px;
       margin: 20px auto 0 auto;
     }
+
     .yt-bottom, .jan-shorts-bottom {
       display: grid;
       grid-gap: 10px;
       grid-template-columns: repeat(3, 1fr);
     }
-    /* Display the top row of January Shorts side by side */
+
     .jan-shorts-top {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-    
-    /* Spring 2025 – Always one column */
+
     .spring-grid {
       display: grid;
       grid-gap: 20px;
@@ -140,7 +116,7 @@
       margin-right: auto;
       grid-template-columns: 1fr;
     }
-    
+
     .group-grid img,
     .yt-container img,
     .jan-shorts-container img,
@@ -152,8 +128,7 @@
       border-radius: 8px;
       box-sizing: border-box;
     }
-    
-    /* Flash animation for scroll links */
+
     .flash {
       animation: flash 0.5s ease-out;
     }
@@ -162,10 +137,7 @@
       50% { transform: scale(1.1); filter: brightness(2); }
       100% { transform: scale(1); filter: brightness(1); }
     }
-    
-    /* -------------------------------------------------------------------
-       Scroll Indicator Section
-    ------------------------------------------------------------------- */
+
     .scroll-indicator-container {
       position: relative;
       z-index: 300;
@@ -175,20 +147,17 @@
       align-items: center;
     }
     .scroll-indicator {
-      font-size: 2rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 3vw, 2.5rem);
       color: white;
     }
-    
-    /* -------------------------------------------------------------------
-       Mobile Adjustments:
-         Scale down spacing, font size, grid gaps, and reduce minimum column width.
-    ------------------------------------------------------------------- */
+
     @media (max-width: 600px) {
       .journey-container {
         padding: 20px;
       }
       .group-text {
-        font-size: 0.75em;
         padding: 15px;
       }
       .group-grid {
@@ -201,17 +170,25 @@
       }
     }
 
-    /* -------------------------------------------------------------------
-       Hyperlink Styling in Text Boxes:
-       Make all links (generated by the + markup) a lighter shade of blue and underlined.
-    ------------------------------------------------------------------- */
-    .group-text a.scroll-link, .group-text a.external-link {
+    .group-text a.scroll-link,
+    .group-text a.external-link {
       color: #66ccff;
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html" class="active">My Journey</a>
+    <a href="photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
   <header>
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Hansen Space Logo">
@@ -221,15 +198,16 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="myjourney.html" class="active">My Journey</a></li>
         <li><a href="photography.html">Photography</a></li>
-        <li><a href="articles.html">Articles</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="tools.html">Tools</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
-  
-  <!-- -------------------------------------------------------------------
-       Starfield Background Layers (unchanged, except scroll adjustment)
-  ------------------------------------------------------------------- -->
+
+
+  <!-- Star Layers (unchanged) -->
   <div id="layer1" class="star-layer" style="background-image: url('images/1.png'); z-index: 9;"></div>
   <div id="layer2" class="star-layer" style="background-image: url('images/2.png'); z-index: 8;"></div>
   <div id="layer3" class="star-layer" style="background-image: url('images/3.png'); z-index: 7;"></div>
@@ -239,26 +217,19 @@
   <div id="layer7" class="star-layer" style="background-image: url('images/5.png'); z-index: 3;"></div>
   <div id="layer8" class="star-layer" style="background-image: url('images/25.png'); z-index: 2;"></div>
   <div id="layer9" class="star-layer" style="background-image: url('images/6.png'); z-index: 1;"></div>
-  
-  <!-- -------------------------------------------------------------------
-       Scroll Indicator Section
-  ------------------------------------------------------------------- -->
+
+  <!-- Scroll Indicator -->
   <div class="scroll-indicator-container">
     <div class="scroll-indicator">
-      &#x2193; scroll &#x2193;
+      &#x2193; Scroll &#x2193;
     </div>
   </div>
-  
-  <!-- -------------------------------------------------------------------
-       Main Content Area
-  ------------------------------------------------------------------- -->
+
+  <!-- Content -->
   <div class="content">
-    <div id="journeyContainer" class="journey-container">
-      <!-- Journey content will be inserted here by JavaScript -->
-    </div>
-    <p style="height:9000px;"></p>
+    <div id="journeyContainer" class="journey-container"></div>
   </div>
-  
+
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace" target="_blank">
@@ -273,15 +244,8 @@
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
-  
-  <!-- -------------------------------------------------------------------
-       Modal for Full-Screen Image Popup
-  ------------------------------------------------------------------- -->
-  <div id="modal" class="modal">
-    <span id="modalClose" class="modal-close">&times;</span>
-    <img id="modalImage" class="modal-content" src="">
-  </div>
-  
+
+  <script src="scripts.js"></script>
   <script>
     // Parallax scroll functionality with updated endCoef for the bottom layer.
     window.addEventListener('scroll', function() {
