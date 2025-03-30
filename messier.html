@@ -48,7 +48,7 @@
     .messier-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 20px;
+      gap: clamp(5px, 1vw, 24px);
     }
 
     .grid-item {
@@ -163,6 +163,10 @@
         font-size: 1rem;
       }
 
+      .messier-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+
       .modal-content {
         width: 90%;
       }
@@ -170,6 +174,16 @@
   </style>
 </head>
 <body>
+  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
+  <div class="modal" id="modal">
+    <a href="index.html">Home</a>
+    <a href="myjourney.html" class="active">My Journey</a>
+    <a href="photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  
   <header>
     <a class="brand" href="/index.html">
       <img src="/images/logo.png" alt="Hansen Space Logo" />
@@ -388,9 +402,6 @@
     }
 
   </script>
-  
-  
-
   <script src="scripts.js"></script>
 </body>
 </html>
