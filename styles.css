@@ -179,3 +179,22 @@ footer p {
     padding: 40px var(--padding-mobile, 28px);
   }
 }
+
+.button-standard {
+  display: inline-block;
+  padding: clamp(10px, 1vw, 14px) clamp(20px, 2vw, 28px);
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  background-color: white;
+  color: black;
+  border: 1.5px solid black;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-standard:hover {
+  background-color: #f0f0f0;
+  color: black;
+}

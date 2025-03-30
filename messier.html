@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messier Gallery - Hansen Space</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .content {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px var(--padding-desktop, 120px);
+    }
+
+    .intro-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+
+    .intro-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      white-space: nowrap;
+    }
+
+    .intro-text {
+      font-size: clamp(1rem, 1.15vw, 1.2rem);
+      max-width: 800px;
+      line-height: 1.7;
+    }
+
+    .gallery-wrapper {
+      background-color: #f2f2f2;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 80px;
+    }
+
+    .messier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-item {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #444;
+      cursor: pointer;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+    }
+
+    .grid-item.photographed {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: transparent;
+    }
+
+    #gallery-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #gallery-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      max-width: 90%;
+      max-height: 90%;
+      width: 700px;
+      font-family: 'Nunito Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modal-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .modal-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .modal-body img {
+      max-width: 100%;
+      max-height: 60vh;
+      border-radius: 8px;
+    }
+
+    .modal-body p {
+      font-size: 1.1rem;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .content {
+        padding: 30px var(--padding-mobile, 28px);
+      }
+
+      .intro-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .intro-title {
+        white-space: normal;
+        text-align: center;
+      }
+
+      .intro-text {
+        text-align: center;
+      }
+
+      .grid-item {
+        font-size: 1rem;
+      }
+
+      .modal-content {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/index.html">
+      <img src="/images/logo.png" alt="Hansen Space Logo" />
+    </a>
+    <nav>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/myjourney.html">My Journey</a></li>
+        <li><a href="/photography.html">Photography</a></li>
+        <li><a href="/articles">Articles</a></li>
+        <li><a href="/tools.html">Tools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu-icon" onclick="toggleModal()">☰</div>
+  </header>
+
+  <div class="content">
+    <div class="intro-section">
+      <h2 class="intro-title">MESSIER GALLERY</h2>
+      <p class="intro-text">
+        The Messier catalogue is a list of 110 celestial objects that includes star clusters, nebulae, and galaxies. Of those 110, here are the ones I've photographed so far!
+      </p>     
+    </div>
+
+
+    <div class="gallery-wrapper">
+        <div class="messier-grid">
+          <div class="grid-item photographed" onclick="openModal('M1')" style="background-image: url('/photos/messier/1.jpg'); background-size: 150%; background-position: 50% 50%;">M1</div>
+          <div class="grid-item" onclick="openModal('M2')">M2</div>
+          <div class="grid-item photographed" onclick="openModal('M3')" style="background-image: url('/photos/messier/3.jpg'); background-size: 200%; background-position: 50% 50%;">M3</div>
+          <div class="grid-item" onclick="openModal('M4')">M4</div>
+          <div class="grid-item" onclick="openModal('M5')">M5</div>
+          <div class="grid-item" onclick="openModal('M6')">M6</div>
+          <div class="grid-item" onclick="openModal('M7')">M7</div>
+          <div class="grid-item" onclick="openModal('M8')">M8</div>
+          <div class="grid-item" onclick="openModal('M9')">M9</div>
+          <div class="grid-item" onclick="openModal('M10')">M10</div>
+          <div class="grid-item" onclick="openModal('M11')">M11</div>
+          <div class="grid-item" onclick="openModal('M12')">M12</div>
+          <div class="grid-item photographed" onclick="openModal('M13')" style="background-image: url('/photos/messier/13.jpg'); background-size: 200%; background-position: 50% 50%;">M13</div>
+          <div class="grid-item" onclick="openModal('M14')">M14</div>
+          <div class="grid-item" onclick="openModal('M15')">M15</div>
+          <div class="grid-item photographed" onclick="openModal('M16')" style="background-image: url('/photos/messier/16.jpg'); background-size: 200%; background-position: 45% 50%;">M16</div>
+          <div class="grid-item" onclick="openModal('M17')">M17</div>
+          <div class="grid-item" onclick="openModal('M18')">M18</div>
+          <div class="grid-item" onclick="openModal('M19')">M19</div>
+          <div class="grid-item" onclick="openModal('M20')">M20</div>
+          <div class="grid-item" onclick="openModal('M21')">M21</div>
+          <div class="grid-item" onclick="openModal('M22')">M22</div>
+          <div class="grid-item" onclick="openModal('M23')">M23</div>
+          <div class="grid-item" onclick="openModal('M24')">M24</div>
+          <div class="grid-item" onclick="openModal('M25')">M25</div>
+          <div class="grid-item" onclick="openModal('M26')">M26</div>
+          <div class="grid-item photographed" onclick="openModal('M27')" style="background-image: url('/photos/messier/27.jpg'); background-size: 160%; background-position: 50% 50%;">M27</div>
+          <div class="grid-item" onclick="openModal('M28')">M28</div>
+          <div class="grid-item photographed" onclick="openModal('M29')" style="background-image: url('/photos/messier/29.jpg'); background-size: 180%; background-position: 50% 50%;">M29</div>
+          <div class="grid-item" onclick="openModal('M30')">M30</div>
+          <div class="grid-item photographed" onclick="openModal('M31')" style="background-image: url('/photos/messier/31.jpg'); background-size: 135%; background-position: 50% 50%;">M31</div>
+          <div class="grid-item" onclick="openModal('M32')">M32</div>
+          <div class="grid-item photographed" onclick="openModal('M33')" style="background-image: url('/photos/messier/33.jpg'); background-size: 160%; background-position: 50% 50%;">M33</div>
+          <div class="grid-item" onclick="openModal('M34')">M34</div>
+          <div class="grid-item" onclick="openModal('M35')">M35</div>
+          <div class="grid-item photographed" onclick="openModal('M36')" style="background-image: url('/photos/messier/36.jpg'); background-size: 200%; background-position: 50% 50%;">M36</div>
+          <div class="grid-item" onclick="openModal('M37')">M37</div>
+          <div class="grid-item" onclick="openModal('M38')">M38</div>
+          <div class="grid-item" onclick="openModal('M39')">M39</div>
+          <div class="grid-item" onclick="openModal('M40')">M40</div>
+          <div class="grid-item" onclick="openModal('M41')">M41</div>
+          <div class="grid-item photographed" onclick="openModal('M42')" style="background-image: url('/photos/messier/42.jpg'); background-size: 140%; background-position: 80% 50%;">M42</div>
+          <div class="grid-item" onclick="openModal('M43')">M43</div>
+          <div class="grid-item" onclick="openModal('M44')">M44</div>
+          <div class="grid-item photographed" onclick="openModal('M45')" style="background-image: url('/photos/messier/45.jpg'); background-size: 170%; background-position: 80% 50%;">M45</div>
+          <div class="grid-item" onclick="openModal('M46')">M46</div>
+          <div class="grid-item" onclick="openModal('M47')">M47</div>
+          <div class="grid-item" onclick="openModal('M48')">M48</div>
+          <div class="grid-item" onclick="openModal('M49')">M49</div>
+          <div class="grid-item" onclick="openModal('M50')">M50</div>
+          <div class="grid-item photographed" onclick="openModal('M51')" style="background-image: url('/photos/messier/51.jpg'); background-size: 255%; background-position: 53% 50%;">M51</div>
+          <div class="grid-item photographed" onclick="openModal('M52')" style="background-image: url('/photos/messier/52.jpg'); background-size: 200%; background-position: 50% 50%;">M52</div>
+          <div class="grid-item" onclick="openModal('M53')">M53</div>
+          <div class="grid-item" onclick="openModal('M54')">M54</div>
+          <div class="grid-item" onclick="openModal('M55')">M55</div>
+          <div class="grid-item" onclick="openModal('M56')">M56</div>
+          <div class="grid-item photographed" onclick="openModal('M57')" style="background-image: url('/photos/messier/57.jpg'); background-size: 400%; background-position: 50% 50%;">M57</div>
+          <div class="grid-item" onclick="openModal('M58')">M58</div>
+          <div class="grid-item" onclick="openModal('M59')">M59</div>
+          <div class="grid-item" onclick="openModal('M60')">M60</div>
+          <div class="grid-item" onclick="openModal('M61')">M61</div>
+          <div class="grid-item" onclick="openModal('M62')">M62</div>
+          <div class="grid-item" onclick="openModal('M63')">M63</div>
+          <div class="grid-item" onclick="openModal('M64')">M64</div>
+          <div class="grid-item photographed" onclick="openModal('M65')" style="background-image: url('/photos/messier/65.jpg'); background-size: 350%; background-position: 92% 5%;">M65</div>
+          <div class="grid-item photographed" onclick="openModal('M66')" style="background-image: url('/photos/messier/66.jpg'); background-size: 450%; background-position: 91% 100%;">M66</div>
+          <div class="grid-item" onclick="openModal('M67')">M67</div>
+          <div class="grid-item" onclick="openModal('M68')">M68</div>
+          <div class="grid-item" onclick="openModal('M69')">M69</div>
+          <div class="grid-item" onclick="openModal('M70')">M70</div>
+          <div class="grid-item" onclick="openModal('M71')">M71</div>
+          <div class="grid-item" onclick="openModal('M72')">M72</div>
+          <div class="grid-item" onclick="openModal('M73')">M73</div>
+          <div class="grid-item photographed" onclick="openModal('M74')" style="background-image: url('/photos/messier/74.jpg'); background-size: 250%; background-position: 50% 50%;">M74</div>
+          <div class="grid-item" onclick="openModal('M75')">M75</div>
+          <div class="grid-item photographed" onclick="openModal('M76')" style="background-image: url('/photos/messier/76.jpg'); background-size: 200%; background-position: 47% 38%;">M76</div>
+          <div class="grid-item" onclick="openModal('M77')">M77</div>
+          <div class="grid-item photographed" onclick="openModal('M78')" style="background-image: url('/photos/messier/78.jpg'); background-size: 140%; background-position: 50% 50%;">M78</div>
+          <div class="grid-item" onclick="openModal('M79')">M79</div>
+          <div class="grid-item" onclick="openModal('M80')">M80</div>
+          <div class="grid-item photographed" onclick="openModal('M81')" style="background-image: url('/photos/messier/81.jpg'); background-size: 380%; background-position: 25% 31%;">M81</div>
+          <div class="grid-item photographed" onclick="openModal('M82')" style="background-image: url('/photos/messier/82.jpg'); background-size: 600%; background-position: 84% 71%;">M82</div>
+          <div class="grid-item" onclick="openModal('M83')">M83</div>
+          <div class="grid-item" onclick="openModal('M84')">M84</div>
+          <div class="grid-item" onclick="openModal('M85')">M85</div>
+          <div class="grid-item" onclick="openModal('M86')">M86</div>
+          <div class="grid-item" onclick="openModal('M87')">M87</div>
+          <div class="grid-item" onclick="openModal('M88')">M88</div>
+          <div class="grid-item" onclick="openModal('M89')">M89</div>
+          <div class="grid-item" onclick="openModal('M90')">M90</div>
+          <div class="grid-item" onclick="openModal('M91')">M91</div>
+          <div class="grid-item photographed" onclick="openModal('M92')" style="background-image: url('/photos/messier/92.jpg'); background-size: 250%; background-position: 50% 50%;">M92</div>
+          <div class="grid-item" onclick="openModal('M93')">M93</div>
+          <div class="grid-item" onclick="openModal('M94')">M94</div>
+          <div class="grid-item" onclick="openModal('M95')">M95</div>
+          <div class="grid-item" onclick="openModal('M96')">M96</div>
+          <div class="grid-item" onclick="openModal('M97')">M97</div>
+          <div class="grid-item" onclick="openModal('M98')">M98</div>
+          <div class="grid-item" onclick="openModal('M99')">M99</div>
+          <div class="grid-item" onclick="openModal('M100')">M100</div>
+          <div class="grid-item photographed" onclick="openModal('M101')" style="background-image: url('/photos/messier/101.jpg'); background-size: 190%; background-position: 50% 50%;">M101</div>
+          <div class="grid-item" onclick="openModal('M102')">M102</div>
+          <div class="grid-item photographed" onclick="openModal('M103')" style="background-image: url('/photos/messier/103.jpg'); background-size: 200%; background-position: 50% 50%;">M103</div>
+          <div class="grid-item photographed" onclick="openModal('M104')" style="background-image: url('/photos/messier/104.jpg'); background-size: 300%; background-position: 50% 50%;">M104</div>
+          <div class="grid-item" onclick="openModal('M105')">M105</div>
+          <div class="grid-item" onclick="openModal('M106')">M106</div>
+          <div class="grid-item" onclick="openModal('M107')">M107</div>
+          <div class="grid-item" onclick="openModal('M108')">M108</div>
+          <div class="grid-item" onclick="openModal('M109')">M109</div>
+          <div class="grid-item photographed" onclick="openModal('M110')" style="background-image: url('/photos/messier/110.jpg'); background-size: 175%; background-position: 30% 40%;">M110</div>
+        </div>
+      </div>
+      
+      
+  </div>
+
+  <div id="gallery-modal" onclick="handleBackdropClick(event)">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Messier</div>
+        <span class="modal-close" onclick="closeModal()">×</span>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
+    </div>
+    <p>&copy; 2025 Hansen Space.</p>
+  </footer>
+
+  <script>
+    let scrollY = 0;
+  
+    function openModal(label) {
+        const modal = document.getElementById("gallery-modal");
+        const body = document.getElementById("modal-body");
+        const title = document.getElementById("modal-title");
+        const tile = document.querySelector(`.grid-item[onclick*="${label}"]`);
+        const bgImage = tile.style.backgroundImage;
+        const imageUrlMatch = bgImage.match(/url\(["']?(.*?)["']?\)/);
+
+        title.textContent = label;
+
+        if (imageUrlMatch) {
+            body.innerHTML = `<img src="${imageUrlMatch[1]}" alt="${label}">`;
+        } else {
+            body.innerHTML = `<p>${label} has not been photographed yet.</p>`;
+        }
+
+        scrollY = window.scrollY;
+
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+        document.body.classList.add("modal-open");
+
+        modal.classList.add("active");
+    }
+
+  
+    function closeModal() {
+        const modal = document.getElementById("gallery-modal");
+        modal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+
+        const scrollTo = -parseInt(document.body.style.top || '0');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.paddingRight = '';
+        window.scrollTo(0, scrollTo);
+    }
+
+    function handleBackdropClick(e) {
+        if (e.target.id === "gallery-modal") {
+            closeModal();
+    }
+    }
+
+  </script>
+  
+  
+
+  <script src="scripts.js"></script>
+</body>
+</html>
