@@ -4,58 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hansen Space – Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root {
       --padding-desktop: 120px;
-      --padding-mobile: 28px;
+      --padding-mobile: 20px;
       --max-width: 1200px;
-      --section-spacing: 80px;
-      --hero-aspect: 3/1;
+      --section-spacing-desktop: 80px;
+      --section-spacing-mobile: 50px;
+      --hero-aspect-desktop: 3/1; /* Desktop Hero aspect ratio */
+      --hero-aspect-mobile: 1.5 / 1; /* Taller Mobile Hero aspect ratio */
       --card-gap: 25px;
+
+      /* Title Size Clamps */
+      --title-font-size-large-desktop: clamp(1.8rem, 4vw, 2.5rem);
+      --title-font-size-large-mobile: clamp(1.5rem, 5vw, 1.9rem);
+      --title-font-size-medium-desktop: clamp(1.5rem, 3.5vw, 2.0rem);
+      --title-font-size-medium-mobile: clamp(1.2rem, 4.5vw, 1.6rem);
+      --border-color: #e0e0e0;
     }
 
-    .fullscreen-section {
-      width: 100%;
-      aspect-ratio: var(--hero-aspect);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .fullscreen-section h1,
-    .fullscreen-section h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem) !important;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.5px;
-    }
-
-    .section-button {
-      font-size: 1.1rem;
-      padding: 12px 24px;
-      border: 2px solid white;
-      border-radius: 4px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-family: 'Nunito Sans', sans-serif;
-    }
-    .section-button:hover {
-      background: white;
-      color: #222 !important;
-    }
-
+    /* Base Body Styles */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; scroll-behavior: smooth; }
-
     body {
       font-family: 'Nunito Sans', sans-serif;
       font-size: 1rem;
@@ -64,483 +36,332 @@
       background: #fff;
     }
 
-    h1, h2, h3, .section-title {
+    /* Base Heading Styles */
+    h1, h2, h3 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       line-height: 1.2;
     }
 
-    /* ====== HERO SECTION ====== */
-    .hero-image {
-      position: absolute;
+    /* Fullscreen Sections (Hero, Journey) */
+    .fullscreen-section {
       width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      transform: translateX(100%);
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 1;
+      aspect-ratio: var(--hero-aspect-desktop); /* Default to desktop aspect ratio */
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; color: white; background-size: cover; background-position: center;
     }
-    .hero-image.active {
-      transform: translateX(0);
-      z-index: 2;
+    .fullscreen-section h1, .fullscreen-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem) !important; margin-bottom: 1.5rem; letter-spacing: -0.5px; font-weight: 600;
     }
-    .hero-image.exit-left {
-      transform: translateX(-100%);
+    .section-button {
+      font-size: 1.1rem; padding: 12px 24px; border: 2px solid white; border-radius: 4px;
+      color: white; text-decoration: none; transition: all 0.3s ease; font-family: 'Nunito Sans', sans-serif;
     }
+    .section-button:hover { background: white; color: #222 !important; }
+
+    /* Hero Specific */
+    .hero-image {
+      position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center;
+      transform: translateX(100%); transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1;
+    }
+    .hero-image.active { transform: translateX(0); z-index: 2; }
+    .hero-image.exit-left { transform: translateX(-100%); }
     .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-      z-index: 2;
-      padding: 0 20px;
-    }
-    .hero-text h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.5px;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      color: white; text-align: center; z-index: 2; padding: 0 20px;
     }
 
-    section {
-      margin: var(--section-spacing) 0;
-    }
+    /* General Section Spacing */
+    section { margin: var(--section-spacing-desktop) 0; }
 
+    /* ====== ABOUT SECTION ====== */
     .about {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: var(--max-width);
-      padding: 0 var(--padding-desktop);
-      margin: var(--section-spacing) auto;
-      gap: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--max-width); padding: 0 var(--padding-desktop);
+      margin: var(--section-spacing-desktop) auto; gap: 40px;
     }
     .about .title {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      margin-bottom: 1.5rem;
+      font-family: 'Poppins', sans-serif; font-weight: 400;
+      font-size: var(--title-font-size-large-desktop); line-height: 1.3;
+      margin: 0; flex-shrink: 0; text-align: left;
     }
     .about .text {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      max-width: 600px;
-      color: #444;
+      font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: #444; flex-grow: 1;
     }
 
-    .journey {
-      background-image: url('journeyimages/2025-01-13(2).jpg');
+    /* Journey Section Background */
+    .journey { background-image: url('journeyimages/2025-01-13(2).jpg'); }
+
+    /* ====== ARTICLES, TOOLS, VIDEOS Section Titles Styling ====== */
+    .interactive-section .section-title,
+    .articles-section .section-title {
+        font-family: 'Poppins', sans-serif; font-weight: 400;
+        font-size: var(--title-font-size-medium-desktop); line-height: 1.3; margin: 0;
     }
 
-    .section-title {
-      font-size: clamp(1.5rem, 5vw, 2.25rem);
-      text-align: center;
-      margin: var(--section-spacing) 0 40px;
+    /* ====== ARTICLES SECTION ====== */
+    .articles-section {
+        max-width: var(--max-width); padding: 0 var(--padding-desktop);
+        margin: var(--section-spacing-desktop) auto;
     }
+    .articles-section .section-title { text-align: center; margin-bottom: 30px; }
+    #articles-container { border-top: 1px solid var(--border-color); }
+    .article-item {
+      display: flex; align-items: center; gap: 30px;
+      padding: 20px 0; border-bottom: 1px solid var(--border-color);
+      text-decoration: none; color: inherit; transition: opacity 0.2s ease;
+    }
+     .article-item:hover { opacity: 0.8; }
+    .article-item img {
+      width: 120px; aspect-ratio: 1 / 1; object-fit: cover;
+      border-radius: 4px; flex-shrink: 0;
+    }
+     .article-item-content { flex-grow: 1; }
+    .article-item h3 { font-size: 1.3rem; margin-bottom: 0.6rem; font-weight: 600; }
+    .article-item p { font-size: 1rem; color: #555; line-height: 1.7; }
+     .see-all-button {
+         display: block; width: fit-content; margin: 40px auto 0; padding: 8px 18px;
+         border: 2px solid #333; border-radius: 4px; color: #333; background-color: transparent;
+         text-decoration: none; font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem;
+         text-align: center; transition: all 0.3s ease;
+     }
+     .see-all-button:hover { background: #333; color: #fff; border-color: #333; }
 
-    .article-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 0 var(--padding-desktop);
-      max-width: var(--max-width);
-      margin: 0 auto;
+    /* ====== INTERACTIVE SECTIONS (TOOLS/VIDEOS) ====== */
+    .interactive-section {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--max-width); padding: 0 var(--padding-desktop);
+      margin: var(--section-spacing-desktop) auto; gap: 50px;
     }
-    .article-grid a {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 20px;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.3s ease;
+    .interactive-section .section-title { flex-shrink: 0; text-align: left; }
+    .interactive-section .scroll-wrapper {
+      flex-grow: 1; position: relative; margin: 0; padding: 0; max-width: 65%;
     }
-    .article-grid a:hover {
-      transform: translateY(-5px);
-    }
-    .article-grid img {
-      width: 120px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-    .article-grid h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .article-grid p {
-      font-size: 0.95rem;
-      color: #666;
-    }
-
-    .scroll-wrapper {
-      position: relative;
-      max-width: var(--max-width);
-      margin: 0 auto var(--section-spacing);
-      padding: 0 var(--padding-desktop);
-    }
-
     .card-scroll-container {
-      display: flex;
-      gap: 25px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      padding: 10px 0;
+      display: flex; gap: var(--card-gap); overflow-x: auto;
+      scroll-behavior: smooth; scroll-snap-type: x mandatory;
+      scrollbar-width: none; padding: 10px 0;
     }
-    .card-scroll-container::-webkit-scrollbar {
-      display: none;
+    .card-scroll-container::-webkit-scrollbar { display: none; }
+    .tool-card, .video-card {
+      aspect-ratio: 16/9; flex: 0 0 calc(40% - (var(--card-gap) * 0.6));
+      border-radius: 8px; overflow: hidden; scroll-snap-align: start;
+      background: #eee; position: relative;
     }
-
     .tool-card {
-      flex: 0 0 25%;
-      aspect-ratio: 1/1;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease; background: #000;
     }
-    .tool-card:hover {
-      transform: translateY(-5px);
-    }
-    .image-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+    .tool-card:hover { transform: translateY(-5px); }
+    .image-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     .image-container::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
     }
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.9);
-    }
+    .image-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); display: block; }
     .tool-title {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.4rem;
-      text-align: center;
-      width: 100%;
-      padding: 0 20px;
-      z-index: 2;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      position: absolute; bottom: 15px; left: 15px; right: 15px; transform: none;
+      color: white; font-family: 'Poppins', sans-serif; font-size: 1.2rem; text-align: left;
+      z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.4); font-weight: 600;
     }
-
-    .video-card {
-      flex: 0 0 calc(33.333% - 17px);
-      aspect-ratio: 16/9;
-      background: #000;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .video-card iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
+    .video-card iframe { width: 100%; height: 100%; border: 0; display: block; }
     .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid #111;
-      cursor: pointer;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.95); border: 1px solid #111;
+      cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
       transition: all 0.2s ease;
     }
-    .scroll-btn:hover {
-      background: #fff;
-      transform: translateY(-50%) scale(1.05);
-    }
-    .scroll-btn.left { left: 30px }
-    .scroll-btn.right { right: 30px }
+    .scroll-btn:hover { background: #fff; transform: translateY(-50%) scale(1.05); }
+    .scroll-btn.left { left: -45px; }
+    .scroll-btn.right { right: -45px; }
 
+    /* ====== MEDIA QUERY ====== */
     @media (max-width: 850px) {
       :root {
+        --section-spacing-desktop: var(--section-spacing-mobile);
         --padding-desktop: var(--padding-mobile);
-        --section-spacing: 60px;
-        --hero-aspect: 2/1;
+        /* --hero-aspect is set below for fullscreen sections */
         --card-gap: 15px;
       }
-      .hero-text {
-        padding: 0 8px;
-      }
 
-      .hero-text h1 {
-        font-size: clamp(1rem, 5vw, 1.6rem);
-      }
+       /* General Section Spacing Mobile */
+       section { margin: var(--section-spacing-mobile) 0; }
 
+       /* Apply TALLER mobile aspect ratio for fullscreen sections */
+       .fullscreen-section {
+          aspect-ratio: var(--hero-aspect-mobile);
+       }
+
+      /* Mobile Hero/Button Adjustments */
+      .hero-text { padding: 0 8px; }
+      .hero-text h1 { font-size: clamp(1.6rem, 5vw, 2.0rem); }
       .section-button {
-        font-size: clamp(0.7rem, 3vw, 0.85rem);
-        padding: clamp(5px, 1.5vw, 8px) clamp(12px, 4vw, 16px);
+        font-size: clamp(0.9rem, 3vw, 1.0rem);
+        padding: clamp(8px, 1.5vw, 10px) clamp(16px, 4vw, 20px);
         white-space: nowrap;
       }
-      .scroll-card {
-        flex: 0 0 90%;
-        aspect-ratio: 1.5/1;
+
+      /* Section Title Mobile Sizes & Alignment */
+      .about .title { font-size: var(--title-font-size-large-mobile); text-align: center; }
+      .interactive-section .section-title,
+      .articles-section .section-title { font-size: var(--title-font-size-medium-mobile); text-align: center; }
+
+      /* Stack About section - Reduce text size */
+      .about { flex-direction: column; gap: 20px; padding: 0 var(--padding-mobile); }
+      .about .text { max-width: none; text-align: center; font-size: 0.9rem; line-height: 1.6; }
+
+      /* Stack Interactive sections - Reduce gap */
+      .interactive-section { flex-direction: column; gap: 15px; padding: 0; }
+       .interactive-section .section-title { padding: 0 var(--padding-mobile); margin-bottom: 5px; }
+       .interactive-section .scroll-wrapper {
+          max-width: none; width: 100%; padding: 0 35px;
+       }
+
+      /* Articles Section Mobile */
+       .articles-section { padding: 0 var(--padding-mobile); }
+       .articles-section .section-title { margin-bottom: 15px; }
+       .article-item {
+           align-items: center; gap: 15px; padding: 15px 0;
+       }
+       .article-item img { width: 80px; aspect-ratio: 1 / 1; } /* Maintain square image */
+       .article-item h3 { font-size: 1.0rem; margin-bottom: 0.3rem; }
+       .article-item p { font-size: 0.85rem; line-height: 1.5; }
+       .see-all-button { margin-top: 25px; font-size: 0.85rem; padding: 7px 16px;}
+
+      /* Card Scroll Mobile */
+      .card-scroll-container { gap: var(--card-gap); padding: 10px var(--padding-mobile); scroll-padding: 0 var(--padding-mobile); }
+
+      /* Tool and Video Card Mobile - SMALLER size */
+      .tool-card, .video-card {
+          flex: 0 0 45%; /* Reduced flex-basis significantly */
+          aspect-ratio: 4 / 3; /* Reverted to less tall aspect ratio */
       }
-      .about {
-        flex-direction: column;
-        gap: 30px;
-        padding: 0 var(--padding-mobile);
-      }
-      .tool-card {
-        flex: 0 0 40%;
-        min-width: 150px;
-        margin: 0 5px;
-      }
-      .tool-title {
-        font-size: 1rem;
-        padding: 0 10px;
-        line-height: 1.2;
-      }
-      .card-scroll-container {
-        gap: 6px;
-        padding: 0 12px;
-        scroll-padding: 0 12px;
-      }
-      .video-card {
-        flex: 0 0 90%;
-      }
-      .scroll-btn {
-        width: 50px;
-        height: 50px;
-      }
-      .scroll-btn.left { left: 18px }
-      .scroll-btn.right { right: 18px }
+      /* Adjust tool title position/size if needed for 4/3 */
+      .tool-title { font-size: 0.9rem; bottom: 8px; left: 8px; right: 8px;} /* Adjusted */
+
+      /* Scroll Button Mobile */
+      .scroll-btn { width: 40px; height: 40px; }
+      .scroll-btn.left { left: 5px; }
+      .scroll-btn.right { right: 5px; }
     }
   </style>
 </head>
-  
+
 <body>
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
-    <a href="index.html">Home</a>
-    <a href="myjourney.html">My Journey</a>
-    <a href="photography.html">Photography</a>
-    <a href="/articles">Articles</a>
-    <a href="tools.html">Tools</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  
-  <header>
-    <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="myjourney.html">My Journey</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="tools.html">Tools</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="menu-icon" onclick="toggleModal()">☰</div>
-  </header>
-  
+  <div class="modal" id="modal"> <a href="index.html">Home</a> <a href="myjourney.html">My Journey</a> <a href="photography.html">Photography</a> <a href="/articles">Articles</a> <a href="tools.html">Tools</a> <a href="contact.html">Contact</a> </div>
+  <header> <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a> <nav> <ul> <li><a href="index.html" class="active">Home</a></li> <li><a href="myjourney.html">My Journey</a></li> <li><a href="photography.html">Photography</a></li> <li><a href="/articles">Articles</a></li> <li><a href="tools.html">Tools</a></li> <li><a href="contact.html">Contact</a></li> </ul> </nav> <div class="menu-icon" onclick="toggleModal()">☰</div> </header>
 
-  <div class="fullscreen-section hero">
-    <div class="hero-image active" style="background-image: url('journeyimages/2025-02-11.jpg')"></div>
-    <div class="hero-image" style="background-image: url('photos/m42-1.jpg')"></div>
-    <div class="hero-image" style="background-image: url('photos/moon-3.jpg')"></div>
-    <div class="hero-image" style="background-image: url('photos/jupiter-mars-1.png')"></div>
-    <div class="hero-image" style="background-image: url('photos/m51-1.jpg')"></div>
-    <div class="hero-image" style="background-image: url('photos/m81-1.jpg')"></div>
-    <div class="hero-text">
-      <h1>CAPTURING THE COSMOS</h1>
-      <a href="photography.html" class="section-button">SEE PHOTOGRAPHY →</a>
-    </div>
-  </div>
+  <div class="fullscreen-section hero"> <div class="hero-image active" style="background-image: url('journeyimages/2025-02-11.jpg')"></div> <div class="hero-image" style="background-image: url('photos/m42-1.jpg')"></div> <div class="hero-image" style="background-image: url('photos/moon-3.jpg')"></div> <div class="hero-image" style="background-image: url('photos/jupiter-mars-1.png')"></div> <div class="hero-image" style="background-image: url('photos/m51-1.jpg')"></div> <div class="hero-image" style="background-image: url('photos/m81-1.jpg')"></div> <div class="hero-text"> <h1>CAPTURING THE COSMOS</h1> <a href="photography.html" class="section-button">SEE PHOTOGRAPHY →</a> </div> </div>
 
-  <section class="about">
-    <div class="title">ABOUT ME</div>
-    <div class="text">
-      <p>In October 2024, I bought a telescope. Since then, I've fallen in love with the night sky. Now, I spend my free time taking pictures of celestial objects from my backyard, making space videos for all to see, and exploring the field of astrophysics. This website is where you can find all of that in one place!</p>
-    </div>
+  <section class="about"> <div class="title">ABOUT ME</div> <div class="text"> <p>In October 2024, I bought a telescope. Since then, I've fallen in love with the night sky. Now, I spend my free time taking pictures of celestial objects from my backyard, making space videos for all to see, and exploring the field of astrophysics. This website is where you can find all of that in one place!</p> </div> </section>
+
+  <section class="fullscreen-section journey"> <div class="hero-text"> <h1>MY JOURNEY</h1> <a href="myjourney.html" class="section-button">SEE MY JOURNEY →</a> </div> </section>
+
+  <section class="articles-section">
+      <h2 class="section-title">LATEST ARTICLES</h2>
+      <div id="articles-container">
+          <a href="/articles/first" class="article-item">
+              <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+1" alt="Article 1 Placeholder">
+              <div class="article-item-content">
+                  <h3>Article Title 1</h3>
+                  <p>This is a short description for the first article. It explains what the article is about in a concise way.</p>
+              </div>
+          </a>
+          <a href="#" class="article-item">
+              <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder">
+              <div class="article-item-content">
+                  <h3>Another Interesting Article Title (2)</h3>
+                  <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p>
+              </div>
+          </a>
+          <a href="#" class="article-item">
+              <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder">
+              <div class="article-item-content">
+                  <h3>Article Number Three</h3>
+                  <p>A brief summary of the third piece of content available for reading.</p>
+              </div>
+          </a>
+          <a href="#" class="article-item">
+              <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder">
+              <div class="article-item-content">
+                  <h3>The Fourth Article's Title Is Here</h3>
+                  <p>Description text for article number four, providing context and encouraging a click.</p>
+              </div>
+          </a>
+      </div>
+      <a href="/articles" class="see-all-button">See All Articles →</a>
   </section>
 
-  <section class="fullscreen-section journey">
-    <div class="hero-text">
-      <h1>MY JOURNEY</h1>
-      <a href="myjourney.html" class="section-button">SEE MY JOURNEY →</a>
-    </div>
-  </section>
+  <section class="interactive-section tools-section"> <h2 class="section-title">TOOLS</h2> <div class="scroll-wrapper"> <button class="scroll-btn left" onclick="slide('tools', -1)">‹</button> <div class="card-scroll-container" id="tools"> <a class="tool-card" href="tools/live-map.html"> <div class="image-container"> <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points"> </div> <span class="tool-title">Subcelestial Points</span> </a> <a class="tool-card" href="tools/angularsizecomparer.html"> <div class="image-container"> <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer"> </div> <span class="tool-title">Angular Size Comparer</span> </a> <a class="tool-card" href="tools/curves.html"> <div class="image-container"> <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves"> </div> <span class="tool-title">Live Light Curves</span> </a> <a class="tool-card" href="tools/event-calendar.html"> <div class="image-container"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar"> </div> <span class="tool-title">Cosmic Event Calendar</span> </a> </div> <button class="scroll-btn right" onclick="slide('tools', 1)">›</button> </div> </section>
 
-  <h2 class="section-title">LATEST ARTICLES</h2>
-  <div class="article-grid">
-    <a href="/articles/first"><img src="https://via.placeholder.com/120x80"><div><h3>Test</h3><p>Testing Markdown styles.</p></div></a>
-    <!-- <a href="#"><img src="https://via.placeholder.com/120x80"><div><h3>Article 2</h3><p>Something insightful.</p></div></a> -->
-  </div>
+  <section class="interactive-section videos-section"> <h2 class="section-title">LATEST VIDEOS</h2> <div class="scroll-wrapper"> <button class="scroll-btn left" onclick="slide('videos', -1)">‹</button> <div class="card-scroll-container" id="videos"> <div class="video-card"><iframe title="Video 1" src="https://www.youtube.com/embed/UzDVzOEWEWk"></iframe></div> <div class="video-card"><iframe title="Video 2" src="https://www.youtube.com/embed/Ocf951HJRv8"></iframe></div> <div class="video-card"><iframe title="Video 3" src="https://www.youtube.com/embed/PsTXWH6lwkc"></iframe></div> <div class="video-card"><iframe title="Video 4" src="https://www.youtube.com/embed/vGZ9RhKtnK0"></iframe></div> <div class="video-card"><iframe title="Video 5" src="https://www.youtube.com/embed/FlzgzMhakSk"></iframe></div> </div> <button class="scroll-btn right" onclick="slide('videos', 1)">›</button> </div> </section>
 
-  <h2 class="section-title">TOOLS</h2>
-  <div class="scroll-wrapper">
-    <button class="scroll-btn left" onclick="slide('tools', -1)">‹</button>
-    <div class="card-scroll-container" id="tools">
-      <a class="tool-card" href="tools/live-map.html">
-        <div class="image-container">
-          <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points">
-        </div>
-        <span class="tool-title">Subcelestial Points</span>
-      </a>
-
-      <a class="tool-card" href="tools/angularsizecomparer.html">
-        <div class="image-container">
-          <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer">
-        </div>
-        <span class="tool-title">Angular Size Comparer</span>
-      </a>
-
-      <a class="tool-card" href="tools/curves.html">
-        <div class="image-container">
-          <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves">
-        </div>
-        <span class="tool-title">Live Light Curves</span>
-      </a>
-
-      <a class="tool-card" href="tools/event-calendar.html">
-        <div class="image-container">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar">
-        </div>
-        <span class="tool-title">Cosmic Event Calendar</span>
-      </a>
-    </div>
-    <button class="scroll-btn right" onclick="slide('tools', 1)">›</button>
-  </div>
-
-  <h2 class="section-title">LATEST VIDEOS</h2>
-  <div class="scroll-wrapper">
-    <button class="scroll-btn left" onclick="slide('videos', -1)">‹</button>
-    <div class="card-scroll-container" id="videos">
-      <div class="video-card"><iframe src="https://www.youtube.com/embed/UzDVzOEWEWk"></iframe></div>
-      <div class="video-card"><iframe src="https://www.youtube.com/embed/Ocf951HJRv8"></iframe></div>
-      <div class="video-card"><iframe src="https://www.youtube.com/embed/PsTXWH6lwkc"></iframe></div>
-      <div class="video-card"><iframe src="https://www.youtube.com/embed/vGZ9RhKtnK0"></iframe></div>
-      <div class="video-card"><iframe src="https://www.youtube.com/embed/FlzgzMhakSk"></iframe></div>
-    </div>
-    <button class="scroll-btn right" onclick="slide('videos', 1)">›</button>
-  </div>
-
-  <footer>
-    <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
-      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
-    </div>
-    <p>&copy; 2025 Hansen Space.</p>
-  </footer>
-<!-- Modal, Header, Content, Sections, Footer all unchanged... -->
-<!-- See previous message for full content inside <body> -->
+  <footer> <div class="social-links"> <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a> <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a> <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a> </div> <p>© 2025 Hansen Space.</p> </footer>
 
   <script src="scripts.js"></script>
   <script>
+    // --- Modal Logic ---
+    function toggleModal() {
+      document.getElementById('modal-backdrop').classList.toggle('active');
+      document.getElementById('modal').classList.toggle('active');
+      // document.body.classList.toggle('modal-open');
+    }
+
+    // --- Hero Slider Logic ---
     const heroSlider = () => {
       const heroImages = document.querySelectorAll('.hero-image');
-      let currentIndex = 0;
-      let isAnimating = false;
-
-      function resetImage(image) {
-        image.classList.remove('active');
-        image.style.transition = 'none';
-        image.style.transform = 'translateX(100%)';
-        // Force reflow to ensure transition reset
-        void image.offsetWidth;
-        image.style.transition = '';
-      }
-
+      if (heroImages.length === 0) return;
+      let currentIndex = 0; let isAnimating = false;
+      function resetImage(image) { image.classList.remove('active'); image.style.transition = 'none'; image.style.transform = 'translateX(100%)'; void image.offsetWidth; image.style.transition = ''; }
       const slide = () => {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const currentImage = heroImages[currentIndex];
-        const nextIndex = (currentIndex + 1) % heroImages.length;
-        const nextImage = heroImages[nextIndex];
-
-        // Start: position nextImage offscreen right
-        nextImage.style.transform = 'translateX(100%)';
-        nextImage.classList.add('active');
-
-        // Wait one frame before transitioning in
-        requestAnimationFrame(() => {
-          currentImage.style.transform = 'translateX(-100%)';
-          nextImage.style.transform = 'translateX(0)';
-        });
-
-        // When transition finishes, clean up
-        const handleTransitionEnd = () => {
-          currentImage.removeEventListener('transitionend', handleTransitionEnd);
-          resetImage(currentImage);
-          currentIndex = nextIndex;
-          isAnimating = false;
-        };
-
+        if (isAnimating) return; isAnimating = true;
+        const currentImage = heroImages[currentIndex]; const nextIndex = (currentIndex + 1) % heroImages.length; const nextImage = heroImages[nextIndex];
+        nextImage.style.transform = 'translateX(100%)'; nextImage.classList.add('active');
+        requestAnimationFrame(() => { currentImage.style.transform = 'translateX(-100%)'; nextImage.style.transform = 'translateX(0)'; });
+        const handleTransitionEnd = () => { currentImage.removeEventListener('transitionend', handleTransitionEnd); resetImage(currentImage); currentIndex = nextIndex; isAnimating = false; };
         currentImage.addEventListener('transitionend', handleTransitionEnd);
       };
-
-      // Initial active image positioning
-      heroImages.forEach((img, i) => {
-        img.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)';
-      });
-
+      heroImages.forEach((img, i) => { img.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)'; });
       setInterval(slide, 10000);
     };
 
-    document.addEventListener('DOMContentLoaded', heroSlider);
-
+    // --- Card Slider Logic ---
     function slide(containerId, direction) {
-      const container = document.getElementById(containerId);
+      const container = document.getElementById(containerId); if (!container) return;
       const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
-      const card = container.querySelector(cardSelector);
-      const scrollAmount = (card.offsetWidth + 25) * direction;
+      const card = container.querySelector(cardSelector); if (!card) return;
+      const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 15; // Use 15 for mobile default potentially
+      const scrollAmount = (card.offsetWidth + gapValue) * direction;
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
 
+    // --- Auto Scroll Logic ---
     function autoScroll(containerId) {
-      const container = document.getElementById(containerId);
-
+      const container = document.getElementById(containerId); if (!container) return;
       setInterval(() => {
         if (container.matches(':hover')) return;
-
         const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
-        const card = container.querySelector(cardSelector);
-        const scrollAmount = card.offsetWidth + 25;
+        const card = container.querySelector(cardSelector); if (!card) return;
+        const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 15; // Use 15 for mobile default potentially
+        const scrollAmount = card.offsetWidth + gapValue;
         const maxScroll = container.scrollWidth - container.clientWidth;
-
-        if (container.scrollLeft >= maxScroll - scrollAmount) {
-          container.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
+        if (container.scrollLeft >= maxScroll - 10) { container.scrollTo({ left: 0, behavior: 'smooth' }); }
+        else { container.scrollBy({ left: scrollAmount, behavior: 'smooth' }); }
       }, 10000);
     }
+
+    // --- Initialize Scripts on Load ---
+    document.addEventListener('DOMContentLoaded', () => {
+        heroSlider();
+    });
 
     window.addEventListener('load', () => {
       autoScroll('tools');
       autoScroll('videos');
     });
+
   </script>
 </body>
 </html>
