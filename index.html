@@ -8,21 +8,22 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root {
+      /* Spacing & Layout Variables */
       --padding-desktop: 120px;
       --padding-mobile: 20px;
       --max-width: 1200px;
       --section-spacing-desktop: 80px;
       --section-spacing-mobile: 50px;
-      --hero-aspect-desktop: 3/1; /* Desktop Hero aspect ratio */
-      --hero-aspect-mobile: 1.5 / 1; /* Taller Mobile Hero aspect ratio */
-      --card-gap: 25px;
+      --hero-aspect-desktop: 3/1;
+      --hero-aspect-mobile: 1.5 / 1;
+      --card-gap: 15px; /* Keep smaller mobile gap */
+      --border-color: #e0e0e0;
 
       /* Title Size Clamps */
       --title-font-size-large-desktop: clamp(1.8rem, 4vw, 2.5rem);
       --title-font-size-large-mobile: clamp(1.5rem, 5vw, 1.9rem);
       --title-font-size-medium-desktop: clamp(1.5rem, 3.5vw, 2.0rem);
       --title-font-size-medium-mobile: clamp(1.2rem, 4.5vw, 1.6rem);
-      --border-color: #e0e0e0;
     }
 
     /* Base Body Styles */
@@ -35,30 +36,35 @@
       color: #111;
       background: #fff;
     }
+    body.modal-open { overflow: hidden; }
 
     /* Base Heading Styles */
     h1, h2, h3 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       line-height: 1.2;
+      color: inherit;
     }
+
+    /* Header, Footer, Modal Styles assumed to be in styles.css */
 
     /* Fullscreen Sections (Hero, Journey) */
     .fullscreen-section {
-      width: 100%;
-      aspect-ratio: var(--hero-aspect-desktop); /* Default to desktop aspect ratio */
-      position: relative; overflow: hidden;
+      width: 100%; aspect-ratio: var(--hero-aspect-desktop); position: relative; overflow: hidden;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       text-align: center; color: white; background-size: cover; background-position: center;
     }
     .fullscreen-section h1, .fullscreen-section h2 {
       font-size: clamp(2rem, 5vw, 3.5rem) !important; margin-bottom: 1.5rem; letter-spacing: -0.5px; font-weight: 600;
+      color: white !important; text-shadow: 0 1px 4px rgba(0,0,0,0.4);
     }
     .section-button {
       font-size: 1.1rem; padding: 12px 24px; border: 2px solid white; border-radius: 4px;
-      color: white; text-decoration: none; transition: all 0.3s ease; font-family: 'Nunito Sans', sans-serif;
+      color: white !important; background-color: transparent !important;
+      text-decoration: none; transition: all 0.3s ease; font-family: 'Nunito Sans', sans-serif;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
-    .section-button:hover { background: white; color: #222 !important; }
+    .section-button:hover { background: white !important; color: #222 !important; }
 
     /* Hero Specific */
     .hero-image {
@@ -84,7 +90,7 @@
     .about .title {
       font-family: 'Poppins', sans-serif; font-weight: 400;
       font-size: var(--title-font-size-large-desktop); line-height: 1.3;
-      margin: 0; flex-shrink: 0; text-align: left;
+      margin: 0; flex-shrink: 0; text-align: left; color: #111;
     }
     .about .text {
       font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: #444; flex-grow: 1;
@@ -98,6 +104,7 @@
     .articles-section .section-title {
         font-family: 'Poppins', sans-serif; font-weight: 400;
         font-size: var(--title-font-size-medium-desktop); line-height: 1.3; margin: 0;
+        color: #111;
     }
 
     /* ====== ARTICLES SECTION ====== */
@@ -118,7 +125,7 @@
       border-radius: 4px; flex-shrink: 0;
     }
      .article-item-content { flex-grow: 1; }
-    .article-item h3 { font-size: 1.3rem; margin-bottom: 0.6rem; font-weight: 600; }
+    .article-item h3 { font-size: 1.3rem; margin-bottom: 0.6rem; font-weight: 600; color: #111; }
     .article-item p { font-size: 1rem; color: #555; line-height: 1.7; }
      .see-all-button {
          display: block; width: fit-content; margin: 40px auto 0; padding: 8px 18px;
@@ -133,15 +140,17 @@
       display: flex; align-items: center; justify-content: space-between;
       max-width: var(--max-width); padding: 0 var(--padding-desktop);
       margin: var(--section-spacing-desktop) auto; gap: 50px;
+      position: relative;
     }
     .interactive-section .section-title { flex-shrink: 0; text-align: left; }
     .interactive-section .scroll-wrapper {
       flex-grow: 1; position: relative; margin: 0; padding: 0; max-width: 65%;
+      overflow: visible; /* Let buttons show */
     }
     .card-scroll-container {
       display: flex; gap: var(--card-gap); overflow-x: auto;
       scroll-behavior: smooth; scroll-snap-type: x mandatory;
-      scrollbar-width: none; padding: 10px 0;
+      scrollbar-width: none; padding: 10px 0; /* Only vertical padding */
     }
     .card-scroll-container::-webkit-scrollbar { display: none; }
     .tool-card, .video-card {
@@ -161,97 +170,129 @@
     .image-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); display: block; }
     .tool-title {
       position: absolute; bottom: 15px; left: 15px; right: 15px; transform: none;
-      color: white; font-family: 'Poppins', sans-serif; font-size: 1.2rem; text-align: left;
+      color: white !important; font-family: 'Poppins', sans-serif; font-size: 1.2rem; text-align: left;
       z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.4); font-weight: 600;
     }
     .video-card iframe { width: 100%; height: 100%; border: 0; display: block; }
+
     .scroll-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.95); border: 1px solid #111;
-      cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.95); border: 1px solid #aaa;
+      color: #333; cursor: pointer; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
       transition: all 0.2s ease;
     }
-    .scroll-btn:hover { background: #fff; transform: translateY(-50%) scale(1.05); }
-    .scroll-btn.left { left: -45px; }
-    .scroll-btn.right { right: -45px; }
+    .scroll-btn:hover { background: #fff; transform: translateY(-50%) scale(1.05); border-color: #333;}
+    /* Desktop: Position buttons outside scroll wrapper */
+    .scroll-btn.left { left: -55px; }
+    .scroll-btn.right { right: -55px; }
+
 
     /* ====== MEDIA QUERY ====== */
     @media (max-width: 850px) {
       :root {
         --section-spacing-desktop: var(--section-spacing-mobile);
         --padding-desktop: var(--padding-mobile);
-        /* --hero-aspect is set below for fullscreen sections */
-        --card-gap: 15px;
+        --card-gap: 10px;
       }
 
-       /* General Section Spacing Mobile */
        section { margin: var(--section-spacing-mobile) 0; }
+       footer { padding: 30px var(--padding-mobile); }
 
-       /* Apply TALLER mobile aspect ratio for fullscreen sections */
-       .fullscreen-section {
-          aspect-ratio: var(--hero-aspect-mobile);
-       }
+       .fullscreen-section { aspect-ratio: var(--hero-aspect-mobile); }
 
-      /* Mobile Hero/Button Adjustments */
-      .hero-text { padding: 0 8px; }
-      .hero-text h1 { font-size: clamp(1.6rem, 5vw, 2.0rem); }
-      .section-button {
+       .hero-text { padding: 0 8px; }
+       .hero-text h1 { font-size: clamp(1.6rem, 5vw, 2.0rem); }
+       .section-button {
         font-size: clamp(0.9rem, 3vw, 1.0rem);
         padding: clamp(8px, 1.5vw, 10px) clamp(16px, 4vw, 20px);
         white-space: nowrap;
       }
 
-      /* Section Title Mobile Sizes & Alignment */
       .about .title { font-size: var(--title-font-size-large-mobile); text-align: center; }
       .interactive-section .section-title,
       .articles-section .section-title { font-size: var(--title-font-size-medium-mobile); text-align: center; }
 
-      /* Stack About section - Reduce text size */
       .about { flex-direction: column; gap: 20px; padding: 0 var(--padding-mobile); }
       .about .text { max-width: none; text-align: center; font-size: 0.9rem; line-height: 1.6; }
 
-      /* Stack Interactive sections - Reduce gap */
-      .interactive-section { flex-direction: column; gap: 15px; padding: 0; }
-       .interactive-section .section-title { padding: 0 var(--padding-mobile); margin-bottom: 5px; }
+      .interactive-section {
+          flex-direction: column; gap: 15px;
+          padding: 0 var(--padding-mobile); /* Section has side padding */
+          position: relative;
+        }
+       .interactive-section .section-title { padding: 0; margin-bottom: 5px; }
        .interactive-section .scroll-wrapper {
-          max-width: none; width: 100%; padding: 0 35px;
-       }
+           max-width: none; width: 100%; padding: 0; /* No padding */
+           position: relative; /* Keep relative for button positioning */
+           overflow: visible;
+        }
 
-      /* Articles Section Mobile */
        .articles-section { padding: 0 var(--padding-mobile); }
        .articles-section .section-title { margin-bottom: 15px; }
-       .article-item {
-           align-items: center; gap: 15px; padding: 15px 0;
-       }
-       .article-item img { width: 80px; aspect-ratio: 1 / 1; } /* Maintain square image */
+       .article-item { align-items: center; gap: 15px; padding: 15px 0; }
+       .article-item img { width: 80px; aspect-ratio: 1 / 1; }
        .article-item h3 { font-size: 1.0rem; margin-bottom: 0.3rem; }
        .article-item p { font-size: 0.85rem; line-height: 1.5; }
        .see-all-button { margin-top: 25px; font-size: 0.85rem; padding: 7px 16px;}
 
-      /* Card Scroll Mobile */
-      .card-scroll-container { gap: var(--card-gap); padding: 10px var(--padding-mobile); scroll-padding: 0 var(--padding-mobile); }
-
-      /* Tool and Video Card Mobile - SMALLER size */
+      .card-scroll-container {
+          gap: var(--card-gap);
+          /* ADD HORIZONTAL MARGIN TO PREVENT OVERLAP */
+          margin: 0 25px; /* Creates space (25px each side) for buttons */
+          /* Remove horizontal padding, margin handles spacing */
+          padding: 10px 0;
+          /* Remove scroll padding if margin is used */
+          scroll-padding: 0;
+          overflow-x: auto;
+          overflow-y: hidden;
+        }
+      /* Tool and Video Card Mobile - Adjust size for narrower container */
       .tool-card, .video-card {
-          flex: 0 0 45%; /* Reduced flex-basis significantly */
-          aspect-ratio: 4 / 3; /* Reverted to less tall aspect ratio */
-      }
-      /* Adjust tool title position/size if needed for 4/3 */
-      .tool-title { font-size: 0.9rem; bottom: 8px; left: 8px; right: 8px;} /* Adjusted */
+          flex: 0 0 50%; /* Adjust basis for narrower container */
+          aspect-ratio: 4 / 3;
+        }
+      .tool-title { font-size: 0.8rem; bottom: 5px; left: 5px; right: 5px;}
 
-      /* Scroll Button Mobile */
-      .scroll-btn { width: 40px; height: 40px; }
-      .scroll-btn.left { left: 5px; }
-      .scroll-btn.right { right: 5px; }
+      /* Mobile Scroll Buttons: Smaller and positioned relative to wrapper */
+      .scroll-btn {
+          width: 32px; /* Smaller size */
+          height: 32px; /* Smaller size */
+      }
+      /* Position OUTSIDE the wrapper using negative offset */
+      /* Offset should be approx half button width to align edge */
+      .scroll-btn.left { left: -16px; }
+      .scroll-btn.right { right: -16px; }
     }
   </style>
 </head>
 
 <body>
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal"> <a href="index.html">Home</a> <a href="myjourney.html">My Journey</a> <a href="photography.html">Photography</a> <a href="/articles">Articles</a> <a href="tools.html">Tools</a> <a href="contact.html">Contact</a> </div>
-  <header> <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a> <nav> <ul> <li><a href="index.html" class="active">Home</a></li> <li><a href="myjourney.html">My Journey</a></li> <li><a href="photography.html">Photography</a></li> <li><a href="/articles">Articles</a></li> <li><a href="tools.html">Tools</a></li> <li><a href="contact.html">Contact</a></li> </ul> </nav> <div class="menu-icon" onclick="toggleModal()">☰</div> </header>
+  <div class="modal" id="modal">
+      <a href="index.html">Home</a>
+      <a href="myjourney.html">My Journey</a>
+      <a href="photography.html">Photography</a>
+      <a href="/articles">Articles</a>
+      <a href="tools.html">Tools</a>
+      <a href="contact.html">Contact</a>
+  </div>
+
+  <header>
+      <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a>
+      <nav>
+          <ul>
+              <li><a href="index.html" class="active">Home</a></li>
+              <li><a href="myjourney.html">My Journey</a></li>
+              <li><a href="photography.html">Photography</a></li>
+              <li><a href="/articles">Articles</a></li>
+              <li><a href="tools.html">Tools</a></li>
+              <li><a href="contact.html">Contact</a></li>
+          </ul>
+      </nav>
+      <div class="menu-icon" onclick="toggleModal()">☰</div>
+  </header>
 
   <div class="fullscreen-section hero"> <div class="hero-image active" style="background-image: url('journeyimages/2025-02-11.jpg')"></div> <div class="hero-image" style="background-image: url('photos/m42-1.jpg')"></div> <div class="hero-image" style="background-image: url('photos/moon-3.jpg')"></div> <div class="hero-image" style="background-image: url('photos/jupiter-mars-1.png')"></div> <div class="hero-image" style="background-image: url('photos/m51-1.jpg')"></div> <div class="hero-image" style="background-image: url('photos/m81-1.jpg')"></div> <div class="hero-text"> <h1>CAPTURING THE COSMOS</h1> <a href="photography.html" class="section-button">SEE PHOTOGRAPHY →</a> </div> </div>
 
@@ -262,34 +303,10 @@
   <section class="articles-section">
       <h2 class="section-title">LATEST ARTICLES</h2>
       <div id="articles-container">
-          <a href="/articles/first" class="article-item">
-              <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+1" alt="Article 1 Placeholder">
-              <div class="article-item-content">
-                  <h3>Article Title 1</h3>
-                  <p>This is a short description for the first article. It explains what the article is about in a concise way.</p>
-              </div>
-          </a>
-          <a href="#" class="article-item">
-              <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder">
-              <div class="article-item-content">
-                  <h3>Another Interesting Article Title (2)</h3>
-                  <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p>
-              </div>
-          </a>
-          <a href="#" class="article-item">
-              <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder">
-              <div class="article-item-content">
-                  <h3>Article Number Three</h3>
-                  <p>A brief summary of the third piece of content available for reading.</p>
-              </div>
-          </a>
-          <a href="#" class="article-item">
-              <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder">
-              <div class="article-item-content">
-                  <h3>The Fourth Article's Title Is Here</h3>
-                  <p>Description text for article number four, providing context and encouraging a click.</p>
-              </div>
-          </a>
+          <a href="/articles/first" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+1" alt="Article 1 Placeholder"> <div class="article-item-content"> <h3>Article Title 1</h3> <p>This is a short description for the first article. It explains what the article is about in a concise way.</p> </div> </a>
+          <a href="#" class="article-item"> <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder"> <div class="article-item-content"> <h3>Another Interesting Article Title (2)</h3> <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p> </div> </a>
+          <a href="#" class="article-item"> <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder"> <div class="article-item-content"> <h3>Article Number Three</h3> <p>A brief summary of the third piece of content available for reading.</p> </div> </a>
+          <a href="#" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder"> <div class="article-item-content"> <h3>The Fourth Article's Title Is Here</h3> <p>Description text for article number four, providing context and encouraging a click.</p> </div> </a>
       </div>
       <a href="/articles" class="see-all-button">See All Articles →</a>
   </section>
@@ -302,12 +319,7 @@
 
   <script src="scripts.js"></script>
   <script>
-    // --- Modal Logic ---
-    function toggleModal() {
-      document.getElementById('modal-backdrop').classList.toggle('active');
-      document.getElementById('modal').classList.toggle('active');
-      // document.body.classList.toggle('modal-open');
-    }
+    // --- Modal Logic (Relying on scripts.js for 'toggleModal' function) ---
 
     // --- Hero Slider Logic ---
     const heroSlider = () => {
@@ -332,7 +344,7 @@
       const container = document.getElementById(containerId); if (!container) return;
       const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
       const card = container.querySelector(cardSelector); if (!card) return;
-      const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 15; // Use 15 for mobile default potentially
+      const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 10;
       const scrollAmount = (card.offsetWidth + gapValue) * direction;
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
@@ -344,7 +356,7 @@
         if (container.matches(':hover')) return;
         const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
         const card = container.querySelector(cardSelector); if (!card) return;
-        const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 15; // Use 15 for mobile default potentially
+        const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 10;
         const scrollAmount = card.offsetWidth + gapValue;
         const maxScroll = container.scrollWidth - container.clientWidth;
         if (container.scrollLeft >= maxScroll - 10) { container.scrollTo({ left: 0, behavior: 'smooth' }); }
