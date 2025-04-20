@@ -4,478 +4,201 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Angular Size Comparer – Hansen Space</title>
-  
-  <!-- Font-face declarations -->
+
+  <!-- Google fonts & global stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- ------------ GLOBAL LAYOUT HELPERS (from base template, unchanged) ------------ -->
   <style>
-    @font-face {
-      font-family: 'Moon';
-      src: url('/fonts/Moon-Regular.woff2') format('woff2'),
-           url('/fonts/Moon-Regular.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Moon Bold';
-      src: url('/fonts/Moon-Bold.woff2') format('woff2'),
-           url('/fonts/Moon-Bold.woff') format('woff');
-      font-weight: bold;
-      font-style: normal;
-    }
-    /* Set default font to Moon, and for bold text use Moon Bold */
-    body {
-      font-family: 'Moon', sans-serif;
-    }
-    strong, b {
-      font-family: 'Moon Bold', sans-serif;
+    .content{max-width:1500px;margin:0 auto;padding:30px var(--padding-desktop,120px)}
+    .intro-section{display:flex;justify-content:space-between;align-items:center;gap:40px;margin-bottom:60px;font-family:'Nunito Sans',sans-serif}
+    .intro-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.8rem,5vw,2.6rem);white-space:nowrap}
+    .intro-text{font-size:clamp(1rem,1.15vw,1.2rem);max-width:800px;line-height:1.7}
+    @media(max-width:850px){
+      .content{padding:30px var(--padding-mobile,28px)}
+      .intro-section{flex-direction:column;align-items:center;text-align:center;gap:20px}
+      .intro-title{white-space:normal;text-align:center}
+      .intro-text{text-align:center}
     }
   </style>
-  
-  <!-- Standard site styles -->
-  <link rel="stylesheet" href="../styles.css">
-  
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  
-  <!-- Page-specific CSS -->
+
+  <!-- ------------ PAGE‑SPECIFIC STYLES (compare tool) ------------ -->
   <style>
-    /* Base styles */
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      overflow-y: auto; /* allow page scrolling */
-      display: flex;
-      flex-direction: column;
-    }
-    header, footer {
-      flex: 0 0 auto;
-    }
-    main {
-      flex: 1;
-      position: relative;
-      overflow-y: auto;
-      min-height: 120vh; /* make main section taller */
-    }
-    /* #backButton {
-      position: sticky;
-      top: 0;
-      left: 10px;
-      z-index: 1100;
-      background: #fff;
-      border: 1px solid #000;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 0;
-      font-size: 18px;
-      color: #000;
-      cursor: pointer;
-      padding: 0;
-    } */
-    
-    /* Main page content */
-    .content-wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-    }
-    .top-text-section {
-      flex: 0 0 auto;
-      padding: 10px; /* reduced padding */
-      text-align: center;
-      font-size: 1.2em;
-    }
-    .split-section {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .main-half {
-      flex: 1;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .vertical-divider-main {
-      width: 1px;
-      background: #ccc;
-      height: 100%;
-      margin: 0 20px;
-    }
-    .object-label {
-      color: gray;
-      margin-bottom: 5px;
-      font-size: 16px;
-    }
-    .plus-button {
-      background-color: #80bfff;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 32px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .selected-display {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      padding: 10px;
-    }
-    .edit-button {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      background: #fff;
-      border: 2px solid #000;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 18px;
-      border-radius: 50px; /* nicely rounded */
-    }
-    
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
+    html,body{margin:0;padding:0;min-height:100vh;display:flex;flex-direction:column}
+    main{flex:1;position:relative;overflow-y:auto}
 
-    .modal-content {
-      width: 80%;
-      height: 80%;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      font-family: inherit;
-      border-radius: 12px; /* rounded corners */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
+    /* compare panel */
+    .split-section{display:flex;align-items:center;justify-content:center;padding:20px}
+    .main-half{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .vertical-divider-main{width:1px;background:#ccc;height:100%;margin:0 20px}
+    .object-label{color:gray;margin-bottom:5px;font-size:16px}
+    .plus-button{background:#80bfff;color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .selected-display{text-align:center;font-size:24px;font-weight:700;padding:10px}
+    .edit-button{position:absolute;top:5px;left:5px;background:#fff;border:2px solid #000;padding:8px 12px;font-size:18px;border-radius:50px;cursor:pointer}
 
-    .modal-header-top {
-      flex: 0 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px; /* reduced padding */
-      font-size: 1.2em;
+    /* pop‑ups (tool‑modal avoids clash with global nav .modal) */
+    .tool-modal{display:none;position:fixed;inset:0;width:100vw;height:100vh;background:rgba(0,0,0,.5);z-index:2000;justify-content:center;align-items:center}
+    .tool-modal .modal-content{width:80%;height:80%;background:#fff;display:flex;flex-direction:column;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);font-family:'Nunito Sans',sans-serif}
+
+    .modal-header-top{display:flex;justify-content:space-between;align-items:center;padding:10px;font-size:1.2em}
+    .close{cursor:pointer;font-size:24px}
+    .modal-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+    .option-selector-container{padding:0 10px;margin:10px 0}
+    .option-selector{display:flex;border:1px solid #ccc;border-radius:25px;overflow:hidden}
+    .option-tab{flex:1;text-align:center;padding:8px 0;background:#f0f0f0;cursor:pointer;font-size:1em}
+    .option-tab.selected{background:#fff;font-weight:700}
+
+    .modal-body-split{flex:1;display:flex;overflow:hidden}
+    .modal-body-left,.modal-body-right{flex:1;padding:10px;overflow-y:auto;font-size:1em}
+    .vertical-divider-modal{width:1px;background:#ccc}
+    .fade-out *{opacity:.5;pointer-events:none;transition:opacity .3s}
+
+    .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:10px}
+    .cancel-button,.done-button{border:2px solid #000;background:#fff;padding:10px 20px;border-radius:4px;cursor:pointer}
+
+    /* dropdown list */
+    .dropdown-list{max-height:100%;overflow-y:auto}
+    .dropdown-item{border-bottom:1px solid #eee}
+    .dropdown-header{cursor:pointer;display:flex;align-items:center;font-size:1em;padding:5px 0}
+    .triangle{display:inline-block;margin-right:8px;transition:transform .3s}
+    .dropdown-item.expanded .triangle{transform:rotate(90deg)}
+    .dropdown-content{display:none;padding-left:20px;margin:5px 0;font-size:.9em}
+    .dropdown-content label{
+      display:block;
+      margin:2px 0;
     }
-    .modal-header-top h2 {
-      margin: 0;
-    }
-    .close {
-      cursor: pointer;
-      font-size: 24px;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #ccc;
-      margin: 0;
-    }
-    .modal-main {
-      flex: 1;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .option-selector-container {
-      padding: 0 10px;
-      margin: 10px 0;
-    }
-    .option-selector {
-      display: flex;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      overflow: hidden;
-    }
-    .option-tab {
-      flex: 1;
-      text-align: center;
-      padding: 8px 0;
-      background-color: #f0f0f0;
-      font-weight: normal;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    .option-tab.selected {
-      background-color: #fff;
-      font-weight: bold;
-    }
-    .modal-body-split {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-    }
-    .modal-body-left, .modal-body-right {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      font-size: 1em;
-    }
-    .vertical-divider-modal {
-      width: 1px;
-      background: #ccc;
-    }
-    .fade-out * {
-      opacity: 0.5;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-    .modal-footer {
-      flex: 0 0 auto;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 10px;
-      font-size: 1em;
-    }
-    .cancel-button, .done-button {
-      border: 2px solid #000;
-      background: #fff;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .cancel-button {
-      color: #000;
-    }
-    .done-button {
-      color: #000;
-    }
-    
-    /* Dropdown list styling */
-    .dropdown-list {
-      max-height: 100%;
-      overflow-y: auto;
-    }
-    .dropdown-item {
-      padding: 5px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .dropdown-header {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      user-select: none;
-      font-size: 1em;
-    }
-    .dropdown-header .triangle {
-      display: inline-block;
-      margin-right: 8px;
-      transition: transform 0.3s ease;
-    }
-    .dropdown-item.expanded .dropdown-header .triangle {
-      transform: rotate(90deg);
-    }
-    .dropdown-item .dropdown-content {
-      display: none;
-      padding-left: 20px;
-      margin-top: 5px;
-      font-size: 0.9em;
-    }
-    .dropdown-item.expanded .dropdown-content {
-      display: block;
-    }
-    .dropdown-item .dropdown-content label {
-      display: block;
-      margin-bottom: 4px;
-    }
-    
-    /* Responsive styles */
-    @media (max-width: 600px) {
-      .split-section {
-        flex-direction: column;
-      }
-      .vertical-divider-main {
-        display: none;
-      }
-      .main-half {
-        margin-bottom: 20px;
-      }
-      .plus-button {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-      }
-      .selected-display {
-        font-size: 20px;
-        padding: 10px;
-      }
-      .edit-button {
-        font-size: 16px;
-        padding: 6px 10px;
-      }
-      .modal-content {
-        width: 90%;
-        height: 90%;
-      }
-      .modal-header-top, .modal-footer {
-        padding: 10px;
-      }
-      .option-selector-container {
-        margin: 10px 0;
-        padding: 0 10px;
-      }
-      .option-tab {
-        padding: 8px 0;
-        font-size: 14px;
-      }
-      .modal-body-left, .modal-body-right {
-        padding: 10px;
-        font-size: 14px;
-      }
+    .dropdown-item.expanded .dropdown-content{display:block}
+
+    /* mobile tweaks */
+    @media(max-width:600px){
+      .split-section{flex-direction:column}
+      .vertical-divider-main{display:none}
+      .main-half{margin-bottom:20px}
+      .plus-button{width:50px;height:50px;font-size:24px}
+      .selected-display{font-size:20px}
+      .edit-button{font-size:16px;padding:6px 10px}
+      .tool-modal .modal-content{width:90%;height:90%}
+      .option-tab{font-size:14px}
+      .modal-body-left,.modal-body-right{font-size:14px}
     }
   </style>
 </head>
-<body>
-  <!-- Header -->
+<body class="home">
+  <!-- --------------- HEADER (global) --------------- -->
   <header>
-    <a class="brand" href="/index.html">
-      <img src="/images/logo.png" alt="Hansen Space Logo">
-    </a>
+    <a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo"></a>
     <nav>
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/myjourney.html">My Journey</a></li>
         <li><a href="/photography.html">Photography</a></li>
         <li><a href="/articles">Articles</a></li>
-        <li><a href="/tools.html">Tools</a></li>
+        <li><a href="/tools.html" class="active">Tools</a></li>
         <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
-  
+
+  <!-- site‑wide nav modal -->
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
   <div class="modal" id="modal">
     <a href="/index.html">Home</a>
     <a href="/myjourney.html">My Journey</a>
     <a href="/photography.html">Photography</a>
     <a href="/articles">Articles</a>
-    <a href="/tools.html">Tools</a>
+    <a href="/tools.html" class="active">Tools</a>
     <a href="/contact.html">Contact</a>
   </div>
-  
-  
-  <!-- Main Section -->
+
+  <!-- --------------- MAIN --------------- -->
   <main>
-    <!-- <button id="backButton" onclick="location.href='../tools.html'">&#8592;</button> -->
-    <div class="content-wrapper">
-      <div class="top-text-section">
-        <h1>Angular Size Comparer</h1>
-        <p>Select two objects to compare their apparent sizes as viewed from Earth.</p>
+    <div class="content">
+      <div class="intro-section">
+        <h2 class="intro-title">Angular Size Comparer</h2>
+        <p class="intro-text">Select two objects to compare their apparent sizes as viewed from Earth.</p>
       </div>
+
       <div class="split-section">
         <div class="main-half" id="mainLeftContainer">
-          <p class="object-label">Add Object 1</p>
+          <p class="object-label">Add Object&nbsp;1</p>
           <button class="plus-button" id="plusLeft">+</button>
         </div>
         <div class="vertical-divider-main"></div>
         <div class="main-half" id="mainRightContainer">
-          <p class="object-label">Add Object 2</p>
+          <p class="object-label">Add Object&nbsp;2</p>
           <button class="plus-button" id="plusRight">+</button>
         </div>
       </div>
     </div>
   </main>
-  
-  <!-- Footer -->
+
+  <!-- --------------- FOOTER (global) --------------- -->
   <footer>
     <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
+      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
     </div>
     <p>&copy; 2025 Hansen Space.</p>
   </footer>
-  
-  <!-- Modal for Left (Object 1) -->
-  <div id="modalLeft" class="modal">
+
+  <!-- --------------- TOOL POP‑UPS --------------- -->
+  <div id="modalLeft" class="tool-modal">
     <div class="modal-content">
       <div class="modal-header-top">
-        <h2>Select Object 1</h2>
+        <h2>Select Object&nbsp;1</h2>
         <span class="close" data-modal="modalLeft">&times;</span>
-      </div>
-      <hr>
+      </div><hr>
       <div class="modal-main">
         <div class="option-selector-container">
           <div class="option-selector">
-            <div id="modalLeft-option-object" class="option-tab">Object</div>
-            <div id="modalLeft-option-body" class="option-tab">Object on Body</div>
+            <div id="modalLeft-option-object" class="option-tab selected">Object</div>
+            <div id="modalLeft-option-body"  class="option-tab">Object on Body</div>
           </div>
         </div>
         <div class="modal-body-split">
-          <div class="modal-body-left" id="modalLeft-left-panel">
-            <div class="dropdown-list" id="modalLeft-dropdown-left"></div>
-          </div>
+          <div class="modal-body-left"  id="modalLeft-left-panel"><div class="dropdown-list" id="modalLeft-dropdown-left"></div></div>
           <div class="vertical-divider-modal"></div>
-          <div class="modal-body-right" id="modalLeft-right-panel">
-            <div class="dropdown-list" id="modalLeft-dropdown-right"></div>
-          </div>
+          <div class="modal-body-right" id="modalLeft-right-panel"><div class="dropdown-list" id="modalLeft-dropdown-right"></div></div>
         </div>
-      </div>
-      <hr>
+      </div><hr>
       <div class="modal-footer">
         <button class="cancel-button" data-modal="modalLeft">Cancel</button>
-        <button class="done-button" data-modal="modalLeft" id="modalLeft-done">Done</button>
+        <button class="done-button"   data-modal="modalLeft" id="modalLeft-done">Done</button>
       </div>
     </div>
   </div>
-  
-  <!-- Modal for Right (Object 2) -->
-  <div id="modalRight" class="modal">
+
+  <div id="modalRight" class="tool-modal">
     <div class="modal-content">
       <div class="modal-header-top">
-        <h2>Select Object 2</h2>
+        <h2>Select Object&nbsp;2</h2>
         <span class="close" data-modal="modalRight">&times;</span>
-      </div>
-      <hr>
+      </div><hr>
       <div class="modal-main">
         <div class="option-selector-container">
           <div class="option-selector">
-            <div id="modalRight-option-object" class="option-tab">Object</div>
-            <div id="modalRight-option-body" class="option-tab">Object on Body</div>
+            <div id="modalRight-option-object" class="option-tab selected">Object</div>
+            <div id="modalRight-option-body"  class="option-tab">Object on Body</div>
           </div>
         </div>
         <div class="modal-body-split">
-          <div class="modal-body-left" id="modalRight-left-panel">
-            <div class="dropdown-list" id="modalRight-dropdown-left"></div>
-          </div>
+          <div class="modal-body-left"  id="modalRight-left-panel"><div class="dropdown-list" id="modalRight-dropdown-left"></div></div>
           <div class="vertical-divider-modal"></div>
-          <div class="modal-body-right" id="modalRight-right-panel">
-            <div class="dropdown-list" id="modalRight-dropdown-right"></div>
-          </div>
+          <div class="modal-body-right" id="modalRight-right-panel"><div class="dropdown-list" id="modalRight-dropdown-right"></div></div>
         </div>
-      </div>
-      <hr>
+      </div><hr>
       <div class="modal-footer">
         <button class="cancel-button" data-modal="modalRight">Cancel</button>
-        <button class="done-button" data-modal="modalRight" id="modalRight-done">Done</button>
+        <button class="done-button"   data-modal="modalRight" id="modalRight-done">Done</button>
       </div>
     </div>
   </div>
-  
+
+  <!-- --------------- SCRIPT --------------- -->
+  <script src="/scripts.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Define categories for the "Object" side.
@@ -894,7 +617,7 @@
         });
       });
       window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
+        if (event.target.classList.contains('tool-modal')) {
           closeModal(event.target.id);
         }
       });
