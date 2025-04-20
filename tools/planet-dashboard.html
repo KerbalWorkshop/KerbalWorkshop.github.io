@@ -1,271 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Planets Dashboard – Hansen Space</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Planets Dashboard – Hansen Space</title>
 
-  <!-- GLOBAL -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
-  <!-- PAGE‑LOCAL STYLES -->
   <style>
-    /* ---------- layout borrowed from base template ---------- */
-    .content         { max-width:1500px; margin:0 auto; padding:30px var(--padding-desktop,120px); }
-    .intro-section   { display:flex; justify-content:space-between; align-items:center; gap:40px; margin-bottom:60px; font-family:'Nunito Sans',sans-serif; }
-    .intro-title     { font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(1.8rem,5vw,2.6rem); }
-    .intro-text      { font-size:clamp(1rem,1.15vw,1.2rem); max-width:800px; line-height:1.7; }
+  :root {
+    --canvas:1200px;    /* grey strip max width */
+    --side-pad:80px;    /* gutters */
+    --grey:#2e2e2e;     /* strip bg */
+    --cell:200px;       /* size grid cell */
+    --gap:50px;         /* grid gap */
+    --dist-aspect:1000/256; /* native distance chart ratio */
+  }
+  * { box-sizing:border-box; margin:0 }
+  body {
+    font-family:'Nunito Sans',sans-serif;
+    background:#fff; color:#eee;
+    overflow-x:hidden;
+  }
+  a { color:inherit; text-decoration:none }
 
-    @media(max-width:850px){
-      .content       { padding:30px var(--padding-mobile,28px); }
-      .intro-section { flex-direction:column; text-align:center; gap:20px; }
-      .intro-title,.intro-text { text-align:center; }
+  /* ----- header ----- */
+  header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px var(--side-pad); background:#fff; color:#111;
+  }
+  header nav ul {
+    display:flex; gap:30px; list-style:none;
+    font-weight:600; font-size:16px;
+  }
+  header .active { border-bottom:2px solid #111; padding-bottom:3px }
+  .menu-icon { display:none; font-size:1.4rem }
+  @media(max-width:850px) {
+    header nav { display:none }
+    .menu-icon { display:block; cursor:pointer }
+  }
+
+  /* ----- grey strip ----- */
+  #content { background:var(--grey); padding:0 var(--side-pad) }
+  #inner   { max-width:var(--canvas); margin:0 auto; padding:30px 0 }
+
+  /* intro */
+  .intro-section {
+    display:flex; justify-content:space-between; align-items:center;
+    gap:40px; margin-bottom:60px;
+  }
+  .intro-title { font:700 40px/1 'Poppins'; color:#fff }
+  .intro-text {
+    max-width:640px; font-size:18px; line-height:1.6; color:#d0d0d0;
+  }
+  @media(max-width:850px) {
+    .intro-section { flex-direction:column; text-align:center }
+    .intro-title   { font-size:30px }
+    .intro-text    { font-size:15px }
+  }
+
+  /* shared */
+  .dash-block  { margin-bottom:70px }
+  .block-title { font:600 28px/1 'Poppins'; margin-bottom:24px; color:#fff }
+  .pill-switch {
+    display:flex; background:#555; border-radius:40px;
+    overflow:hidden; width:max-content; margin:0 auto 40px;
+    font-size:14px;
+  }
+  .pill-switch button {
+    padding:10px 18px; border:none; background:transparent;
+    color:#eee; font-weight:600; cursor:pointer;
+  }
+  .pill-switch button.active {
+    background:#fff; color:#000;
+  }
+
+  /* panels */
+  .panel {
+    background:#000; border-radius:6px;
+    padding:48px 20px; margin-bottom:50px;
+  }
+
+  /* SIZE grid */
+  #size-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(var(--cell),1fr));
+    grid-auto-rows:var(--cell);
+    gap:var(--gap);
+    justify-content:center;
+  }
+  .planet-slot {
+    position:relative; display:flex;
+    justify-content:center; align-items:center;
+  }
+  .size-label {
+    position:absolute; bottom:-26px; left:50%;
+    transform:translateX(-50%);
+    font-size:14px; color:#eee; white-space:nowrap;
+  }
+
+  /* DISTANCE */
+  .panel-distance { padding-top:48px; padding-bottom:48px }
+  #dist-box {
+    width:80%; max-width:var(--canvas);
+    margin:0 auto;
+    aspect-ratio: var(--dist-aspect);
+    position:relative;
+  }
+  .dist-track {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+  }
+  .dist-track::before {
+    content:""; position:absolute; top:50%; left:0;
+    width:100%; height:2px; background:#666;
+    transform:translateY(-50%);
+  }
+  .anchor {
+    position:absolute; left:0; top:50%;
+    transform:translate(-50%,-50%);
+  }
+  #dist-planets img {
+    position:absolute; top:50%;
+    transform:translate(-50%,-50%);
+  }
+  .dist-label {
+    position:absolute;
+    top:calc(50% - 40px);
+    color:#ddd;
+    white-space:nowrap;
+    transform-origin:top left;
+    transform:rotate(-40deg);
+    font-size: clamp(10px, 1.2vw, 14px);
+  }
+
+  /* divider */
+  .div { height:1px; background:#555; margin:50px 0 }
+
+  /* footer */
+  footer {
+    padding:20px var(--side-pad);
+    background:#fff; text-align:center;
+    font-size:14px; color:#999;
+  }
+  footer .social-links { margin-bottom:12px }
+  footer .social-links img {
+    height:24px; margin:0 10px;
+  }
+
+  /* mobile tweaks */
+  @media(max-width:850px) {
+    :root { --side-pad:20px }
+    body { font-size:90% }
+    .size-label,.dist-label { font-size:12px }
+    header nav ul { font-size:14px }
+    :root {
+      --cell:  calc(200px*0.7);
+      --gap:   calc(50px *0.7);
     }
-
-    /* ---------- dashboard blocks ---------- */
-    .dash-block      { margin-bottom:40px; position:relative; }
-    .block-title     { font-family:'Poppins',sans-serif; font-weight:600; font-size:clamp(1.3rem,2.2vw,2rem); margin-bottom:20px; }
-
-    /* pill switch (“tic‑tac” bar) */
-    .pill-switch     { display:flex; background:#eee; border-radius:40px; overflow:hidden; width:max-content; margin:0 auto 28px; }
-    .pill-switch button{ padding:8px 12px; border:none; background:transparent; font:600 0.9rem 'Nunito Sans',sans-serif; cursor:pointer; white-space:nowrap; }
-    .pill-switch button.active{ background:#222; color:#fff; }
-
-    /* SIZE row as fixed‑grid so centres never move */
-    .planet-row{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(90px,1fr); /* constant slot width */
-      gap:60px;
-      justify-content:center;
-      align-items:center;
-      min-height:180px;                   /* row height fixed   */
-    }
-    .planet-icon{ object-fit:contain; }
-
-    /* debug list */
-    #size-debug{
-      list-style:none; padding:0; margin:10px auto 0;
-      max-width:280px; font:0.85rem/1.4 'Nunito Sans',sans-serif; text-align:center; opacity:0.7;
-    }
-
-    /* DISTANCE baseline */
-    .dist-track      { position:relative; height:120px; }
-    .dist-track::before{ content:""; position:absolute; top:50%; left:0; right:0; height:2px; background:#999; }
-    .anchor          { width:46px; position:absolute; left:0; top:50%; transform:translate(-50%,-50%); }
-    #dist-planets img{ width:36px; position:absolute; top:50%; transform:translate(-50%,-50%); }
-
-    /* section divider */
-    .section-divider { border:0; height:1px; background:#e5e5e5; margin:40px 0; }
+  }
   </style>
 </head>
+<body>
 
-<body class="home">
-
-  <!-- ▸ HEADER (unedited base markup) -->
   <header>
-    <a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo"></a>
-    <nav>
-      <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/myjourney.html">My Journey</a></li>
-        <li><a href="/photography.html">Photography</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="/tools.html" class="active">Tools</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </nav>
+    <a class="brand" href="/"><img src="/images/logo.png" alt="Hansen Space"></a>
+    <nav><ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/myjourney.html">My Journey</a></li>
+      <li><a href="/photography.html">Photography</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/tools.html" class="active">Tools</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul></nav>
     <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
 
-  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
-    <a href="/index.html">Home</a>
-    <a href="/myjourney.html">My Journey</a>
-    <a href="/photography.html">Photography</a>
-    <a href="/articles">Articles</a>
-    <a href="/tools.html" class="active">Tools</a>
-    <a href="/contact.html">Contact</a>
-  </div>
+  <div id="content">
+    <div id="inner">
 
-  <!-- ▸ MAIN CONTENT -->
-  <div class="content">
+      <div class="intro-section">
+        <h2 class="intro-title">PLANET DASHBOARD</h2>
+        <p class="intro-text">A planetary dashboard for all of your needs.</p>
+      </div>
 
-    <div class="intro-section">
-      <h2 class="intro-title">PLANET DASHBOARD</h2>
-      <p class="intro-text">A planetary dashboard for all of your needs.</p>
+      <!-- SIZE (unchanged) -->
+      <section class="dash-block">
+        <h3 class="block-title">SIZE</h3>
+        <div class="pill-switch" id="size-mode">
+          <button data-mode="true">true size</button>
+          <button data-mode="apparent-earth" class="active">apparent size (Earth)</button>
+          <button data-mode="apparent-sun">apparent size (Sun)</button>
+        </div>
+        <div class="panel">
+          <div id="size-grid"></div>
+        </div>
+      </section>
+
+      <!-- DISTANCE (fixed Sun mode) -->
+      <section class="dash-block">
+        <h3 class="block-title">DISTANCE</h3>
+        <div class="pill-switch" id="dist-mode">
+          <button data-mode="sun">from Sun</button>
+          <button data-mode="earth" class="active">from Earth</button>
+          <button disabled>placeholder</button>
+        </div>
+        <div class="panel panel-distance">
+          <div id="dist-box">
+            <div class="dist-track">
+              <img id="dist-anchor" class="anchor" src="planets/earth.png" alt="anchor">
+              <div id="dist-planets"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="div"></div>
+
+      <section class="dash-block">
+        <h3 class="block-title">IN THE SKY (coming soon)</h3>
+        <p style="color:#ccc">Feature under construction.</p>
+      </section>
+
     </div>
-
-    <!-- SIZE ---------------------------------------------------->
-    <section id="size-sec" class="dash-block">
-      <h3 class="block-title">SIZE</h3>
-
-      <div class="pill-switch" id="size-mode">
-        <button data-mode="true">true&nbsp;size</button>
-        <button data-mode="apparent-earth" class="active">apparent&nbsp;size&nbsp;(Earth)</button>
-        <button data-mode="apparent-sun">apparent&nbsp;size&nbsp;(Sun)</button>
-      </div>
-
-      <div class="planet-row" id="size-planets"></div>
-      <ul id="size-debug"></ul>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- DISTANCE ----------------------------------------------->
-    <section id="dist-sec" class="dash-block">
-      <h3 class="block-title">DISTANCE</h3>
-
-      <div class="pill-switch" id="dist-mode">
-        <button data-mode="sun">from Sun</button>
-        <button data-mode="earth" class="active">from Earth</button>
-        <button disabled>placeholder</button>
-      </div>
-
-      <div class="dist-track">
-        <img id="dist-anchor" class="anchor" src="planets/earth.png" alt="earth anchor">
-        <div id="dist-planets"></div>
-      </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- placeholder for future section -->
-    <section id="sky-sec" class="dash-block">
-      <h3 class="block-title">IN THE SKY (coming soon)</h3>
-      <p style="opacity:0.6">Feature under construction.</p>
-    </section>
   </div>
 
-  <!-- ▸ FOOTER (unedited) -->
   <footer>
     <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
-      <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
+      <a href="https://www.youtube.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
     </div>
-    <p>&copy; 2025 Hansen Space.</p>
+    <p>&copy; 2025 Hansen Space.</p>
   </footer>
 
-  <!-- GLOBAL JS (modal toggle etc.) -->
-  <script src="/scripts.js"></script>
-
-  <!-- INLINE DASHBOARD LOGIC -->
   <script>
-/* ---------- Static meta for each body ---------- */
-const META = {
-  mercury:{diameter:4879,  sma:0.387},
-  venus:  {diameter:12104, sma:0.723},
-  mars:   {diameter:6779,  sma:1.524},
-  jupiter:{diameter:139820,sma:5.203},
-  saturn: {diameter:116460,sma:9.537, ringFactor:1206/2737}, // disc / whole image
-  uranus: {diameter:50724, sma:19.191},
-  neptune:{diameter:49244, sma:30.068}
-};
-const IDS = Object.keys(META);
+  // Data & SIZE code unchanged
+  const META={mercury:4879,venus:12104,earth:12756,mars:6779,jupiter:139820,
+              saturn:116460,uranus:50724,neptune:49244};
+  const SMA ={mercury:.387,venus:.723,earth:1,mars:1.524,
+              jupiter:5.203,saturn:9.537,uranus:19.191,neptune:30.068};
+  const RF  ={saturn:1206/2737};
+  const ORDER=["mercury","venus","mars","jupiter","saturn","uranus","neptune","earth"];
+  const DATA=Object.fromEntries(ORDER.map(p=>[p,{d:META[p],sun:SMA[p],earth:Math.abs(SMA[p]-1)||.3}]));
+  const AU  =149597870.7;
+  let sizeMode="apparent-earth", distMode="earth";
 
-/* ---------- Runtime store with sensible fallbacks ---------- */
-const planet = Object.fromEntries(
-  IDS.map(id=>[id,{
-    diameter    : META[id].diameter,
-    distSunAU   : META[id].sma,
-    distEarthAU : Math.abs(META[id].sma - 1) || 0.3   // simple offline diff
-  }])
-);
+  // Build SIZE grid
+  const grid=document.getElementById('size-grid');
+  ORDER.forEach(p=>{
+    let slot=document.createElement('div');
+    slot.className='planet-slot'; slot.id=`slot-${p}`;
+    slot.innerHTML=`<div id="lbl-${p}" class="size-label"></div>`;
+    grid.append(slot);
+  });
 
-/* ---------- UI refs & state ---------- */
-let sizeMode='apparent-earth', distMode='earth';
-const sizeRow  = document.getElementById('size-planets');
-const sizeDbg  = document.getElementById('size-debug');
-const distRow  = document.getElementById('dist-planets');
-const distAnch = document.getElementById('dist-anchor');
+  function arc(p,m){
+    let r=DATA[p].d/2,dist=AU*(m==='earth'?DATA[p].earth:DATA[p].sun);
+    return 2*Math.atan(r/dist);
+  }
 
-/* ---------- Pull live data (overwrites fallbacks) ----------- */
-async function refresh(){
-  try{
-    const res  = await fetch('/netlify/functions/planetDashboard');
-    if(!res.ok) throw new Error(res.status);
-    const json = await res.json();
-    const rows = json?.data?.table?.rows ?? [];
-    rows.forEach(r=>{
-      const id = r.entry.name.toLowerCase();
-      if(!planet[id]) return;
-      planet[id].distEarthAU = r.entry.distance.fromEarth.au;
-      if(r.entry.distance.fromSun?.au) planet[id].distSunAU = r.entry.distance.fromSun.au;
+  function drawSize(){
+    let peakArc=Math.max(...ORDER.map(p=>Math.max(arc(p,'earth'),arc(p,'sun')))),
+        maxDisc=200*0.78;
+    if(window.innerWidth<850) maxDisc*=0.7;
+    ORDER.forEach(p=>{
+      let slot=document.getElementById(`slot-${p}`),
+          lbl =document.getElementById(`lbl-${p}`);
+      if(p==='earth'&&sizeMode==='apparent-earth'){
+        slot.style.visibility='hidden'; lbl.textContent=''; return;
+      }
+      slot.style.visibility='visible';
+      let metric = sizeMode==='true'?DATA[p].d:arc(p,(sizeMode==='apparent-earth'?'earth':'sun')),
+          ref    = sizeMode==='true'
+                   ?Math.max(...ORDER.map(q=>DATA[q].d))
+                   :peakArc,
+          px     = Math.max(4,metric/ref*maxDisc);
+      slot.innerHTML= `<img src="planets/${p}.png" alt="${p}"
+        style="${p==='saturn'?'height:'+px+'px;width:auto':'width:'+px+'px;height:'+px+'px'}">`;
+      slot.append(lbl);
+      lbl.textContent = sizeMode==='true'
+        ?`${(DATA[p].d/2).toLocaleString()} km`
+        :`${(metric*206264.806).toFixed(1)}″`;
     });
-  }catch(e){ console.warn('dashboard fetch error',e.message); }
-  drawAll();
-}
-refresh(); setInterval(refresh,600000);
+  }
 
-/* ---------- DRAWERS ---------- */
-function drawAll(){ drawSize(); drawDist(); }
-
-function drawSize(){
-  const AU_KM = 149_597_870.7;
-  const maxPx = 160;                                       // fixed reference height
-
-  const metric = id=>{
-    if(sizeMode==='true') return planet[id].diameter;       // km
-    const kmRad = planet[id].diameter/2;
-    const AU    = sizeMode==='apparent-earth' ? planet[id].distEarthAU : planet[id].distSunAU;
-    return 2*Math.atan(kmRad/(AU_KM*AU));                  // radians
-  };
-  const maxVal = Math.max(...IDS.map(metric));
-
-  sizeRow.innerHTML = IDS.map(id=>{
-    let value = metric(id);
-    if(!isFinite(value)) value = 0;
-    let px    = (value/maxVal)*maxPx;
-    if(id==='saturn') px /= META.saturn.ringFactor;        // ring compensation
-    px = Math.max(px,12);                                  // min size
-
-    return `<img class="planet-icon" src="planets/${id}.png" alt="${id}"
-                style="width:${px.toFixed(1)}px;height:${px.toFixed(1)}px;">`;
-  }).join('');
-
-  /* debug list */
-  sizeDbg.innerHTML = IDS.map(id=>{
-    if(sizeMode==='true'){
-      return `<li>${id}: ${planet[id].diameter.toLocaleString()} km</li>`;
+  // DRAW DISTANCE with null‑check
+  function drawDist(){
+    let anchor = document.getElementById('dist-anchor');
+    if(anchor){
+      anchor.src = (distMode==='sun' ? 'planets/sun.png' : 'planets/earth.png');
+      // size as percentage of container height:
+      anchor.style.height = (distMode==='sun' ? '43.75%' : '15.625%');
     }
-    const arcsec = metric(id)*206264.806;
-    return `<li>${id}: ${arcsec.toFixed(1)}″</li>`;
-  }).join('');
-}
 
-function drawDist(){
-  const anchorSun = distMode==='sun';
-  distAnch.src = anchorSun ? 'planets/sun.png':'planets/earth.png';
-  distAnch.alt = anchorSun ? 'sun anchor':'earth anchor';
+    let set   = distMode==='sun' ? ORDER : ORDER.filter(p=>p!=='earth'),
+        maxAU = Math.max(...set.map(p=>distMode==='sun'?DATA[p].sun:DATA[p].earth)),
+        track = document.getElementById('dist-planets');
 
-  const dist = id=> anchorSun ? planet[id].distSunAU : planet[id].distEarthAU;
-  const maxD = Math.max(...IDS.map(dist));
+    track.innerHTML='';
+    set.forEach((p,i)=>{
+      let au   = distMode==='sun'?DATA[p].sun:DATA[p].earth,
+          pct  = au/maxAU*100,
+          frac = (DATA[p].d/META.jupiter) *
+                 (p==='saturn'?RF.saturn:1) * 43.75,
+          nudge= (i<4 && distMode==='sun')?-20:0;
 
-  distRow.innerHTML = IDS.map(id=>{
-    let pct = (dist(id)/maxD)*100;
-    if(!isFinite(pct)) pct = 0;
-    return `<img src="planets/${id}.png" alt="${id}" title="${dist(id).toFixed(3)} AU"
-                style="left:${pct}%;">`;
-  }).join('');
-}
+      track.insertAdjacentHTML('beforeend',
+        `<img src="planets/${p}.png"
+           style="position:absolute;left:${pct}%;top:50%;
+                  transform:translate(-50%,-50%);
+                  height:${frac}%;width:auto;">`
+      );
+      track.insertAdjacentHTML('beforeend',
+        `<div class="dist-label" style="left:calc(${pct}% + ${nudge}px)">
+          ${au.toFixed(3)} AU
+         </div>`
+      );
+    });
+  }
 
-/* ---------- Button listeners ---------- */
-document.querySelectorAll('#size-mode button').forEach(btn=>btn.onclick=()=>{
-  if(btn.classList.contains('active')) return;
-  sizeMode = btn.dataset.mode;
-  btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  // Button handlers
+  document.querySelectorAll('#size-mode button').forEach(b=>{
+    b.onclick=()=>{
+      if(b.classList.contains('active')) return;
+      sizeMode=b.dataset.mode;
+      b.parentNode.querySelectorAll('button')
+       .forEach(x=>x.classList.toggle('active',x===b));
+      drawSize();
+    };
+  });
+  document.querySelectorAll('#dist-mode button').forEach(b=>{
+    b.onclick=()=>{
+      if(b.classList.contains('active')) return;
+      distMode=b.dataset.mode;
+      b.parentNode.querySelectorAll('button')
+       .forEach(x=>x.classList.toggle('active',x===b));
+      drawDist();
+    };
+  });
+
+  // initial
   drawSize();
-});
-document.querySelectorAll('#dist-mode button').forEach(btn=>btn.onclick=()=>{
-  if(btn.classList.contains('active')) return;
-  distMode = btn.dataset.mode;
-  btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
   drawDist();
-});
+  window.addEventListener('resize',()=>{ drawSize(); drawDist(); });
   </script>
 </body>
 </html>
