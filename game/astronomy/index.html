@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy Tycoon</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="top-bar">
+            <div id="funds-display">Funds: $<span>100</span></div>
+            <div id="time-display">Time: <span>20:00</span></div>
+            <div id="date-display">Date: <span>Day 1</span></div> </div>
+
+        <div id="world-window">
+            <canvas id="game-canvas"></canvas>
+            </div>
+
+        <div id="control-panel">
+            <div class="panel-section" id="mode-selector">
+                <button id="observe-button" class="active">Observation Mode</button>
+                <button id="photo-button">Astrophotography Mode</button>
+            </div>
+
+            <div class="panel-section" id="actions">
+                <button id="capture-button" disabled>Capture Image</button>
+                 <button id="view-finder-button">View Finder</button> <button id="store-button">Store</button>
+            </div>
+
+            <div class="panel-section" id="save-load">
+                 <button id="save-button">Save Game</button>
+                 <button id="load-button">Load Game</button>
+                 <textarea id="save-code-area" placeholder="Paste save code here..."></textarea>
+            </div>
+        </div>
+
+         <div id="store-modal" class="modal" style="display: none;">
+             <h2>Equipment Store</h2>
+             <button class="close-modal">Close</button>
+         </div>
+          <div id="viewfinder-modal" class="modal" style="display: none;">
+             <h2>View Finder</h2>
+             <canvas id="viewfinder-canvas"></canvas>
+             <button class="close-modal">Close View Finder</button>
+         </div>
+          <div id="save-confirm-modal" class="modal" style="display: none;">
+             <h2>Game Saved</h2>
+             <p>Copy this code to save your progress:</p>
+             <textarea id="generated-save-code" readonly></textarea>
+             <button class="close-modal">Close</button>
+         </div>
+
+    </div>
+
+    <script src="js/assetManager.js"></script>
+    <script src="js/persistenceManager.js"></script>
+    <script src="js/renderingEngine.js"></script>
+    <script src="js/uiManager.js"></script>
+    <script src="js/gameLogic.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
