@@ -1,14 +1,17 @@
 // Placed in: [root]/netlify/functions/planetDashboard.js
 const fetch = require("node-fetch");
 
+// Static fallback data (SMA in AU) - useful if API fails or lacks data points
+const SMA = {mercury:0.387, venus:0.723, mars:1.524, jupiter:5.203, saturn:9.537, uranus:19.191, neptune:30.068};
+
 exports.handler = async (event, context) => {
-  console.log("[Netlify Function] Received request. Event path:", event.path);
+  console.log("[Netlify Function] Handler invoked.");
 
   const key = process.env.ASTRONOMY_API_KEY;
   const sec = process.env.ASTRONOMY_API_SECRET;
 
   if (!key || !sec) {
-    console.error("[Netlify Function] ERROR: Missing ASTRONOMY_API_KEY or ASTRONOMY_API_SECRET environment variables.");
+    console.error("[Netlify Function] ERROR: Missing API credentials environment variables.");
     return {
       statusCode: 500,
       headers: { "Content-Type": "application/json" },
@@ -16,19 +19,17 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // Create auth header - Log carefully!
   const authString = `${key}:${sec}`;
   const auth = "Basic " + Buffer.from(authString).toString("base64");
-  console.log(`[Netlify Function] Generated Authorization header: Basic [${auth.length - 6} characters]`); // Avoid logging the actual base64 string
+  console.log("[Netlify Function] Auth header generated.");
 
   const now = new Date();
   const date = now.toISOString().split("T")[0];
   const time = now.toISOString().split("T")[1].substring(0, 8);
   console.log(`[Netlify Function] Using Date: ${date}, Time: ${time}`);
 
-  const bodies = "mercury,venus,mars,jupiter,saturn,uranus,neptune"; // Earth is observer, usually not needed in 'bodies' unless specifically querying its heliocentric pos? Check API docs. Let's keep it simple for now.
-  // API requires latitude/longitude/elevation for geocentric positions (fromObserver)
-  // Let's use 0,0,0 for simplicity - assumes observer at Earth center for 'fromObserver' distance.
+  // Request positions for these bodies relative to observer at 0,0,0
+  const bodies = "mercury,venus,mars,jupiter,saturn,uranus,neptune";
   const observerLat = 0;
   const observerLon = 0;
   const observerElev = 0;
@@ -40,83 +41,58 @@ exports.handler = async (event, context) => {
     console.log("[Netlify Function] Sending request to AstronomyAPI...");
     const apiResponse = await fetch(url, {
       method: "GET",
-      headers: {
-        Authorization: auth,
-        "Content-Type": "application/json" // Content-Type typically for POST/PUT, but doesn't hurt on GET
-      }
+      headers: { Authorization: auth }
     });
 
     console.log(`[Netlify Function] AstronomyAPI Response Status: ${apiResponse.status}`);
-    // console.log("[Netlify Function] AstronomyAPI Response Headers:", JSON.stringify(Object.fromEntries(apiResponse.headers.entries()), null, 2)); // Can be verbose
 
     if (!apiResponse.ok) {
       const errorBody = await apiResponse.text();
       console.error(`[Netlify Function] AstronomyAPI request failed! Status: ${apiResponse.status}. Body: ${errorBody}`);
-      // Try to parse errorBody as JSON if possible, otherwise return raw text
-      let errorJson = { message: errorBody };
-      try { errorJson = JSON.parse(errorBody); } catch(e) { /* ignore parse error */ }
-      throw new Error(`AstronomyAPI Error ${apiResponse.status}: ${errorJson.message || errorBody}`);
+      throw new Error(`AstronomyAPI Error ${apiResponse.status}: ${errorBody}`);
     }
 
     const data = await apiResponse.json();
-    console.log("[Netlify Function] Raw data received from AstronomyAPI:", JSON.stringify(data, null, 2)); // Log the raw data
+    // console.log("[Netlify Function] Raw data received:", JSON.stringify(data, null, 2)); // Log raw data if needed for deep debug
 
-    // Fallback/Data Guarantee Logic (As before, but with logging)
-    const SMA = {mercury:0.387, venus:0.723, mars:1.524, jupiter:5.203, saturn:9.537, uranus:19.191, neptune:30.068};
-    console.log("[Netlify Function] Starting fallback check for missing fromSun distances.");
-    let modified = false;
-    if (data && data.data && data.data.table && data.data.table.rows) {
-        data.data.table.rows.forEach(row => {
-            // Use 'id' field which seems standard in v2 position response
-            const id = row.entry?.id?.toLowerCase();
-            const cell = row.cells?.[0];
-            if (!id || !cell) {
-                console.warn("[Netlify Function] Skipping row in fallback check due to missing id or cell:", row);
-                return;
-            }
+    // --- Optional: Enhance data with fallbacks ONLY if API data is missing ---
+    // This ensures the client gets *something* even if the API glitches,
+    // but client logic dictates whether to USE the fallback (SMA) or live data.
+    if (data?.data?.table?.rows) {
+      data.data.table.rows.forEach(row => {
+        const id = row.entry?.id?.toLowerCase();
+        const cell = row.cells?.[0];
+        if (!id || !cell) return;
 
-            // Check if heliocentric distance ('fromSun') is missing or invalid
-            if (!cell.distance?.fromSun?.au) {
-                 if (SMA[id]) {
-                    console.warn(`[Netlify Function] Missing 'fromSun.au' distance for ${id}. Applying fallback SMA value: ${SMA[id]}`);
-                    // Ensure structure exists before assigning
-                    if (!cell.distance) cell.distance = {};
-                    if (!cell.distance.fromSun) cell.distance.fromSun = {};
-                    cell.distance.fromSun.au = SMA[id];
-                    modified = true;
-                } else {
-                    console.warn(`[Netlify Function] Missing 'fromSun.au' distance for ${id}, but no SMA fallback available.`);
-                }
-            }
-             // Optionally check/log 'fromObserver' distance as well
-            if (!cell.distance?.fromObserver?.au) {
-                 console.warn(`[Netlify Function] Missing 'fromObserver.au' distance for ${id}. Client will need fallback.`);
-            } else {
-                 console.log(`[Netlify Function] Found 'fromObserver.au' for ${id}: ${cell.distance.fromObserver.au}`);
-            }
-        });
-    } else {
-         console.warn("[Netlify Function] Data structure for fallback check not found (data.data.table.rows missing).");
+        // Ensure distance object exists
+        if (!cell.distance) cell.distance = {};
+
+        // Fallback for fromSun distance if missing
+        if (!cell.distance.fromSun?.au && SMA[id]) {
+          console.warn(`[Netlify Function] API missing 'fromSun.au' for ${id}. Adding SMA fallback: ${SMA[id]}`);
+          cell.distance.fromSun = { au: SMA[id] };
+        }
+         // Fallback for fromObserver distance IS NOT ADDED HERE
+         // If fromObserver is missing, the client modes relying on it will fail gracefully or show error
+         if (!cell.distance.fromObserver?.au) {
+             console.warn(`[Netlify Function] API missing 'fromObserver.au' for ${id}. Client must handle this.`);
+         }
+      });
     }
-    if (modified) {
-        console.log("[Netlify Function] Data after applying fallbacks:", JSON.stringify(data, null, 2));
-    } else {
-         console.log("[Netlify Function] No fallback distances were applied.");
-    }
+    // --- End Optional Enhancement ---
 
-
-    console.log("[Netlify Function] Successfully processed request. Sending 200 OK response.");
+    console.log("[Netlify Function] Processed request successfully. Sending 200 OK.");
     return {
       statusCode: 200,
       headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=300" // Cache for 5 minutes
+          "Cache-Control": "public, max-age=240" // Cache for 4 minutes (slightly less than client refresh)
         },
-      body: JSON.stringify(data) // Send potentially modified data
+      body: JSON.stringify(data) // Send raw (or lightly enhanced) data
     };
 
   } catch (e) {
-    console.error("[Netlify Function] CRITICAL ERROR in handler:", e);
+    console.error("[Netlify Function] CRITICAL ERROR:", e);
     return {
       statusCode: 500,
       headers: { "Content-Type": "application/json" },
