@@ -15,12 +15,12 @@
       --gap:50px;         /* grid gap base */
       --dist-aspect:1000/256; /* native distance chart ratio */
 
-      /* --- ADJUSTED SIZES --- */
-      /* Increased base size, adjusted min/max */
-      --dist-planet-base-height-pct: 30%; /* Base height % for Jupiter (Increased from 25%) */
-      --dist-planet-min-height-pct: 4%;   /* Min height % (Increased slightly) */
-      --dist-planet-max-height-pct: 70%;  /* Max height % (Increased) */
-      /* --- END ADJUSTED SIZES --- */
+      /* --- Sizing from previous working version --- */
+      /* Adjusted for slightly larger planets in distance view */
+      --dist-planet-base-height-pct: 30%; /* Base height % for Jupiter */
+      --dist-planet-min-height-pct: 4%;   /* Min height % */
+      --dist-planet-max-height-pct: 70%;  /* Max height % */
+      /* --- END Sizing --- */
     }
     * { box-sizing:border-box; margin:0 }
     body { font-family:'Nunito Sans',sans-serif; background:#fff; color:#eee; overflow-x:hidden; }
@@ -38,19 +38,25 @@
     @media(max-width:850px) { .intro-section { flex-direction:column; text-align:center } }
     .dash-block  { margin-bottom:70px }
     .block-title { font:600 28px/1 'Poppins'; margin-bottom:24px; color:#fff }
+
     /* --- Adjusted Pill Switch --- */
     .pill-switch {
         display:flex;
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center; /* Center items when wrapped */
+        gap: 5px; /* Add gap between wrapped items */
         background:#555;
         border-radius:40px;
-        overflow:visible; /* Allow dropdown overflow */
-        width:max-content;
+        /* Removed width:max-content to allow wrapping */
+        /* overflow:visible needed for dropdown */
+        overflow: visible;
+        padding: 5px; /* Add padding inside the container */
         margin:0 auto 40px;
         font-size:14px;
         position: relative; /* Needed for dropdown positioning */
     }
     .pill-switch button {
-        padding:10px 18px;
+        padding: 8px 15px; /* Slightly adjusted padding */
         border:none;
         background:transparent;
         color:#eee;
@@ -59,14 +65,16 @@
         display: flex; /* For aligning text and arrow */
         align-items: center;
         gap: 5px; /* Space between text and arrow */
-        border-radius: 40px; /* Apply radius to individual buttons too */
+        border-radius: 30px; /* Apply radius to individual buttons */
+        flex-shrink: 0; /* Prevent buttons from shrinking too much */
     }
     .pill-switch button.active { background:#fff; color:#000; }
     .pill-switch button:disabled { color: #888; cursor: not-allowed; }
-    /* Separate container needed because overflow:hidden on parent clips dropdown */
-    .pill-switch > div { /* Target direct div children (like the custom select container) */
-        border-radius: 40px; /* Apply radius to the container */
+    /* Container for custom select needed for positioning context */
+    .pill-switch > .custom-select-container {
+        border-radius: 30px; /* Match button radius */
         overflow: visible; /* Ensure container doesn't clip */
+        display: flex; /* Align button inside */
     }
 
 
@@ -176,6 +184,8 @@
       .size-label { font-size:12px }
       #dist-planets .dist-label { font-size: clamp(9px, 1.3vw, 12px); top:calc(50% - 30px); }
       header nav ul { font-size:14px }
+      /* Ensure buttons don't get too small when wrapped */
+       .pill-switch button { padding: 6px 12px; }
     }
   </style>
 </head>
@@ -475,7 +485,7 @@
         console.log("[Draw Size] Finished drawing grid.");
     }
 
-    // Draw Distance Chart - Adjusts Sun anchor transform
+    // Draw Distance Chart - Adjusts Sun anchor transform AND size
     function drawDistanceChart() {
         console.log(`[Draw] Drawing Distance Chart for mode: ${currentDistMode}`);
 
@@ -485,8 +495,7 @@
             showLoading('dist', false);
             showError('dist', `Custom view for '${selectedCustomPlanet || 'N/A'}' not yet implemented.`);
             if (distPlanetsContainer) distPlanetsContainer.innerHTML = ''; // Clear planets
-            // Set anchor to something generic or hide it? Let's hide it for now.
-            if (distAnchor) distAnchor.style.display = 'none';
+            if (distAnchor) distAnchor.style.display = 'none'; // Hide anchor
             return; // Stop drawing for custom mode
         }
 
@@ -510,7 +519,13 @@
         let anchorVisH;
         if (isSunMode) {
              // Sun anchor size = Relative to Jupiter, using Sun's diameter
-             anchorVisH = (PLANET_META.sun / PLANET_META.jupiter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
+             // Ensure PLANET_META.sun exists
+             if (PLANET_META.sun && PLANET_META.jupiter) {
+                anchorVisH = (PLANET_META.sun / PLANET_META.jupiter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
+             } else {
+                 console.warn("[Draw Dist] Sun or Jupiter diameter missing in PLANET_META for anchor sizing.");
+                 anchorVisH = BASE_PLANET_VISUAL_HEIGHT_PCT; // Fallback to base Jupiter size
+             }
         } else {
              // Earth anchor size = Relative to Jupiter
              anchorVisH = (PLANET_META.earth / PLANET_META.jupiter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
