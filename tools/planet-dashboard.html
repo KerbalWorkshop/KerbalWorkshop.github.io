@@ -15,11 +15,12 @@
       --gap:50px;         /* grid gap base */
       --dist-aspect:1000/256; /* native distance chart ratio */
 
-      /* --- Sizing from previous working version --- */
-      --dist-planet-base-height-pct: 25%; /* Base height % for Jupiter/Sun */
-      --dist-planet-min-height-pct: 3%;   /* Min height % */
-      --dist-planet-max-height-pct: 60%;  /* Max height % */
-      /* --- END Sizing --- */
+      /* --- ADJUSTED SIZES --- */
+      /* Increased base size, adjusted min/max */
+      --dist-planet-base-height-pct: 30%; /* Base height % for Jupiter (Increased from 25%) */
+      --dist-planet-min-height-pct: 4%;   /* Min height % (Increased slightly) */
+      --dist-planet-max-height-pct: 70%;  /* Max height % (Increased) */
+      /* --- END ADJUSTED SIZES --- */
     }
     * { box-sizing:border-box; margin:0 }
     body { font-family:'Nunito Sans',sans-serif; background:#fff; color:#eee; overflow-x:hidden; }
@@ -405,14 +406,76 @@
 
 
     // --- API Fetch and Update --- (Unchanged from previous version)
-    async function fetchAndUpdateLiveData() { /* ... */ }
+    async function fetchAndUpdateLiveData() {
+        console.log("[API] Attempting to fetch live data...");
+        hasLoggedApiStructure = false; // Reset log flag
+        // Reset status to pending for live modes before fetch
+        if (displayData.apparentEarth.requires_live) { displayData.apparentEarth.status = 'pending'; displayData.apparentEarth.error = null; showLoading('size', true); showError('size', null); }
+        if (displayData.distEarth.requires_live) { displayData.distEarth.status = 'pending'; displayData.distEarth.error = null; showLoading('dist', true); showError('dist', null); }
+        apiFetchError = null;
+
+        try {
+            const response = await fetch('/.netlify/functions/planetDashboard'); // Use standard absolute path
+            if (!response.ok) { const errorText = await response.text(); throw new Error(`API Error ${response.status}: ${errorText}`); }
+            const rawData = await response.json();
+            if (rawData?.data?.table?.rows) {
+                liveApiData = {};
+                rawData.data.table.rows.forEach(row => { if (row.entry?.id && row.cells?.[0]) { liveApiData[row.entry.id.toLowerCase()] = row.cells[0]; } });
+                console.log("[API] Processed live data map:", liveApiData);
+                apiFetchError = null; // Clear fetch error on success
+                calculateApparentEarthData(liveApiData);
+                calculateDistEarthData(liveApiData);
+            } else { console.error("[API] Unexpected API data structure received:", rawData); throw new Error("API returned unexpected data structure"); }
+        } catch (error) {
+            console.error("[API] Fetch or processing failed:", error);
+            apiFetchError = error.message; liveApiData = null;
+            if(displayData.apparentEarth.requires_live) { displayData.apparentEarth.status = 'error'; displayData.apparentEarth.error = apiFetchError; }
+            if(displayData.distEarth.requires_live) { displayData.distEarth.status = 'error'; displayData.distEarth.error = apiFetchError; }
+            showError('size', `Failed to fetch data: ${apiFetchError}`);
+            showError('dist', `Failed to fetch data: ${apiFetchError}`);
+        } finally {
+            showLoading('size', false); showLoading('dist', false);
+            // Redraw based on the *final* status determined by calculations or fetch error
+            if (currentSizeMode === 'apparentEarth') { drawSizeGrid(); }
+            if (currentDistMode === 'distEarth') { drawDistanceChart(); }
+            clearTimeout(apiRefreshTimer); apiRefreshTimer = setTimeout(fetchAndUpdateLiveData, REFRESH_INTERVAL_MS);
+            console.log(`[API] Scheduled next data refresh in ${REFRESH_INTERVAL_MS / 1000} seconds.`);
+        }
+    }
 
     // --- Drawing Functions ---
-    function showLoading(panelType, isLoading) { /* ... (unchanged) ... */ }
-    function showError(panelType, message) { /* ... (unchanged) ... */ }
-    function drawSizeGrid() { /* ... (unchanged - uses updated calculate functions) ... */ }
+    function showLoading(panelType, isLoading) { const element = panelType === 'size' ? sizeLoading : distLoading; if (element) element.style.display = isLoading ? 'flex' : 'none'; }
+    function showError(panelType, message) { /* ... (unchanged from previous version) ... */ const element = panelType === 'size' ? sizeError : distError; let displayMessage = message; if (panelType === 'size' && displayData.apparentEarth.status === 'error') displayMessage = displayData.apparentEarth.error || message; if (panelType === 'dist' && displayData.distEarth.status === 'error') displayMessage = displayData.distEarth.error || message; if (element) { element.textContent = displayMessage || ''; element.style.display = displayMessage ? 'flex' : 'none'; } }
 
-    // Draw Distance Chart - MODIFIED anchor size calculation
+    // Draw Size Grid - Uses new scaling logic from calculate functions
+    function drawSizeGrid() {
+        console.log(`[Draw] Drawing Size Grid for mode: ${currentSizeMode}`);
+        const modeData = displayData[currentSizeMode];
+        // Error/Pending checks (unchanged)
+        if (!modeData || modeData.status === 'pending') { showLoading('size', true); showError('size', null); sizeGrid.innerHTML = ''; return; }
+        if (modeData.status === 'error') { showLoading('size', false); showError('size', modeData.error || 'Failed to load data for this view.'); sizeGrid.innerHTML = ''; return; }
+        showLoading('size', false); showError('size', modeData.status === 'partial' ? (modeData.error || 'Note: Some planet data may be missing.') : null);
+
+        const planetDataMap = modeData.planets; sizeGrid.innerHTML = '';
+        const planetsToShow = (currentSizeMode === 'apparentEarth') ? PLANET_ORDER.filter(p => p !== 'earth') : PLANET_ORDER;
+
+        planetsToShow.forEach(p => {
+            const planetData = planetDataMap[p]; const slot = document.createElement('div'); slot.className = 'planet-slot'; slot.id = `slot-${p}`;
+            if (planetData && typeof planetData.px === 'number') { // Check if px was calculated
+                const imgContainer = document.createElement('div'); imgContainer.className = 'planet-image-container'; const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p;
+                const sizePx = planetData.px; // Use pre-calculated px
+                if (p === 'saturn') { img.style.height = `${sizePx}px`; img.style.width = 'auto'; }
+                else { img.style.width = `${sizePx}px`; img.style.height = `${sizePx}px`; }
+                imgContainer.appendChild(img);
+                const label = document.createElement('div'); label.className = 'size-label'; label.id = `lbl-${p}`; label.textContent = planetData.label || 'N/A';
+                slot.appendChild(imgContainer); slot.appendChild(label);
+            } else { slot.innerHTML = `<div class="planet-image-container" style="color:#888;">?</div><div class="size-label">No data</div>`; console.warn(`[Draw Size] Missing display data for planet '${p}' in mode '${currentSizeMode}'.`); }
+            sizeGrid.appendChild(slot);
+        });
+        console.log("[Draw Size] Finished drawing grid.");
+    }
+
+    // Draw Distance Chart - Adjusts Sun anchor transform
     function drawDistanceChart() {
         console.log(`[Draw] Drawing Distance Chart for mode: ${currentDistMode}`);
 
@@ -455,9 +518,14 @@
         // Clamp anchor size using JS constants
         distAnchor.style.height = `${Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, anchorVisH))}%`;
 
-        // Adjust transform for Sun alignment
-        if (isSunMode) { distAnchor.style.transform = 'translate(0%, -50%)'; /* Align LEFT edge at 0, center vertically */ } // Corrected Sun alignment
-        else { distAnchor.style.transform = 'translate(-50%, -50%)'; /* Center align */ }
+        // *** ADJUST ANCHOR TRANSFORM BASED ON MODE ***
+        if (isSunMode) {
+            // Position right edge of Sun at left: 0
+            distAnchor.style.transform = 'translate(-100%, -50%)';
+        } else {
+            // Position center of Earth at left: 0 (default)
+            distAnchor.style.transform = 'translate(-50%, -50%)';
+        }
         console.log(`[Draw Dist] Anchor set to ${distAnchor.src}, height: ${distAnchor.style.height}, transform: ${distAnchor.style.transform}`);
 
         // Render planets (unchanged logic, uses updated size constants)
