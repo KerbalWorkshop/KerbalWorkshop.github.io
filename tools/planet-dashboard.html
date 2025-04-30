@@ -15,11 +15,11 @@
       --gap:50px;         /* grid gap base */
       --dist-aspect:1000/256; /* native distance chart ratio */
 
-      /* --- ADJUSTED SIZES --- */
+      /* --- Adjusted Sizes --- */
       --dist-planet-base-height-pct: 35%; /* Base height % for Jupiter */
       --dist-planet-min-height-pct: 5%;   /* Min height % */
       --dist-planet-max-height-pct: 80%;  /* Max height % */
-      /* --- END SIZES --- */
+      /* --- END Sizes --- */
     }
     * { box-sizing:border-box; margin:0 }
     body { font-family:'Nunito Sans',sans-serif; background:#fff; color:#eee; overflow-x:hidden; }
@@ -105,7 +105,7 @@
     #dist-box {
         width:80%; max-width:var(--canvas); margin:0 auto;
         aspect-ratio: var(--dist-aspect); position:relative; min-height: 150px;
-        overflow: visible; /* *** Ensure planets at edges are not clipped by this box *** */
+        overflow: hidden; /* *** Keep overflow hidden on box to prevent scrollbars from large anchor *** */
     }
     .dist-track { position:absolute; top:0; left:0; width:100%; height:100%; }
     .dist-track::before { content:""; position:absolute; top:50%; left:0; width:100%; height:2px; background:#666; transform:translateY(-50%); }
@@ -223,7 +223,7 @@
     // --- Static Data ---
     const PLANET_META = { mercury: 4879, venus: 12104, earth: 12756, mars: 6779, jupiter: 139820, saturn: 116460, uranus: 50724, neptune: 49244, sun: 1392700 };
     const PLANET_SMA = { mercury: 0.387, venus: 0.723, earth: 1, mars: 1.524, jupiter: 5.203, saturn: 9.537, uranus: 19.191, neptune: 30.068 };
-    const SATURN_RING_FACTOR = 1206 / 2737;
+    const SATURN_RING_FACTOR = 1206 / 2737; // Not used in distance scaling anymore
     const PLANET_ORDER = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"];
     const CUSTOM_PLANET_OPTIONS = ["mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune"];
     const AU_KM = 149597870.7;
@@ -298,6 +298,24 @@
         PLANET_ORDER.forEach(p => { const arcSec = arcSecs[p]; const px = Math.max(4, (arcSec / maxArcSec) * targetMaxPx); modeData.planets[p] = { px: px, label: `${arcSec.toFixed(1)}″` }; });
         modeData.status = 'ok'; console.log(`[Calc Apparent Sun] Data calculated. Max Arcsec: ${maxArcSec}, Target Px: ${targetMaxPx}`);
     }
+    // *** MODIFIED Distance Scaling Calculation ***
+    function calculateVisualHeightPct(planetId) {
+        const jupiterDiameter = PLANET_META.jupiter;
+        if (!jupiterDiameter) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if Jupiter data missing
+
+        let diameterToUse = PLANET_META[planetId];
+
+        // Special handling for Saturn: use Jupiter's diameter for visual scaling to account for rings
+        if (planetId === 'saturn') {
+            diameterToUse = jupiterDiameter;
+            console.log("[Calc Visual Height] Using Jupiter diameter for Saturn scaling.");
+        }
+
+        if (!diameterToUse) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if planet data missing
+
+        const rawVisualHeightPct = (diameterToUse / jupiterDiameter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
+        return Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
+    }
     function calculateDistSunData() {
         console.log("[Calc] Calculating Distance from Sun data (using SMA)...");
         const modeData = displayData.distSun; modeData.planets = {}; modeData.status = 'pending'; modeData.error = null;
@@ -305,8 +323,7 @@
         PLANET_ORDER.forEach(p => {
             const distanceAu = PLANET_SMA[p];
             const pos = (distanceAu / maxDist) * 100;
-            const rawVisualHeightPct = (PLANET_META[p] / PLANET_META.jupiter) * (p === 'saturn' ? SATURN_RING_FACTOR : 1) * BASE_PLANET_VISUAL_HEIGHT_PCT;
-            const visualHeightPct = Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
+            const visualHeightPct = calculateVisualHeightPct(p); // Use helper function
             modeData.planets[p] = { pos: pos, label: `${distanceAu.toFixed(3)} AU`, visH: visualHeightPct };
         });
         modeData.status = 'ok'; console.log("[Calc Dist Sun] Data calculated.");
@@ -352,8 +369,7 @@
 
             if (!isNaN(distanceAu) && distanceAu > 0) {
                 distances.push({ id: p, dist: distanceAu });
-                const rawVisualHeightPct = (PLANET_META[p] / PLANET_META.jupiter) * (p === 'saturn' ? SATURN_RING_FACTOR : 1) * BASE_PLANET_VISUAL_HEIGHT_PCT;
-                const visualHeightPct = Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
+                const visualHeightPct = calculateVisualHeightPct(p); // Use helper function
                 modeData.planets[p] = { visH: visualHeightPct, label: `${distanceAu.toFixed(3)} AU` };
             } else { console.warn(`[Calc Dist Earth] Missing/invalid distance for ${p}. Excluding.`); if (!firstErrorLogged && !hasLoggedApiStructure) { console.log("[Calc Dist Earth] Logging full processedApiData:", JSON.stringify(processedApiData, null, 2)); firstErrorLogged = true; hasLoggedApiStructure = true; } calculationOk = false; }
         });
@@ -618,8 +634,8 @@
             const distanceAu = target.dist;
             const positionPct = (distanceAu / maxDist) * 100;
             const labelText = `${distanceAu.toFixed(3)} AU`;
-            const rawVisualHeightPct = (PLANET_META[p] / PLANET_META.jupiter) * (p === 'saturn' ? SATURN_RING_FACTOR : 1) * BASE_PLANET_VISUAL_HEIGHT_PCT;
-            const visualHeightPct = Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
+            // *** Use helper function for consistent visual height calculation ***
+            const visualHeightPct = calculateVisualHeightPct(p);
             const labelNudge = (PLANET_ORDER.indexOf(p) < 4 && isSunMode) ? -20 : 0; // Nudge only applies in Sun mode
 
             const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p; img.className = 'dist-planet-img';
