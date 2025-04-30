@@ -7,31 +7,29 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
-
   <style>
     :root {
       --canvas:1200px;    /* grey strip max width */
       --side-pad:80px;    /* gutters */
       --grey:#2e2e2e;     /* strip bg */
-      --cell:200px;       /* size grid cell base - used for scaling */
+      --cell:200px;       /* size grid cell base */
       --gap:50px;         /* grid gap base */
-      --dist-aspect:1000/256; /* native distance chart ratio */
+      --dist-aspect:1000/256; /* native distance ratio */
 
-      /* --- DISTANCE VISUAL SIZING --- */
-      --dist-planet-base-height-pct: 35%; /* Base height % for largest planet */
-      --dist-planet-min-height-pct: 5%;   /* Min height % */
-      --dist-planet-max-height-pct: 80%;  /* Max height % */
+      /* distance visual sizing */
+      --dist-planet-base-height-pct: 35%;
+      --dist-planet-min-height-pct: 5%;
+      --dist-planet-max-height-pct: 80%;
     }
     * { box-sizing:border-box; margin:0 }
     body {
       font-family:'Nunito Sans',sans-serif;
-      background:#fff;
-      color:#eee;
-      overflow-x:hidden; /* prevent sideways scroll */
+      background:#fff; color:#eee;
+      overflow-x:hidden;
     }
     a { color:inherit; text-decoration:none }
 
-    /* ----- header ----- */
+    /* header */
     header {
       display:flex; justify-content:space-between; align-items:center;
       padding:18px var(--side-pad); background:#fff; color:#111;
@@ -47,7 +45,7 @@
       .menu-icon { display:block }
     }
 
-    /* ----- grey strip ----- */
+    /* grey strip */
     #content { background:var(--grey); padding:0 var(--side-pad) }
     #inner   { max-width:var(--canvas); margin:0 auto; padding:30px 0 }
 
@@ -61,14 +59,14 @@
       max-width:640px; font-size:18px; line-height:1.6; color:#d0d0d0;
     }
     @media(max-width:850px){
-      .intro-section { flex-direction:column; text-align:center }
-      .intro-title   { font-size:30px }
-      .intro-text    { font-size:15px }
+      .intro-section{flex-direction:column;text-align:center}
+      .intro-title{font-size:30px}
+      .intro-text{font-size:15px}
     }
 
     /* shared */
-    .dash-block  { margin-bottom:70px }
-    .block-title { font:600 28px/1 'Poppins'; margin-bottom:24px; color:#fff }
+    .dash-block{margin-bottom:70px}
+    .block-title{font:600 28px/1 'Poppins';margin-bottom:24px;color:#fff}
 
     .pill-switch {
       display:flex; flex-wrap:wrap; justify-content:center; gap:5px;
@@ -86,8 +84,25 @@
 
     /* custom dropdown */
     .custom-select-container { position:relative }
-    .custom-select-button .arrow { /* … unchanged … */ }
-    .custom-dropdown { /* … unchanged … */ }
+    .custom-select-button .arrow { display:inline-block; width:0; height:0;
+      border-left:5px solid transparent; border-right:5px solid transparent;
+      border-top:5px solid currentColor; margin-left:8px; transition:transform .2s;}
+    .custom-select-button.open .arrow { transform:rotate(180deg) }
+    .custom-dropdown {
+      display:none; position:absolute; top:calc(100% + 5px); left:50%;
+      transform:translateX(-50%);
+      background:#333; border:1px solid #666; border-radius:4px;
+      padding:5px 0; z-index:20; min-width:150px; max-height:200px;
+      overflow-y:auto; box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    }
+    .custom-dropdown.show { display:block }
+    .custom-dropdown ul { list-style:none; padding:0; margin:0 }
+    .custom-dropdown li {
+      padding:8px 15px; color:#eee; cursor:pointer; font-size:13px;
+      white-space:nowrap;
+    }
+    .custom-dropdown li:hover { background:#555 }
+    .custom-dropdown li.selected { background:#777; font-weight:bold }
 
     /* panels */
     .panel {
@@ -112,13 +127,11 @@
       justify-content:center;
     }
     .planet-slot {
-      position:relative;
-      display:flex; flex-direction:column;
+      position:relative; display:flex; flex-direction:column;
       justify-content:center; align-items:center;
     }
     .planet-image-container {
-      flex-grow:1; display:flex;
-      justify-content:center; align-items:center;
+      flex-grow:1; display:flex; justify-content:center; align-items:center;
       width:100%; height:100%;
     }
     .planet-image-container img {
@@ -134,10 +147,8 @@
     .panel-distance { padding:48px 20px }
     #dist-box {
       width:80%; max-width:var(--canvas);
-      margin:0 auto;
-      aspect-ratio: var(--dist-aspect);
-      position:relative; overflow:visible;
-      min-height:150px;
+      margin:0 auto; aspect-ratio:var(--dist-aspect);
+      position:relative; overflow:visible; min-height:150px;
     }
     .dist-track {
       position:absolute; top:0; left:0;
@@ -156,9 +167,6 @@
       position:absolute; top:0; left:0;
       width:100%; height:100%;
     }
-    .dist-planet-img {
-      /* height set in JS; width:auto to preserve aspect */
-    }
     .dist-label {
       position:absolute; top:calc(50% - 90px);
       color:#ddd; white-space:nowrap;
@@ -168,9 +176,8 @@
 
     .div { height:1px; background:#555; margin:50px 0 }
     footer {
-      padding:20px var(--side-pad);
-      background:#fff; text-align:center;
-      font-size:14px; color:#999;
+      padding:20px var(--side-pad); background:#fff;
+      text-align:center; font-size:14px; color:#999;
     }
     footer .social-links { margin-bottom:12px }
     footer .social-links img { height:24px; margin:0 10px }
@@ -229,10 +236,8 @@
         </div>
         <div class="panel" id="size-panel">
           <div id="size-grid"></div>
-          <div class="loading-overlay" id="size-loading" style="display:none">
-            Loading Size Data…
-          </div>
-          <div class="error-overlay" id="size-error" style="display:none"></div>
+          <div class="loading-overlay" id="size-loading" style="display:none;">Loading Size Data…</div>
+          <div class="error-overlay"   id="size-error"   style="display:none;"></div>
         </div>
       </section>
 
@@ -258,10 +263,8 @@
               <img id="dist-anchor" class="anchor" src="planets/earth.png" alt="anchor">
               <div id="dist-planets"></div>
             </div>
-            <div class="loading-overlay" id="dist-loading" style="display:none">
-              Loading Distance Data…
-            </div>
-            <div class="error-overlay" id="dist-error" style="display:none"></div>
+            <div class="loading-overlay" id="dist-loading" style="display:none;">Loading Distance Data…</div>
+            <div class="error-overlay"   id="dist-error"   style="display:none;"></div>
           </div>
         </div>
       </section>
@@ -278,15 +281,9 @@
 
   <footer>
     <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="https://instagram.com/hansenspace">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://tiktok.com/@hansen_space">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
+      <a href="https://www.youtube.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://instagram.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://tiktok.com/@hansen_space"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
     </div>
     <p>© <span id="year"></span> Hansen Space.</p>
     <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
@@ -295,29 +292,23 @@
   <script>
     // --- Static Data ---
     const PLANET_META = {
-      mercury:  4879,
-      venus:   12104,
-      earth:   12756,
-      mars:     6779,
-      jupiter:139820,
-      saturn: 108000,     // ← now using 108 000 km
-      uranus:  50724,
-      neptune: 49244,
-      sun:   1392700
+      mercury:   4879,
+      venus:    12104,
+      earth:    12756,
+      mars:      6779,
+      jupiter: 139820,
+      saturn:  108000,   // ← updated disc diameter
+      uranus:   50724,
+      neptune:  49244,
+      sun:    1392700
     };
     const PLANET_SMA = {
-      mercury:.387,venus:.723,earth:1,mars:1.524,
-      jupiter:5.203,saturn:9.537,uranus:19.191,neptune:30.068
+      mercury:.387, venus:.723, earth:1, mars:1.524,
+      jupiter:5.203, saturn:9.537, uranus:19.191, neptune:30.068
     };
-    const SATURN_RING_FACTOR = 1206/2737;
-    const PLANET_ORDER = ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune"];
     const CUSTOM_PLANET_OPTIONS = ["mercury","venus","mars","jupiter","saturn","uranus","neptune"];
     const AU_KM = 149597870.7;
     const REFRESH_INTERVAL_MS = 5*60*1000;
-
-    // --- Helpers ---
-    function toRadians(deg){ return deg*Math.PI/180; }
-    function getAngularSizeArcsec(d,Km){ return (2*Math.atan((d/2)/(Km*AU_KM)))*206264.806; }
 
     // --- State & DOM ---
     let currentSizeMode='apparentEarth', currentDistMode='distEarth', selectedCustomPlanet=null;
@@ -325,72 +316,87 @@
     const sizeGrid    = document.getElementById('size-grid');
     const distAnchor  = document.getElementById('dist-anchor');
     const distPlanets = document.getElementById('dist-planets');
-    const sizeLoading = document.getElementById('size-loading');
-    const sizeError   = document.getElementById('size-error');
-    const distLoading = document.getElementById('dist-loading');
-    const distError   = document.getElementById('dist-error');
     const customDistButton     = document.getElementById('custom-dist-button');
     const customDistButtonText = document.getElementById('custom-dist-button-text');
     const customDistDropdown   = document.getElementById('custom-dist-dropdown');
     const customDistList       = document.getElementById('custom-dist-list');
 
-    // --- Calculate True Size Data (static) ---
-    function calculateTrueSizeData(){
-      console.log("[Calc] True size");
-      const modeData= {}, diameters=PLANET_META;
-      let maxD=0; PLANET_ORDER.forEach(p=>maxD=Math.max(maxD,diameters[p]));
-      PLANET_ORDER.forEach(p=> modeData[p]={
-        px: Math.max(4,diameters[p]/maxD*getCssCell()*0.95),
-        label: `${diameters[p].toLocaleString()} km`  // ← full diameter
-      });
-      return modeData;
+    // --- Helpers ---
+    function toRadians(deg){ return deg*Math.PI/180; }
+    function getCssCell(){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cell'))||200; }
+    function getAngularSizeArcsec(diameterKm, distanceAu){
+      const distKm = distanceAu*AU_KM;
+      return 2*Math.atan((diameterKm/2)/distKm)*206264.806;
     }
 
-    // --- Calculate Apparent Sun Data (uses static SMA) ---
-    function calculateApparentSunData(){
-      console.log("[Calc] Apparent Sun");
-      const modeData={}, arcSecs={}; let maxA=0;
-      PLANET_ORDER.forEach(p=>{
-        const a=getAngularSizeArcsec(PLANET_META[p],PLANET_SMA[p]);
-        arcSecs[p]= p==='saturn'? a*1.1 : a;         // ← bump Saturn by 10%
-        maxA=Math.max(maxA,arcSecs[p]);
+    // --- Build SIZE grid slots ---
+    PLANET_ORDER = ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune"];
+    PLANET_ORDER.forEach(p=>{
+      const slot=document.createElement('div');
+      slot.className='planet-slot'; slot.id=`slot-${p}`;
+      slot.innerHTML=`
+        <div class="planet-image-container"></div>
+        <div class="size-label" id="lbl-${p}"></div>`;
+      sizeGrid.appendChild(slot);
+    });
+
+    // --- Populate custom dropdown ---
+    function populateCustomDropdown(){
+      customDistList.innerHTML='';
+      CUSTOM_PLANET_OPTIONS.forEach(p=>{
+        const li=document.createElement('li');
+        li.textContent=p.charAt(0).toUpperCase()+p.slice(1);
+        li.dataset.planet=p;
+        customDistList.appendChild(li);
       });
-      PLANET_ORDER.forEach(p=> modeData[p]={
-        px: Math.max(4,arcSecs[p]/maxA*getCssCell()*0.95),
-        label:`${arcSecs[p].toFixed(1)}″`
-      });
-      return modeData;
+    }
+    // --- Toggle dropdown ---
+    function toggleCustomDropdown(){
+      customDistDropdown.classList.toggle('show');
+      customDistButton.classList.toggle('open');
+    }
+    // --- Select custom planet ---
+    function selectCustomPlanet(planetId){
+      selectedCustomPlanet=planetId;
+      currentDistMode='custom';
+      const name = planetId.charAt(0).toUpperCase()+planetId.slice(1);
+      customDistButtonText.textContent=`from ${name}`;
+      document.querySelectorAll('#dist-mode-switch button').forEach(b=>b.classList.remove('active'));
+      customDistButton.classList.add('active');
+      toggleCustomDropdown();
+      drawDistanceChart();
     }
 
-    // --- Fetch & process live ephemeris, then call this for Earth-based modes ---
-    function calculateApparentEarthData(){
-      console.log("[Calc] Apparent Earth");
-      const modeData={}, arcSecs={},rows=liveApiData||{}, valid=[];
-      PLANET_ORDER.forEach(p=>{
-        if(p==='earth')return;
-        const dist=rows[p]?.distEarth;
-        const a=isNaN(dist)?0:getAngularSizeArcsec(PLANET_META[p],dist);
-        arcSecs[p]= p==='saturn'? a*1.1 : a;       // ← bump Saturn by 10%
-        valid.push(arcSecs[p]);
-      });
-      const maxA=Math.max(...valid,1);
-      PLANET_ORDER.forEach(p=>{
-        if(p==='earth')return;
-        const a=arcSecs[p];
-        modeData[p]={ px:Math.max(4,a/maxA*getCssCell()*0.95),
-                      label:`${a>0?a.toFixed(1)+'″':'N/A'}` };
-      });
-      return modeData;
-    }
-
-    // --- Draw Size Grid ---
+    // --- Draw Size ---
     function drawSizeGrid(){
-      const isTrue = currentSizeMode==='trueSize';
-      const data    = isTrue
-                    ? calculateTrueSizeData()
-                    : (currentSizeMode==='apparentSun'
-                       ? calculateApparentSunData()
-                       : calculateApparentEarthData());
+      const isTrue=(currentSizeMode==='trueSize');
+      // compute data
+      const data={};
+      if(isTrue){
+        const maxD=Math.max(...PLANET_ORDER.map(p=>PLANET_META[p]));
+        PLANET_ORDER.forEach(p=>{
+          const px=Math.max(4, PLANET_META[p]/maxD * getCssCell()*0.95);
+          data[p]={px,label:`${PLANET_META[p].toLocaleString()} km`};
+        });
+      } else {
+        // apparent Earth or Sun
+        const key=currentSizeMode==='apparentSun'?'sun':'earth';
+        const ar=[]; PLANET_ORDER.forEach(p=>{
+          if(p==='earth'&&key==='earth')return;
+          let arc=getAngularSizeArcsec(PLANET_META[p], PLANET_SMA[p]||liveApiData[p].distEarth);
+          if(p==='saturn')arc*=1.1;
+          ar.push(arc);
+          data[p]={arc};
+        });
+        const maxArc=Math.max(...ar,1);
+        PLANET_ORDER.forEach(p=>{
+          if(p==='earth'&&key==='earth')return;
+          const arc=(data[p].arc||0);
+          const px=Math.max(4,arc/maxArc*getCssCell()*0.95);
+          data[p]={px,label:`${arc.toFixed(1)}″`};
+        });
+      }
+      // render
       sizeGrid.innerHTML='';
       const list = PLANET_ORDER.filter(p=>!(p==='earth'&&currentSizeMode==='apparentEarth'));
       list.forEach(p=>{
@@ -400,11 +406,10 @@
         imgC.className='planet-image-container';
         const img=document.createElement('img');
         img.src=`planets/${p}.png`; img.alt=p;
-        img.style.height=`${data[p].px}px`;
-        img.style.width='auto';
+        img.style.height=`${data[p].px}px`; img.style.width='auto';
         imgC.appendChild(img);
         const lbl=document.createElement('div');
-        lbl.id=`lbl-${p}`; lbl.className='size-label';
+        lbl.className='size-label'; lbl.id=`lbl-${p}`;
         lbl.textContent=data[p].label;
         slot.appendChild(imgC);
         slot.appendChild(lbl);
@@ -412,22 +417,30 @@
       });
     }
 
-    // --- Draw Distance Chart ---
+    // --- Draw Distance ---
     function drawDistanceChart(){
       if(!liveApiData) return;
-      const box=document.getElementById('dist-box'),
-            H=box.clientHeight;
-      // set anchor
-      let anchorId = currentDistMode==='distSun' ? 'sun' : 'earth';
+      const box=document.getElementById('dist-box');
+      const H=box.clientHeight;
+      // anchor logic
+      let anchorId = (currentDistMode==='distSun')?'sun':'earth';
       if(currentDistMode==='custom') anchorId=selectedCustomPlanet||'earth';
       distAnchor.src=`planets/${anchorId}.png`;
-      const hPct=(PLANET_META[anchorId]/PLANET_META.jupiter)*35;
-      distAnchor.style.height=`${anchorId==='sun'?112/H*100:hPct}%`;
+      if(currentDistMode==='distSun'){
+        // true relative sun height
+        const pct=(PLANET_META.sun/PLANET_META.jupiter)*parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dist-planet-base-height-pct'));
+        distAnchor.style.height=`${pct}%`;
+        distAnchor.style.transform='translate(0,-50%)'; // right edge at x=0
+      } else {
+        const pct=(PLANET_META[anchorId]/PLANET_META.jupiter)*parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dist-planet-base-height-pct'));
+        distAnchor.style.height=`${pct}%`;
+        distAnchor.style.transform='translate(-50%,-50%)';
+      }
       distAnchor.style.width='auto';
       distAnchor.style.display='block';
 
       // targets
-      const set = currentDistMode==='distSun'
+      const set = (currentDistMode==='distSun')
                 ? PLANET_ORDER
                 : PLANET_ORDER.filter(p=>'earth'!==p);
       const dists = set.map(p=>
@@ -435,42 +448,32 @@
           ? PLANET_SMA[p]
           : liveApiData[p]?.distEarth||0
       );
-      const maxD = Math.max(...dists,1);
+      const maxD=Math.max(...dists,1);
 
-      const container=document.getElementById('dist-planets');
-      container.innerHTML='';
+      distPlanets.innerHTML='';
       set.forEach((p,i)=>{
         const dist=currentDistMode==='distSun'
                    ? PLANET_SMA[p]
                    : liveApiData[p]?.distEarth||0;
         const pct=dist/maxD*100;
         const vhp=(PLANET_META[p]/PLANET_META.jupiter)*35;
-        // planet
         const img=document.createElement('img');
         img.src=`planets/${p}.png`; img.alt=p;
         img.className='dist-planet-img';
         img.style.left=`${pct}%`;
         img.style.height=`${vhp}%`;
         img.style.width='auto';
-        container.appendChild(img);
-        // label
+        distPlanets.appendChild(img);
+
         const lbl=document.createElement('div');
         lbl.className='dist-label';
         lbl.style.left=`${pct}%`;
         lbl.textContent=`${dist.toFixed(3)} AU`;
-        container.appendChild(lbl);
+        distPlanets.appendChild(lbl);
       });
     }
 
-    // --- Utility: read CSS cell size ---
-    function getCssCell(){
-      return parseFloat(
-        getComputedStyle(document.documentElement)
-          .getPropertyValue('--cell')
-      )||200;
-    }
-
-    // --- Fetch Live Data & Init ---
+    // --- Fetch Live & Init ---
     async function fetchAndUpdateLiveData(){
       try {
         const res=await fetch('/.netlify/functions/planetDashboard');
@@ -485,7 +488,7 @@
         });
         liveApiData.earth={distEarth:0,raRad:0,decRad:0};
       } catch(e){
-        console.error("API error",e);
+        console.error("API fetch error",e);
       } finally {
         drawSizeGrid();
         drawDistanceChart();
@@ -494,7 +497,7 @@
       }
     }
 
-    // --- Buttons & Dropdown ---
+    // --- Event Handlers ---
     document.querySelectorAll('#size-mode-switch button').forEach(b=>{
       b.onclick=()=>{
         if(b.classList.contains('active'))return;
@@ -513,13 +516,29 @@
         drawDistanceChart();
       };
     });
-    // custom dropdown (unchanged)
+    customDistButton.addEventListener('click', e=>{
+      e.stopPropagation(); toggleCustomDropdown();
+    });
+    customDistList.addEventListener('click', e=>{
+      if(e.target.tagName==='LI') {
+        e.stopPropagation();
+        selectCustomPlanet(e.target.dataset.planet);
+      }
+    });
+    document.addEventListener('click', e=>{
+      if(customDistDropdown.classList.contains('show')
+         && !customDistButton.contains(e.target)
+         && !customDistDropdown.contains(e.target)) {
+        toggleCustomDropdown();
+      }
+    });
 
-    function toggleModal(){ /* … */ }
+    function toggleModal(){ /* existing nav modal logic */ }
 
-    document.addEventListener('DOMContentLoaded',()=>{
+    document.addEventListener('DOMContentLoaded', ()=>{
+      populateCustomDropdown();
       fetchAndUpdateLiveData();
-      window.addEventListener('resize',()=>{
+      window.addEventListener('resize', ()=>{
         drawSizeGrid();
         drawDistanceChart();
       });
