@@ -35,102 +35,76 @@
 
   <script>
     const out = document.getElementById("output");
-    function log(...args) {
-      console.log(...args);
-      out.textContent += args.map(a=> typeof a==="object"? JSON.stringify(a,null,2): a ).join(" ") + "\n";
-    }
-    function error(...args) {
-      console.error(...args);
-      out.textContent += "[ERROR] " + args.join(" ") + "\n";
-    }
+    function log(...args) { console.log(...args); out.textContent += args.map(a=> typeof a==="object"? JSON.stringify(a,null,2): a).join(" ")+"\n"; }
+    function error(...args){ console.error(...args); out.textContent += "[ERROR] "+args.join(" ")+"\n"; }
 
     // TZ detection
-    function detectTZ() {
+    function detectTZ(){
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       document.getElementById("timezone").value = tz;
       log("Detected TZ:", tz);
     }
-    detectTZ();
-    document.getElementById("tzDetect").onclick = detectTZ;
+    detectTZ(); document.getElementById("tzDetect").onclick = detectTZ;
 
     // Geolocation
     document.getElementById("locBtn").onclick = () => {
       navigator.geolocation.getCurrentPosition(
-        pos => {
-          log("Geolocation success:", pos.coords);
-          document.getElementById("lat").value = pos.coords.latitude.toFixed(4);
-          document.getElementById("lon").value = pos.coords.longitude.toFixed(4);
-        },
-        err => error("Geolocation error:", err.message)
+        pos=>{ log("Geolocation success:",pos.coords); document.getElementById("lat").value=pos.coords.latitude; document.getElementById("lon").value=pos.coords.longitude; },
+        err=>error("Geolocation error:",err.message)
       );
     };
 
-    // Main debug runner
     document.getElementById("run").onclick = async () => {
-      out.textContent = "";
+      out.textContent="";
       try {
         const lat    = parseFloat(document.getElementById("lat").value);
         const lon    = parseFloat(document.getElementById("lon").value);
         const startL = document.getElementById("start").value;
         const endL   = document.getElementById("end").value;
         const radius = parseFloat(document.getElementById("radius").value);
+        log("Inputs →",{lat,lon,startL,endL,radius});
+        if(isNaN(lat)||isNaN(lon)||!startL||!endL) throw new Error("Missing inputs");
 
-        log("Inputs →", { lat, lon, startL, endL, radius });
-        if (isNaN(lat)||isNaN(lon)||!startL||!endL) throw new Error("Missing inputs");
+        const startISO=new Date(startL).toISOString();
+        const endISO  =new Date(endL).toISOString();
+        log("Converted to ISO UTC →",{startISO,endISO});
 
-        const startISO = new Date(startL).toISOString();
-        const endISO   = new Date(endL).toISOString();
-        log("Converted to ISO UTC →", { startISO, endISO });
+        // Moon
+        const moonUrl=`/.netlify/functions/getMoonPositions?lat=${lat}&lon=${lon}`
+                     +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}&step=15`;
+        log("GET Moon URL:",moonUrl);
+        const mRes=await fetch(moonUrl);
+        log("Moon HTTP status:",mRes.status);
+        const moonData=await mRes.json();
+        log("Sample moonData[0]:",JSON.stringify(moonData[0],null,2));
 
-        // 1) Moon positions
-        const moonUrl = `/.netlify/functions/getMoonPositions`
-                      + `?lat=${lat}&lon=${lon}`
-                      + `&start=${encodeURIComponent(startISO)}`
-                      + `&end=${encodeURIComponent(endISO)}`
-                      + `&step=15`;
-        log("Fetching Moon URL:", moonUrl);
-        const mRes = await fetch(moonUrl);
-        log("Moon HTTP status:", mRes.status);
-        const moonData = await mRes.json();
-        log("Sample moonData[0]:", JSON.stringify(moonData[0], null, 2));
+        // Flights
+        const flightUrl=`/.netlify/functions/getFlightPaths?lat=${lat}&lon=${lon}`
+                      +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}`
+                      +`&step=15&radiusKm=${radius}`;
+        log("GET Flight URL:",flightUrl);
+        const fRes=await fetch(flightUrl);
+        log("Flight HTTP status:",fRes.status);
+        const { flights }=await fRes.json();
+        log("Flights count:",flights.length);
+        if(flights[0]) log("Sample flights[0]:",JSON.stringify(flights[0],null,2));
 
-        // 2) Flight paths
-        const flightUrl = `/.netlify/functions/getFlightPaths`
-                        + `?lat=${lat}&lon=${lon}`
-                        + `&start=${encodeURIComponent(startISO)}`
-                        + `&end=${encodeURIComponent(endISO)}`
-                        + `&step=15&radiusKm=${radius}`;
-        log("Fetching Flight URL:", flightUrl);
-        const fRes = await fetch(flightUrl);
-        log("Flight HTTP status:", fRes.status);
-        const { flights } = await fRes.json();
-        log("Number of flights returned:", flights.length);
-        if (flights[0]) log("Sample flights[0]:", JSON.stringify(flights[0], null, 2));
-
-        // 3) Cross-check
-        const matches = [];
-        moonData.forEach(m => {
-          if (m.error) {
-            error("Moon error at", m.time, m.error, JSON.stringify(m.raw || m.cell || {}).slice(0,200));
-            return;
-          }
-          if (typeof m.az !== "number" || typeof m.alt !== "number") {
-            error("Moon missing az/alt at", m.time, "az:", m.az, "alt:", m.alt);
-            return;
-          }
-          flights.forEach(f => {
-            const p = f.positions.find(x => x.time === m.time);
-            if (p) {
-              log("🔍 Potential transit at", m.time, "flight", f.id,
-                  "moonAz",m.az,"moonAlt",m.alt,
-                  "planePos",p);
-              matches.push({ time:m.time, flight:f.id });
+        // Cross-check
+        const matches=[];
+        moonData.forEach(m=>{
+          if(m.error){ error("Moon error at",m.time,m.error,JSON.stringify(m.raw||m.cell||{}).slice(0,200)); return; }
+          flights.forEach(f=>{
+            const p=f.positions.find(x=>x.time===m.time);
+            if(p){
+              log("✔ Transit at",m.time,"flight",f.id,"moonAz",m.az,"moonAlt",m.alt,"plane",p);
+              matches.push({time:m.time,flight:f.id});
             }
           });
         });
-        log("Total matches found:", matches.length, matches);
-      } catch (e) {
-        error("Run error:", e.message);
+        log("Total matches:",matches.length,matches);
+
+      } catch(e){
+        error("Run error:",e.message);
       }
     };
   </script>
