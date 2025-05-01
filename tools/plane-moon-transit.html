@@ -3,74 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Super‐Verbose Debug</title>
+  <title>Super-Verbose Transit Debug</title>
   <style>
-    body{font-family:monospace;background:#111;color:#eee;padding:1rem}
-    label{display:block;margin:0.5rem 0}
-    button{margin:0.5rem 0}
-    pre{background:#222;color:#0f0;padding:1rem;max-height:70vh;overflow:auto}
+    body { font-family: monospace; background: #111; color: #eee; padding: 1rem; }
+    label { display: block; margin: 0.5rem 0; }
+    button { margin: 0.5rem 0; }
+    pre { background: #222; color: #0f0; padding: 1rem; max-height: 70vh; overflow: auto; }
+    input { background: #333; color: #eee; border: 1px solid #555; padding: 0.2rem; }
   </style>
 </head>
 <body>
   <h1>🌕🛩️ Transit Checker — Raw Dump</h1>
 
-  <label>Lat: <input id="lat" value="37.4407"></label>
-  <label>Lon: <input id="lon" value="-122.2312"></label>
-  <label>Start: <input id="start" type="datetime-local" value="2025-05-01T00:00"></label>
-  <label>End:   <input id="end"   type="datetime-local" value="2025-05-01T00:00:30"></label>
-  <label>Radius (km): <input id="radius" value="50"></label>
+  <!-- Timezone -->
+  <label>
+    Time Zone: 
+    <input id="timezone" placeholder="(click Detect)" readonly>
+    <button id="tzDetect">Detect TZ</button>
+  </label>
+
+  <!-- Location -->
+  <label>
+    Latitude: 
+    <input id="lat" type="number" step="0.0001" placeholder="e.g. 37.4407">
+    Longitude:
+    <input id="lon" type="number" step="0.0001" placeholder="e.g. -122.2312">
+    <button id="locBtn">Use My Location</button>
+  </label>
+
+  <!-- Time range -->
+  <label>
+    Start (local): 
+    <input id="start" type="datetime-local" placeholder="YYYY-MM-DDThh:mm">
+  </label>
+  <label>
+    End (local): 
+    <input id="end" type="datetime-local" placeholder="YYYY-MM-DDThh:mm">
+  </label>
+
+  <!-- Radius -->
+  <label>
+    Radius (km):
+    <input id="radius" type="number" placeholder="50">
+  </label>
+
   <button id="run">Run Full Dump</button>
 
-  <pre id="output">Waiting…</pre>
+  <pre id="output">Waiting for input…</pre>
 
   <script>
     const out = document.getElementById("output");
-    function log(...a){ console.log(...a); out.textContent += a.map(x=>
-      typeof x==="object"? JSON.stringify(x,null,2): x
-    ).join(" ")+"\n"; }
-    function error(...a){ console.error(...a); out.textContent+="[ERROR] "+a.join(" ")+"\n"; }
+    function log(...args) {
+      console.log(...args);
+      out.textContent += args.map(a =>
+        typeof a === "object" ? JSON.stringify(a, null, 2) : a
+      ).join(" ") + "\n";
+    }
+    function error(...args) {
+      console.error(...args);
+      out.textContent += "[ERROR] " + args.join(" ") + "\n";
+    }
 
+    // Timezone detection
+    function detectTZ() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById("timezone").value = tz;
+      log("Detected TZ:", tz);
+    }
+    document.getElementById("tzDetect").onclick = detectTZ;
+
+    // Geolocation
+    document.getElementById("locBtn").onclick = () => {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          log("Geolocation success:", pos.coords);
+          document.getElementById("lat").value = pos.coords.latitude.toFixed(4);
+          document.getElementById("lon").value = pos.coords.longitude.toFixed(4);
+        },
+        err => error("Geolocation error:", err.message)
+      );
+    };
+
+    // Main runner
     document.getElementById("run").onclick = async () => {
       out.textContent = "";
+      try {
+        const lat    = document.getElementById("lat").value;
+        const lon    = document.getElementById("lon").value;
+        const startL = document.getElementById("start").value;
+        const endL   = document.getElementById("end").value;
+        const radius = document.getElementById("radius").value;
 
-      const lat = document.getElementById("lat").value,
-            lon = document.getElementById("lon").value,
-            start= document.getElementById("start").value,
-            end  = document.getElementById("end").value,
-            radius = document.getElementById("radius").value;
+        log("Inputs:", { lat, lon, startL, endL, radius });
+        if (!lat || !lon || !startL || !endL || !radius) {
+          throw new Error("Please fill in all fields (or use the buttons).");
+        }
 
-      log("Inputs:",{lat,lon,start,end,radius});
-      const startISO=new Date(start).toISOString(),
-            endISO  =new Date(end).toISOString();
-      log("ISOs:",{startISO,endISO});
+        const startISO = new Date(startL).toISOString();
+        const endISO   = new Date(endL).toISOString();
+        log("ISOs:", { startISO, endISO });
 
-      // Moons
-      const mURL=`/.netlify/functions/getMoonPositions?lat=${lat}&lon=${lon}`
-                 +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}&step=15`;
-      log("MOON URL:",mURL);
-      const mRes=await fetch(mURL);
-      const mText=await mRes.text();
-      log("MOON status",mRes.status);
-      log("MOON raw text:",mText);
-      let moonData;
-      try { moonData=JSON.parse(mText); log("MOON parsed JSON:",moonData); }
-      catch(e){ error("MOON JSON.parse failed:",e.message); }
+        // Moon fetch
+        const mURL = `/.netlify/functions/getMoonPositions`
+                   + `?lat=${lat}&lon=${lon}`
+                   + `&start=${encodeURIComponent(startISO)}`
+                   + `&end=${encodeURIComponent(endISO)}`
+                   + `&step=15`;
+        log("MOON URL:", mURL);
+        const mRes = await fetch(mURL);
+        const mText = await mRes.text();
+        log("MOON status", mRes.status);
+        log("MOON raw text:", mText);
+        let moonData;
+        try {
+          moonData = JSON.parse(mText);
+          log("MOON parsed JSON:", moonData);
+        } catch (e) {
+          error("MOON JSON.parse failed:", e.message);
+          moonData = [];
+        }
 
-      // Flights
-      const fURL=`/.netlify/functions/getFlightPaths?lat=${lat}&lon=${lon}`
-                 +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}`
-                 +`&step=15&radiusKm=${radius}`;
-      log("FLIGHT URL:",fURL);
-      const fRes=await fetch(fURL);
-      const fText=await fRes.text();
-      log("FLIGHT status",fRes.status);
-      log("FLIGHT raw text:",fText);
-      let flights;
-      try { flights=JSON.parse(fText).flights; log("FLIGHT parsed JSON:",flights); }
-      catch(e){ error("FLIGHT JSON.parse failed:",e.message); }
+        // Flight fetch
+        const fURL = `/.netlify/functions/getFlightPaths`
+                   + `?lat=${lat}&lon=${lon}`
+                   + `&start=${encodeURIComponent(startISO)}`
+                   + `&end=${encodeURIComponent(endISO)}`
+                   + `&step=15&radiusKm=${radius}`;
+        log("FLIGHT URL:", fURL);
+        const fRes = await fetch(fURL);
+        const fText = await fRes.text();
+        log("FLIGHT status", fRes.status);
+        log("FLIGHT raw text:", fText);
+        let flights;
+        try {
+          ({ flights } = JSON.parse(fText));
+          log("FLIGHT parsed JSON:", flights);
+        } catch (e) {
+          error("FLIGHT JSON.parse failed:", e.message);
+          flights = [];
+        }
 
-      // Done
-      log("✨ Dump complete");
+        log("✨ Dump complete");
+      } catch (e) {
+        error("Run error:", e.message);
+      }
     };
   </script>
 </body>
