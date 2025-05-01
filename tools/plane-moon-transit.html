@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Debug: Moon–Plane Transit</title>
+  <title>Debug: Moon–Plane Transit (Verbose)</title>
   <style>
-    body { font-family: sans-serif; padding:1rem; }
-    label { display:block; margin:0.5rem 0; }
-    button { margin:0.5rem 0; }
-    pre { background:#222; color:#0f0; padding:1rem; max-height:50vh; overflow:auto; }
+    body { font-family: monospace; padding:1rem; background:#111; color:#eee }
+    label { display:block; margin:0.5rem 0 }
+    button { margin:0.5rem 0 }
+    pre { background:#222; color:#0f0; padding:1rem; max-height:60vh; overflow:auto }
   </style>
 </head>
 <body>
-  <h1>🛩️🌕 Transit Checker (Debug)</h1>
+  <h1>🛩️🌕 Transit Checker — Super‐Verbose Debug</h1>
 
   <label>
     Time Zone:
@@ -21,90 +21,114 @@
   </label>
 
   <label>
-    Lat: <input id="lat" type="number" step="0.0001" value="37.44">
-    Lon: <input id="lon" type="number" step="0.0001" value="-122.23">
+    Lat: <input id="lat" type="number" step="0.0001" value="37.4407">
+    Lon: <input id="lon" type="number" step="0.0001" value="-122.2312">
     <button id="locBtn">Use My Location</button>
   </label>
 
   <label>Start (local): <input id="start" type="datetime-local" value="2025-05-01T00:00"></label>
   <label>End   (local): <input id="end"   type="datetime-local" value="2025-05-01T00:00:30"></label>
   <label>Radius (km):   <input id="radius" type="number" value="50"></label>
-  <button id="run">Run Debug</button>
+  <button id="run">Run Super‐Verbose Debug</button>
 
   <pre id="output">Logs will appear here…</pre>
 
   <script>
     const out = document.getElementById("output");
-    function log(...args) { console.log(...args); out.textContent += args.map(a=> typeof a==="object"? JSON.stringify(a,null,2): a).join(" ")+"\n"; }
+    function log(...args){ console.log(...args); out.textContent += args.map(a=>
+      typeof a==="object"? JSON.stringify(a,null,2): a
+    ).join(" ") + "\n"; }
     function error(...args){ console.error(...args); out.textContent += "[ERROR] "+args.join(" ")+"\n"; }
 
-    // TZ detection
-    function detectTZ(){
+    // Timezone detection
+    function detectTZ() {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       document.getElementById("timezone").value = tz;
       log("Detected TZ:", tz);
     }
-    detectTZ(); document.getElementById("tzDetect").onclick = detectTZ;
+    detectTZ();
+    document.getElementById("tzDetect").onclick = detectTZ;
 
     // Geolocation
     document.getElementById("locBtn").onclick = () => {
       navigator.geolocation.getCurrentPosition(
-        pos=>{ log("Geolocation success:",pos.coords); document.getElementById("lat").value=pos.coords.latitude; document.getElementById("lon").value=pos.coords.longitude; },
-        err=>error("Geolocation error:",err.message)
+        pos => {
+          log("Geolocation success:", pos.coords);
+          document.getElementById("lat").value = pos.coords.latitude;
+          document.getElementById("lon").value = pos.coords.longitude;
+        },
+        err => error("Geolocation error:", err.message)
       );
     };
 
+    // Main debug runner
     document.getElementById("run").onclick = async () => {
-      out.textContent="";
+      out.textContent = "";
       try {
+        // 1) Gather inputs
         const lat    = parseFloat(document.getElementById("lat").value);
         const lon    = parseFloat(document.getElementById("lon").value);
         const startL = document.getElementById("start").value;
         const endL   = document.getElementById("end").value;
         const radius = parseFloat(document.getElementById("radius").value);
-        log("Inputs →",{lat,lon,startL,endL,radius});
-        if(isNaN(lat)||isNaN(lon)||!startL||!endL) throw new Error("Missing inputs");
+        log("Inputs →", { lat, lon, startL, endL, radius });
+        if (isNaN(lat)||isNaN(lon)||!startL||!endL) throw new Error("Missing inputs");
 
-        const startISO=new Date(startL).toISOString();
-        const endISO  =new Date(endL).toISOString();
-        log("Converted to ISO UTC →",{startISO,endISO});
+        // 2) Convert to ISO UTC
+        const startISO = new Date(startL).toISOString();
+        const endISO   = new Date(endL).toISOString();
+        log("Converted to ISO UTC →", { startISO, endISO });
 
-        // Moon
-        const moonUrl=`/.netlify/functions/getMoonPositions?lat=${lat}&lon=${lon}`
-                     +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}&step=15`;
-        log("GET Moon URL:",moonUrl);
-        const mRes=await fetch(moonUrl);
-        log("Moon HTTP status:",mRes.status);
-        const moonData=await mRes.json();
-        log("Sample moonData[0]:",JSON.stringify(moonData[0],null,2));
+        // 3) Fetch Moon data
+        const moonUrl = `/.netlify/functions/getMoonPositions`
+                      + `?lat=${lat}&lon=${lon}`
+                      + `&start=${encodeURIComponent(startISO)}`
+                      + `&end=${encodeURIComponent(endISO)}`
+                      + `&step=15`;
+        log("GET Moon URL:", moonUrl);
+        const mRes = await fetch(moonUrl);
+        log("Moon HTTP status:", mRes.status);
+        const moonData = await mRes.json();
+        log("moonData array length:", moonData.length);
+        log("Full moonData JSON:", JSON.stringify(moonData, null, 2));
+        moonData.forEach((m, i) => {
+          log(`moonData[${i}] →`, m);
+        });
 
-        // Flights
-        const flightUrl=`/.netlify/functions/getFlightPaths?lat=${lat}&lon=${lon}`
-                      +`&start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}`
-                      +`&step=15&radiusKm=${radius}`;
-        log("GET Flight URL:",flightUrl);
-        const fRes=await fetch(flightUrl);
-        log("Flight HTTP status:",fRes.status);
-        const { flights }=await fRes.json();
-        log("Flights count:",flights.length);
-        if(flights[0]) log("Sample flights[0]:",JSON.stringify(flights[0],null,2));
+        // 4) Fetch Flight data
+        const flightUrl = `/.netlify/functions/getFlightPaths`
+                        + `?lat=${lat}&lon=${lon}`
+                        + `&start=${encodeURIComponent(startISO)}`
+                        + `&end=${encodeURIComponent(endISO)}`
+                        + `&step=15&radiusKm=${radius}`;
+        log("GET Flight URL:", flightUrl);
+        const fRes = await fetch(flightUrl);
+        log("Flight HTTP status:", fRes.status);
+        const { flights } = await fRes.json();
+        log("Flights array length:", flights.length);
+        log("Full flights JSON:", JSON.stringify(flights, null, 2));
+        flights.forEach((f,i)=>{
+          log(`flights[${i}] →`, f);
+        });
 
-        // Cross-check
-        const matches=[];
-        moonData.forEach(m=>{
-          if(m.error){ error("Moon error at",m.time,m.error,JSON.stringify(m.raw||m.cell||{}).slice(0,200)); return; }
-          flights.forEach(f=>{
-            const p=f.positions.find(x=>x.time===m.time);
-            if(p){
-              log("✔ Transit at",m.time,"flight",f.id,"moonAz",m.az,"moonAlt",m.alt,"plane",p);
-              matches.push({time:m.time,flight:f.id});
+        // 5) Cross‐check
+        const matches = [];
+        moonData.forEach(m => {
+          if (m.error) {
+            error("Moon entry error at", m.time, m.error, m.raw||m.cell||{});
+            return;
+          }
+          flights.forEach(f => {
+            const p = f.positions.find(x => x.time === m.time);
+            if (p) {
+              log("✔ MATCH at", m.time, "flight", f.id, p);
+              matches.push({ time:m.time, flight:f.id, moon:m, plane:p });
             }
           });
         });
-        log("Total matches:",matches.length,matches);
-
-      } catch(e){
-        error("Run error:",e.message);
+        log("Total matches:", matches.length, "→", JSON.stringify(matches, null, 2));
+      } catch (e) {
+        error("Run error:", e.message);
       }
     };
   </script>
