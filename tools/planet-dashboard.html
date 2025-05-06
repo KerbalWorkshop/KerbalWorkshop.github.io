@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Planets Dashboard – Hansen Space</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css"> <style>
     :root {
@@ -14,12 +13,9 @@
       --cell:200px;       /* size grid cell base - used for scaling */
       --gap:50px;         /* grid gap base */
       --dist-aspect:1000/256; /* native distance chart ratio */
-
-      /* --- ADJUSTED SIZES --- */
       --dist-planet-base-height-pct: 35%; /* Base height % for Jupiter */
       --dist-planet-min-height-pct: 5%;   /* Min height % */
       --dist-planet-max-height-pct: 80%;  /* Max height % */
-      /* --- END SIZES --- */
     }
     * { box-sizing:border-box; margin:0 }
     body { font-family:'Nunito Sans',sans-serif; background:#fff; color:#eee; overflow-x:hidden; }
@@ -37,8 +33,6 @@
     @media(max-width:850px) { .intro-section { flex-direction:column; text-align:center } }
     .dash-block  { margin-bottom:70px }
     .block-title { font:600 28px/1 'Poppins'; margin-bottom:24px; color:#fff }
-
-    /* --- Adjusted Pill Switch --- */
     .pill-switch {
         display:flex;
         flex-wrap: wrap; /* Allow wrapping */
@@ -74,9 +68,6 @@
         overflow: visible;
         display: flex; /* Ensure button inside behaves */
     }
-
-
-    /* --- Custom Dropdown Styles --- */
     .custom-select-container { position: relative; }
     .custom-select-button .arrow { display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid currentColor; margin-left: 8px; transition: transform 0.2s ease-in-out; }
     .custom-select-button.open .arrow { transform: rotate(180deg); }
@@ -86,21 +77,14 @@
     .custom-dropdown li { padding: 8px 15px; color: #eee; cursor: pointer; font-size: 13px; white-space: nowrap; }
     .custom-dropdown li:hover { background-color: #555; }
     .custom-dropdown li.selected { background-color: #777; font-weight: bold; }
-    /* --- End Dropdown Styles --- */
-
-    /* panels */
     .panel { background:#000; border-radius:6px; padding:48px 20px; margin-bottom:50px; position: relative; min-height: 150px; overflow: hidden; /* Clip content like Sun anchor */ }
     .loading-overlay, .error-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; text-align: center; z-index: 10; color: #eee; font-size: 16px; padding: 20px; pointer-events: none; }
     .error-overlay { color: #ffaaaa; }
-
-    /* SIZE grid */
     #size-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(var(--cell),1fr)); grid-auto-rows:var(--cell); gap:var(--gap); justify-content:center; }
     .planet-slot { position:relative; display:flex; flex-direction: column; justify-content:center; align-items:center; }
     .planet-image-container { flex-grow: 1; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
     .planet-image-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .size-label { position:absolute; bottom:-26px; left:50%; transform:translateX(-50%); font-size:14px; color:#eee; white-space:nowrap; }
-
-    /* DISTANCE chart */
     .panel-distance { padding-top:48px; padding-bottom:48px }
     #dist-box {
         width:80%; max-width:var(--canvas); margin:0 auto;
@@ -118,18 +102,13 @@
     }
     #dist-planets .dist-planet-img { position:absolute; top:50%; transform:translate(-50%, -50%); /* Ensure vertical centering */ width:auto; min-height: var(--dist-planet-min-height-pct); max-height: var(--dist-planet-max-height-pct); z-index: 4; object-fit: contain; }
     #dist-planets .dist-label { position:absolute; top:calc(50% - 40px); color:#ddd; white-space:nowrap; transform-origin:top left; transform:rotate(-40deg); font-size: clamp(10px, 1.2vw, 14px); z-index: 6; }
-    /* Style for custom distance debug text */
     #dist-planets.debug-mode { display: block; text-align: left; padding: 10px; /* Add padding back for debug */ overflow-y: auto; /* Allow scroll for long lists */ }
     #dist-planets.debug-mode p { margin-bottom: 5px; }
     #dist-planets.debug-mode strong { color: #fff; }
-
-
     .div { height:1px; background:#555; margin:50px 0 }
     footer { padding:20px var(--side-pad); background:#fff; text-align:center; font-size:14px; color:#999; }
     footer .social-links { margin-bottom:12px }
     footer .social-links img { height:24px; margin:0 10px; }
-
-    /* mobile tweaks */
     @media(max-width:850px) {
       :root { --side-pad:20px; --cell: calc(200px*0.7); --gap: calc(50px *0.7); --dist-planet-base-height-pct: 25%; }
       body { font-size:90% }
@@ -142,7 +121,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <a class="brand" href="/"><img src="/images/logo.png" alt="Hansen Space"></a>
     <nav><ul>
@@ -150,15 +128,12 @@
     </ul></nav>
     <div class="menu-icon" onclick="toggleModal()">☰</div>
   </header>
-
   <div id="content">
     <div id="inner">
-
       <div class="intro-section">
         <h2 class="intro-title">PLANET DASHBOARD</h2>
         <p class="intro-text">A planetary dashboard for all of your needs.</p>
       </div>
-
       <section class="dash-block">
         <h3 class="block-title">SIZE</h3>
         <div class="pill-switch" id="size-mode-switch">
@@ -172,7 +147,6 @@
            <div class="error-overlay" id="size-error" style="display: none;"></div>
         </div>
       </section>
-
       <section class="dash-block">
         <h3 class="block-title">DISTANCE</h3>
         <div class="pill-switch" id="dist-mode-switch">
@@ -200,17 +174,13 @@
           </div>
         </div>
       </section>
-
       <div class="div"></div>
-
       <section class="dash-block">
         <h3 class="block-title">IN THE SKY (coming soon)</h3>
         <p style="color:#ccc">Feature under construction.</p>
       </section>
-
     </div>
   </div>
-
   <footer>
     <div class="social-links">
       <a href="https://www.youtube.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a><a href="https://instagram.com/hansenspace"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a><a href="https://tiktok.com/@hansen_space"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
@@ -218,7 +188,6 @@
     <p>© <span id="year"></span> Hansen Space.</p>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
-
  <script>
     // --- Static Data ---
     const PLANET_META = { mercury: 4879, venus: 12104, earth: 12756, mars: 6779, jupiter: 139820, saturn: 116460, uranus: 50724, neptune: 49244, sun: 1392700 };
@@ -228,15 +197,11 @@
     const CUSTOM_PLANET_OPTIONS = ["mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune"];
     const AU_KM = 149597870.7;
     const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
-
-    // --- Read CSS Variables ---
     function getCssVariableValue(varName) { const panelElement = document.getElementById('size-panel') || document.documentElement; const value = getComputedStyle(panelElement).getPropertyValue(varName).trim(); return parseFloat(value) || 0; }
     function getTargetMaxPxSize() { const cellBaseSize = getCssVariableValue('--cell'); const targetSize = cellBaseSize > 0 ? cellBaseSize * 0.95 : 190; return Math.max(60, targetSize); }
     const BASE_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-base-height-pct') || 35;
     const MIN_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-min-height-pct') || 5;
     const MAX_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-max-height-pct') || 80;
-
-    // --- State ---
     let currentSizeMode = 'apparentEarth';
     let currentDistMode = 'distEarth';
     let selectedCustomPlanet = null;
@@ -244,8 +209,6 @@
     let apiFetchError = null;
     let apiRefreshTimer = null;
     let hasLoggedApiStructure = false;
-
-    // --- Display Data Storage ---
     const displayData = {
         trueSize: { planets: {}, requires_live: false, status: 'pending' },
         apparentEarth: { planets: {}, requires_live: true, status: 'pending' },
@@ -253,12 +216,9 @@
         distSun: { planets: {}, requires_live: false, status: 'pending' },
         distEarth: { planets: {}, requires_live: true, status: 'pending' },
     };
-    // Separate storage for custom distances { anchorPlanetId: { targetPlanetId: distanceAU, ... }, ... }
     let customDistanceData = {};
     let customDistanceStatus = 'pending'; // 'pending', 'ok', 'partial', 'error'
     let customDistanceError = null;
-
-    // --- DOM Elements ---
     const sizeGrid = document.getElementById('size-grid');
     const distAnchor = document.getElementById('dist-anchor');
     const distPlanetsContainer = document.getElementById('dist-planets');
@@ -270,14 +230,10 @@
     const customDistButtonText = document.getElementById('custom-dist-button-text');
     const customDistDropdown = document.getElementById('custom-dist-dropdown');
     const customDistList = document.getElementById('custom-dist-list');
-
-    // --- Calculation Helpers ---
     function toRadians(degrees) { return degrees * Math.PI / 180; }
     function getAngularSizeArcsec(diameterKm, distanceAu) { if (!diameterKm || !distanceAu || distanceAu <= 0) return 0; const distanceKm = distanceAu * AU_KM; const radiusKm = diameterKm / 2; const radians = 2 * Math.atan(radiusKm / distanceKm); return radians * 206264.806; }
     function calculateAngularSeparation(ra1Rad, dec1Rad, ra2Rad, dec2Rad) { if ([ra1Rad, dec1Rad, ra2Rad, dec2Rad].some(isNaN)) return NaN; const cosAngle = Math.sin(dec1Rad) * Math.sin(dec2Rad) + Math.cos(dec1Rad) * Math.cos(dec2Rad) * Math.cos(ra1Rad - ra2Rad); const clampedCosAngle = Math.max(-1, Math.min(1, cosAngle)); return Math.acos(clampedCosAngle); }
     function lawOfCosines(distA_earth, distB_earth, angleA_E_B_rad) { if (isNaN(distA_earth) || isNaN(distB_earth) || isNaN(angleA_E_B_rad) || distA_earth <= 0 || distB_earth <= 0) return NaN; const distSq = Math.pow(distA_earth, 2) + Math.pow(distB_earth, 2) - 2 * distA_earth * distB_earth * Math.cos(angleA_E_B_rad); return Math.sqrt(Math.max(0, distSq)); }
-
-    // --- Data Calculation Functions ---
     function calculateTrueSizeData() {
         console.log("[Calc] Calculating True Size data...");
         const modeData = displayData.trueSize; modeData.planets = {}; modeData.status = 'pending'; modeData.error = null;
@@ -298,21 +254,14 @@
         PLANET_ORDER.forEach(p => { const arcSec = arcSecs[p]; const px = Math.max(4, (arcSec / maxArcSec) * targetMaxPx); modeData.planets[p] = { px: px, label: `${arcSec.toFixed(1)}″` }; });
         modeData.status = 'ok'; console.log(`[Calc Apparent Sun] Data calculated. Max Arcsec: ${maxArcSec}, Target Px: ${targetMaxPx}`);
     }
-    // *** MODIFIED Distance Scaling Calculation ***
     function calculateVisualHeightPct(planetId) {
         const jupiterDiameter = PLANET_META.jupiter;
         if (!jupiterDiameter) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if Jupiter data missing
-
         let diameterToUse = PLANET_META[planetId];
-
-        // Special handling for Saturn: use Jupiter's diameter for visual scaling to account for rings
-        if (planetId === 'saturn') {
-            diameterToUse = jupiterDiameter;
-            // console.log("[Calc Visual Height] Using Jupiter diameter for Saturn scaling."); // Optional debug
-        }
-
+        // if (planetId === 'saturn') {
+        //     diameterToUse = jupiterDiameter;
+        // }
         if (!diameterToUse) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if planet data missing
-
         const rawVisualHeightPct = (diameterToUse / jupiterDiameter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
         return Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
     }
@@ -334,19 +283,16 @@
         if (!processedApiData) { console.error("[Calc Apparent Earth] Missing processedApiData."); modeData.status = 'error'; modeData.error = 'API data not available'; return; }
         const targetMaxPx = getTargetMaxPxSize();
         let maxArcSec = 0; const arcSecs = {}; let calculationOk = true; let firstErrorLogged = false;
-
         PLANET_ORDER.forEach(p => { // First pass
             if (p === 'earth') return;
             const diameter = PLANET_META[p];
             const planetData = processedApiData[p];
             const distanceAu = planetData?.distEarth; // Use pre-processed numeric distance
-
             if (isNaN(distanceAu) || distanceAu <= 0) { console.warn(`[Calc Apparent Earth] Missing/invalid distance for ${p}.`); if (!firstErrorLogged && !hasLoggedApiStructure) { console.log("[Calc Apparent Earth] Logging full processedApiData:", JSON.stringify(processedApiData, null, 2)); firstErrorLogged = true; hasLoggedApiStructure = true; } arcSecs[p] = -1; calculationOk = false;
             } else { const arcSec = getAngularSizeArcsec(diameter, distanceAu); arcSecs[p] = arcSec; if (arcSec > maxArcSec) maxArcSec = arcSec; }
         });
         if (!calculationOk && maxArcSec <= 0) { console.error("[Calc Apparent Earth] No valid distances found."); modeData.status = 'error'; modeData.error = 'Could not read valid planet distances from API data.'; return; }
         if (maxArcSec <= 0) { console.warn("[Calc Apparent Earth] Max calculated arcsec is zero."); maxArcSec = 1; }
-
         PLANET_ORDER.forEach(p => { // Second pass
              if (p === 'earth') return;
              const arcSec = arcSecs[p];
@@ -361,12 +307,10 @@
         const modeData = displayData.distEarth; modeData.planets = {}; modeData.status = 'pending'; modeData.error = null;
         if (!processedApiData) { console.error("[Calc Dist Earth] Missing processedApiData."); modeData.status = 'error'; modeData.error = 'API data not available'; return; }
         const distances = []; let calculationOk = true; let firstErrorLogged = false;
-
         PLANET_ORDER.forEach(p => {
             if (p === 'earth') return;
             const planetData = processedApiData[p];
             const distanceAu = planetData?.distEarth; // Use pre-processed numeric distance
-
             if (!isNaN(distanceAu) && distanceAu > 0) {
                 distances.push({ id: p, dist: distanceAu });
                 const visualHeightPct = calculateVisualHeightPct(p); // Use helper function
@@ -379,33 +323,24 @@
         modeData.status = calculationOk ? 'ok' : 'partial'; modeData.error = calculationOk ? null : 'API data missing required distance field for some planets.';
         console.log(`[Calc Dist Earth] Data calculated (Status: ${modeData.status})`);
     }
-
-    // *** Calculate All Custom Distances ***
     function calculateAllCustomDistData(processedApiData) {
         console.log("[Calc Custom] Calculating all custom distances...");
         customDistanceData = {}; // Clear previous
         customDistanceStatus = 'pending';
         customDistanceError = null;
-
         if (!processedApiData) { console.error("[Calc Custom] Missing processedApiData."); customDistanceStatus = 'error'; customDistanceError = 'API data not available'; return; }
-
         let overallOk = true; // Track if all calculations succeed
-
         try {
             CUSTOM_PLANET_OPTIONS.forEach(anchorId => {
                 customDistanceData[anchorId] = {};
                 const anchorData = processedApiData[anchorId];
-
                 if (!anchorData || isNaN(anchorData.raRad) || isNaN(anchorData.decRad) || isNaN(anchorData.distEarth)) {
                     console.warn(`[Calc Custom] Invalid/missing base data for anchor ${anchorId}.`);
                     overallOk = false; customDistanceData[anchorId].error = `Missing base data for ${anchorId}`; return;
                 }
-
-                // *** INCLUDE EARTH IN TARGETS ***
                 const targetPlanets = [...PLANET_ORDER]; // All planets including Earth
                 targetPlanets.forEach(targetId => {
                     if (targetId === anchorId) return; // Skip self
-
                     const targetData = processedApiData[targetId];
                     if (!targetData || isNaN(targetData.raRad) || isNaN(targetData.decRad) || isNaN(targetData.distEarth)) {
                          console.warn(`[Calc Custom] Invalid/missing data for target ${targetId} (anchor ${anchorId}).`);
@@ -418,31 +353,23 @@
                 });
             });
         } catch (error) { console.error("[Calc Custom] Error during calculation loop:", error); customDistanceStatus = 'error'; customDistanceError = `Calculation error: ${error.message}`; return; }
-
         customDistanceStatus = overallOk ? 'ok' : 'partial';
         customDistanceError = overallOk ? null : 'Could not calculate some inter-planet distances.';
         console.log(`[Calc Custom] Finished calculations (Status: ${customDistanceStatus}).`);
     }
-
-
-    // --- API Fetch and Update ---
     async function fetchAndUpdateLiveData() {
         console.log("[API] Attempting to fetch live data...");
         hasLoggedApiStructure = false;
-        // Set status to pending ONLY for modes that require live data
         if (displayData.apparentEarth.requires_live) { displayData.apparentEarth.status = 'pending'; displayData.apparentEarth.error = null; }
         if (displayData.distEarth.requires_live) { displayData.distEarth.status = 'pending'; displayData.distEarth.error = null; }
         customDistanceStatus = 'pending'; customDistanceError = null;
-        // Show loading indicators for potentially affected views
         if (displayData[currentSizeMode]?.requires_live) showLoading('size', true);
         if (displayData[currentDistMode]?.requires_live || currentDistMode === 'custom') showLoading('dist', true);
         apiFetchError = null;
-
         try {
             const response = await fetch('/.netlify/functions/planetDashboard');
             if (!response.ok) { const errorText = await response.text(); throw new Error(`API Error ${response.status}: ${errorText}`); }
             const rawData = await response.json();
-
             if (rawData?.data?.table?.rows) {
                 liveApiData = {}; // Store processed data here
                 let processingOk = true;
@@ -463,16 +390,12 @@
                         liveApiData[id] = { id: id, name: row.entry?.name, distEarth: distNum, raRad: toRadians(raHoursNum * 15), decRad: toRadians(decDegNum) };
                     }
                 });
-                // Add Earth's data manually
                 if (!liveApiData.earth) { liveApiData.earth = { id: 'earth', name: 'Earth', distEarth: 0, raRad: 0, decRad: 0 }; console.log("[API Process] Manually added Earth data."); }
-
                 console.log("[API] Processed live data map (coords in rad):", liveApiData);
                 apiFetchError = null;
-                // Trigger calculations AFTER data is processed
                 calculateTrueSizeData(); // Recalculate static sizes
                 calculateApparentSunData();
                 calculateDistSunData();
-                // Live calculations
                 calculateApparentEarthData(liveApiData);
                 calculateDistEarthData(liveApiData);
                 calculateAllCustomDistData(liveApiData); // Calculate custom distances
@@ -487,36 +410,28 @@
             showError('dist', `Failed to fetch data: ${apiFetchError}`);
         } finally {
             showLoading('size', false); showLoading('dist', false);
-            // Redraw based on the *final* status
-            // Always redraw both panels after fetch attempt completes (or fails)
             drawSizeGrid();
             drawDistanceChart();
             clearTimeout(apiRefreshTimer); apiRefreshTimer = setTimeout(fetchAndUpdateLiveData, REFRESH_INTERVAL_MS);
             console.log(`[API] Scheduled next data refresh in ${REFRESH_INTERVAL_MS / 1000} seconds.`);
         }
     }
-
-    // --- Drawing Functions ---
     function showLoading(panelType, isLoading) { const element = panelType === 'size' ? sizeLoading : distLoading; if (element) element.style.display = isLoading ? 'flex' : 'none'; }
     function showError(panelType, message) {
         const element = panelType === 'size' ? sizeError : distError;
         let displayMessage = message;
-        // Prioritize specific error messages stored during calculation
         if (panelType === 'size' && displayData[currentSizeMode]?.status === 'error') {
              displayMessage = displayData[currentSizeMode].error || message;
         }
         if (panelType === 'dist') {
             if (currentDistMode === 'custom' && customDistanceStatus === 'error') displayMessage = customDistanceError || message;
-            // Check standard modes as well
             else if (displayData[currentDistMode]?.status === 'error') displayMessage = displayData[currentDistMode].error || message;
         }
         if (element) { element.textContent = displayMessage || ''; element.style.display = displayMessage ? 'flex' : 'none'; }
     }
-
     function drawSizeGrid() {
         console.log(`[Draw] Drawing Size Grid for mode: ${currentSizeMode}`);
         const modeData = displayData[currentSizeMode];
-        // *** Simplified Check: Draw if status is 'ok' or 'partial' ***
         if (!modeData || (modeData.status !== 'ok' && modeData.status !== 'partial')) {
             showLoading('size', modeData?.status === 'pending');
             showError('size', modeData?.status === 'error' ? (modeData.error || 'Failed to load data.') : null);
@@ -524,10 +439,8 @@
         }
         showLoading('size', false);
         showError('size', modeData.status === 'partial' ? (modeData.error || 'Note: Some planet data may be missing.') : null);
-
         const planetDataMap = modeData.planets; if(!sizeGrid) return; sizeGrid.innerHTML = '';
         const planetsToShow = (currentSizeMode === 'apparentEarth') ? PLANET_ORDER.filter(p => p !== 'earth') : PLANET_ORDER;
-
         planetsToShow.forEach(p => {
             const planetData = planetDataMap[p]; const slot = document.createElement('div'); slot.className = 'planet-slot'; slot.id = `slot-${p}`;
             if (planetData && typeof planetData.px === 'number') {
@@ -543,55 +456,42 @@
         });
         console.log("[Draw Size] Finished drawing grid.");
      }
-
-    // Draw Distance Chart - Handles standard modes AND custom visual mode
     function drawDistanceChart() {
         console.log(`[Draw] Drawing Distance Chart for mode: ${currentDistMode}`);
         if (!distAnchor || !distPlanetsContainer) { console.error("[Draw Dist] Core elements not found!"); return; }
-
-        // Clear previous content and reset styles
         distPlanetsContainer.innerHTML = '';
         distPlanetsContainer.classList.remove('debug-mode');
         distAnchor.style.display = 'none';
         showLoading('dist', false);
         showError('dist', null);
-
         let modeData;
         let planetDataMap;
         let isSunMode = false;
         let isCustomMode = currentDistMode === 'custom';
         let anchorId = 'earth'; // Default
-
-        // --- Determine Data Source and Anchor ---
         if (isCustomMode) {
             console.log(`[Draw Dist] Rendering custom mode for anchor: ${selectedCustomPlanet}`);
             if (!selectedCustomPlanet) { showError('dist', 'Please select a custom anchor planet.'); return; }
             if (customDistanceStatus === 'pending') { showLoading('dist', true); return; }
             if (customDistanceStatus === 'error') { showError('dist', customDistanceError || 'Could not calculate custom distances.'); return; }
             if (customDistanceStatus === 'partial') { showError('dist', customDistanceError || 'Could not calculate some distances.'); } // Show partial error message
-
             planetDataMap = customDistanceData[selectedCustomPlanet];
             if (!planetDataMap) { showError('dist', `No distance data for ${selectedCustomPlanet}.`); return; }
             anchorId = selectedCustomPlanet;
         } else { // Standard Modes
             modeData = displayData[currentDistMode];
-             // *** Simplified Check: Draw if status is 'ok' or 'partial' ***
             if (!modeData || (modeData.status !== 'ok' && modeData.status !== 'partial')) {
                  showLoading('dist', modeData?.status === 'pending');
                  showError('dist', modeData?.status === 'error' ? (modeData.error || 'Failed to load data.') : null);
                  return;
             }
              showError('dist', modeData.status === 'partial' ? (modeData.error || 'Note: Some planets may be missing.') : null);
-
             planetDataMap = modeData.planets;
             isSunMode = currentDistMode === 'distSun';
             anchorId = isSunMode ? 'sun' : 'earth';
         }
-
-        // --- Set Up Anchor ---
         distAnchor.style.display = 'block';
         distAnchor.src = `planets/${anchorId}.png`;
-
         let anchorVisH;
         if (anchorId === 'sun') {
              if (PLANET_META.sun && PLANET_META.jupiter) { anchorVisH = (PLANET_META.sun / PLANET_META.jupiter) * BASE_PLANET_VISUAL_HEIGHT_PCT; }
@@ -606,30 +506,24 @@
              distAnchor.style.transform = 'translate(-50%, -50%)';
         }
         console.log(`[Draw Dist] Anchor set: ${distAnchor.src}, H: ${distAnchor.style.height}, T: ${distAnchor.style.transform}`);
-
-
-        // --- Prepare Target Planets and Find Max Distance ---
         let targets = []; // Array of { id: planetId, dist: distanceAU }
         let maxDist = 0;
-
         if (isCustomMode) {
             const customDistances = customDistanceData[selectedCustomPlanet];
-            const customTargets = [...PLANET_ORDER]; // Include Earth
+            const customTargets = [...PLANET_ORDER];
             customTargets.forEach(p => {
-                if (p === selectedCustomPlanet) return; // Skip anchor itself
+                if (p === selectedCustomPlanet) return;
                 const dist = customDistances[p];
                 if (typeof dist === 'number' && !isNaN(dist) && dist > 0) {
                     targets.push({ id: p, dist: dist });
                     if (dist > maxDist) maxDist = dist;
                 } else { console.warn(`[Draw Dist Custom] Invalid distance for target ${p} from ${selectedCustomPlanet}`); }
             });
-        } else { // Standard modes
+        } else {
             const standardPlanets = isSunMode ? PLANET_ORDER : PLANET_ORDER.filter(p => p !== 'earth');
             standardPlanets.forEach(p => {
                  const data = planetDataMap[p];
                  if (data && typeof data.pos === 'number') {
-                     // Need the actual distance for scaling, not just position %
-                     // Re-read from liveApiData or SMA based on mode
                      let dist = NaN;
                      if (currentDistMode === 'distEarth' && liveApiData && liveApiData[p]) { dist = liveApiData[p].distEarth; }
                      else if (currentDistMode === 'distSun') { dist = PLANET_SMA[p]; }
@@ -637,34 +531,24 @@
                  }
             });
         }
-
         if (maxDist <= 0) { console.error("[Draw Dist] Max distance is zero or invalid."); showError('dist', 'Cannot determine scale for distance chart.'); return; }
         console.log(`[Draw Dist] Max distance for scaling in mode ${currentDistMode}: ${maxDist} AU`);
-
-
-        // --- Render Target Planets ---
         targets.forEach(target => {
             const p = target.id;
             const distanceAu = target.dist;
             const positionPct = (distanceAu / maxDist) * 100;
             const labelText = `${distanceAu.toFixed(3)} AU`;
-            const visualHeightPct = calculateVisualHeightPct(p); // Use helper
-            const labelNudge = (PLANET_ORDER.indexOf(p) < 4 && isSunMode) ? -20 : 0; // Nudge only applies in Sun mode
-
+            const visualHeightPct = calculateVisualHeightPct(p);
+            const labelNudge = (PLANET_ORDER.indexOf(p) < 4 && isSunMode) ? -20 : 0;
             const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p; img.className = 'dist-planet-img';
             img.style.left = `${positionPct}%`; img.style.height = `${visualHeightPct}%`;
             distPlanetsContainer.appendChild(img);
-
             const label = document.createElement('div'); label.className = 'dist-label'; label.style.left = `calc(${positionPct}% + ${labelNudge}px)`;
             label.textContent = labelText;
             distPlanetsContainer.appendChild(label);
         });
-
         console.log("[Draw Dist] Finished drawing chart.");
     }
-
-
-    // --- Custom Dropdown Logic ---
     function toggleCustomDropdown(forceClose = false) {
         if (!customDistDropdown || !customDistButton) return;
         const shouldShow = !customDistDropdown.classList.contains('show') && !forceClose;
@@ -693,9 +577,6 @@
             const li = document.createElement('li'); li.textContent = p.charAt(0).toUpperCase() + p.slice(1); li.dataset.planet = p; customDistList.appendChild(li);
         });
     }
-
-    // --- Event Handlers ---
-    // Standard distance mode buttons
     document.querySelectorAll('#dist-mode-switch button[data-mode="distSun"], #dist-mode-switch button[data-mode="distEarth"]').forEach(button => {
         button.addEventListener('click', (event) => {
             const targetButton = event.currentTarget;
@@ -711,54 +592,36 @@
             }
         });
     });
-    // Custom distance button (toggle dropdown)
     if (customDistButton) { customDistButton.addEventListener('click', (event) => { event.stopPropagation(); console.log("[Event] Custom distance button clicked."); toggleCustomDropdown(); }); }
-    // Custom distance list item selection
     if (customDistList) { customDistList.addEventListener('click', (event) => { if (event.target.tagName === 'LI' && event.target.dataset.planet) { event.stopPropagation(); selectCustomPlanet(event.target.dataset.planet); } }); }
-    // Close dropdown if clicking outside
     document.addEventListener('click', (event) => { if (customDistDropdown && customDistDropdown.classList.contains('show')) { if (!customDistButton?.contains(event.target) && !customDistDropdown.contains(event.target)) { console.log("[Event] Click outside detected, closing dropdown."); toggleCustomDropdown(true); } } });
-    // Size mode handler
     document.getElementById('size-mode-switch').addEventListener('click', (event) => { if (event.target.tagName === 'BUTTON' && !event.target.disabled && !event.target.classList.contains('active')) { const newMode = event.target.dataset.mode; console.log(`[Event] Size mode changed to: ${newMode}`); currentSizeMode = newMode; event.target.parentNode.querySelectorAll('button').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); drawSizeGrid(); } });
-    // Resize Listener
     let resizeTimeout; window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { console.log("[Event] Debounced resize detected. Recalculating sizes & redrawing."); calculateTrueSizeData(); calculateApparentSunData(); calculateDistSunData(); if (liveApiData) { calculateApparentEarthData(liveApiData); calculateDistEarthData(liveApiData); calculateAllCustomDistData(liveApiData); /* Recalc custom too */ } else { /* Reset status if needed */ } drawSizeGrid(); drawDistanceChart(); }, 250); });
-
-    // --- Initial Setup ---
     function initializeDashboard() {
         console.log("[Init] Initializing Dashboard...");
         if (!sizeGrid || !distAnchor || !distPlanetsContainer || !sizeLoading || !sizeError || !distLoading || !distError || !customDistButton || !customDistButtonText || !customDistDropdown || !customDistList) { console.error("[Init] FATAL: One or more essential DOM elements not found."); document.body.innerHTML = '<p style="color:red; padding: 50px; text-align: center;">Error: Essential page elements are missing.</p>'; return; }
         populateCustomDropdown();
-        // Calculate static data first
         calculateTrueSizeData();
         calculateApparentSunData();
         calculateDistSunData();
-        // Build initial size grid structure
         sizeGrid.innerHTML = ''; PLANET_ORDER.forEach(p => { const slot = document.createElement('div'); slot.className = 'planet-slot'; slot.id = `slot-${p}`; slot.innerHTML = `<div class="planet-image-container"></div><div class="size-label" id="lbl-${p}"></div>`; sizeGrid.appendChild(slot); });
-
-        // *** Draw initial static views immediately AFTER static calcs ***
         if (displayData[currentSizeMode]?.status === 'ok') {
             console.log("[Init] Drawing initial static Size Grid.");
             drawSizeGrid();
         } else {
-            // If default requires live, show loading
             showLoading('size', true);
         }
-
         if (displayData[currentDistMode]?.status === 'ok' && currentDistMode !== 'custom') {
              console.log("[Init] Drawing initial static Distance Chart.");
              drawDistanceChart();
         } else {
-             // If default requires live or is custom, show loading
              showLoading('dist', true);
         }
-
-        // Fetch live data and trigger calculations/draws for live modes
         fetchAndUpdateLiveData(); // This now also triggers calculateAllCustomDistData
-
         console.log("[Init] Dashboard Initialized.");
      }
     function toggleModal() { console.warn("[Event] toggleModal() called - implementation assumed elsewhere."); }
     document.addEventListener('DOMContentLoaded', initializeDashboard);
-
  </script>
  <script src="/scripts.js"></script> </body>
 </html>
