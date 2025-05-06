@@ -190,7 +190,7 @@
   </footer>
  <script>
     // --- Static Data ---
-    const PLANET_META = { mercury: 4879, venus: 12104, earth: 12756, mars: 6779, jupiter: 139820, saturn: 116460, uranus: 50724, neptune: 49244, sun: 1392700 };
+    const PLANET_META = { mercury: 4879, venus: 12104, earth: 12756, mars: 6779, jupiter: 139820, saturn: 108000, uranus: 50724, neptune: 49244, sun: 1392700 };
     const PLANET_SMA = { mercury: 0.387, venus: 0.723, earth: 1, mars: 1.524, jupiter: 5.203, saturn: 9.537, uranus: 19.191, neptune: 30.068 };
     const SATURN_RING_FACTOR = 1206 / 2737; // Not used in distance scaling anymore
     const PLANET_ORDER = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"];
@@ -446,8 +446,15 @@
             if (planetData && typeof planetData.px === 'number') {
                 const imgContainer = document.createElement('div'); imgContainer.className = 'planet-image-container'; const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p;
                 const sizePx = planetData.px;
-                if (p === 'saturn') { img.style.height = `${sizePx}px`; img.style.width = 'auto'; }
-                else { img.style.width = `${sizePx}px`; img.style.height = `${sizePx}px`; }
+                if (p === 'saturn') {
+                    // Saturn: height is scaled by sizePx (now based on its POLAR diameter), width is auto for rings
+                    img.style.height = `${sizePx}px`;
+                    img.style.width = 'auto';
+                } else {
+                    // Other planets: width is scaled by sizePx (based on their PLANET_META diameter, likely equatorial), height is auto
+                    img.style.width = `${sizePx}px`;
+                    img.style.height = 'auto';
+                }
                 imgContainer.appendChild(img);
                 const label = document.createElement('div'); label.className = 'size-label'; label.id = `lbl-${p}`; label.textContent = planetData.label || 'N/A';
                 slot.appendChild(imgContainer); slot.appendChild(label);
