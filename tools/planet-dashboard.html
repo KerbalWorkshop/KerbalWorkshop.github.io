@@ -190,7 +190,7 @@
   </footer>
  <script>
     // --- Static Data ---
-    const PLANET_META = { mercury: 4879, venus: 12104, earth: 12756, mars: 6779, jupiter: 139820, saturn: 108000, uranus: 50724, neptune: 49244, sun: 1392700 };
+    const PLANET_META = { mercury: 4877, venus: 12104, earth: 12714, mars: 6752, jupiter: 133708, saturn: 108728, uranus: 49946, neptune: 48682, sun: 1392700 };
     const PLANET_SMA = { mercury: 0.387, venus: 0.723, earth: 1, mars: 1.524, jupiter: 5.203, saturn: 9.537, uranus: 19.191, neptune: 30.068 };
     const SATURN_RING_FACTOR = 1206 / 2737; // Not used in distance scaling anymore
     const PLANET_ORDER = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"];
@@ -241,7 +241,7 @@
         let maxDiameter = 0; const diameters = {};
         PLANET_ORDER.forEach(p => { diameters[p] = PLANET_META[p]; if (diameters[p] > maxDiameter) maxDiameter = diameters[p]; });
         if (maxDiameter <= 0) { console.error("[Calc True Size] Max diameter invalid."); modeData.status = 'error'; modeData.error = 'Invalid planet data'; return; }
-        PLANET_ORDER.forEach(p => { const diameter = diameters[p]; const px = Math.max(4, (diameter / maxDiameter) * targetMaxPx); modeData.planets[p] = { px: px, label: `${(diameter / 2).toLocaleString()} km` }; });
+        PLANET_ORDER.forEach(p => { const diameter = diameters[p]; const px = Math.max(4, (diameter / maxDiameter) * targetMaxPx); modeData.planets[p] = { px: px, label: `${diameter.toLocaleString()} km` }; });
         modeData.status = 'ok'; console.log(`[Calc True Size] Data calculated. Target Px: ${targetMaxPx}`);
     }
     function calculateApparentSunData() {
@@ -446,15 +446,9 @@
             if (planetData && typeof planetData.px === 'number') {
                 const imgContainer = document.createElement('div'); imgContainer.className = 'planet-image-container'; const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p;
                 const sizePx = planetData.px;
-                if (p === 'saturn') {
-                    // Saturn: height is scaled by sizePx (now based on its POLAR diameter), width is auto for rings
+                    // ALL planets: height is scaled by sizePx, width is auto.
                     img.style.height = `${sizePx}px`;
                     img.style.width = 'auto';
-                } else {
-                    // Other planets: width is scaled by sizePx (based on their PLANET_META diameter, likely equatorial), height is auto
-                    img.style.width = `${sizePx}px`;
-                    img.style.height = 'auto';
-                }
                 imgContainer.appendChild(img);
                 const label = document.createElement('div'); label.className = 'size-label'; label.id = `lbl-${p}`; label.textContent = planetData.label || 'N/A';
                 slot.appendChild(imgContainer); slot.appendChild(label);
