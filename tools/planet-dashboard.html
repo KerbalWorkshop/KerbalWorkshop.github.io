@@ -198,7 +198,7 @@
     const AU_KM = 149597870.7;
     const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
     function getCssVariableValue(varName) { const panelElement = document.getElementById('size-panel') || document.documentElement; const value = getComputedStyle(panelElement).getPropertyValue(varName).trim(); return parseFloat(value) || 0; }
-    function getTargetMaxPxSize() { const cellBaseSize = getCssVariableValue('--cell'); const targetSize = cellBaseSize > 0 ? cellBaseSize * 0.95 : 190; return Math.max(60, targetSize); }
+    function getTargetMaxPxSize() { const cellBaseSize = getCssVariableValue('--cell'); const targetSize = cellBaseSize > 0 ? cellBaseSize * 0.75 : 190; return Math.max(60, targetSize); }
     const BASE_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-base-height-pct') || 35;
     const MIN_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-min-height-pct') || 5;
     const MAX_PLANET_VISUAL_HEIGHT_PCT = getCssVariableValue('--dist-planet-max-height-pct') || 80;
