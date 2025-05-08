@@ -255,15 +255,19 @@
         modeData.status = 'ok'; console.log(`[Calc Apparent Sun] Data calculated. Max Arcsec: ${maxArcSec}, Target Px: ${targetMaxPx}`);
     }
     function calculateVisualHeightPct(planetId) {
+        // Fetch current CSS variable values each time
+        const currentMinPct = getCssVariableValue('--dist-planet-min-height-pct'); // Default is 0 from getCssVariableValue if not found or invalid
+        const currentBasePct = getCssVariableValue('--dist-planet-base-height-pct') || 35; // Provide a sensible default
+        const currentMaxPct = getCssVariableValue('--dist-planet-max-height-pct') || 80;   // Provide a sensible default
+
         const jupiterDiameter = PLANET_META.jupiter;
-        if (!jupiterDiameter) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if Jupiter data missing
+        if (!jupiterDiameter) return currentMinPct; // Use current dynamic min
+
         let diameterToUse = PLANET_META[planetId];
-        // if (planetId === 'saturn') {
-        //     diameterToUse = jupiterDiameter;
-        // }
-        if (!diameterToUse) return MIN_PLANET_VISUAL_HEIGHT_PCT; // Fallback if planet data missing
-        const rawVisualHeightPct = (diameterToUse / jupiterDiameter) * BASE_PLANET_VISUAL_HEIGHT_PCT;
-        return Math.max(MIN_PLANET_VISUAL_HEIGHT_PCT, Math.min(MAX_PLANET_VISUAL_HEIGHT_PCT, rawVisualHeightPct));
+        if (!diameterToUse) return currentMinPct; // Use current dynamic min
+
+        const rawVisualHeightPct = (diameterToUse / jupiterDiameter) * currentBasePct;
+        return Math.max(currentMinPct, Math.min(currentMaxPct, rawVisualHeightPct));
     }
     function calculateDistSunData() {
         console.log("[Calc] Calculating Distance from Sun data (using SMA)...");
