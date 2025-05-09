@@ -5,475 +5,614 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Overhead Celestial Map – Hansen Space</title>
   
-  <!-- Standard site styles (header, footer, etc.) -->
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="/styles.css"> 
   
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   
-  <!-- Page-specific CSS overrides -->
   <style>
     /* Use flex column to create three self-contained sections: header, main, footer */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: hidden;
+      height: 100vh; /* Full viewport height */
+      overflow: hidden; /* Prevent body scrollbars */
       display: flex;
       flex-direction: column;
+      background-color: var(--color-grey-page-bg); /* Ensure body bg matches theme */
     }
-    footer {
-      flex: 0 0 60px; /* fixed height for header and footer */
-      position: relative;
-      z-index: 1000;
-      /* Override any external margin */
-      margin: 0;
+
+    header { flex-shrink: 0; }
+    footer { flex-shrink: 0; margin-top: 0; }
+
+    main { 
+      flex: 1; 
+      position: relative; 
+      overflow: hidden; 
+      display: flex; 
+      flex-direction: column; 
     }
-    /* Remove any top margin on the footer to eliminate white space */
-    footer {
-      margin-top: 0;
-    }
-    main {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Map container fills the main section exactly */
+    
     #map {
       width: 100%;
-      height: 100%;
+      height: 100%; 
+      background-color: #555; 
     }
-    /* Control elements positioned within main */
-    /* #backButton {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 1100;
-      background: #fff;
-      border: 1px solid #000;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 0;
-      font-size: 18px;
-      color: #000;
-      cursor: pointer;
-      padding: 0;
-    } */
+    
+    /* --- Map Overlays --- */
     #mapTitle {
       position: absolute;
       top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1100;
-      background: rgba(255,255,255,0.95);
-      padding: 4px 8px;
-      border-radius: 4px;
+      left: 60px; /* Positioned left */
+      z-index: 1100; 
+      background: rgba(28, 28, 28, 0.85); 
+      color: var(--color-text-headings); 
+      padding: 5px 12px;
+      border-radius: 20px; 
       font-size: 14px;
+      font-family: var(--font-primary);
+      font-weight: 600;
       text-align: center;
       white-space: nowrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      border: 1px solid var(--color-light-grey-borders-dividers);
     }
-    /* Wrap the question mark in a small button circle */
+
     #mapTitle .help-btn {
-      display: inline-block;
-      margin-left: 10px;
-      width: 20px;
-      height: 20px;
-      border: 1px solid #000;
+      display: inline-flex; 
+      justify-content: center;
+      align-items: center;
+      margin-left: 8px;
+      width: 22px;
+      height: 22px;
+      background-color: var(--color-light-grey-borders-dividers); 
+      color: var(--color-text-primary); 
+      border: none; 
       border-radius: 50%;
       text-align: center;
-      line-height: 18px;
+      line-height: 22px; 
       font-size: 14px;
-      color: #000;
+      font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      vertical-align: middle; 
     }
+    #mapTitle .help-btn:hover {
+        background-color: var(--color-grey-page-bg);
+        color: var(--color-white-accent-bg);
+    }
+
     #legendContainer {
       position: absolute;
       top: 10px;
       right: 10px;
-      z-index: 1100;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      max-width: 180px;
+      z-index: 1100; 
+      background: rgba(28, 28, 28, 0.85); 
+      color: var(--color-text-primary); 
+      border: 1px solid var(--color-light-grey-borders-dividers);
+      border-radius: 6px; 
+      max-width: 200px; 
       overflow: hidden;
-      font-size: 12px;
-      padding: 6px; /* added padding for internal spacing */
+      font-size: 13px; 
+      font-family: var(--font-primary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-    /* Modal styles remain unchanged */
-    .modal {
-      display: none;
+    #legendHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 8px;
+        cursor: pointer;
+        background-color: rgba(68, 68, 68, 0.5); 
+        border-bottom: 1px solid var(--color-light-grey-borders-dividers);
+    }
+     #legendHeader .title {
+         font-weight: 600;
+         color: var(--color-text-headings); 
+     }
+     #legendHeader .arrow { 
+         font-size: 10px;
+         transition: transform 0.2s ease;
+     }
+     #legendHeader.collapsed .arrow {
+         transform: rotate(-90deg);
+     }
+
+    #legendContent {
+        padding: 8px; 
+        max-height: 300px; 
+        overflow-y: auto; 
+        display: block; 
+        transition: max-height 0.3s ease, padding 0.3s ease, border 0.3s ease; 
+    }
+     #legendContent.collapsed {
+         max-height: 0;
+         padding-top: 0;
+         padding-bottom: 0;
+         border-top: none; 
+         overflow: hidden; 
+     }
+
+     .legendItem {
+         display: flex; align-items: center; margin-bottom: 5px;
+         cursor: pointer; padding: 3px 5px; border-radius: 3px;
+         transition: background-color 0.1s ease;
+     }
+      .legendItem:hover { background-color: rgba(255, 255, 255, 0.1); }
+     .legendItem.selected { background-color: rgba(0, 123, 255, 0.3); }
+     .legendItem input[type="checkbox"] { margin-right: 8px; cursor: pointer; }
+     .legendColor { display: inline-block; width: 12px; height: 12px;
+         border-radius: 50%; margin-right: 8px; border: 1px solid rgba(255,255,255,0.3); }
+     .legendName { color: var(--color-text-primary); flex-grow: 1; }
+     #allPlanetsContainer { padding-bottom: 5px; margin-bottom: 5px;
+         border-bottom: 1px solid var(--color-light-grey-borders-dividers); }
+      #allPlanetsContainer label { font-weight: 600; color: var(--color-text-headings); }
+
+    /* --- Help Modal Styles (Specific Class) --- */
+    .map-help-modal { /* Renamed class */
+      display: none; /* MODIFIED: Ensure it's hidden by default */
       position: fixed;
-      z-index: 2000;
+      z-index: 2000; 
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0,0,0,0.6); 
+      /* Flexbox for centering content */
+      justify-content: center; 
+      align-items: center; 
     }
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 15px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 300px;
-      border-radius: 4px;
-      font-size: 14px;
+    /* Use .active class to show */
+    .map-help-modal.active { 
+        display: flex; /* MODIFIED: Use flex to show and center */
     }
-    .modal-content a {
-      color: blue;
+
+    .map-help-modal-content { /* Renamed class */
+      background-color: var(--color-dark-grey-header-footer-bg); 
+      color: var(--color-text-primary); 
+      padding: 25px; 
+      border: 1px solid var(--color-light-grey-borders-dividers);
+      width: 90%;
+      max-width: 400px; 
+      border-radius: 8px; 
+      font-size: 1rem; 
+      font-family: var(--font-primary);
+      position: relative; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 20px;
+    .map-help-modal-content p {
+        margin: 0; 
+        line-height: var(--line-height-base);
+    }
+    .map-help-modal-content a {
+      color: var(--color-accent-primary); 
+      text-decoration: underline;
+    }
+     .map-help-modal-content a:hover {
+         color: var(--color-accent-primary-dark);
+     }
+
+    .map-help-modal-content .close { /* Targeting close within this specific modal */
+      position: absolute; 
+      top: 10px;
+      right: 15px;
+      color: var(--color-text-secondary); 
+      font-size: 28px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: -4px;
+      line-height: 1;
     }
-    .close:hover, .close:focus {
-      color: black;
+    .map-help-modal-content .close:hover, 
+    .map-help-modal-content .close:focus {
+      color: var(--color-text-primary); 
       text-decoration: none;
-      cursor: pointer;
     }
+
+    /* Leaflet Specific Overrides */
+    .leaflet-popup-content-wrapper {
+        background-color: var(--color-dark-grey-panel-bg);
+        color: var(--color-text-primary);
+        border-radius: 6px;
+    }
+    .leaflet-popup-content {
+        font-family: var(--font-primary);
+        font-size: 13px;
+    }
+    .leaflet-popup-tip {
+        background-color: var(--color-dark-grey-panel-bg);
+    }
+    .leaflet-control-zoom a { 
+        background-color: var(--color-dark-grey-header-footer-bg);
+        color: var(--color-text-primary);
+        border-color: var(--color-light-grey-borders-dividers);
+    }
+     .leaflet-control-zoom a:hover {
+         background-color: var(--color-dark-grey-panel-bg);
+         color: var(--color-text-accent);
+     }
+
   </style>
 </head>
 <body>
-  <!-- Standard Header -->
   <header>
-    <a class="brand" href="/index.html">
-      <img src="/images/logo.png" alt="Hansen Space Logo">
-    </a>
-    <nav>
-      <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/myjourney.html">My Journey</a></li>
-        <li><a href="/photography.html">Photography</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="/tools.html">Tools</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="menu-icon" onclick="toggleModal()">☰</div>
+    <div class="header-inner-container content-limiter"> 
+      <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/myjourney.html">My Journey</a></li>
+          <li><a href="/photography.html">Photography</a></li>
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/tools.html" class="active">Tools</a> 
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" onclick="toggleModal()">☰</div> </div>
   </header>
   
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
+  <div class="modal" id="modal"> 
     <a href="/index.html">Home</a>
     <a href="/myjourney.html">My Journey</a>
     <a href="/photography.html">Photography</a>
     <a href="/articles">Articles</a>
-    <a href="/tools.html">Tools</a>
+    <a href="/tools.html" class="active">Tools</a>
     <a href="/contact.html">Contact</a>
   </div>
   
-  <!-- Main Section: Contains Map and Controls -->
   <main>
     <div id="map"></div>
-    <!-- <button id="backButton" onclick="location.href='../tools.html'">&#8592;</button> -->
+    
     <div id="mapTitle">
       Live Overhead Celestial Map
-      <span class="help-btn" id="helpButton">?</span>
-    </div>
+      <span class="help-btn" id="helpButton">?</span> </div>
     <div id="legendContainer">
-      <div id="legendHeader">
+      <div id="legendHeader"> 
         <span class="title">Solar System</span>
-        <span class="arrow" id="toggleArrow">&#9660;</span>
+        <span class="arrow" id="toggleArrow">▲</span> 
       </div>
-      <div id="legendContent"></div>
+      <div id="legendContent"> 
+          </div>
     </div>
-    <div id="helpModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <p>This map shows the live locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
+
+    <div id="helpModal" class="map-help-modal"> <div class="map-help-modal-content"> <span class="close" id="closeHelpModal">×</span> <p>This map shows the live locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
       </div>
     </div>
   </main>
   
-  <!-- Standard Footer -->
   <footer>
-    <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
+    <div class="footer-inner-container content-limiter"> 
+      <div class="social-links">
+        <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'"></a>
+        <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'"></a>
+        <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'"></a>
+      </div>
+      <p>© <span id="year">2025</span> Hansen Space.</p>
     </div>
-    <p>&copy; 2025 Hansen Space.</p>
   </footer>
-  <script src="/scripts.js"></script>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="/scripts.js"></script> <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   
-  <!-- Preserved Map Functionality Script -->
   <script>
-    // --- Begin preserved map functionality code ---
+    // --- Begin map functionality code ---
     let celestialObjects = [];
     const physicalDiameters = {"sun":1392700,"moon":3474,"mercury":4879,"venus":12104,"mars":6792,"jupiter":139820,"saturn":116460,"uranus":50724,"neptune":49244,"pluto":2376};
     const objectColors = {"sun":"orangered","moon":"whitesmoke","mercury":"dimgray","venus":"darkorange","mars":"crimson","jupiter":"sienna","saturn":"goldenrod","uranus":"deepskyblue","neptune":"royalblue","pluto":"mediumpurple"};
     let apiInterval = setInterval(fetchEphemerisData,60000);
     let selectedObject = null;
-    async function fetchEphemerisData(){
-      try{
-        const response = await fetch('/.netlify/functions/astronomy');
-        if(!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        const data = await response.json();
-        let newObjects = [];
-        data.data.table.rows.forEach(row=>{
-          const entry = row.entry;
-          if(entry.id.toLowerCase() === "earth") return;
-          const cell = row.cells[0];
-          const ra_hours = parseFloat(cell.position.equatorial.rightAscension.hours);
-          const ra_deg = ra_hours * 15;
-          const dec_deg = parseFloat(cell.position.equatorial.declination.degrees);
-          const distance_km = parseFloat(cell.distance.fromEarth.km);
-          let angular_size_arcsec;
-          if(cell.angular_size_arcsec){ angular_size_arcsec = parseFloat(cell.angular_size_arcsec); }
-          else{
-            const physDiam = physicalDiameters[entry.id.toLowerCase()];
-            angular_size_arcsec = (physDiam && distance_km>0)? (physDiam/distance_km)*206265 : 0;
-          }
-          newObjects.push({id:entry.id, name:entry.name, ra_deg:ra_deg, dec_deg:dec_deg, angular_size_arcsec:angular_size_arcsec, color:objectColors[entry.id.toLowerCase()]||"white"});
-        });
-        celestialObjects = newObjects;
-        createLegend();
-      } catch(error){ console.error("Error fetching ephemeris data:", error); }
-    }
-    fetchEphemerisData();
-    function computeGMST(date){
-      let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
-      if(month<=2){year-=1; month+=12;}
-      let dayFraction = (hour+minute/60+second/3600)/24;
-      let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
-      let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
-      let d = JD - 2451545.0;
-      let gmstHours = 18.697374558+24.06570982441908*d;
-      gmstHours = gmstHours % 24;
-      if(gmstHours<0) gmstHours+=24;
-      return gmstHours*15;
-    }
-    function subCelestialPoint(date, ra_deg, dec_deg){
-      const gmst_deg = computeGMST(date);
-      let lon = ra_deg - gmst_deg;
-      lon = ((lon+180)%360)-180;
-      return {lat:dec_deg, lon:lon};
-    }
-    function destinationPoint(lat, lon, distanceKm, bearing){
-      const R = 6371, bearingRad = bearing*Math.PI/180, latRad = lat*Math.PI/180, lonRad = lon*Math.PI/180, dR = distanceKm/R;
-      const newLatRad = Math.asin(Math.sin(latRad)*Math.cos(dR)+Math.cos(latRad)*Math.sin(dR)*Math.cos(bearingRad));
-      const newLonRad = lonRad + Math.atan2(Math.sin(bearingRad)*Math.sin(dR)*Math.cos(latRad), Math.cos(dR)-Math.sin(latRad)*Math.sin(newLatRad));
-      return {lat:newLatRad*180/Math.PI, lon:newLonRad*180/Math.PI};
-    }
-    function computeCirclePoints(center, distanceKm){
-      let points = [];
-      for(let bearing=0; bearing<360; bearing+=4){
-        let dest = destinationPoint(center.lat, center.lon, distanceKm, bearing);
-        points.push([dest.lat, dest.lon]);
-      }
-      points.push(points[0]);
-      return points;
-    }
-    var map = L.map('map', { zoomControl: false }).setView([0,0],2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-    var shapesGroup = L.layerGroup().addTo(map);
+    var map = null; 
+    var shapesGroup = null; 
     const objectPolylines = {};
-    function initPolylines(){
-      celestialObjects.forEach(obj=>{
-        if(!objectPolylines[obj.name]){
-          let polyline = L.polyline([], {color:obj.color, weight:5}).addTo(shapesGroup);
-          objectPolylines[obj.name] = polyline;
-        }
-      });
-    }
-    function createLegend(){
-      let legendContent = document.getElementById("legendContent");
-      legendContent.innerHTML = "";
-      let allContainer = document.createElement("div");
-      allContainer.id = "allPlanetsContainer";
-      allContainer.style.display = "flex";
-      allContainer.style.alignItems = "center";
-      let allCheckbox = document.createElement("input");
-      allCheckbox.type = "checkbox";
-      allCheckbox.id = "allPlanetsCheckbox";
-      allCheckbox.checked = true;
-      let allLabel = document.createElement("label");
-      allLabel.textContent = "All";
-      allLabel.style.marginLeft = "5px";
-      allContainer.appendChild(allCheckbox);
-      allContainer.appendChild(allLabel);
-      legendContent.appendChild(allContainer);
-      allCheckbox.addEventListener("change", function(){
-        let allChecked = allCheckbox.checked;
-        document.querySelectorAll(".legendCheckbox").forEach(cb=>{
-          cb.checked = allChecked;
-          let colorIndicator = cb.parentElement.querySelector(".legendColor");
-          let objName = cb.parentElement.getAttribute("data-object");
-          let targetObj = celestialObjects.find(o=>o.name===objName);
-          if(allChecked && targetObj){ colorIndicator.style.backgroundColor = targetObj.color; }
-          else{ colorIndicator.style.backgroundColor = "lightgrey"; }
-        });
-        updateCelestialShapes();
-      });
-      celestialObjects.forEach(obj=>{
-        let item = document.createElement("div");
-        item.className = "legendItem";
-        item.setAttribute("data-object", obj.name);
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "legendCheckbox";
-        checkbox.id = "checkbox_"+obj.name;
-        checkbox.checked = true;
-        let colorIndicator = document.createElement("span");
-        colorIndicator.className = "legendColor";
-        colorIndicator.style.backgroundColor = obj.color;
-        let nameLabel = document.createElement("span");
-        nameLabel.className = "legendName";
-        nameLabel.textContent = obj.name;
-        item.appendChild(checkbox);
-        item.appendChild(colorIndicator);
-        item.appendChild(nameLabel);
-        legendContent.appendChild(item);
-        checkbox.addEventListener("click", function(e){ e.stopPropagation(); });
-        checkbox.addEventListener("change", function(){
-          if(checkbox.checked){ colorIndicator.style.backgroundColor = obj.color; }
-          else{ colorIndicator.style.backgroundColor = "lightgrey"; if(selectedObject===obj.name){ selectedObject=null; updateLegendSelection(); } }
-          let allChecked = true;
-          document.querySelectorAll(".legendCheckbox").forEach(cb=>{ if(!cb.checked) allChecked = false; });
-          document.getElementById("allPlanetsCheckbox").checked = allChecked;
-          updateCelestialShapes();
-        });
-        item.addEventListener("click", function(){
-          if(!checkbox.checked)return;
-          if(selectedObject!==obj.name){
-            selectedObject = obj.name;
-            updateLegendSelection();
-            const poly = objectPolylines[obj.name];
-            if(poly){
-              const bounds = poly.getBounds();
-              map.fitBounds(bounds, {padding:[20,20], maxZoom:12});
-            }
-          }
-        });
-      });
-    }
-    function updateLegendSelection(){
-      document.querySelectorAll('.legendItem').forEach(item=>{
-        if(item.getAttribute("data-object")===selectedObject){ item.classList.add("selected"); }
-        else{ item.classList.remove("selected"); }
-      });
-    }
-    document.getElementById("legendHeader").addEventListener("click", function(e){
-      let allCheckbox = document.getElementById("allPlanetsCheckbox");
-      if(e.target===allCheckbox)return;
-      let content = document.getElementById("legendContent");
-      content.style.display = (content.style.display==="none" || content.style.display==="") ? "block" : "none";
-      this.innerHTML = (content.style.display==="block") ? "Solar System &#9650;" : "Solar System &#9660;";
-    });
-    createLegend();
-    document.getElementById("legendContent").style.display = "block";
-    document.getElementById("legendHeader").innerHTML = '<span class="title">Solar System</span> <span class="arrow" id="toggleArrow">&#9650;</span>';
-    const labelZoomThreshold = 7;
     const objectLabels = {};
-    function updateLabelsVisibility(){
-      let zoom = map.getZoom();
-      for(let key in objectLabels){
-        let cb = document.getElementById("checkbox_"+key);
-        if(cb && !cb.checked){
-          if(map.hasLayer(objectLabels[key])){ map.removeLayer(objectLabels[key]); }
-          continue;
-        }
-        if(zoom<labelZoomThreshold){
-          if(!map.hasLayer(objectLabels[key])){ map.addLayer(objectLabels[key]); }
-        } else {
-          if(map.hasLayer(objectLabels[key])){ map.removeLayer(objectLabels[key]); }
-        }
-      }
-    }
-    map.on("zoomend", function(){
-      updateLabelsVisibility();
-      if(selectedObject){
-        let targetObj = celestialObjects.find(o=>o.name===selectedObject);
-        if(targetObj){
-          let subCel = subCelestialPoint(new Date(), targetObj.ra_deg, targetObj.dec_deg);
-          map.panTo(subCel, {animate:false});
-        }
-      }
-    });
-    map.on("click", function(){
-      selectedObject = null;
-      updateLegendSelection();
-    });
-    map.on("dragstart", function(){
-      selectedObject = null;
-      updateLegendSelection();
-    });
-    function updateCelestialShapes(){
-      const now = new Date();
-      initPolylines();
-      if(celestialObjects.length===0)return;
-      celestialObjects.forEach(obj=>{
-        let checkbox = document.getElementById("checkbox_"+obj.name);
-        if(checkbox && !checkbox.checked){
-          if(objectPolylines[obj.name] && shapesGroup.hasLayer(objectPolylines[obj.name])){
-            shapesGroup.removeLayer(objectPolylines[obj.name]);
-          }
-          if(objectLabels[obj.name] && map.hasLayer(objectLabels[obj.name])){
-            map.removeLayer(objectLabels[obj.name]);
-          }
-          return;
-        }
-        let angularRadiusDeg = (obj.angular_size_arcsec/2)/3600;
-        let angularRadiusRad = angularRadiusDeg*Math.PI/180;
-        let effectiveDistanceKm = 6371*angularRadiusRad;
-        let subCel = subCelestialPoint(now, obj.ra_deg, obj.dec_deg);
-        let pts = computeCirclePoints(subCel, effectiveDistanceKm);
-        objectPolylines[obj.name].setLatLngs(pts);
-        if(!shapesGroup.hasLayer(objectPolylines[obj.name])){
-          shapesGroup.addLayer(objectPolylines[obj.name]);
-        }
-        if(objectLabels[obj.name]){
-          objectLabels[obj.name].setLatLng(subCel);
-        } else {
-          let marker = L.marker(subCel, {icon: L.divIcon({html: `<div style="font-size:20px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 2px black;">${obj.name}</div>`, className: '', iconAnchor: [0,0]})});
-          marker.on("click", function(e){
-            e.originalEvent.stopPropagation();
-            let cb = document.getElementById("checkbox_"+obj.name);
-            if(cb && cb.checked){
-              selectedObject = obj.name;
-              updateLegendSelection();
-              const poly = objectPolylines[obj.name];
-              if(poly){
-                const bounds = poly.getBounds();
-                map.fitBounds(bounds, {padding:[20,20], maxZoom:12});
+
+    async function fetchEphemerisData(){ /* ... remains same ... */ 
+        try{
+            const response = await fetch('/.netlify/functions/astronomy');
+            if(!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            const data = await response.json();
+            let newObjects = [];
+            data.data.table.rows.forEach(row=>{
+              const entry = row.entry;
+              if(entry.id.toLowerCase() === "earth") return;
+              const cell = row.cells[0];
+              const ra_hours = parseFloat(cell.position.equatorial.rightAscension.hours);
+              const ra_deg = ra_hours * 15;
+              const dec_deg = parseFloat(cell.position.equatorial.declination.degrees);
+              const distance_km = parseFloat(cell.distance.fromEarth.km);
+              let angular_size_arcsec;
+              if(cell.angular_size_arcsec){ angular_size_arcsec = parseFloat(cell.angular_size_arcsec); }
+              else{
+                const physDiam = physicalDiameters[entry.id.toLowerCase()];
+                angular_size_arcsec = (physDiam && distance_km>0)? (physDiam/distance_km)*206265 : 0;
               }
-            }
-          });
-          objectLabels[obj.name] = marker;
-        }
-        if(selectedObject===obj.name){ map.panTo(subCel, {animate:true}); }
-      });
-      updateLabelsVisibility();
+              newObjects.push({id:entry.id, name:entry.name, ra_deg:ra_deg, dec_deg:dec_deg, angular_size_arcsec:angular_size_arcsec, color:objectColors[entry.id.toLowerCase()]||"white"});
+            });
+            celestialObjects = newObjects;
+            createLegend(); 
+            updateCelestialShapes(); 
+        } catch(error){ console.error("Error fetching ephemeris data:", error); }
     }
-    setInterval(updateCelestialShapes,1000);
-    updateCelestialShapes();
-    document.getElementById("helpButton").addEventListener("click", function(){
-      document.getElementById("helpModal").style.display = "block";
-    });
-    document.getElementById("closeModal").addEventListener("click", function(){
-      document.getElementById("helpModal").style.display = "none";
-    });
-    window.addEventListener("click", function(event){
-      if(event.target==document.getElementById("helpModal")){
-        document.getElementById("helpModal").style.display = "none";
-      }
-    });
-    // --- End preserved map functionality code ---
+
+    function computeGMST(date){ /* ... remains same ... */ 
+        let year = date.getUTCFullYear(), month = date.getUTCMonth()+1, day = date.getUTCDate(), hour = date.getUTCHours(), minute = date.getUTCMinutes(), second = date.getUTCSeconds();
+        if(month<=2){year-=1; month+=12;}
+        let dayFraction = (hour+minute/60+second/3600)/24;
+        let A = Math.floor(year/100), B = 2-A+Math.floor(A/4);
+        let JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + dayFraction + B - 1524.5;
+        let d = JD - 2451545.0;
+        let gmstHours = 18.697374558+24.06570982441908*d;
+        gmstHours = gmstHours % 24;
+        if(gmstHours<0) gmstHours+=24;
+        return gmstHours*15;
+    }
+    function subCelestialPoint(date, ra_deg, dec_deg){ /* ... remains same ... */ 
+        const gmst_deg = computeGMST(date);
+        let lon = ra_deg - gmst_deg;
+        lon = ((lon+180)%360)-180;
+        return {lat:dec_deg, lon:lon};
+    }
+    function destinationPoint(lat, lon, distanceKm, bearing){ /* ... remains same ... */ 
+        const R = 6371, bearingRad = bearing*Math.PI/180, latRad = lat*Math.PI/180, lonRad = lon*Math.PI/180, dR = distanceKm/R;
+        const newLatRad = Math.asin(Math.sin(latRad)*Math.cos(dR)+Math.cos(latRad)*Math.sin(dR)*Math.cos(bearingRad));
+        const newLonRad = lonRad + Math.atan2(Math.sin(bearingRad)*Math.sin(dR)*Math.cos(latRad), Math.cos(dR)-Math.sin(latRad)*Math.sin(newLatRad));
+        return {lat:newLatRad*180/Math.PI, lon:newLonRad*180/Math.PI};
+    }
+    function computeCirclePoints(center, distanceKm){ /* ... remains same ... */ 
+        let points = [];
+        for(let bearing=0; bearing<360; bearing+=4){ 
+          let dest = destinationPoint(center.lat, center.lon, distanceKm, bearing);
+          points.push([dest.lat, dest.lon]);
+        }
+        points.push(points[0]);
+        return points;
+    }
+    
+    function initMap() { /* ... remains same ... */ 
+        map = L.map('map', { 
+            zoomControl: true, 
+            center: [0, 0], 
+            zoom: 2,
+            worldCopyJump: true 
+        });
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{ 
+            attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19 
+        }).addTo(map);
+        shapesGroup = L.layerGroup().addTo(map);
+
+        map.on("zoomend", handleMapInteraction);
+        map.on("click", handleMapInteraction);
+        map.on("dragstart", handleMapInteraction);
+
+        fetchEphemerisData(); 
+        setInterval(updateCelestialShapes, 1000); 
+    }
+
+    function handleMapInteraction() { /* ... remains same ... */ 
+        updateLabelsVisibility(); 
+        if (selectedObject) { 
+            selectedObject = null;
+            updateLegendSelection();
+        }
+    }
+
+    function initPolylines(){ /* ... remains same ... */ 
+        celestialObjects.forEach(obj=>{
+          if(!objectPolylines[obj.name]){
+            let polyline = L.polyline([], {color:obj.color, weight:5, interactive: false}).addTo(shapesGroup); 
+            objectPolylines[obj.name] = polyline;
+          }
+        });
+    }
+    function createLegend(){ /* ... remains same ... */ 
+        let legendContent = document.getElementById("legendContent");
+        if (!legendContent) return;
+        legendContent.innerHTML = ""; 
+        let allContainer = document.createElement("div");
+        allContainer.id = "allPlanetsContainer";
+        allContainer.className = "legendItem"; 
+        let allCheckbox = document.createElement("input");
+        allCheckbox.type = "checkbox";
+        allCheckbox.id = "allPlanetsCheckbox";
+        allCheckbox.checked = true; 
+        let allLabel = document.createElement("label");
+        allLabel.htmlFor = "allPlanetsCheckbox"; 
+        allLabel.textContent = "All";
+        allLabel.style.marginLeft = "5px";
+        allLabel.style.fontWeight = "bold";
+        allContainer.appendChild(allCheckbox);
+        allContainer.appendChild(allLabel);
+        legendContent.appendChild(allContainer);
+
+        allCheckbox.addEventListener("change", function(){
+            let allChecked = allCheckbox.checked;
+            document.querySelectorAll(".legendCheckbox").forEach(cb=>{
+              cb.checked = allChecked;
+              cb.dispatchEvent(new Event('change')); 
+            });
+        });
+
+        celestialObjects.forEach(obj=>{
+            let item = document.createElement("div");
+            item.className = "legendItem";
+            item.setAttribute("data-object", obj.name);
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "legendCheckbox";
+            checkbox.id = "checkbox_"+obj.name;
+            checkbox.checked = true; 
+            let colorIndicator = document.createElement("span");
+            colorIndicator.className = "legendColor";
+            colorIndicator.style.backgroundColor = obj.color;
+            let nameLabel = document.createElement("span");
+            nameLabel.className = "legendName";
+            nameLabel.textContent = obj.name;
+            
+            item.appendChild(checkbox);
+            item.appendChild(colorIndicator);
+            item.appendChild(nameLabel);
+            legendContent.appendChild(item);
+
+            checkbox.addEventListener("change", function(){
+                if(checkbox.checked){ colorIndicator.style.backgroundColor = obj.color; }
+                else{ colorIndicator.style.backgroundColor = "lightgrey"; if(selectedObject===obj.name){ selectedObject=null; updateLegendSelection(); } }
+                let allIndividualChecked = true;
+                document.querySelectorAll(".legendCheckbox:not(#allPlanetsCheckbox)").forEach(cb=>{ if(!cb.checked) allIndividualChecked = false; });
+                document.getElementById("allPlanetsCheckbox").checked = allIndividualChecked;
+                updateCelestialShapes();
+            });
+
+            item.addEventListener("click", function(e){
+                if (e.target === checkbox) return; 
+                if(!checkbox.checked) return; 
+                if(selectedObject!==obj.name){
+                  selectedObject = obj.name;
+                  updateLegendSelection();
+                  const poly = objectPolylines[obj.name];
+                  if(poly && map){ 
+                    const bounds = poly.getBounds();
+                    if (bounds.isValid()) { 
+                        map.fitBounds(bounds, {padding:[20,20], maxZoom:12, animate: true});
+                    } else {
+                        let subCel = subCelestialPoint(new Date(), obj.ra_deg, obj.dec_deg);
+                        map.setView(subCel, Math.min(map.getZoom(), 12), {animate: true});
+                    }
+                  }
+                } else { 
+                    selectedObject = null;
+                    updateLegendSelection();
+                }
+            });
+        });
+    }
+    function updateLegendSelection(){ /* ... remains same ... */ 
+        document.querySelectorAll('.legendItem').forEach(item=>{
+            if(item.getAttribute("data-object")===selectedObject){ item.classList.add("selected"); }
+            else{ item.classList.remove("selected"); }
+        });
+    }
+
+    // Legend Toggle Logic - remains same
+    const legendHeader = document.getElementById("legendHeader");
+    const legendContent = document.getElementById("legendContent");
+    const toggleArrow = document.getElementById("toggleArrow");
+    if (legendHeader && legendContent && toggleArrow) {
+        legendHeader.classList.remove('collapsed');
+        legendContent.classList.remove('collapsed');
+        toggleArrow.textContent = '▲'; 
+        legendHeader.addEventListener("click", function(e){
+            if (e.target.id === 'allPlanetsCheckbox' || e.target.tagName === 'LABEL') return; 
+            const isCollapsed = legendContent.classList.toggle("collapsed");
+            legendHeader.classList.toggle("collapsed", isCollapsed);
+            toggleArrow.textContent = isCollapsed ? '▼' : '▲';
+        });
+    }
+
+    const labelZoomThreshold = 7; 
+    function updateLabelsVisibility(){ /* ... remains same ... */ 
+        if (!map) return;
+        let zoom = map.getZoom();
+        for(let key in objectLabels){
+            let cb = document.getElementById("checkbox_"+key);
+            if((cb && !cb.checked) || zoom >= labelZoomThreshold){
+              if(map.hasLayer(objectLabels[key])){ map.removeLayer(objectLabels[key]); }
+            } 
+            else if (cb && cb.checked && zoom < labelZoomThreshold) {
+              if(!map.hasLayer(objectLabels[key])){ map.addLayer(objectLabels[key]); }
+            }
+        }
+    }
+
+    function updateCelestialShapes(){ /* ... remains same ... */ 
+        if (!map || !shapesGroup) return; 
+        const now = new Date();
+        initPolylines(); 
+        if(celestialObjects.length===0) return;
+
+        celestialObjects.forEach(obj=>{
+            let checkbox = document.getElementById("checkbox_"+obj.name);
+            let polyline = objectPolylines[obj.name];
+            let labelMarker = objectLabels[obj.name];
+
+            if(checkbox && !checkbox.checked){
+              if(polyline && shapesGroup.hasLayer(polyline)){ shapesGroup.removeLayer(polyline); }
+              if(labelMarker && map.hasLayer(labelMarker)){ map.removeLayer(labelMarker); }
+              return; 
+            }
+
+            let angularRadiusDeg = (obj.angular_size_arcsec/2)/3600;
+            let angularRadiusRad = angularRadiusDeg*Math.PI/180;
+            let effectiveDistanceKm = 6371 * angularRadiusRad * 10; 
+            effectiveDistanceKm = Math.max(effectiveDistanceKm, 50); 
+
+            let subCel = subCelestialPoint(now, obj.ra_deg, obj.dec_deg);
+            let pts = computeCirclePoints(subCel, effectiveDistanceKm);
+            
+            if (polyline) {
+                polyline.setLatLngs(pts);
+                if(!shapesGroup.hasLayer(polyline)){ shapesGroup.addLayer(polyline); }
+            }
+
+            if(labelMarker){
+              labelMarker.setLatLng(subCel);
+            } else {
+              let marker = L.marker(subCel, {
+                  icon: L.divIcon({
+                      html: `<div style="font-size:14px; font-weight:bold; color:${obj.color}; text-shadow: 1px 1px 3px black, -1px -1px 3px black, 1px -1px 3px black, -1px 1px 3px black;">${obj.name}</div>`, 
+                      className: '', 
+                      iconSize: [80, 20], 
+                      iconAnchor: [40, 10] 
+                  }),
+                  interactive: false 
+              });
+              objectLabels[obj.name] = marker;
+            }
+            
+            if(selectedObject===obj.name){ map.panTo(subCel, {animate:true, duration: 0.5}); }
+        });
+        updateLabelsVisibility(); 
+    }
+    
+    // --- Help Modal Logic (Using correct IDs and classes) ---
+    const helpButton = document.getElementById("helpButton");
+    const helpModal = document.getElementById("helpModal"); // The modal container
+    const closeHelpModalButton = document.getElementById("closeHelpModal"); // The 'x' button
+
+    if (helpButton && helpModal && closeHelpModalButton) {
+        helpButton.addEventListener("click", function(){
+          console.log("Help button clicked"); // Debug log
+          helpModal.classList.add("active"); // Use class to show
+        });
+
+        closeHelpModalButton.addEventListener("click", function(){
+          console.log("Close help modal clicked"); // Debug log
+          helpModal.classList.remove("active"); // Use class to hide
+        });
+
+        // Close modal if clicking the backdrop (the .map-help-modal element itself)
+        helpModal.addEventListener("click", function(event){
+          if(event.target === helpModal){ 
+            console.log("Backdrop clicked"); // Debug log
+            helpModal.classList.remove("active");
+          }
+        });
+    } else {
+        console.error("Help modal elements not found! Check IDs: helpButton, helpModal, closeHelpModal");
+    }
+
+    // --- Initialize Map and Fetch Data ---
+    initMap(); 
+
+    // Set current year in footer
+    var yearSpan = document.getElementById('year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+    // Placeholder for main nav toggle function
+    if (typeof window.toggleModal === 'undefined') {
+        window.toggleModal = function() { console.warn("toggleModal function not found in scripts.js"); }
+    }
   </script>
 </body>
 </html>

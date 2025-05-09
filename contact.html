@@ -4,80 +4,93 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact – Hansen Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="/styles.css">
   <style>
-    .content {
-      max-width: 1500px;
-      margin: 0 auto;
-      padding: 30px var(--padding-desktop, 120px);
-      font-family: 'Nunito Sans', sans-serif;
+    /* .content styles removed as layout is handled by .page-main-content-area and .content-limiter */
+
+    .contact-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 50vh;
-      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      min-height: calc(60vh - var(--header-height)); /* Adjust min-height to fill available space, considering header. 50vh was a bit arbitrary. */
+      text-align: center; /* Ensures text is centered if flex properties are overridden or link is block */
+    }
+
+    .email-link {
+      font-size: clamp(1.1rem, 2vw, 1.5rem); /* Slightly increased max for better visibility */
+      color: var(--color-accent-primary, #007bff); /* Using CSS variable */
+      text-decoration: underline; /* Explicitly keep underline */
+      font-weight: 600; /* Making it slightly bolder */
+      padding: 10px; /* Added some padding for easier clicking */
+      transition: color 0.2s ease;
+    }
+
+    .email-link:hover {
+      color: var(--color-accent-primary-dark, #0056b3); /* Using CSS variable for hover */
     }
 
     @media (max-width: 850px) {
-      .content {
-        padding: 30px var(--padding-mobile, 28px);
-        text-align: center;
+      .contact-container {
+        min-height: calc(70vh - var(--header-height)); /* Adjust for mobile if needed */
       }
-    }
-
-    a.email {
-      color: #007bff;
-      text-decoration: underline;
+      .email-link {
+        font-size: clamp(1rem, 5vw, 1.3rem); /* Adjusted clamp for mobile */
+      }
     }
   </style>
 </head>
-<body class="home">
-
-  <header>
-    <a class="brand" href="index.html"><img src="images/logo.png" alt="Hansen Space Logo" /></a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="myjourney.html">My Journey</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="tools.html">Tools</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="menu-icon" onclick="toggleModal()">☰</div>
+<body class="contact-page"> <header>
+    <div class="header-inner-container content-limiter">
+      <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/myjourney.html">My Journey</a></li>
+          <li><a href="/photography.html">Photography</a></li>
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/tools.html">Tools</a></li>
+          <li><a href="/contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" onclick="toggleModal()">☰</div>
+    </div>
   </header>
 
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
   <div class="modal" id="modal">
-    <a href="index.html">Home</a>
-    <a href="myjourney.html">My Journey</a>
-    <a href="photography.html">Photography</a>
+    <a href="/index.html">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
     <a href="/articles">Articles</a>
-    <a href="tools.html">Tools</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/contact.html" class="active">Contact</a>
   </div>
 
-  <div class="content">
-    <a href="mailto:contact@hansenspace.io" class="email">contact@hansenspace.io</a>
-  </div>
+  <main class="page-main-content-area content-limiter">
+    <div class="contact-container">
+      <a href="mailto:contact@hansenspace.io" class="email-link">contact@hansenspace.io</a>
+    </div>
+  </main>
 
   <footer>
-    <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
-      </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
-      </a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
-      </a>
-    </div>
-    <p>&copy; 2025 Hansen Space.</p>
+    <div class="footer-inner-container content-limiter">
+      <div class="social-links">
+        <a href="https://www.youtube.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'" />
+        </a>
+        <a href="https://instagram.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'" />
+        </a>
+        <a href="https://tiktok.com/@hansen_space" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'" />
+        </a>
+      </div>
+      <p>© <span id="year">2025</span> Hansen Space.</p> </div>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script src="/scripts.js"></script>
 </body>
 </html>

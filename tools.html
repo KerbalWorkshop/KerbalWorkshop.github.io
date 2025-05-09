@@ -4,66 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools – Hansen Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="/styles.css">
   <style>
-    .content {
-      max-width: 1500px;
-      margin: 0 auto;
-      padding: 30px var(--padding-desktop, 120px);
-    }
-
-    .intro-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 40px;
-      margin-bottom: 60px;
-      font-family: 'Nunito Sans', sans-serif;
-    }
-
-    .intro-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
-      white-space: nowrap;
-    }
-
-    .intro-text {
-      font-size: clamp(1rem, 1.15vw, 1.2rem);
-      max-width: 800px;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 850px) {
-      .content {
-        padding: 30px var(--padding-mobile, 28px);
-      }
-
-      .intro-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 20px;
-      }
-
-      .intro-title {
-        white-space: normal;
-        text-align: center;
-      }
-
-      .intro-text {
-        text-align: center;
-      }
-    }
+    /* Removed .content styles as .page-main-content-area and .content-limiter handle layout */
+    /* Removed .intro-section, .intro-title, .intro-text styles as they are now handled by global .intro-block styles */
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
+      gap: 10px; /* Consider var(--spacing-small) or similar if defined globally */
+      max-width: 800px; /* This could be a page-specific constraint */
+      margin: 30px auto; /* Vertical margin can be adjusted */
+      /* padding: 0 20px; Padding might be inherited or handled by content-limiter */
     }
 
     .grid .btn {
@@ -72,16 +25,18 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border: 2px solid #fff;
-      border-radius: 8px;
+      border: 2px solid var(--color-text-primary, #fff); /* Using CSS variable */
+      border-radius: 8px; /* Consistent border-radius, could be a variable */
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 1.1em;
+      color: var(--color-text-headings, #fff); /* Using CSS variable */
+      font-family: var(--font-primary); /* Ensure consistency */
+      font-weight: 600; /* Ensure consistency */
+      font-size: 1.1em; /* Adjust as needed */
       text-align: center;
       text-decoration: none;
-      transition: filter 0.3s;
+      transition: filter 0.3s, transform 0.2s ease; /* Added transform for subtle interaction */
       padding: 10px;
       box-sizing: border-box;
       position: relative;
@@ -90,6 +45,7 @@
 
     .grid .btn:hover {
       filter: brightness(0.8);
+      transform: scale(1.03); /* Example hover effect */
     }
 
     .btn img {
@@ -99,9 +55,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.5);
+      filter: brightness(0.5); /* This creates the dark overlay for text readability */
       z-index: 0;
+      transition: filter 0.3s;
     }
+     .grid .btn:hover img {
+        filter: brightness(0.4); /* Slightly darker on hover for image */
+     }
 
     .btn span {
       position: relative;
@@ -109,101 +69,110 @@
       display: block;
     }
 
+    @media (max-width: 850px) {
+        /* .intro-block responsiveness is handled globally */
+        .grid {
+            max-width: 100%; /* Allow grid to use full width within mobile padding */
+        }
+    }
+
     @media (max-width: 600px) {
+        /* .intro-block responsiveness is handled globally */
       .grid {
         gap: 8px;
-        padding: 0 15px;
+        /* padding: 0 15px; Handled by content-limiter mobile padding */
       }
 
       .grid .btn {
-        font-size: 1em;
+        font-size: 1em; /* Slightly smaller font for smaller buttons */
       }
     }
   </style>
 </head>
-<body class="home">
-
-  <header>
-    <a class="brand" href="index.html">
-      <img src="images/logo.png" alt="Hansen Space Logo">
-    </a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="myjourney.html">My Journey</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="tools.html" class="active">Tools</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="menu-icon" onclick="toggleModal()">☰</div>
+<body class="home"> <header>
+    <div class="header-inner-container content-limiter">
+      <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/myjourney.html">My Journey</a></li>
+          <li><a href="/photography.html">Photography</a></li>
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/tools.html" class="active">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-icon" onclick="toggleModal()">☰</div>
+    </div>
   </header>
   
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
   <div class="modal" id="modal">
-    <a href="index.html">Home</a>
-    <a href="myjourney.html">My Journey</a>
-    <a href="photography.html">Photography</a>
+    <a href="/index.html">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
     <a href="/articles">Articles</a>
-    <a href="tools.html" class="active">Tools</a>
-    <a href="contact.html">Contact</a>
+    <a href="/tools.html" class="active">Tools</a>
+    <a href="/contact.html">Contact</a>
   </div>
   
 
-  <div class="content">
+  <main class="page-main-content-area content-limiter">
 
-    <div class="intro-section">
-      <h2 class="intro-title">TOOLS</h2>
-      <p class="intro-text">
+    <div class="intro-block">
+      <h1 class="intro-block__title">TOOLS</h1>
+      <p class="intro-block__text">
         Interactive data visualizations and useful astronomy tools.
       </p>
     </div>
 
     <div class="grid">
-      <a class="btn" href="tools/live-map.html">
+      <a class="btn" href="/tools/live-map.html">
         <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points">
         <span>Subcelestial Points</span>
       </a>
 
-      <a class="btn" href="tools/angularsizecomparer.html">
+      <a class="btn" href="/tools/angularsizecomparer.html">
         <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer">
         <span>Angular Size Comparer</span>
       </a>
 
-      <a class="btn" href="tools/curves.html">
+      <a class="btn" href="/tools/curves.html">
         <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves">
         <span>Live Light Curves</span>
       </a>
 
-      <a class="btn" href="tools/event-calendar.html">
+      <a class="btn" href="/tools/event-calendar.html">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar">
         <span>Cosmic Event Calendar</span>
       </a>
 
-      <a class="btn" href="tools/planet-dashboard.html">
+      <a class="btn" href="/tools/planet-dashboard.html">
         <img src="https://science.nasa.gov/wp-content/uploads/2023/06/planets3x3-pluto-colormercury-axis-tilt-nolabels-1080p.00001-print.jpg" alt="Planets Dashboard">
         <span>Planets Dashboard</span>
       </a>
     </div>
 
-  </div>
+  </main>
 
   <footer>
-    <div class="social-links">
-      <a href="https://www.youtube.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="https://instagram.com/hansenspace" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://tiktok.com/@hansen_space" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
-      </a>
-    </div>
-    <p>&copy; 2025 Hansen Space.</p>
+    <div class="footer-inner-container content-limiter">
+      <div class="social-links">
+        <a href="https://www.youtube.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'">
+        </a>
+        <a href="https://instagram.com/hansenspace" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'">
+        </a>
+        <a href="https://tiktok.com/@hansen_space" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'">
+        </a>
+      </div>
+      <p>© <span id="year">2025</span> Hansen Space.</p> </div>
   </footer>
-
-  <script src="scripts.js"></script>
+  
+  <script src="/scripts.js"></script>
 </body>
 </html>
