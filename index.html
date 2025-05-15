@@ -35,10 +35,10 @@
       color: white !important; background-color: transparent !important;
       text-decoration: none; transition: all 0.3s ease; font-family: 'Nunito Sans', sans-serif;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      white-space: nowrap; /* Ensures button text itself doesn't wrap */
     }
     .section-button:hover { background: white !important; color: var(--color-dark-grey-header-footer-bg) !important; }
 
-    /* Adjusted margins for dividers adjacent to hero sections */
     .divider-above-hero {
         margin-bottom: 0 !important; 
     }
@@ -55,6 +55,8 @@
     .hero-text {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       color: white; text-align: center; z-index: 2; padding: 0 20px;
+      width: 90%; /* Ensure it doesn't get too wide on larger hero sections, but allow flex for content */
+      max-width: 700px; /* Max width for hero text content */
     }
 
     .about {
@@ -73,7 +75,7 @@
       flex-grow: 1;
     }
 
-    .journey { background-image: url('journeyimages/2025-01-13(2).jpg'); }
+    .journey { background-image: url('/journeyimages/2025-01-13(2).jpg'); } /* Corrected path */
 
     .interactive-section .section-title,
     .articles-section .section-title {
@@ -130,10 +132,10 @@
       border-radius: 8px; overflow: hidden; scroll-snap-align: start;
       background: var(--color-dark-grey-panel-bg); 
       position: relative;
-      border: 1px solid var(--color-light-grey-borders-dividers); /* ADDED BORDER */
+      border: 1px solid var(--color-light-grey-borders-dividers); 
     }
     .tool-card {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* SOFTENED SHADOW */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
       transition: transform 0.3s ease; 
     }
     .tool-card:hover { transform: translateY(-5px); }
@@ -171,7 +173,19 @@
 
     @media (max-width: 850px) {
       .fullscreen-section { aspect-ratio: var(--hero-aspect-mobile); }
-      .hero-text h1 { font-size: clamp(1.6rem, 5vw, 2.0rem); }
+      
+      .hero-text { 
+        padding: 0 10px; /* Slightly less side padding for hero text container */
+        width: 95%; /* Allow it to use more width */
+      }
+      .fullscreen-section h1, .fullscreen-section h2 { /* More specific selector for hero titles */
+        font-size: clamp(1.5rem, 4.8vw, 1.9rem) !important; /* Slightly smaller, responsive */
+        margin-bottom: 1rem !important; /* Reduced margin */
+      }
+      .section-button {
+        font-size: clamp(0.85rem, 2.8vw, 0.95rem); /* Slightly smaller, responsive */
+        padding: clamp(8px, 1.3vw, 10px) clamp(12px, 3.5vw, 18px); /* Reduced padding */
+      }
 
       .about { flex-direction: column; gap: 20px; }
       .about .title { font-size: var(--title-font-size-large-mobile); text-align: center; }
@@ -278,10 +292,10 @@
       <section class="articles-section">
           <h2 class="section-title">LATEST ARTICLES</h2>
           <div id="articles-container">
-              <a href="/articles/first" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+1" alt="Article 1 Placeholder"> <div class="article-item-content"> <h3>Article Title 1</h3> <p>This is a short description for the first article. It explains what the article is about in a concise way.</p> </div> </a>
-              <a href="/articles/second-article" class="article-item"> <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder"> <div class="article-item-content"> <h3>Another Interesting Article Title (2)</h3> <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p> </div> </a>
-              <a href="/articles/third-one" class="article-item"> <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder"> <div class="article-item-content"> <h3>Article Number Three</h3> <p>A brief summary of the third piece of content available for reading.</p> </div> </a>
-              <a href="/articles/the-fourth" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder"> <div class="article-item-content"> <h3>The Fourth Article's Title Is Here</h3> <p>Description text for article number four, providing context and encouraging a click.</p> </div> </a>
+              <a href="/articles/first" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+1" alt="Article 1 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>Article Title 1</h3> <p>This is a short description for the first article. It explains what the article is about in a concise way.</p> </div> </a>
+              <a href="/articles/second-article" class="article-item"> <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>Another Interesting Article Title (2)</h3> <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p> </div> </a>
+              <a href="/articles/third-one" class="article-item"> <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>Article Number Three</h3> <p>A brief summary of the third piece of content available for reading.</p> </div> </a>
+              <a href="/articles/the-fourth" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>The Fourth Article's Title Is Here</h3> <p>Description text for article number four, providing context and encouraging a click.</p> </div> </a>
           </div>
           <a href="/articles" class="button-generic outline see-all-articles-custom-margin">See All Articles →</a>
       </section>
@@ -293,10 +307,10 @@
         <div class="scroll-wrapper">
           <button class="scroll-btn left" onclick="slide('tools', -1)">‹</button>
           <div class="card-scroll-container" id="tools">
-            <a class="tool-card" href="/tools/live-map.html"> <div class="image-container"> <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points"> </div> <span class="tool-title">Subcelestial Points</span> </a>
-            <a class="tool-card" href="/tools/angularsizecomparer.html"> <div class="image-container"> <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer"> </div> <span class="tool-title">Angular Size Comparer</span> </a>
-            <a class="tool-card" href="/tools/curves.html"> <div class="image-container"> <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves"> </div> <span class="tool-title">Live Light Curves</span> </a>
-            <a class="tool-card" href="/tools/event-calendar.html"> <div class="image-container"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar"> </div> <span class="tool-title">Cosmic Event Calendar</span> </a>
+            <a class="tool-card" href="/tools/live-map.html"> <div class="image-container"> <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2xyL3drMTA1NDY1MS1pbWFnZS5qcGc.jpg" alt="Subcelestial Points" onerror="this.src='https://placehold.co/300x169/2a2a2a/FFFFFF?text=Tool+Preview'; this.onerror=null;"> </div> <span class="tool-title">Subcelestial Points</span> </a>
+            <a class="tool-card" href="/tools/angularsizecomparer.html"> <div class="image-container"> <img src="https://cdn.shopify.com/s/files/1/0742/7719/1954/files/Andromeda_Galaxy_vs_Moon_-_Naked_Eye_Size_Comparison_1024x1024.jpg?v=1703937894" alt="Angular Size Comparer" onerror="this.src='https://placehold.co/300x169/2a2a2a/FFFFFF?text=Tool+Preview'; this.onerror=null;"> </div> <span class="tool-title">Angular Size Comparer</span> </a>
+            <a class="tool-card" href="/tools/curves.html"> <div class="image-container"> <img src="https://lovethenightsky.com/wp-content/uploads/2022/01/image-8.jpeg" alt="Live Light Curves" onerror="this.src='https://placehold.co/300x169/2a2a2a/FFFFFF?text=Tool+Preview'; this.onerror=null;"> </div> <span class="tool-title">Live Light Curves</span> </a>
+            <a class="tool-card" href="/tools/event-calendar.html"> <div class="image-container"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8JX6leYmBofrqX0VQsgRZAhdR5Sg91ET4_Q&s" alt="Cosmic Event Calendar" onerror="this.src='https://placehold.co/300x169/2a2a2a/FFFFFF?text=Tool+Preview'; this.onerror=null;"> </div> <span class="tool-title">Cosmic Event Calendar</span> </a>
           </div>
           <button class="scroll-btn right" onclick="slide('tools', 1)">›</button>
         </div>
@@ -321,7 +335,6 @@
       </section>
     </div> 
   </main> 
-
 
   <footer>
     <div class="footer-inner-container content-limiter">
