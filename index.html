@@ -7,44 +7,91 @@
   <link rel="stylesheet" href="/styles.css" />
   <style>
     :root {
-      --hero-aspect-desktop: 3/1;
-      --hero-aspect-mobile: 1.5 / 1;
-      --card-gap: 15px; 
+      /* Hero Section Configuration */
+      --hero-height-desktop: 500px; /* Slightly re-increased */
+      --hero-height-mobile: 280px; /* Slightly re-increased */
 
-      --title-font-size-large-desktop: clamp(1.8rem, 4vw, 2.5rem);
-      --title-font-size-large-mobile: clamp(1.5rem, 5vw, 1.9rem);
-      --title-font-size-medium-desktop: clamp(1.5rem, 3.5vw, 2.0rem);
-      --title-font-size-medium-mobile: clamp(1.2rem, 4.5vw, 1.6rem);
+      /* Spacing Variables */
+      --section-spacing-desktop: 20px; /* Significantly reduced for inter-section gaps */
+      --section-spacing-mobile: 15px;  /* Significantly reduced for inter-section gaps */
+      --content-padding-desktop: 35px; /* Maintained from previous reduction or slightly up */
+      --content-padding-mobile: 18px;
+      --card-gap: 15px; /* Re-increased slightly */
+
+      /* Font Size Clamps - Re-evaluating for homogeneity and comfortable size */
+      /* Hero Titles */
+      --font-size-hero-title-desktop: clamp(2.3rem, 5.8vw, 3.6rem); /* Re-increased */
+      --font-size-hero-title-mobile: clamp(1.8rem, 6vw, 2.4rem); /* Re-increased */
+
+      /* Large Section Titles (e.g., About Me) */
+      --font-size-section-title-large-desktop: clamp(1.8rem, 4vw, 2.4rem); /* Re-increased */
+      --font-size-section-title-large-mobile: clamp(1.5rem, 5vw, 1.9rem); /* Re-increased */
+
+      /* Medium Section Titles (e.g., Latest Articles, Tools) */
+      --font-size-section-title-medium-desktop: clamp(1.6rem, 3.5vw, 2.2rem); /* Re-increased */
+      --font-size-section-title-medium-mobile: clamp(1.3rem, 4.5vw, 1.7rem); /* Re-increased */
+
+      /* Article Titles */
+      --font-size-article-title-desktop: clamp(1.25rem, 2.4vw, 1.5rem); /* Re-increased */
+      --font-size-article-title-mobile: clamp(1.0rem, 3vw, 1.2rem); /* Re-increased */
+
+      /* Card Titles (e.g., Tool Card Title) - Aiming for similarity with body/button */
+      --font-size-card-title-desktop: clamp(1.0rem, 2vw, 1.2rem);
+      --font-size-card-title-mobile: clamp(0.85rem, 2.6vw, 1.05rem);
+
+      /* Standard Body Text */
+      --font-size-body-desktop: clamp(0.95rem, 1.7vw, 1.1rem); /* Re-increased */
+      --font-size-body-mobile: clamp(0.85rem, 2.4vw, 1.0rem); /* Re-increased */
+
+      /* Button Text - Aiming for clear, actionable size, related to body/card titles */
+      --font-size-button-desktop: clamp(1.0rem, 1.9vw, 1.15rem); /* Re-increased and aligned */
+      --font-size-button-mobile: clamp(0.85rem, 2.7vw, 1.0rem); /* Re-increased and aligned */
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; } 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; scroll-behavior: smooth; }
 
     .fullscreen-section {
-      width: 100%; aspect-ratio: var(--hero-aspect-desktop); position: relative; overflow: hidden;
+      width: 100%; height: var(--hero-height-desktop); position: relative; overflow: hidden;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       text-align: center; color: white; background-size: cover; background-position: center;
-      margin-bottom: 0; 
+      /* No margin-bottom here by default */
     }
-    .fullscreen-section h1, .fullscreen-section h2 { 
-      font-size: clamp(2rem, 5vw, 3.5rem) !important; margin-bottom: 1.5rem; letter-spacing: -0.5px; font-weight: 600;
+    .fullscreen-section h1, .fullscreen-section h2 {
+      font-size: var(--font-size-hero-title-desktop) !important;
+      margin-bottom: 1.4rem; /* Re-adjusted */
+      letter-spacing: -0.5px; font-weight: 600;
       color: white !important; text-shadow: 0 1px 4px rgba(0,0,0,0.4);
     }
-    .section-button { 
-      font-size: 1.1rem; padding: 12px 24px; border: 2px solid white; border-radius: 4px;
+    .section-button {
+      font-size: var(--font-size-button-desktop);
+      padding: 11px 22px; /* Re-adjusted padding */
+      border: 2px solid white; border-radius: 4px;
       color: white !important; background-color: transparent !important;
       text-decoration: none; transition: all 0.3s ease; font-family: 'Nunito Sans', sans-serif;
       text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-      white-space: nowrap; /* Ensures button text itself doesn't wrap */
+      white-space: nowrap;
     }
     .section-button:hover { background: white !important; color: var(--color-dark-grey-header-footer-bg) !important; }
 
-    .divider-above-hero {
-        margin-bottom: 0 !important; 
+    /* These dividers are mostly removed from HTML, but rule kept for any instance */
+    .divider-above-hero { margin-bottom: 0 !important; }
+    .divider-below-hero { margin-top: 0 !important; }
+
+    /* Key change for inter-section spacing */
+    .page-main-content-area .content-limiter > section {
+        padding-top: var(--section-spacing-desktop);
+        padding-bottom: var(--section-spacing-desktop);
     }
-    .divider-below-hero {
-        margin-top: 0 !important;
+    /* Ensure first content section after a hero gets this minimal padding */
+    .fullscreen-section + .page-main-content-area .content-limiter > section:first-child {
+        padding-top: var(--section-spacing-desktop);
     }
+     /* And ensure last section has bottom padding */
+    .page-main-content-area .content-limiter > section:last-child {
+        padding-bottom: var(--section-spacing-desktop);
+    }
+
 
     .hero-image {
       position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center;
@@ -55,166 +102,223 @@
     .hero-text {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       color: white; text-align: center; z-index: 2; padding: 0 20px;
-      width: 90%; /* Ensure it doesn't get too wide on larger hero sections, but allow flex for content */
-      max-width: 700px; /* Max width for hero text content */
+      width: 90%; max-width: 700px; /* Maintained */
     }
 
     .about {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 40px; 
+      gap: 35px; /* Re-adjusted */
     }
-    .about .title { 
-      font-family: 'Poppins', sans-serif; font-weight: 600; 
-      font-size: var(--title-font-size-large-desktop); 
+    .about .title {
+      font-family: 'Poppins', sans-serif; font-weight: 600;
+      font-size: var(--font-size-section-title-large-desktop);
       line-height: 1.3; margin: 0; flex-shrink: 0; text-align: left;
-      color: var(--color-text-headings); 
+      color: var(--color-text-headings);
     }
-    .about .text {
-      font-size: 1.1rem; line-height: 1.7; max-width: 600px; 
-      color: var(--color-text-primary); 
+    .about .text p {
+      font-size: var(--font-size-body-desktop);
+      line-height: 1.65; /* Re-adjusted */
+      max-width: 600px; /* Maintained */
+      color: var(--color-text-primary);
       flex-grow: 1;
     }
+    .about .text { flex-grow: 1; }
 
-    .journey { background-image: url('/journeyimages/2025-01-13(2).jpg'); } /* Corrected path */
+    .journey { background-image: url('/journeyimages/2025-01-13(2).jpg'); }
 
     .interactive-section .section-title,
     .articles-section .section-title {
-        font-family: 'Poppins', sans-serif; font-weight: 600; 
-        font-size: var(--title-font-size-medium-desktop); 
-        line-height: 1.3; margin: 0;
-        color: var(--color-text-headings); 
+      font-family: 'Poppins', sans-serif; font-weight: 600;
+      font-size: var(--font-size-section-title-medium-desktop);
+      line-height: 1.3; margin: 0;
+      color: var(--color-text-headings);
     }
 
-    .articles-section .section-title { text-align: center; margin-bottom: 30px; }
-    #articles-container { border-top: 1px solid var(--color-light-grey-borders-dividers); } 
+    .articles-section .section-title { text-align: center; margin-bottom: 28px; /* Re-adjusted */ }
+    #articles-container { border-top: 1px solid var(--color-light-grey-borders-dividers); }
     .article-item {
-      display: flex; align-items: center; gap: 30px;
-      padding: 20px 0; border-bottom: 1px solid var(--color-light-grey-borders-dividers); 
+      display: flex; align-items: center; gap: 25px; /* Re-adjusted */
+      padding: 18px 0; /* Re-adjusted */
+      border-bottom: 1px solid var(--color-light-grey-borders-dividers);
       text-decoration: none; color: inherit; transition: opacity 0.2s ease;
     }
-      .article-item:hover { opacity: 0.8; }
+    .article-item:hover { opacity: 0.8; }
     .article-item img {
-      width: 120px; aspect-ratio: 1 / 1; object-fit: cover;
+      width: 110px; /* Re-increased */
+      aspect-ratio: 1 / 1; object-fit: cover;
       border-radius: 4px; flex-shrink: 0;
     }
     .article-item-content { flex-grow: 1; }
     .article-item h3 {
-        font-size: 1.3rem; margin-bottom: 0.6rem; font-weight: 600;
-        color: var(--color-text-headings); 
+      font-size: var(--font-size-article-title-desktop);
+      margin-bottom: 0.5rem; /* Re-adjusted */
+      font-weight: 600;
+      color: var(--color-text-headings);
     }
     .article-item p {
-        font-size: 1rem; color: var(--color-text-primary); 
-        line-height: 1.7;
+      font-size: var(--font-size-body-desktop);
+      color: var(--color-text-primary);
+      line-height: 1.6; /* Re-adjusted */
     }
-    .see-all-articles-custom-margin { 
-        display: block;
-        width: fit-content;
-        margin: 40px auto 0;
+    .see-all-articles-custom-margin {
+      display: block; width: fit-content; margin: 35px auto 0; /* Re-adjusted */
     }
 
     .interactive-section {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 50px; position: relative;
+      gap: 45px; /* Re-adjusted */
+      position: relative;
     }
     .interactive-section .section-title { flex-shrink: 0; text-align: left; }
     .interactive-section .scroll-wrapper {
-      flex-grow: 1; position: relative; margin: 0; padding: 0; max-width: 65%; 
-      overflow: visible; 
+      flex-grow: 1; position: relative; margin: 0; padding: 0; max-width: 65%;
+      overflow: visible;
     }
     .card-scroll-container {
       display: flex; gap: var(--card-gap); overflow-x: auto;
       scroll-behavior: smooth; scroll-snap-type: x mandatory;
-      scrollbar-width: none; padding: 10px 0; 
+      scrollbar-width: none; padding: 10px 0; /* Re-adjusted */
     }
     .card-scroll-container::-webkit-scrollbar { display: none; }
     .tool-card, .video-card {
       aspect-ratio: 16/9; flex: 0 0 calc(40% - (var(--card-gap) * 0.6));
-      border-radius: 8px; overflow: hidden; scroll-snap-align: start;
-      background: var(--color-dark-grey-panel-bg); 
+      border-radius: 8px; /* Maintained */
+      overflow: hidden; scroll-snap-align: start;
+      background: var(--color-dark-grey-panel-bg);
       position: relative;
-      border: 1px solid var(--color-light-grey-borders-dividers); 
+      border: 1px solid var(--color-light-grey-borders-dividers);
     }
     .tool-card {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
-      transition: transform 0.3s ease; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Maintained */
+      transition: transform 0.3s ease;
     }
-    .tool-card:hover { transform: translateY(-5px); }
+    .tool-card:hover { transform: translateY(-5px); } /* Maintained */
     .image-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .image-container::after { 
+    .image-container::after {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); 
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); /* Maintained */
     }
-    .image-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); display: block; } 
+    .image-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); display: block; } /* Maintained */
     .tool-title {
-      position: absolute; bottom: 15px; left: 15px; right: 15px; transform: none;
-      color: var(--color-text-headings) !important; 
-      font-family: 'Poppins', sans-serif; font-size: 1.2rem; text-align: left;
-      z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.5); font-weight: 600;
+      position: absolute; bottom: 15px; left: 15px; right: 15px; /* Maintained */
+      transform: none;
+      color: var(--color-text-headings) !important;
+      font-family: 'Poppins', sans-serif;
+      font-size: var(--font-size-card-title-desktop);
+      text-align: left;
+      z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.5); font-weight: 600; /* Maintained */
     }
     .video-card iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-    .scroll-btn { 
+    .scroll-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--color-dark-grey-panel-bg); 
-      border: 1px solid var(--color-light-grey-borders-dividers); 
-      color: var(--color-text-accent); 
+      width: 44px; height: 44px; /* Maintained */
+      border-radius: 50%;
+      background: var(--color-dark-grey-panel-bg);
+      border: 1px solid var(--color-light-grey-borders-dividers);
+      color: var(--color-text-accent);
       cursor: pointer; z-index: 10;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s ease;
     }
     .scroll-btn:hover {
-        background: var(--color-light-grey-borders-dividers); 
-        transform: translateY(-50%) scale(1.05);
-        border-color: var(--color-light-grey-borders-dividers); 
+      background: var(--color-light-grey-borders-dividers);
+      transform: translateY(-50%) scale(1.05); /* Maintained */
+      border-color: var(--color-light-grey-borders-dividers);
     }
-    .scroll-btn.left { left: -55px; } 
-    .scroll-btn.right { right: -55px; }
+    .scroll-btn.left { left: -55px; } /* Maintained */
+    .scroll-btn.right { right: -55px; } /* Maintained */
+
+    /* General content divider, spacing adjusted by section padding mostly */
+    .content-divider {
+        height: 1px;
+        background-color: var(--color-light-grey-borders-dividers);
+        /* Using section spacing variables for consistency if a divider is explicitly needed between sections */
+        margin: var(--section-spacing-desktop) 0;
+        width: 100%;
+    }
+    .content-limiter > .content-divider {
+        width: auto; margin-left: 0; margin-right: 0;
+    }
+
 
     @media (max-width: 850px) {
-      .fullscreen-section { aspect-ratio: var(--hero-aspect-mobile); }
-      
-      .hero-text { 
-        padding: 0 10px; /* Slightly less side padding for hero text container */
-        width: 95%; /* Allow it to use more width */
+      .fullscreen-section {
+        height: var(--hero-height-mobile);
       }
-      .fullscreen-section h1, .fullscreen-section h2 { /* More specific selector for hero titles */
-        font-size: clamp(1.5rem, 4.8vw, 1.9rem) !important; /* Slightly smaller, responsive */
-        margin-bottom: 1rem !important; /* Reduced margin */
+      .page-main-content-area .content-limiter > section,
+      .fullscreen-section + .page-main-content-area .content-limiter > section:first-child {
+        padding-top: var(--section-spacing-mobile);
+        padding-bottom: var(--section-spacing-mobile);
+      }
+       .page-main-content-area .content-limiter > section:last-child {
+         padding-bottom: var(--section-spacing-mobile);
+       }
+      .content-divider {
+          margin: var(--section-spacing-mobile) 0;
+      }
+
+      .hero-text { padding: 0 10px; width: 95%; }
+      .fullscreen-section h1, .fullscreen-section h2 {
+        font-size: var(--font-size-hero-title-mobile) !important;
+        margin-bottom: 1rem !important;
       }
       .section-button {
-        font-size: clamp(0.85rem, 2.8vw, 0.95rem); /* Slightly smaller, responsive */
-        padding: clamp(8px, 1.3vw, 10px) clamp(12px, 3.5vw, 18px); /* Reduced padding */
+        font-size: var(--font-size-button-mobile);
+        padding: clamp(9px, 1.4vw, 11px) clamp(14px, 3.3vw, 20px); /* Re-adjusted */
       }
 
-      .about { flex-direction: column; gap: 20px; }
-      .about .title { font-size: var(--title-font-size-large-mobile); text-align: center; }
-      .about .text { max-width: none; text-align: center; font-size: 0.9rem; line-height: 1.6; }
+      .about { flex-direction: column; gap: 18px; /* Re-adjusted */ }
+      .about .title {
+        font-size: var(--font-size-section-title-large-mobile);
+        text-align: center;
+      }
+      .about .text p {
+        max-width: none; text-align: center;
+        font-size: var(--font-size-body-mobile);
+        line-height: 1.6; /* Re-adjusted */
+      }
 
-      .interactive-section { flex-direction: column; gap: 15px; }
-      .interactive-section .section-title { text-align: center; margin-bottom: 5px; font-size: var(--title-font-size-medium-mobile); }
+      .interactive-section { flex-direction: column; gap: 15px; /* Maintained */ }
+      .interactive-section .section-title {
+        text-align: center; margin-bottom: 5px; /* Maintained */
+        font-size: var(--font-size-section-title-medium-mobile);
+      }
       .interactive-section .scroll-wrapper { max-width: none; width: 100%; }
 
-      .articles-section .section-title { margin-bottom: 15px; font-size: var(--title-font-size-medium-mobile); }
-      .article-item { gap: 15px; padding: 15px 0; }
-      .article-item img { width: 80px; }
-      .article-item h3 { font-size: 1.0rem; margin-bottom: 0.3rem; }
-      .article-item p { font-size: 0.85rem; line-height: 1.5; }
-      .see-all-articles-custom-margin { margin-top: 25px; }
+      .articles-section .section-title {
+        margin-bottom: 15px; /* Maintained */
+        font-size: var(--font-size-section-title-medium-mobile);
+      }
+      .article-item { gap: 15px; padding: 15px 0; /* Maintained */ }
+      .article-item img { width: 80px; /* Re-increased */ }
+      .article-item h3 {
+        font-size: var(--font-size-article-title-mobile);
+        margin-bottom: 0.3rem; /* Maintained */
+      }
+      .article-item p {
+        font-size: var(--font-size-body-mobile);
+        line-height: 1.55; /* Re-adjusted */
+      }
+      .see-all-articles-custom-margin { margin-top: 25px; /* Maintained */ }
 
       .card-scroll-container {
-          gap: var(--card-gap); 
-          margin: 0 25px; 
-          padding: 10px 0;
+        gap: var(--card-gap);
+        margin: 0 25px;
+        padding: 10px 0; /* Maintained */
       }
       .tool-card, .video-card {
-          flex: 0 0 60%; 
-          aspect-ratio: 4 / 3;
+        flex: 0 0 60%;
+        aspect-ratio: 4 / 3;
+        border-radius: 6px; /* Re-adjusted */
       }
-      .tool-title { font-size: 0.9rem; bottom: 10px; left: 10px; right: 10px;} 
+      .tool-title {
+        font-size: var(--font-size-card-title-mobile);
+        bottom: 10px; left: 10px; right: 10px; /* Maintained */
+      }
 
-      .scroll-btn { width: 36px; height: 36px; }
-      .scroll-btn.left { left: -10px; } 
+      .scroll-btn { width: 36px; height: 36px; /* Maintained */ }
+      .scroll-btn.left { left: -10px; }
       .scroll-btn.right { right: -10px; }
     }
   </style>
@@ -223,12 +327,12 @@
 <body>
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
   <div class="modal" id="modal">
-      <a href="/index.html" class="active">Home</a>
-      <a href="/myjourney.html">My Journey</a>
-      <a href="/photography.html">Photography</a>
-      <a href="/articles">Articles</a>
-      <a href="/tools.html">Tools</a>
-      <a href="/contact.html">Contact</a>
+    <a href="/index.html" class="active">Home</a>
+    <a href="/myjourney.html">My Journey</a>
+    <a href="/photography.html">Photography</a>
+    <a href="/articles">Articles</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/contact.html">Contact</a>
   </div>
 
   <header>
@@ -263,20 +367,15 @@
     </div>
   </div>
 
-  <div class="content-divider divider-below-hero"></div>
-
   <main class="page-main-content-area">
     <div class="content-limiter">
-      <section class="about">
-        <div class="title">ABOUT ME</div>
+      <section class="about"> <div class="title">ABOUT ME</div>
         <div class="text">
           <p>In October 2024, I bought a telescope. Since then, I've fallen in love with the night sky. Now, I spend my free time taking pictures of celestial objects from my backyard, making space videos for all to see, and exploring the field of astrophysics. This website is where you can find all of that in one place!</p>
         </div>
       </section>
     </div>
   </main>
-
-  <div class="content-divider divider-above-hero"></div>
 
   <section class="fullscreen-section journey">
     <div class="hero-text">
@@ -285,24 +384,16 @@
     </div>
   </section>
 
-  <div class="content-divider divider-below-hero"></div>
-
   <main class="page-main-content-area">
     <div class="content-limiter">
-      <section class="articles-section">
-          <h2 class="section-title">LATEST ARTICLES</h2>
-          <div id="articles-container">
-              <a href="/articles/2025-05-16" class="article-item"> <img src="/articles/images/1-11.jpg" alt="Article 1 Thumbnail" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>The 11 greatest cosmic events of our lifetimes</h3> <p>See what the universe has to offer in our short window of existence on this planet.</p> </div> </a>
-              <!-- <a href="/articles/second-article" class="article-item"> <img src="https://via.placeholder.com/120x120/ddd/777?text=Article+2" alt="Article 2 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>Another Interesting Article Title (2)</h3> <p>More details about the second article go here. This text might be a bit longer to see how wrapping behaves.</p> </div> </a>
-              <a href="/articles/third-one" class="article-item"> <img src="https://via.placeholder.com/120x120/eee/666?text=Article+3" alt="Article 3 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>Article Number Three</h3> <p>A brief summary of the third piece of content available for reading.</p> </div> </a>
-              <a href="/articles/the-fourth" class="article-item"> <img src="https://via.placeholder.com/120x120/ccc/888?text=Article+4" alt="Article 4 Placeholder" onerror="this.src='https://placehold.co/120x120/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>The Fourth Article's Title Is Here</h3> <p>Description text for article number four, providing context and encouraging a click.</p> </div> </a> -->
+      <section class="articles-section"> <h2 class="section-title">LATEST ARTICLES</h2>
+        <div id="articles-container">
+          <a href="/articles/2025-05-16" class="article-item"> <img src="/articles/images/1-11.jpg" alt="Article 1 Thumbnail" onerror="this.src='https://placehold.co/110x110/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>The 11 greatest cosmic events of our lifetimes</h3> <p>See what the universe has to offer in our short window of existence on this planet.</p> </div> </a>
           </div>
-          <a href="/articles" class="button-generic outline see-all-articles-custom-margin">See All Articles →</a>
+        <a href="/articles" class="button-generic outline see-all-articles-custom-margin">See All Articles →</a>
       </section>
 
-      <div class="content-divider"></div>
-
-      <section class="interactive-section tools-section">
+      <div class="content-divider"></div> <section class="interactive-section tools-section">
         <h2 class="section-title">TOOLS</h2>
         <div class="scroll-wrapper">
           <button class="scroll-btn left" onclick="slide('tools', -1)">‹</button>
@@ -333,8 +424,8 @@
           <button class="scroll-btn right" onclick="slide('videos', 1)">›</button>
         </div>
       </section>
-    </div> 
-  </main> 
+    </div>
+  </main>
 
   <footer>
     <div class="footer-inner-container content-limiter">
@@ -349,12 +440,15 @@
 
   <script src="/scripts.js"></script>
   <script>
+    // Modal toggle function (ensure it's defined, likely in /scripts.js)
+    // function toggleModal() { ... }
+
     const heroSlider = () => {
       const heroImages = document.querySelectorAll('.hero-image');
       if (heroImages.length === 0) return;
       let currentIndex = 0; let isAnimating = false;
       function resetImage(image) { image.classList.remove('active'); image.style.transition = 'none'; image.style.transform = 'translateX(100%)'; void image.offsetWidth; image.style.transition = ''; }
-      const slide = () => {
+      const slideAction = () => { // Renamed to avoid conflict with slide function below
         if (isAnimating) return; isAnimating = true;
         const currentImage = heroImages[currentIndex]; const nextIndex = (currentIndex + 1) % heroImages.length; const nextImage = heroImages[nextIndex];
         nextImage.style.transform = 'translateX(100%)'; nextImage.classList.add('active');
@@ -363,10 +457,10 @@
         currentImage.addEventListener('transitionend', handleTransitionEnd);
       };
       heroImages.forEach((img, i) => { img.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)'; });
-      setInterval(slide, 10000); 
+      setInterval(slideAction, 10000);
     };
 
-    function slide(containerId, direction) {
+    function slide(containerId, direction) { // This is for card sliders
       const container = document.getElementById(containerId); if (!container) return;
       const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
       const card = container.querySelector(cardSelector); if (!card) return;
@@ -377,32 +471,39 @@
 
     function autoScroll(containerId) {
       const container = document.getElementById(containerId); if (!container) return;
-      setInterval(() => {
-        if (container.matches(':hover')) return; 
+      let intervalId = setInterval(() => { // Store interval ID
+        if (container.matches(':hover')) return;
         const cardSelector = containerId === 'tools' ? '.tool-card' : '.video-card';
         const card = container.querySelector(cardSelector); if (!card) return;
         const gapValue = parseFloat(getComputedStyle(container).getPropertyValue('gap')) || parseFloat(getComputedStyle(container).getPropertyValue('--card-gap')) || 10;
         const scrollAmount = card.offsetWidth + gapValue;
         const maxScroll = container.scrollWidth - container.clientWidth;
-        if (container.scrollLeft >= maxScroll - 10) { 
-          container.scrollTo({ left: 0, behavior: 'smooth' }); 
-        } else {
-          container.scrollBy({ left: scrollAmount, behavior: 'smooth' }); 
+
+        if (container.scrollLeft >= maxScroll - (card.offsetWidth * 0.1) && maxScroll > 0) { // Added maxScroll > 0 check
+          container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else if (maxScroll > 0) { // Only scroll if there's something to scroll
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
-      }, 10000); 
+      }, 10000);
+      // Optional: Clear interval if container is removed or not visible to save resources
+      // This is a more advanced topic for single-page apps or dynamic content
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        heroSlider();
+      heroSlider();
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
     });
 
     window.addEventListener('load', () => {
+      // Delay autoScroll slightly to ensure all elements are laid out
       setTimeout(() => {
         autoScroll('tools');
         autoScroll('videos');
-      }, 500);
+      }, 700); // Slightly increased delay
     });
-
   </script>
 </body>
 </html>
