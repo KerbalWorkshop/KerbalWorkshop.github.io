@@ -20,29 +20,14 @@ const { Content } = await post.render();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{post.data.title} – Hansen Space</title>
     <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/articles.css" /> {/* This will now be the rewritten version */}
-    <style>
-      /* Minimal page-specific inline styles, if any. Most moved to articles.css */
-      .publish-date { /* Keeping this here for direct control if preferred over articles.css */
-        color: var(--color-text-secondary);
-        margin-top: 0.25rem; /* Space after H1 */
-        margin-bottom: 2rem; /* Space before article content starts */
-        font-size: 0.9rem;
-        text-align: left; /* Or center if preferred */
-      }
-      /* The main H1 for the article title */
-      .article-title-main {
-          color: var(--color-text-headings);
-          /* font-size and margins are handled by global h1 or page-main-content-area context */
-          /* No specific override needed here unless it must differ from global H1 */
-      }
-    </style>
+    <link rel="stylesheet" href="/articles.css" />
   </head>
-  <body>
+
+  <body class="article-page">
     <header>
       <div class="header-inner-container content-limiter">
         <a class="brand" href="/index.html">
-          <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;">
+          <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;" />
         </a>
         <nav>
           <ul>
@@ -57,7 +42,7 @@ const { Content } = await post.render();
         <div class="menu-icon" onclick="toggleModal()">☰</div>
       </div>
     </header>
-    
+
     <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
     <div class="modal" id="modal">
       <a href="/index.html">Home</a>
@@ -69,10 +54,14 @@ const { Content } = await post.render();
     </div>
 
     <main class="page-main-content-area content-limiter">
-      <h1 class="article-title-main">{post.data.title}</h1>
+      <div class="intro-block">
+        <h1 class="intro-block__title">{post.data.title}</h1>
+        <p class="intro-block__text">{post.data.description}</p>
+      </div>
+
       <p class="publish-date"><em>Published: {new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</em></p>
 
-      <article class="article-body"> {/* Wrapper for scoped styling from articles.css */}
+      <article class="article-body">
         <Content />
       </article>
     </main>
@@ -93,7 +82,7 @@ const { Content } = await post.render();
         <p>© <span id="year">2025</span> Hansen Space.</p>
       </div>
     </footer>
-    
-    <script is:raw src="/scripts.js"></script>
+
+    <script src="/scripts.js" is:raw></script>
   </body>
 </html>

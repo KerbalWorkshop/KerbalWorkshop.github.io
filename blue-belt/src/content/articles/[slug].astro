@@ -1,12 +1,18 @@
 ---
-import { getEntryBySlug } from 'astro:content';
-import { AstroError } from 'astro/errors';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
-const post = await getEntryBySlug('articles', slug);
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { post: article },
+  }));
+}
 
-if (!post) throw new AstroError('Article not found');
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +73,7 @@ if (!post) throw new AstroError('Article not found');
       <p>&copy; 2025 Hansen Space.</p>
     </footer>
 
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" is:raw></script>
 
   </body>
 </html>

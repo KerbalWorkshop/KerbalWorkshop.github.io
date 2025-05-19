@@ -1,268 +1,520 @@
-@font-face {
-  font-family: 'Moon Bold';
-  src: url('fonts/Moon Bold.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+/* styles.css - GLOBAL STYLES - Text Color System Update */
+/* Import Google Fonts: Poppins for titles, Nunito Sans for body */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Nunito+Sans:wght@400;600&display=swap');
+
+:root {
+  /* === Color Palette === */
+  --color-grey-page-bg: #2e2e2e;                /* Grey: Page background */
+  --color-dark-grey-header-footer-bg: #1c1c1c;   /* Dark Grey: Header, Footer, Panels, Modal BG */
+  --color-dark-grey-panel-bg: #2a2a2a;           /* Slightly Lighter Dark Grey: For nested panels */
+  --color-light-grey-borders-dividers: #444444; /* Light Grey: Borders, Dividers */
+  --color-white-accent-bg: #f0f0f0;             /* White: Backgrounds for active/hover states */
+  
+  /* === NEW Text Color System === */
+  --color-text-headings: #f0f0f0;               /* White: Main titles (h1), Section titles (h2) */
+  --color-text-primary: #cccccc;                /* Light Grey: Primary body text, descriptions */
+  --color-text-secondary: #a0a0a0;              /* Muted Grey: Labels, footer text, less important info */
+  --color-text-on-light: #1c1c1c;               /* Dark Grey/Black: Text on light backgrounds (active pills, buttons) */
+  --color-text-accent: #f0f0f0;                 /* White: Active nav links, specific highlights */
+  --color-text-error: #ffaaaa;                  /* Reddish: Error messages */
+  --color-text-link-hover: #ffffff;             /* White: Link hover color */
+
+  /* === Button & Interaction Colors === */
+  --color-accent-primary: #007bff;              /* Accent for primary buttons */
+  --color-accent-primary-dark: #0056b3;         /* Darker accent for hover */
+  --color-button-text-primary: #ffffff;         /* Text color for primary buttons */
+  --color-social-icon-border: var(--color-white-accent-bg); /* Border for social icons */
+  --color-social-icon-hover-bg: var(--color-light-grey-borders-dividers);
+  
+  /* Pill Switch Specific Colors */
+  --pill-switch-bg: #3a3a3a;                     
+  --pill-switch-text-color: var(--color-text-primary); /* Use primary text color for pills */
+  --pill-switch-active-bg: var(--color-white-accent-bg);    
+  --pill-switch-active-text-color: var(--color-text-on-light); 
+  --pill-switch-disabled-text-color: #888;
+
+  /* Dropdown specific colors (Examples) */
+  --dropdown-bg: #333;
+  --dropdown-border-color: var(--color-light-grey-borders-dividers);
+  --dropdown-text-color: var(--color-text-primary); /* Use primary text color */
+  --dropdown-item-hover-bg: #555;
+  --dropdown-item-selected-bg: var(--color-accent-primary-dark);
+
+
+  /* === Layout Dimensions === */
+  --main-content-width: 860px;
+  --main-content-padding-desktop: 80px;
+  --main-content-padding-mobile: 20px;
+  --main-container-max-width: calc(var(--main-content-width) + (2 * var(--main-content-padding-desktop))); 
+  --header-height: 75px; 
+
+  /* === Typography === */
+  --font-primary: 'Nunito Sans', sans-serif;
+  --font-headings: 'Poppins', sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.7;
 }
 
-@font-face {
-  font-family: 'Moon Light';
-  src: url('fonts/Moon Light.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Global Styles */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Moon Light', sans-serif;
-  background: #f9f9f9;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.6;
-  /* No global horizontal padding here */
-}
-
+/* === Global Resets and Base Styles === */
 *, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  font-size: var(--font-size-base);
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-grey-page-bg);
+  color: var(--color-text-primary); /* Default text color set to primary (Light Grey) */
+  line-height: var(--line-height-base);
+  overflow-x: hidden;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: inherit; /* Links inherit color by default */
 }
 
-/* Header */
-header {
-  position: relative;
-  top: 0;
-  background: #fff;
-  color: #333;
-  z-index: 1000;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 100%;
-}
-
-header .brand {
-  font-family: 'Moon Bold', sans-serif;
-  font-size: 1.6em;
-  font-weight: 500;
-  text-align: center;
+img {
+  max-width: 100%;
+  height: auto;
   display: block;
 }
 
-/* Navigation */
-nav {
-  margin-top: 8px;
-  text-align: center;
+/* === Common Container === */
+.content-limiter {
+  width: 100%;
+  max-width: var(--main-container-max-width); 
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--main-content-padding-desktop);
+  padding-right: var(--main-content-padding-desktop);
+}
+
+
+/* === Header === */
+header {
+  background-color: var(--color-dark-grey-header-footer-bg); 
+  border-bottom: 1px solid var(--color-light-grey-borders-dividers); 
+  height: var(--header-height); 
+  display: flex; 
+  align-items: center; 
+  position: relative;
+  z-index: 100;
+}
+
+.header-inner-container { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  height: 100%; 
+}
+
+.brand img {
+  height: 45px; 
+  max-height: 45px; 
 }
 
 nav ul {
-  display: inline-flex;
-  white-space: nowrap;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 15px;
-  font-size: 0.9em;
+  display: flex;
+  gap: 30px; 
+  align-items: center; 
 }
 
 nav li a {
-  font-family: 'Moon Light', sans-serif;
-  color: #333;            /* Updated text color */
-  padding: 8px 10px;      /* Increased padding */
-  transition: border-bottom 0.3s;
-  font-size: 1.1em;       /* Increased font size */
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-primary); /* Nav links use primary text color */
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px; 
+  transition: border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
 }
 
-nav ul li a.active {
-  border-bottom: 2px solid #333;
-}
-nav ul li a:hover {
-  border-bottom: 2px solid #333;
+nav li a:hover {
+  color: var(--color-text-link-hover); /* Use specific hover color */
 }
 
-header .brand img {
-  max-height: 50px;   /* Adjust as needed */
-  display: block;
-  margin: 10px auto;
+nav li a.active {
+  color: var(--color-text-accent); /* Active nav uses accent color */
+  border-color: var(--color-text-accent); 
 }
 
-/* Mobile adjustments for nav */
-@media (max-width: 600px) {
-  nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.8em;
-  }
+.menu-icon {
+  display: none;
+  font-size: 1.8rem; 
+  cursor: pointer;
+  padding: 5px;
+  font-family: var(--font-headings);
+  color: var(--color-text-accent); /* Use accent color for icon */
 }
 
-/* Hero Section */
-.hero {
-  background: #ddd;
-  padding: 40px 20px;
+/* === Main Page Content Area === */
+.page-main-content-area { 
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* === Content Layout Blocks === */
+.intro-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.intro-block__title { /* e.g., PLANET DASHBOARD */
+  font-family: var(--font-headings);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+  color: var(--color-text-headings); /* Use heading color */
+  flex: 1 1 40%;
+  min-width: 200px;
+}
+
+.intro-block__text { /* Paragraph below main title */
+  font-size: 1.1rem;
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary); /* Use primary text color */
+  flex: 1 1 55%;
+  max-width: 650px;
+}
+
+.section-heading-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.section-heading-block__title { /* e.g., SIZE, DISTANCE */
+  font-family: var(--font-headings);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+  color: var(--color-text-headings); /* Use heading color */
+  flex: 1 1 40%;
+  min-width: 150px;
+}
+
+.section-heading-block__text { /* Paragraph below section title */
+  font-size: 1rem;
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary); /* Use primary text color */
+  flex: 1 1 55%;
+  max-width: 600px;
+}
+
+/* === Horizontal Content Divider === */
+.content-divider {
+  height: 1px;
+  background-color: var(--color-light-grey-borders-dividers); 
+  margin: 60px 0;
+  width: 100%;
+}
+
+
+/* === Footer === */
+footer {
+  background-color: var(--color-dark-grey-header-footer-bg); 
+  padding: 30px 0; 
+  border-top: 1px solid var(--color-light-grey-borders-dividers); 
+  color: var(--color-text-secondary); /* Use secondary text color */
+}
+
+.footer-inner-container { 
   text-align: center;
-  font-size: 1em;
-  color: #666;
 }
 
-/* Main content container */
-.content {
-  padding-top: 70px;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 30px 20px;  /* internal padding to keep text away from edges */
-}
-
-/* Sections on Home */
-.section {
-  padding: 30px 20px;
-  max-width: 1000px;
-  margin: 30px auto;
-  border-bottom: 1px solid #eee;
-  box-sizing: border-box;
-}
-
-.section:last-child {
-  border-bottom: none;
-}
-
-.section h2 {
-  font-family: 'Moon Bold', sans-serif;
-  font-size: 1.3em;
-  margin-bottom: 10px;
-  color: #444;
-}
-
-.section p {
-  font-family: 'Moon Light', sans-serif;
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
   margin-bottom: 15px;
 }
 
-/* Responsive adjustments for sections on narrow screens */
-@media (max-width: 600px) {
-  .content, .section {
-    max-width: 100%;
-    padding: 30px 15px;  /* slightly increased side padding to avoid text clinging to edges */
-  }
-  .section h2 {
-    font-size: 1.1em;
-  }
-  .section p {
-    font-size: 0.9em;
-  }
-}
-
-/* Footer */
-footer {
-  background: #eee;
-  padding: 15px;
-  text-align: center;
-  font-size: 0.85em;
-  margin-top: 30px;
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 101;
-}
-
-/* Footer Social Links */
-footer .social-links {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-footer .social-links a {
+.social-links a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #fff;
-  border: 1px solid #333;
-  transition: background 0.3s;
+  background-color: var(--color-dark-grey-header-footer-bg); 
+  border: 1px solid var(--color-social-icon-border);       
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-footer .social-links a:hover {
-  background: #f0f0f0;
+.social-links a:hover {
+  background-color: var(--color-social-icon-hover-bg); 
+  border-color: var(--color-social-icon-hover-bg); 
 }
 
-footer .social-links img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+.social-links img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1); /* Makes icons white */
 }
 
-/* Section background container with a 16:9 landscape ratio */
-.section-bg {
-  width: 100%;
-  aspect-ratio: 16 / 7.5; /* Adjust this value if needed (use 16/9 for exact 16:9) */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #f9f9f9;
+footer p {
+  font-size: 0.85rem;
+  margin-top: 0;
+  color: var(--color-text-secondary); /* Explicitly set footer p color */
 }
 
-/* Inner content within each background section */
-.section-bg .inner {
-  position: relative;
-  width: 100%;
+/* === Modal Styles (for mobile navigation) === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  z-index: 2099;
+}
+.modal-backdrop.open { display: block; }
+
+.modal { /* Mobile nav modal */
+  position: fixed;
+  top: 0;
+  right: -300px; 
+  width: clamp(250px, 70vw, 280px);
   height: 100%;
+  background: var(--color-dark-grey-header-footer-bg); 
+  padding: 30px 20px;
+  transition: right 0.3s ease;
+  z-index: 2100;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
+  gap: 10px;
+  border-left: 1px solid var(--color-light-grey-borders-dividers); 
 }
+.modal.open { right: 0; }
 
-/* Larger white title text for section backgrounds */
-.section-bg h2 {
-  font-size: 4em;
-  color: #fff;
-  margin: 0 0 0.5em;
+.modal a {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  color: var(--color-text-primary); /* Use primary text color */
+  padding: 8px 0;
+  transition: color 0.2s ease;
+  font-weight: 600;
 }
+.modal a:hover { color: var(--color-text-link-hover); }
+body.modal-open { overflow: hidden; }
 
-/* Larger white paragraph text for section backgrounds */
-.section-bg p {
-  font-size: 1.3em;
-  color: #fff;
-  margin: 0 0 1em;
-}
 
-/* Larger, white outlined button for section backgrounds */
-.section-bg .btn {
-  font-size: 1.3em;
-  padding: 12px 18px;
-  border: 2px solid #fff;
-  border-radius: 4px;
-  color: #fff;
-  background: transparent;
-  transition: background 0.3s, color 0.3s;
+/* === Button Styles === */
+
+/* --- Standard Button (Legacy or Specific Use) --- */
+.button-standard {
+  display: inline-block;
+  padding: clamp(10px, 1vw, 12px) clamp(18px, 1.8vw, 25px);
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  font-family: var(--font-headings); 
+  font-weight: 700;
+  background-color: transparent;
+  color: var(--color-text-accent); /* Use accent text color */
+  border: 1.5px solid var(--color-text-accent);  
   text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer; 
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.section-bg .btn:hover {
-  background: #fff;
-  color: #444;
+.button-standard:hover {
+  background-color: var(--color-white-accent-bg);   
+  color: var(--color-text-on-light); /* Use text-on-light color */
 }
 
-/* Mobile-specific adjustments for section backgrounds */
-@media (max-width: 600px) {
-  .section-bg h2 {
-    font-size: 2em;
-  }
-  .section-bg p {
-    font-size: 1em;
-  }
-  .section-bg .btn {
-    font-size: 1em;
-    padding: 10px 16px;
-  }
+/* --- Generic Button Styles --- */
+.button-generic {
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 25px; 
+    font-weight: 600;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    font-size: 14px; 
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; 
+    white-space: nowrap;
 }
+
+.button-generic:active {
+    transform: translateY(1px); 
+}
+
+.button-generic.primary {
+    background-color: var(--color-accent-primary); 
+    color: var(--color-button-text-primary); /* Specific white for primary button text */
+    border-color: var(--color-accent-primary);
+}
+
+.button-generic.primary:hover {
+    background-color: var(--color-accent-primary-dark); 
+    border-color: var(--color-accent-primary-dark);
+}
+
+.button-generic.outline {
+    background-color: transparent;
+    color: var(--color-text-accent); /* Use accent text color for outline */
+    border: 1px solid var(--color-text-accent); 
+}
+
+.button-generic.outline:hover {
+    background-color: var(--color-white-accent-bg); 
+    color: var(--color-text-on-light); 
+    border-color: var(--color-white-accent-bg);
+}
+
+.button-generic.small { /* Variant for smaller buttons like 'Edit' */
+    padding: 6px 12px; 
+    font-size: 13px;   
+    border-radius: 20px; 
+}
+
+
+/* --- Pill Switch Button Group --- */
+.pill-switch {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 5px; 
+  background-color: var(--pill-switch-bg); 
+  border-radius: 40px; 
+  width: fit-content; 
+  max-width: 100%; 
+  overflow: visible; 
+  padding: 5px; 
+  margin: 0 auto 20px; 
+  font-size: 14px; 
+  position: relative; 
+  font-family: var(--font-primary); 
+}
+
+.pill-switch button,
+.pill-switch .custom-select-button { 
+  padding: 8px 15px; 
+  border: none; 
+  background: transparent; 
+  color: var(--pill-switch-text-color); /* Uses primary text color */
+  font-weight: 600; 
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  gap: 5px; 
+  border-radius: 30px; 
+  flex-shrink: 0; 
+  font-family: inherit; 
+  transition: background-color 0.2s ease, color 0.2s ease; 
+}
+
+.pill-switch button:not(.active):hover,
+.pill-switch .custom-select-button:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.pill-switch button.active,
+.pill-switch .custom-select-button.active { 
+  background-color: var(--pill-switch-active-bg); 
+  color: var(--pill-switch-active-text-color); /* Uses text-on-light */
+}
+
+.pill-switch button:disabled,
+.pill-switch .custom-select-button:disabled {
+  color: var(--pill-switch-disabled-text-color); 
+  cursor: not-allowed; 
+  background-color: transparent; 
+}
+
+/* For Planet Dashboard's custom select within a pill switch */
+.pill-switch > .custom-select-container {
+  display: flex; 
+  position: relative; 
+  overflow: visible; 
+}
+
+.custom-select-button .arrow { 
+  display: inline-block; width: 0; height: 0;
+  border-left: 5px solid transparent; border-right: 5px solid transparent; 
+  border-top: 5px solid currentColor; margin-left: 8px; 
+  transition: transform 0.2s ease-in-out; 
+}
+.custom-select-button.open .arrow { transform: rotate(180deg); }
+
+.custom-dropdown { 
+  display: none; position: absolute; top: calc(100% + 5px); left: 50%; 
+  transform: translateX(-50%); background-color: var(--dropdown-bg, #333); 
+  border: 1px solid var(--dropdown-border-color, #666); border-radius: 4px; 
+  padding: 5px 0; z-index: 2000; min-width: 150px; max-height: 200px; 
+  overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+.custom-dropdown.show { display: block; }
+.custom-dropdown ul { list-style: none; padding: 0; margin: 0; }
+.custom-dropdown li {
+  padding: 8px 15px; color: var(--dropdown-text-color); /* Uses primary text */
+  cursor: pointer; font-size: 13px; white-space: nowrap; 
+  transition: background-color 0.2s ease; 
+}
+.custom-dropdown li:hover { background-color: var(--dropdown-item-hover-bg, #555); }
+.custom-dropdown li.selected { background-color: var(--dropdown-item-selected-bg, #777); font-weight: bold; }
+
+/* === Arrow Indicator (For Angular Size Comparer Modals) === */
+.arrow-indicator {
+    display: inline-block; width: 7px; height: 7px; border-style: solid;
+    border-width: 0 2px 2px 0; border-color: currentColor; 
+    transform: rotate(-45deg) translateY(-50%) translateX(-25%); 
+    position: relative; top: 50%; transition: transform 0.2s ease-in-out;
+}
+.dropdown-item.expanded .dropdown-header .arrow-indicator {
+    transform: rotate(45deg) translateY(-50%) translateX(-25%); 
+}
+
+
+/* === Responsive Adjustments === */
+@media (max-width: 850px) {
+  :root { --header-height: 65px; }
+  .content-limiter, .header-inner-container { 
+    padding-left: var(--main-content-padding-mobile); 
+    padding-right: var(--main-content-padding-mobile);
+    max-width: none; 
+  }
+  .page-main-content-area { padding-top: 40px; padding-bottom: 40px; }
+  nav ul { display: none; }
+  .menu-icon { display: block; }
+
+  .intro-block, .section-heading-block {
+    flex-direction: column; text-align: center; align-items: center;
+    gap: 15px; margin-bottom: 30px;
+  }
+  .intro-block__title, .section-heading-block__title {
+    flex-basis: auto; min-width: 0;
+    font-size: clamp(1.7rem, 5.5vw, 2rem);
+  }
+  .intro-block__text, .section-heading-block__text {
+    flex-basis: auto; max-width: 95%;
+    font-size: 0.95rem; padding: 0 15px; 
+  }
+  .section-heading-block__title { font-size: clamp(1.3rem, 4.5vw, 1.7rem); }
+  .section-heading-block__text { font-size: 0.9rem; }
+  .content-divider { margin: 40px 0; }
+  footer { padding: 25px 0; }
+
+  .pill-switch { font-size: 12px; margin-bottom: 30px; }
+  .pill-switch button, .pill-switch .custom-select-button { padding: 6px 12px; }
+  .button-generic { padding: 8px 16px; font-size: 13px; }
+  .button-generic.small { padding: 5px 10px; font-size: 12px; } /* Adjust small button on mobile */
+}
+
+/* NO PAGE-SPECIFIC STYLES BELOW THIS LINE */
