@@ -12,8 +12,6 @@
     html, body {
       margin: 0; padding: 0; height: 100vh; display: flex;
       flex-direction: column; 
-      /* MODIFIED: Removed overflow: hidden; to prevent issues with fixed scrollbar */
-      /* overflow: hidden; */ 
       background-color: var(--color-grey-page-bg); 
       color: var(--color-text-primary); 
       font-family: var(--font-primary);
@@ -43,7 +41,7 @@
       top: calc(var(--header-height, 75px) + 15px); left: 50%; transform: translateX(-50%);
     }
     #goToTodayUp { 
-       top: calc(var(--header-height, 75px) + 15px); 
+        top: calc(var(--header-height, 75px) + 15px); 
     }
     #goToTodayDown {
       bottom: 20px; /* Position from bottom */ left: 50%; transform: translateX(-50%);
@@ -120,7 +118,7 @@
     .cosmic-icon {
       display: inline-block; width: 28px; height: 28px;
       vertical-align: middle; position: relative; cursor: pointer;
-      background-size: cover; background-repeat: no-repeat; /* MODIFIED: Removed default size/pos */
+      background-size: cover; background-repeat: no-repeat;
       background-position: center center; 
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; 
@@ -176,25 +174,26 @@
     }
 
     /* Responsive */
-     @media (max-width: 850px) {
-         #calendar-header h1 { font-size: clamp(1.6rem, 5vw, 2rem); }
-         #calendar-header p { font-size: 1em; }
-         #calendar-key th, #calendar-key td { font-size: 0.85em; padding: 4px 6px;}
-         .day-box, .month-label { font-size: 13px; padding: 0 10px;}
-         .cosmic-icon { width: 24px; height: 24px; }
-         /* Scrollbar width remains 40px */
-     }
-     @media (max-width: 600px) {
-         main { padding-top: 0; } 
-         #calendar-header-container { padding: 20px 0 15px 0; }
-         #contentAreaWrapper { padding: 10px 0; }
-         #contentArea { padding: 0 10px; } 
-         .day-box, .month-label { height: 35px; line-height: 35px; }
-         .month-label { margin-left: -10px; margin-right: -10px; padding-left: 10px; border-radius: 0;} 
-         /* Scrollbar width remains 40px */
-         .toTodayButton, #backToTop { /* Use small generic button styles */ }
-     }
+      @media (max-width: 850px) {
+          #calendar-header h1 { font-size: clamp(1.6rem, 5vw, 2rem); }
+          #calendar-header p { font-size: 1em; }
+          #calendar-key th, #calendar-key td { font-size: 0.85em; padding: 4px 6px;}
+          .day-box, .month-label { font-size: 13px; padding: 0 10px;} /* Height remains 40px */
+          .cosmic-icon { width: 24px; height: 24px; }
+          /* Scrollbar width remains 40px */
+      }
+    /* REMOVED @media (max-width: 600px) block:
 
+      @media (max-width: 600px) {
+          main { padding-top: 0; } 
+          #calendar-header-container { padding: 20px 0 15px 0; }
+          #contentAreaWrapper { padding: 10px 0; }
+          #contentArea { padding: 0 10px; } 
+          .day-box, .month-label { height: 35px; line-height: 35px; }
+          .month-label { margin-left: -10px; margin-right: -10px; padding-left: 10px; border-radius: 0;} 
+          .toTodayButton, #backToTop { }
+      }
+    */
   </style>
 </head>
 <body>
@@ -284,12 +283,8 @@
     const todayStr = formatDate(new Date()); 
 
     // --- Event Icon/Tooltip/Color Mapping ---
-    // MODIFIED: Paths updated and crop removed
     const mutualTotalIcon = "calendar/mutualTotalIcon.jpeg"; 
     const mutualPartialIcon = "calendar/mutualPartialIcon.gif"; 
-    // Crop properties removed from mutual definitions
-    // const mutualTotalCrop = { backgroundSize: "120%", backgroundPosition: "calc(50% + 0px) calc(50% + 0px)" };
-    // const mutualPartialCrop = { backgroundSize: "400%", backgroundPosition: "calc(50% - 2px) calc(50% + 0px)" };
 
     const eventMapping = { 
         "fullmoon": { icon: "calendar/fullmoon.png", tooltip: "Full Moon", markerColor: "#baf1ff" },
@@ -308,7 +303,7 @@
         "other_asteroid_apophis_flyby": { icon: "calendar/other_asteroid_apophis_flyby.png", tooltip: "Asteroid Apophis flyby", markerColor: "#00FF00" },
         "other_asteroid_2024YR4_flyby": { icon: "calendar/other_asteroid_2024YR4_flyby.jpeg", tooltip: "Asteroid 2024 YR4 flyby", markerColor: "#00FF00" },
         "other_polaris_furthest_north": { icon: "calendar/other_polaris_furthest_north.jpg", tooltip: "Polaris appears furthest north", markerColor: "#00FF00" },
-        "mutualplanetary": { icon: mutualTotalIcon, /* crop removed */ tooltip: "Mutual Planetary Occultation", markerColor: "#FF00FF" } 
+        "mutualplanetary": { icon: mutualTotalIcon, tooltip: "Mutual Planetary Occultation", markerColor: "#FF00FF" } 
     };
 
     // --- Helper Functions ---
@@ -339,7 +334,6 @@
         }
         if (!front || !back) return null; 
         const tooltip = `${capitalize(back)} ${occultSuffix === "partial" ? "partially occults" : "occults"} ${capitalize(front)}`;
-        // MODIFIED: Removed crop property from generated mapping
         const mapping = { 
             icon: (occultSuffix === "partial" ? mutualPartialIcon : mutualTotalIcon), 
             tooltip: tooltip, 
@@ -351,8 +345,8 @@
     
     // --- Core Logic Functions ---
     async function loadAndProcessEventData() { 
-        const dataFilePath = 'calendar/list.json'; // Corrected path
-        console.log(`Fetching event data from ${dataFilePath}...`);
+        const dataFilePath = 'calendar/list.json';
+        console.log(`Workspaceing event data from ${dataFilePath}...`);
         const contentArea = document.getElementById('contentArea');
         try {
             const response = await fetch(dataFilePath); 
@@ -392,7 +386,6 @@
                 cosmicEventsByDate[dateStr].forEach(type => {
                     let mapping = type.startsWith("mutual_") ? getMappingForMutual(type) : eventMapping[type];
                     if (mapping) {
-                        // MODIFIED: Removed inline style for background-position and background-size
                         iconsHTML += `<span class="cosmic-icon" style="background-image: url('${mapping.icon}');" data-tooltip="${mapping.tooltip}"></span>`;
                     }
                 });
@@ -418,7 +411,7 @@
         try {
             clusterize = new Clusterize({
                 rows: allCalendarRows, scrollId: 'main-scroll', contentId: 'contentArea',
-                rows_in_block: 50, blocks_in_cluster: 4, no_data_text: 'No events found for this period.',
+                rows_in_block: 50, blocks_in_cluster: 40, no_data_text: 'No events found for this period.',
                 callbacks: { clusterChanged: function() { updateScrollIndicator(); updateButtonsVisibility(); } }
             });
              console.log("Clusterize initialized successfully."); 
@@ -442,8 +435,6 @@
             const iconSpan = document.createElement('span');
             iconSpan.className = "cosmic-icon legend-icon";
             iconSpan.style.backgroundImage = `url('${mapping.icon}')`;
-            // MODIFIED: Removed setting crop styles here
-            // if (mapping.crop) { iconSpan.style.backgroundSize = mapping.crop.backgroundSize; iconSpan.style.backgroundPosition = mapping.crop.backgroundPosition; }
             cellIcon.appendChild(iconSpan);
             const cellName = row.insertCell();
             cellName.textContent = mapping.tooltip; 
@@ -452,10 +443,10 @@
             checkbox.type = "checkbox";
             checkbox.className = "scroll-toggle"; 
             checkbox.setAttribute("data-event", eventType);
-            checkbox.checked = false; // Start unchecked
+            checkbox.checked = false; 
             checkbox.style.display = "none"; 
             const customCheckbox = document.createElement("div");
-            customCheckbox.className = "custom-checkbox"; // Start unchecked
+            customCheckbox.className = "custom-checkbox"; 
             customCheckbox.style.setProperty('--checkbox-color', mapping.markerColor || '#ccc'); 
             customCheckbox.style.borderColor = 'var(--color-text-secondary)'; 
             customCheckbox.addEventListener("click", function() {
@@ -475,7 +466,7 @@
             cellCheckbox.appendChild(customCheckbox); 
         });
     }
-    function buildMarkers() { /* ... remains same ... */ 
+    function buildMarkers() { 
         console.log("Building markers..."); 
         const scrollMarkersContainer = document.getElementById("scroll-markers");
         if (!scrollMarkersContainer) return;
@@ -518,7 +509,7 @@
     }
     
     // --- Scrollbar and Navigation Logic ---
-    function setupScrollbar() { /* ... remains same ... */ 
+    function setupScrollbar() { 
         const mainScroll = document.getElementById("main-scroll");
         const scrollbar = document.getElementById("custom-scrollbar");
         const indicator = document.getElementById("scroll-indicator");
@@ -540,7 +531,7 @@
         updateScrollIndicator();
         updateButtonsVisibility();
     }
-    function updateScrollIndicator() { /* ... remains same ... */ 
+    function updateScrollIndicator() { 
         const mainScroll = document.getElementById("main-scroll");
         const scrollbar = document.getElementById("custom-scrollbar");
         const indicator = document.getElementById("scroll-indicator");
@@ -553,10 +544,10 @@
         const indicatorTop = Math.min(scrollPercent * scrollbarHeight, scrollbarHeight - indicatorHeight); 
         indicator.style.top = indicatorTop + "px";
     }
-    function scrollToTop() { /* ... remains same ... */ 
+    function scrollToTop() { 
         document.getElementById("main-scroll").scrollTo({ top: 0, behavior: "smooth" });
     }
-    function scrollToDate(dateStr) { /* ... remains same ... */ 
+    function scrollToDate(dateStr) { 
         const mainScroll = document.getElementById("main-scroll");
         let targetRow = document.querySelector(`.day-box[data-date="${dateStr}"]`);
         if (targetRow) {
@@ -573,7 +564,6 @@
     }
     function scrollToToday() { scrollToDate(todayStr); }
     
-    // MODIFIED: Restored original button visibility logic with increased spacing
     function updateButtonsVisibility() {
         const mainScroll = document.getElementById("main-scroll");
         const backToTop = document.getElementById("backToTop");
@@ -598,7 +588,7 @@
             }
         }
 
-        const todayHeight = 40; 
+        const todayHeight = 40; // Assuming row height is 40px
 
         // Default states
         backToTop.style.opacity = "0"; backToTop.style.visibility = "hidden";
@@ -626,29 +616,26 @@
             }
         }
 
-        // Positioning Logic (Original with increased offset)
         const showBTT = backToTop.style.visibility === 'visible';
         const showUp = toTodayUp.style.visibility === 'visible';
         const showDown = toTodayDown.style.visibility === 'visible';
-        const sideOffset = "75px"; // Increased offset for more spacing
+        const sideOffset = "75px"; 
 
-        if (showBTT && showUp) { // BTT and Up visible
+        if (showBTT && showUp) { 
              backToTop.style.left = `calc(50% - ${sideOffset})`; 
              backToTop.style.transform = "translateX(-50%)";
              toTodayUp.style.left = `calc(50% + ${sideOffset})`; 
              toTodayUp.style.transform = "translateX(-50%)";
-             // Reset Down position
              toTodayDown.style.left = "50%"; 
              toTodayDown.style.transform = "translateX(-50%)";
-        } else if (showBTT && showDown) { // BTT and Down visible 
+        } else if (showBTT && showDown) { 
              backToTop.style.left = "50%"; 
              backToTop.style.transform = "translateX(-50%)";
              toTodayDown.style.left = "50%"; 
              toTodayDown.style.transform = "translateX(-50%)";
-              // Reset Up position
              toTodayUp.style.left = "50%"; 
              toTodayUp.style.transform = "translateX(-50%)";
-        } else { // Only BTT or only Down or only Up or none might be visible
+        } else { 
              backToTop.style.left = "50%"; 
              backToTop.style.transform = "translateX(-50%)";
              toTodayUp.style.left = "50%"; 
@@ -667,10 +654,10 @@
         if (dataLoaded) {
             console.log("Data loaded successfully. Building UI...");
             try {
-                buildKey();             
-                generateCalendarRows();   
+                buildKey();          
+                generateCalendarRows();  
                 initializeClusterize(); 
-                buildMarkers();           
+                buildMarkers();          
                 
                 const mainScroll = document.getElementById("main-scroll");
                 if (mainScroll) {

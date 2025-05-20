@@ -14,7 +14,7 @@
       --gap:50px;        /* grid gap base */
       --dist-aspect:1000/256; /* native distance chart ratio */
       --dist-planet-base-height-pct: 35%; /* Base height % for Jupiter */
-      --dist-planet-min-height-pct: 0%;   /* Min height % */
+      --dist-planet-min-height-pct: 0.1%;   /* Min height % */
       --dist-planet-max-height-pct: 80%;  /* Max height % */
     }
 
@@ -273,7 +273,7 @@
             }
             if (isNaN(cellBaseSize) || cellBaseSize <=0) cellBaseSize = 190; // Last resort fallback
         }
-        const targetSize = cellBaseSize * 0.75; // Scale based on the (potentially responsive) cell size
+        const targetSize = cellBaseSize * 0.5; // Scale based on the (potentially responsive) cell size
         return Math.max(60, targetSize); // Ensure a minimum size
     }
     
@@ -637,7 +637,7 @@
             } else {
                  anchorVisH = (getCssVariableValue('--dist-planet-base-height-pct') || BASE_PLANET_VISUAL_HEIGHT_PCT) * 5; // Fallback if meta missing
             }
-            distAnchor.style.height = `${Math.min(100, anchorVisH)}%`; // Cap Sun's height at 100% of container
+            distAnchor.style.height = `${anchorVisH}%`; // Set Sun's relative height in distance from Sun mode
             distAnchor.style.maxHeight = 'none'; // Override general max height for Sun
             distAnchor.style.transform = 'translate(-100%, -50%)'; // Position Sun to the left of the line start
         } else { 

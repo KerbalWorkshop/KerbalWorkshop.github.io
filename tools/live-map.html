@@ -573,7 +573,7 @@
             let angularRadiusDeg = (obj.angular_size_arcsec/2)/3600; // angular radius in degrees
             let angularRadiusRad = angularRadiusDeg*Math.PI/180; // angular radius in radians
             
-            // let effectiveDistanceKm = 6371 * angularRadiusRad; // R_earth * angle_in_radians
+            let effectiveDistanceKm = 6371 * angularRadiusRad; // R_earth * angle_in_radians
             effectiveDistanceKm = Math.max(effectiveDistanceKm, 50); // Ensure a minimum visible size (e.g., 50km radius)
 
             let subCel = subCelestialPoint(now, obj.ra_deg, obj.dec_deg);
