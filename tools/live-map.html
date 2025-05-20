@@ -285,103 +285,82 @@
     console.log('[Init] Starting map initialization');
     let map, shapesGroup;
     let selectedObject = null;
-    const objectPolylines = {};
-    const objectLabels = {};
+    let celestialObjects = [];
+    const objectPolylines = {}, objectLabels = {};
     const physicalDiameters = { sun:1392700, moon:3474, mercury:4879, venus:12104, mars:6792, jupiter:139820, saturn:116460, uranus:50724, neptune:49244, pluto:2376 };
     const objectColors = { sun:'orangered', moon:'whitesmoke', mercury:'dimgray', venus:'darkorange', mars:'crimson', jupiter:'sienna', saturn:'goldenrod', uranus:'deepskyblue', neptune:'royalblue', pluto:'mediumpurple' };
 
     async function fetchEphemerisData() {
       console.log('[Fetch] Requesting ephemeris data');
-      const res = await fetch('/.netlify/functions/astronomy');
-      const json = await res.json();
-      console.log('[Fetch] Received data', json);
-      return json.data.table.rows
-        .map(row => {
-          const id = row.entry.id.toLowerCase();
-          if (id === 'earth') return null;
-          const cell = row.cells[0];
-          const apiSize = parseFloat(cell.angular_size_arcsec);
-          const ang = isNaN(apiSize)
-            ? (physicalDiameters[id] / parseFloat(cell.distance.fromEarth.km)) * 206265
-            : apiSize;
-          return {
-            id,
-            name: row.entry.name,
-            ra_deg: parseFloat(cell.position.equatorial.rightAscension.hours) * 15,
-            dec_deg: parseFloat(cell.position.equatorial.declination.degrees),
-            angular_size_arcsec: ang,
-            color: objectColors[id] || 'white'
-          };
-        })
-        .filter(o => o);
+      try {
+        const response = await fetch('/.netlify/functions/astronomy');
+        const data = await response.json();
+        console.log('[Fetch] Received data:', data);
+        return data.data.table.rows
+          .map(row => {
+            const id = row.entry.id.toLowerCase(); if(id==='earth') return null;
+            const cell = row.cells[0];
+            const apiSize = parseFloat(cell.angular_size_arcsec);
+            const ang = isNaN(apiSize) ? (physicalDiameters[id]/parseFloat(cell.distance.fromEarth.km))*206265 : apiSize;
+            return { id, name:row.entry.name, ra_deg:parseFloat(cell.position.equatorial.rightAscension.hours)*15, dec_deg:parseFloat(cell.position.equatorial.declination.degrees), angular_size_arcsec:ang, color:objectColors[id] };
+          }).filter(o=>o);
+      } catch(e) { console.error('[Fetch] Error:', e); return []; }
     }
 
     function computeGMST(date) {
-      console.log('[Compute] GMST for', date);
       const JD = date.getTime()/86400000 + 2440587.5;
       const D = JD - 2451545.0;
-      return (280.46061837 + 360.98564736629 * D) % 360;
+      const gmst = (280.46061837 + 360.98564736629 * D) % 360;
+      console.log('[Compute] GMST:', gmst);
+      return gmst;
     }
 
     function subPoint(date, ra, dec) {
       const gmst = computeGMST(date);
       let lon = ra - gmst;
-      lon = ((lon + 180) % 360) - 180;
-      return { lat: dec, lon };
+      lon = ((lon+180)%360)-180;
+      return { lat:dec, lon };
     }
 
     function computeCirclePoints(center, radiusKm) {
-      const R = 6371;
-      const dRad = radiusKm / R;
-      const pts = [];
-      for (let a = 0; a <= 360; a += 10) {
-        const br = a * Math.PI/180;
-        const lat1 = center.lat * Math.PI/180;
-        const lon1 = center.lon * Math.PI/180;
-        const lat2 = Math.asin(
-          Math.sin(lat1)*Math.cos(dRad) +
-          Math.cos(lat1)*Math.sin(dRad)*Math.cos(br)
-        );
-        const lon2 = lon1 + Math.atan2(
-          Math.sin(br)*Math.sin(dRad)*Math.cos(lat1),
-          Math.cos(dRad) - Math.sin(lat1)*Math.sin(lat2)
-        );
-        let lonDeg = lon2 * 180/Math.PI;
-        lonDeg = ((lonDeg + 180) % 360) - 180;
-        pts.push([lat2 * 180/Math.PI, lonDeg]);
+      const R=6371, dRad=radiusKm/R, pts=[];
+      for(let a=0;a<=360;a+=10){
+        const br = a*Math.PI/180;
+        const lat1=center.lat*Math.PI/180, lon1=center.lon*Math.PI/180;
+        const lat2=Math.asin(Math.sin(lat1)*Math.cos(dRad) + Math.cos(lat1)*Math.sin(dRad)*Math.cos(br));
+        const lon2=lon1+Math.atan2(Math.sin(br)*Math.sin(dRad)*Math.cos(lat1), Math.cos(dRad)-Math.sin(lat1)*Math.sin(lat2));
+        let lonDeg=lon2*180/Math.PI; lonDeg=((lonDeg+180)%360)-180;
+        pts.push([lat2*180/Math.PI, lonDeg]);
       }
       return pts;
     }
 
     function createLegend() {
       console.log('[Legend] Building legend');
-      const legend = document.getElementById('legendContent');
-      legend.innerHTML = '';
+      const legend=document.getElementById('legendContent'); legend.innerHTML='';
       // All checkbox
-      const allDiv = document.createElement('div'); allDiv.id='allPlanetsContainer'; allDiv.className='legendItem';
-      const allCb = document.createElement('input'); allCb.type='checkbox'; allCb.id='allPlanetsCheckbox'; allCb.checked=true;
-      const allLabel = document.createElement('label'); allLabel.htmlFor='allPlanetsCheckbox'; allLabel.textContent='All';
-      allDiv.append(allCb, allLabel); legend.appendChild(allDiv);
-      allCb.addEventListener('change', () => {
-        document.querySelectorAll('.legendCheckbox').forEach(cb => { cb.checked = allCb.checked; cb.dispatchEvent(new Event('change')); });
+      const allDiv=document.createElement('div'); allDiv.id='allPlanetsContainer'; allDiv.className='legendItem';
+      const allCb=document.createElement('input'); allCb.type='checkbox'; allCb.id='allPlanetsCheckbox'; allCb.checked=true;
+      const allLbl=document.createElement('label'); allLbl.htmlFor='allPlanetsCheckbox'; allLbl.textContent='All';
+      allDiv.append(allCb,allLbl); legend.appendChild(allDiv);
+      allCb.addEventListener('change', ()=> document.querySelectorAll('.legendCheckbox').forEach(cb=>{ cb.checked=allCb.checked; cb.dispatchEvent(new Event('change')); }));
+      celestialObjects.forEach(obj=>{
+        const div=document.createElement('div'); div.className='legendItem'; div.dataset.object=obj.id;
+        const cb=document.createElement('input'); cb.type='checkbox'; cb.className='legendCheckbox'; cb.id='checkbox_'+obj.id; cb.checked=true;
+        const color=document.createElement('span'); color.className='legendColor'; color.style.backgroundColor=obj.color;
+        const lbl=document.createElement('span'); lbl.className='legendName'; lbl.textContent=obj.name;
+        div.append(cb,color,lbl); legend.appendChild(div);
+        cb.addEventListener('change', ()=> updateShapes(celestialObjects));
+        div.addEventListener('click', e=>{ if(e.target!==cb && cb.checked){ selectedObject=obj.id; updateLegendSelection(); map.fitBounds(objectPolylines[obj.id].getBounds()); }});
       });
-      fetchEphemerisData().then(items => items.forEach(obj => {
-        const div = document.createElement('div'); div.className='legendItem'; div.dataset.object=obj.id;
-        const cb = document.createElement('input'); cb.type='checkbox'; cb.className='legendCheckbox'; cb.id='checkbox_'+obj.id; cb.checked=true;
-        const color = document.createElement('span'); color.className='legendColor'; color.style.backgroundColor=obj.color;
-        const label=document.createElement('span'); label.className='legendName'; label.textContent=obj.name;
-        div.append(cb, color, label); legend.appendChild(div);
-        cb.addEventListener('change', () => updateShapes([obj]));
-        div.addEventListener('click', e => { if(e.target!==cb && cb.checked){ selectedObject=obj.id; updateLegendSelection(); } });
-      }));
     }
 
     function updateLegendSelection() {
-      document.querySelectorAll('.legendItem').forEach(el => el.classList.toggle('selected', el.dataset.object===selectedObject));
+      document.querySelectorAll('.legendItem').forEach(el=> el.classList.toggle('selected', el.dataset.object===selectedObject));
     }
 
     function updateShapes(objects) {
-      console.log('[Render] Updating shapes for', objects.length, 'objects');
+      console.log('[Render] Updating shapes');
       const now=new Date();
       objects.forEach(obj=>{
         const center=subPoint(now,obj.ra_deg,obj.dec_deg);
@@ -389,14 +368,19 @@
         const radiusKm=Math.max(6371*angRad,50);
         const pts=computeCirclePoints(center,radiusKm);
         if(!objectPolylines[obj.id]){
-          const poly=L.polygon(pts,{color:obj.color,weight:2,fillOpacity:0.3}).addTo(shapesGroup)
-            .on('click',()=>{ console.log('[Click]',obj.name); selectedObject=obj.id; updateLegendSelection(); });
+          const poly=L.polygon(pts,{color:obj.color,weight:2,fillOpacity:0.3})
+            .addTo(shapesGroup)
+            .on('click', ()=>{ console.log('[Click]',obj.name); selectedObject=obj.id; updateLegendSelection(); map.fitBounds(poly.getBounds()); });
           objectPolylines[obj.id]=poly;
-        } else objectPolylines[obj.id].setLatLngs(pts);
+          const label=L.marker(center,{icon:L.divIcon({html:`<div style="font-size:12px;color:${obj.color};white-space:nowrap;">${obj.name}</div>`,className:'',iconSize:[80,20],iconAnchor:[40,-10]}),interactive:false}).addTo(shapesGroup);
+          objectLabels[obj.id]=label;
+        } else {
+          objectPolylines[obj.id].setLatLngs(pts);
+          objectLabels[obj.id].setLatLng(center);
+        }
       });
     }
 
-    function initPolylines() {}
     function handleMapInteraction(){ selectedObject=null; updateLegendSelection(); }
 
     function initMap() {
@@ -404,15 +388,15 @@
       map=L.map('map',{center:[0,0],zoom:2,worldCopyJump:false});
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(map);
       shapesGroup=L.layerGroup().addTo(map);
-      map.on('zoomend',handleMapInteraction);map.on('click',handleMapInteraction);map.on('dragstart',handleMapInteraction);
+      map.on('zoomend',handleMapInteraction); map.on('click',handleMapInteraction); map.on('dragstart',handleMapInteraction);
     }
 
     async function initialize(){
       initMap();
-      const objs=await fetchEphemerisData();
+      celestialObjects=await fetchEphemerisData();
       createLegend();
-      updateShapes(objs);
-      setInterval(()=>updateShapes(objs),60000);
+      updateShapes(celestialObjects);
+      setInterval(()=>updateShapes(celestialObjects),60000);
       document.getElementById('year').textContent=new Date().getFullYear();
     }
 
