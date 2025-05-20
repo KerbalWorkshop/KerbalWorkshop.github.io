@@ -311,7 +311,7 @@
       const JD = date.getTime()/86400000 + 2440587.5;
       const D = JD - 2451545.0;
       const gmst = (280.46061837 + 360.98564736629 * D) % 360;
-      console.log('[Compute] GMST:', gmst);
+      // console.log('[Compute] GMST:', gmst);
       return gmst;
     }
 
@@ -338,7 +338,6 @@
     function createLegend() {
       console.log('[Legend] Building legend');
       const legend=document.getElementById('legendContent'); legend.innerHTML='';
-      // All checkbox
       const allDiv=document.createElement('div'); allDiv.id='allPlanetsContainer'; allDiv.className='legendItem';
       const allCb=document.createElement('input'); allCb.type='checkbox'; allCb.id='allPlanetsCheckbox'; allCb.checked=true;
       const allLbl=document.createElement('label'); allLbl.htmlFor='allPlanetsCheckbox'; allLbl.textContent='All';
@@ -360,19 +359,26 @@
     }
 
     function updateShapes(objects) {
-      console.log('[Render] Updating shapes');
+      // Runs every second
       const now=new Date();
       objects.forEach(obj=>{
         const center=subPoint(now,obj.ra_deg,obj.dec_deg);
         const angRad=(obj.angular_size_arcsec/2)*(Math.PI/(180*3600));
-        const radiusKm=Math.max(6371*angRad,50);
+        const radiusKm=6371*angRad;
         const pts=computeCirclePoints(center,radiusKm);
         if(!objectPolylines[obj.id]){
           const poly=L.polygon(pts,{color:obj.color,weight:2,fillOpacity:0.3})
             .addTo(shapesGroup)
-            .on('click', ()=>{ console.log('[Click]',obj.name); selectedObject=obj.id; updateLegendSelection(); map.fitBounds(poly.getBounds()); });
+            .on('click', ()=>{ selectedObject=obj.id; updateLegendSelection(); });
           objectPolylines[obj.id]=poly;
-          const label=L.marker(center,{icon:L.divIcon({html:`<div style="font-size:12px;color:${obj.color};white-space:nowrap;">${obj.name}</div>`,className:'',iconSize:[80,20],iconAnchor:[40,-10]}),interactive:false}).addTo(shapesGroup);
+          // Label marker clickable
+          const label=L.marker(center,{
+            icon:L.divIcon({
+              html:`<div style="font-size:16px;font-weight:bold;color:${obj.color};white-space:nowrap;">${obj.name}</div>`,
+              className:'', iconSize:[100,24], iconAnchor:[50,-12]
+            }),
+            interactive:true
+          }).addTo(shapesGroup).on('click',()=>{ selectedObject=obj.id; updateLegendSelection(); });
           objectLabels[obj.id]=label;
         } else {
           objectPolylines[obj.id].setLatLngs(pts);
@@ -388,7 +394,9 @@
       map=L.map('map',{center:[0,0],zoom:2,worldCopyJump:false});
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(map);
       shapesGroup=L.layerGroup().addTo(map);
-      map.on('zoomend',handleMapInteraction); map.on('click',handleMapInteraction); map.on('dragstart',handleMapInteraction);
+      map.on('zoomend',handleMapInteraction);
+      map.on('click',handleMapInteraction);
+      map.on('dragstart',handleMapInteraction);
     }
 
     async function initialize(){
@@ -396,7 +404,7 @@
       celestialObjects=await fetchEphemerisData();
       createLegend();
       updateShapes(celestialObjects);
-      setInterval(()=>updateShapes(celestialObjects),60000);
+      setInterval(()=>updateShapes(celestialObjects),1000);
       document.getElementById('year').textContent=new Date().getFullYear();
     }
 
