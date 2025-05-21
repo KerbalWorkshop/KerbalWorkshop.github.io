@@ -29,13 +29,12 @@ exports.handler = async (event, context) => {
   console.log(`[Netlify Function] Using Date: ${date}, Time: ${time}`);
 
   const bodies = "mercury,venus,mars,jupiter,saturn,uranus,neptune";
-  const observerLat = 0;
+  const observerLat = 0; // Using a geocentric observer for general data
   const observerLon = 0;
   const observerElev = 0;
-  // Attempting standard API call structure
+  // Requesting positions and magnitudes.
+  // The API's /positions endpoint should include magnitude data.
   const url = `https://api.astronomyapi.com/api/v2/bodies/positions?latitude=${observerLat}&longitude=${observerLon}&elevation=${observerElev}&from_date=${date}&to_date=${date}&time=${time}&bodies=${bodies}`;
-  // NOTE: If 'fromObserver' is consistently missing, the API might require specific 'view' parameters, e.g., &view=distance,positions
-  // Or the distance might be under a different field name entirely. The logging below aims to check this.
 
   console.log(`[Netlify Function] Requesting URL: ${url}`);
 
@@ -55,55 +54,66 @@ exports.handler = async (event, context) => {
     }
 
     const data = await apiResponse.json();
-    // console.log("[Netlify Function] Raw data received:", JSON.stringify(data, null, 2)); // Full raw data if needed
+    // console.log("[Netlify Function] Raw data received:", JSON.stringify(data, null, 2));
 
-    // --- Detailed Inspection & Optional Fallback ---
     if (data?.data?.table?.rows) {
-        console.log("[Netlify Function] Inspecting distance data received from API...");
-        data.data.table.rows.forEach(row => {
-            const id = row.entry?.id?.toLowerCase();
-            const cell = row.cells?.[0];
-            if (!id || !cell) return;
+      console.log("[Netlify Function] Processing API data rows...");
+      data.data.table.rows.forEach(row => {
+        const id = row.entry?.id?.toLowerCase();
+        const cell = row.cells?.[0];
+        if (!id || !cell) return;
 
-            // *** ADDED LOGGING: Inspect the 'distance' object structure ***
-            if (cell.distance) {
-                 console.log(`[Netlify Function] Distance object for ${id}:`, JSON.stringify(cell.distance));
+        // Ensure distance object exists if not provided by API
+        if (!cell.distance) cell.distance = {};
+
+        // Fallback for fromSun distance ONLY if missing
+        if (!cell.distance.fromSun?.au && SMA[id]) {
+          console.warn(`[Netlify Function] API missing 'fromSun.au' for ${id}. Adding SMA fallback: ${SMA[id]}`);
+          if (!cell.distance.fromSun) cell.distance.fromSun = {};
+          cell.distance.fromSun.au = SMA[id];
+        }
+
+        // Check if fromObserver (distance from Earth) is present
+        if (!cell.distance.fromEarth?.au) { // Corrected from 'fromObserver' to 'fromEarth' based on typical API use
+            // Note: AstronomyAPI might return distance from observer under `distance.fromEarth.au`
+            // or similar. The client processes `distEarth`. If this field is different, adjust here.
+            console.warn(`[Netlify Function] API response may lack 'distance.fromEarth.au' for ${id}.`);
+        } else {
+            console.log(`[Netlify Function] API response 'distance.fromEarth.au' for ${id}: ${cell.distance.fromEarth.au}`);
+        }
+
+        // Extract apparent magnitude
+        // The API structure for magnitude is typically: cell.magnitudes[0].value where type is "apparent"
+        if (cell.magnitudes && Array.isArray(cell.magnitudes) && cell.magnitudes.length > 0) {
+            const apparentMagnitudeEntry = cell.magnitudes.find(m => m.type === 'apparent');
+            if (apparentMagnitudeEntry && typeof apparentMagnitudeEntry.value === 'number') {
+                cell.apparentMagnitude = apparentMagnitudeEntry.value; // Add it directly to the cell for easier client access
+                console.log(`[Netlify Function] Apparent Magnitude for ${id}: ${cell.apparentMagnitude}`);
             } else {
-                 console.log(`[Netlify Function] NO distance object found for ${id}.`);
+                 // Fallback or log if not found or value is not a number
+                const firstMag = cell.magnitudes[0];
+                if (firstMag && typeof firstMag.value === 'number') {
+                    cell.apparentMagnitude = firstMag.value;
+                     console.warn(`[Netlify Function] Using first available magnitude for ${id} as apparent: ${cell.apparentMagnitude}`);
+                } else {
+                    console.warn(`[Netlify Function] No valid apparent magnitude found for ${id}. Magnitudes data:`, JSON.stringify(cell.magnitudes));
+                }
             }
-            // *** END ADDED LOGGING ***
-
-
-            // Ensure distance object exists before attempting fallbacks
-            if (!cell.distance) cell.distance = {};
-
-            // Fallback for fromSun distance ONLY if missing
-            if (!cell.distance.fromSun?.au && SMA[id]) {
-                console.warn(`[Netlify Function] API missing 'fromSun.au' for ${id}. Adding SMA fallback: ${SMA[id]}`);
-                // Ensure fromSun object exists before assigning
-                if (!cell.distance.fromSun) cell.distance.fromSun = {};
-                 cell.distance.fromSun.au = SMA[id];
-            }
-
-            // Check if fromObserver is present (client relies on this)
-            if (!cell.distance.fromObserver?.au) {
-                 console.warn(`[Netlify Function] API response LACKS 'fromObserver.au' for ${id}. Client must handle this.`);
-            } else {
-                 console.log(`[Netlify Function] API response INCLUDES 'fromObserver.au' for ${id}: ${cell.distance.fromObserver.au}`);
-            }
-        });
-        console.log("[Netlify Function] Finished inspecting/enhancing distance data.");
+        } else {
+          console.warn(`[Netlify Function] No 'magnitudes' array or it's empty for ${id}.`);
+        }
+      });
+      console.log("[Netlify Function] Finished processing API data rows.");
     } else {
-        console.warn("[Netlify Function] Expected data structure (data.data.table.rows) not found in API response.");
+      console.warn("[Netlify Function] Expected data structure (data.data.table.rows) not found in API response.");
     }
-    // --- End Inspection/Enhancement ---
 
     console.log("[Netlify Function] Processed request successfully. Sending 200 OK.");
     return {
       statusCode: 200,
       headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=240" // Cache for 4 minutes
+          "Cache-Control": "public, max-age=240" // Cache for 4 minutes (240 seconds)
         },
       body: JSON.stringify(data)
     };
