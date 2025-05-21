@@ -1,15 +1,10 @@
-Yes, that was intended to be the whole code in the previous response. I'll ensure this time that absolutely no JavaScript functions are condensed and that the reference to `styles.css` is correctly in place.
-
-Here is the entire, uncondensed HTML code for your Planet Dashboard:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Planets Dashboard – Hansen Space</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
   <style>
     /* Dashboard-specific CSS variables */
     :root {
@@ -276,25 +271,28 @@ Here is the entire, uncondensed HTML code for your Planet Dashboard:
 </head>
 <body>
 
-  <header> <div class="header-inner-container content-limiter">
-      <a class="brand" href="/"><img src="https://placehold.co/200x45/1c1c1c/f0f0f0?text=Hansen+Space&font=poppins" alt="Hansen Space"></a>
+    <header>
+    <div class="header-inner-container content-limiter"> 
+      <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;">
+      </a>
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/index.html">Home</a></li>
           <li><a href="/myjourney.html">My Journey</a></li>
           <li><a href="/photography.html">Photography</a></li>
           <li><a href="/articles">Articles</a></li>
-          <li><a href="/tools.html" class="active">Tools</a></li>
+          <li><a href="/tools.html" class="active">Tools</a> 
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
       <div class="menu-icon" onclick="toggleModal()">☰</div>
     </div>
   </header>
-
+  
   <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
-    <a href="/">Home</a>
+  <div class="modal" id="modal"> 
+    <a href="/index.html">Home</a>
     <a href="/myjourney.html">My Journey</a>
     <a href="/photography.html">Photography</a>
     <a href="/articles">Articles</a>
@@ -1260,6 +1258,6 @@ Here is the entire, uncondensed HTML code for your Planet Dashboard:
 
     document.addEventListener('DOMContentLoaded', initializeDashboard);
  </script>
+ <script src="/scripts.js"></script>
  </body>
 </html>
-```
