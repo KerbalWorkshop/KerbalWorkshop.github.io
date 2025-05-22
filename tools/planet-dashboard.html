@@ -139,32 +139,30 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
         cursor: crosshair; 
     }
-    
-    /* DEBUGGING TOOLTIP STYLE - Temporarily make it very obvious */
     #observability-tooltip {
         position: fixed; 
-        background-color: purple !important; /* DEBUG */
-        color: white !important; /* DEBUG */
-        border: 2px solid lime !important; /* DEBUG */
-        padding: 10px !important; /* DEBUG */
+        background-color: rgba(20, 20, 20, 0.92); /* Darker, more translucent */
+        color: var(--color-text-primary);
+        border: 1px solid var(--color-light-grey-borders-dividers);
+        padding: 8px 12px; 
         border-radius: 6px;
         font-size: 13px; 
         font-family: var(--font-primary); 
-        line-height: 1.5; 
+        line-height: 1.6; /* Better readability */
         white-space: nowrap;
-        z-index: 9999 !important; /* DEBUG - very high */
+        z-index: 10010; /* Very high z-index */
         pointer-events: none; 
-        /* display: none; /* Controlled by JS, but for debug can force display: block !important; */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        transform: none; /* DEBUG - disable transform temporarily */
+        display: none; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Enhanced shadow */
+        transform: translate(-50%, calc(-100% - 10px)); /* Position above cursor, centered, with 10px gap */
+        transition: opacity 0.1s ease-out; /* Smooth fade in/out if display is toggled with opacity too */
     }
     #observability-tooltip div { 
-        margin-bottom: 3px; 
+        margin-bottom: 2px; 
     }
      #observability-tooltip div:last-child {
         margin-bottom: 0;
     }
-
 
     #observability-content-area .loading-overlay,
     #observability-content-area .error-overlay {
@@ -491,49 +489,40 @@
     function drawDistanceChart() { if (!distAnchor || !distPlanetsContainer) { return; } distPlanetsContainer.innerHTML = ''; distAnchor.style.display = 'none'; showLoading('dist', false); showError('dist', null); let planetDataMap; let anchorId = 'earth'; let isSunMode = false; let isCustomMode = currentDistMode === 'custom'; if (isCustomMode) { if (!selectedCustomPlanet) { showError('dist', 'Please select a custom anchor planet.'); return; } if (customDistanceStatus === 'pending') { showLoading('dist', true); return; } if (customDistanceStatus === 'error' || !customDistanceData[selectedCustomPlanet] || customDistanceData[selectedCustomPlanet].status === 'error') { showError('dist', customDistanceData[selectedCustomPlanet]?.error || customDistanceError || 'Could not calculate custom distances.'); return; } if (customDistanceData[selectedCustomPlanet].status === 'partial') { showError('dist', customDistanceData[selectedCustomPlanet].error || 'Could not calculate some distances for the selected anchor.'); } planetDataMap = customDistanceData[selectedCustomPlanet].planets; if (!planetDataMap) { showError('dist', `No distance data available for ${selectedCustomPlanet}.`); return; } anchorId = selectedCustomPlanet; } else { const modeData = displayData[currentDistMode]; if (!modeData || (modeData.status !== 'ok' && modeData.status !== 'partial')) { showLoading('dist', modeData?.status === 'pending'); showError('dist', modeData?.status === 'error' ? (modeData.error || 'Failed to load distance data.') : null); return; } showError('dist', modeData.status === 'partial' ? (modeData.error || 'Note: Some planet distance data may be missing.') : null); planetDataMap = modeData.planets; isSunMode = currentDistMode === 'distSun'; anchorId = isSunMode ? 'sun' : 'earth'; } distAnchor.style.display = 'block'; distAnchor.src = `planets/${anchorId}.png`; distAnchor.onerror = function() { this.style.display='none'; }; let anchorVisH; if (anchorId === 'sun') { const sunDiameter = PLANET_META.sun; const jupiterDiameter = PLANET_META.jupiter; anchorVisH = (sunDiameter && jupiterDiameter) ? (sunDiameter / jupiterDiameter) * (getCssVariableValue('--dist-planet-base-height-pct') || BASE_PLANET_VISUAL_HEIGHT_PCT) : (getCssVariableValue('--dist-planet-base-height-pct') || BASE_PLANET_VISUAL_HEIGHT_PCT) * 5; distAnchor.style.height = `${anchorVisH}%`; distAnchor.style.maxHeight = 'none'; distAnchor.style.transform = 'translate(-100%, -50%)'; } else { anchorVisH = calculateVisualHeightPct(anchorId); distAnchor.style.height = `${anchorVisH}%`; distAnchor.style.maxHeight = `${getCssVariableValue('--dist-planet-max-height-pct') || MAX_PLANET_VISUAL_HEIGHT_PCT}%`; distAnchor.style.transform = 'translate(-50%, -50%)'; } let targets = []; let maxDist = 0; if (isCustomMode) { const customPlanets = customDistanceData[selectedCustomPlanet].planets; PLANET_ORDER.forEach(p => { if (p === selectedCustomPlanet) return; const planetInfo = customPlanets[p]; if (planetInfo && typeof planetInfo.dist === 'number' && !isNaN(planetInfo.dist) && planetInfo.dist > 0) { targets.push({ id: p, dist: planetInfo.dist, label: planetInfo.label, visH: planetInfo.visH }); if (planetInfo.dist > maxDist) maxDist = planetInfo.dist; } }); } else { const standardPlanets = isSunMode ? PLANET_ORDER : PLANET_ORDER.filter(p => p !== 'earth'); standardPlanets.forEach(p => { const data = planetDataMap[p]; if (data && typeof data.pos === 'number') { let distValue; if (currentDistMode === 'distEarth' && liveApiData?.[p]) distValue = liveApiData[p].distEarth; else if (currentDistMode === 'distSun') distValue = PLANET_SMA[p]; if (typeof distValue === 'number' && !isNaN(distValue) && distValue >= 0) { targets.push({ id: p, dist: distValue, label: data.label, visH: data.visH }); if (distValue > maxDist) maxDist = distValue; } } }); } if (maxDist <= 0 && targets.length > 0) { maxDist = 1; } else if (targets.length === 0) { return; } targets.forEach(target => { const p = target.id; const distanceAu = target.dist; const positionPct = (maxDist > 0) ? (distanceAu / maxDist) * 100 : 0; const labelText = target.label; const visualHeightPct = target.visH || calculateVisualHeightPct(p); const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p; img.className = 'dist-planet-img'; img.onerror = function() { this.style.display='none';}; img.style.left = `${positionPct}%`; img.style.height = `${visualHeightPct}%`; distPlanetsContainer.appendChild(img); const label = document.createElement('div'); label.className = 'dist-label'; const labelNudgeX = (isSunMode && PLANET_ORDER.indexOf(p) < 4 && positionPct < 20) ? 15 : 0; const labelNudgeY = (isSunMode && PLANET_ORDER.indexOf(p) < 2 && positionPct < 10) ? -10 : 0; label.style.left = `calc(${positionPct}% + ${labelNudgeX}px)`; label.style.top = `calc(50% - 40px + ${labelNudgeY}px)`; label.textContent = labelText; distPlanetsContainer.appendChild(label); }); }
     function drawObservabilityChart() { if (!obsChartContainer) { return; } const modeData = displayData.observability; if (!modeData || (modeData.status !== 'ok' && modeData.status !== 'partial')) { showLoading('obs', modeData?.status === 'pending'); showError('obs', modeData?.status === 'error' ? (modeData.error || 'Failed to load observability data.') : null); obsChartContainer.innerHTML = ''; return; } showLoading('obs', false); showError('obs', modeData.status === 'partial' ? (modeData.error || 'Note: Some observability data may be incomplete.') : null); obsChartContainer.innerHTML = ''; OBSERVABLE_PLANETS.forEach(planetId => { const planetObsData = modeData.planets[planetId]; if (!planetObsData || !planetObsData.dailyScores || planetObsData.dailyScores.length === 0) { const row = document.createElement('div'); row.className = 'observability-planet-row'; const label = document.createElement('div'); label.className = 'observability-planet-label'; label.textContent = planetId; row.appendChild(label); const barContainer = document.createElement('div'); barContainer.className = 'observability-bar-container'; const bar = document.createElement('div'); bar.className = 'observability-bar'; bar.style.background = 'var(--color-medium-grey)'; barContainer.appendChild(bar); row.appendChild(barContainer); obsChartContainer.appendChild(row); return; } const row = document.createElement('div'); row.className = 'observability-planet-row'; const label = document.createElement('div'); label.className = 'observability-planet-label'; label.textContent = planetId; row.appendChild(label); const barContainer = document.createElement('div'); barContainer.className = 'observability-bar-container'; const bar = document.createElement('div'); bar.className = 'observability-bar'; bar.dataset.planetId = planetId; let gradientCss = 'linear-gradient(to right'; const numSegments = planetObsData.dailyScores.length; planetObsData.dailyScores.forEach((score, segmentIndex) => { const color = getObservabilityColor(score); const startPercent = (segmentIndex / numSegments) * 100; const endPercent = ((segmentIndex + 1) / numSegments) * 100; gradientCss += `, ${color} ${startPercent.toFixed(2)}%, ${color} ${endPercent.toFixed(2)}%`; }); gradientCss += ')'; bar.style.background = gradientCss; bar.addEventListener('mouseenter', handleObsBarHover); bar.addEventListener('mousemove', handleObsBarHover); bar.addEventListener('mouseleave', () => { if(obsTooltip) obsTooltip.style.display = 'none'; }); barContainer.appendChild(bar); row.appendChild(barContainer); obsChartContainer.appendChild(row); }); }
     function handleObsBarHover(event) { 
-        if (!obsTooltip || !displayData.observability?.planets) { 
-            // console.log("[HOVER LOG] Tooltip or planet data missing, exiting hover.");
-            return; 
-        } 
+        if (!obsTooltip || !displayData.observability?.planets) { return; } 
         const bar = event.currentTarget; 
         const planetId = bar.dataset.planetId; 
         const planetData = displayData.observability.planets[planetId]; 
-
-        if (!planetData || !planetData.dailyScores || planetData.dailyScores.length === 0) { 
-            obsTooltip.style.display = 'none'; 
-            // console.log("[HOVER LOG] No daily scores for planet, hiding tooltip.");
-            return; 
-        } 
-
+        if (!planetData || !planetData.dailyScores || planetData.dailyScores.length === 0) { obsTooltip.style.display = 'none'; return; } 
         const rect = bar.getBoundingClientRect(); 
         const xInBar = event.clientX - rect.left; 
         const barWidth = rect.width; 
         const numSegments = planetData.dailyScores.length; 
         const segmentIndex = Math.min(numSegments - 1, Math.max(0, Math.floor((xInBar / barWidth) * numSegments))); 
         const dayNumberInYear = segmentIndex * OBSERVABILITY_DAY_STEP + 1; 
-
         if (segmentIndex >= 0 && segmentIndex < numSegments) { 
             const mag = planetData.actualMagnitudes[segmentIndex]; 
             const elong = planetData.calculatedElongations[segmentIndex]; 
             const score = planetData.dailyScores[segmentIndex]; 
-            
             obsTooltip.innerHTML = `<div>Day ${dayNumberInYear} (Score: ${score}/100)</div><div>Mag: ${mag !== null ? mag.toFixed(1) : 'N/A'}</div><div>Elong: ${elong !== null ? elong.toFixed(1) : 'N/A'}°</div>`; 
             obsTooltip.style.display = 'block'; 
-            
             const tooltipWidth = obsTooltip.offsetWidth; 
             const tooltipHeight = obsTooltip.offsetHeight; 
-            
-            let left = event.pageX - (tooltipWidth / 2);
-            let top = event.pageY - tooltipHeight - 10; // 10px offset above cursor
+            let left = event.pageX; // Start with pageX for horizontal centering logic
+            let top = event.pageY;   // Start with pageY for vertical positioning logic
 
-            // Boundary checks for tooltip to stay within viewport
-            if (left < 0) left = 0;
-            if (left + tooltipWidth > window.innerWidth) left = window.innerWidth - tooltipWidth;
+            // Adjust 'left' to center the tooltip if possible, or keep it from going off-screen
+            left = left - (tooltipWidth / 2);
+            if (left < 0) left = 5; // Keep it from going off left edge
+            if (left + tooltipWidth > window.innerWidth) left = window.innerWidth - tooltipWidth - 5; // Keep it from going off right edge
+
+            // Position above the cursor
+            top = top - tooltipHeight - 10; // 10px gap above cursor
             if (top < 0) top = event.pageY + 15; // If it goes off top, position below cursor
 
             obsTooltip.style.left = `${left}px`; 
             obsTooltip.style.top = `${top}px`; 
-            // console.log(`[HOVER LOG] Tooltip for ${planetId}, Day ${dayNumberInYear}: Mag=${mag}, Elong=${elong}, Score=${score}. Pos: L${obsTooltip.style.left} T${obsTooltip.style.top}`);
+            obsTooltip.style.transform = ''; // Remove the previous -50% X transform as left is now calculated for centering
         } else { 
             obsTooltip.style.display = 'none'; 
         }
@@ -551,7 +540,6 @@
     let resizeTimeout;
     window.addEventListener('resize',()=>{ clearTimeout(resizeTimeout);resizeTimeout=setTimeout(()=>{ BASE_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-base-height-pct')||35;MIN_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-min-height-pct')||5;MAX_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-max-height-pct')||80;calculateTrueSizeData();calculateApparentSunData();calculateDistSunData();calculateObservabilityData(observabilityForecastData);if(liveApiData){calculateApparentEarthData(liveApiData);calculateDistEarthData(liveApiData);calculateAllCustomDistData(liveApiData);}drawSizeGrid();drawDistanceChart();drawObservabilityChart(); },250);});
     function initializeDashboard() {
-        console.log("[LOG] initializeDashboard START");
         const essentialDOM=[sizeGrid,distAnchor,distPlanetsContainer,sizeLoading,sizeError,distLoading,distError,customDistButton,customDistButtonText,customDistDropdown,customDistList,obsSection,obsChartContainer,obsLoading,obsError, obsTooltip ];
         if(essentialDOM.some(el=>!el)){console.error("[CRITICAL ERROR] Essential DOM elements missing on init.");document.body.innerHTML='<p style="color:var(--color-text-error);padding:50px;text-align:center;font-size:1.2rem;">Error: Page components missing.</p>';return;}
         BASE_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-base-height-pct')||35; MIN_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-min-height-pct')||5; MAX_PLANET_VISUAL_HEIGHT_PCT=getCssVariableValue('--dist-planet-max-height-pct')||80;
@@ -564,7 +552,6 @@
         drawObservabilityChart(); 
         if(displayData.observability?.status !== 'ok') showLoading('obs',true);
         fetchAndUpdateLiveData();
-        console.log("[LOG] initializeDashboard END");
     }
     function toggleModal() { const modal = document.getElementById('modal'); const backdrop = document.getElementById('modal-backdrop'); if (!modal || !backdrop) {return;} const isOpen = modal.classList.contains('open'); modal.classList.toggle('open', !isOpen); backdrop.classList.toggle('open', !isOpen); document.body.classList.toggle('modal-open', !isOpen); }
     document.addEventListener('DOMContentLoaded', initializeDashboard);
