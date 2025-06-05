@@ -5,6 +5,9 @@ const fs = require('fs');
 const sharp = require('sharp');
 const simpleGit = require('simple-git');
 
+// Placeholder used to mark insertion point in messier.html
+const PLACEHOLDER = '<!-- MESSIER_ITEMS -->';
+
 // Ensure required directories exist
 fs.mkdirSync('uploads', { recursive: true });
 fs.mkdirSync(path.join(__dirname, '..', 'photos', 'messier', 'thumbs'), { recursive: true });
@@ -35,7 +38,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const htmlPath = path.join(__dirname, '..', 'messier.html');
     let html = fs.readFileSync(htmlPath, 'utf8');
     const entry = `<div class="grid-item photographed" onclick="openModal('${label}')" data-full="/photos/messier/${fileName}" style="background-image: url('/photos/messier/thumbs/${fileName}'); background-size: ${backgroundSize}; background-position: ${backgroundPosition};"></div>`;
-    html = html.replace('<!-- MESSIER_ITEMS -->', entry + '\n          <!-- MESSIER_ITEMS -->');
+    html = html.replace(PLACEHOLDER, entry + '\n          ' + PLACEHOLDER);
     fs.writeFileSync(htmlPath, html);
 
     await git.add(['photos/messier/' + fileName, 'photos/messier/thumbs/' + fileName, 'messier.html']);
