@@ -5,6 +5,10 @@ const fs = require('fs');
 const sharp = require('sharp');
 const simpleGit = require('simple-git');
 
+// Ensure required directories exist
+fs.mkdirSync('uploads', { recursive: true });
+fs.mkdirSync(path.join(__dirname, '..', 'photos', 'messier', 'thumbs'), { recursive: true });
+
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 const git = simpleGit();
