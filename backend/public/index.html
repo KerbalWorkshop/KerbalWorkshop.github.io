@@ -5,27 +5,94 @@
 <title>Upload Messier Image</title>
 <style>
 body {font-family: Arial, sans-serif; margin:40px;}
-label, input {display:block; margin-bottom:10px;}
+label {display:block; margin-bottom:10px;}
+#preview {width:200px;height:200px;border:1px solid #ccc;margin-bottom:10px;background-repeat:no-repeat;background-size: var(--size,160%);background-position: var(--pos,50% 50%);cursor:grab;}
+#controls{display:none;margin-bottom:10px;}
+#fullImageContainer{display:none;position:relative;margin-top:20px;}
+#cropOverlay{position:absolute;border:2px dashed red;pointer-events:none;}
 </style>
 </head>
 <body>
 <h1>Upload Messier Image</h1>
 <form id="uploadForm" enctype="multipart/form-data">
-  <label>Label <input name="label" required></label>
+  <label>Messier Number <input name="number" type="number" min="1" max="110" required></label>
   <label>Image <input type="file" name="image" required></label>
-  <label>Thumbnail Width <input name="thumbSize" type="number" value="400"></label>
-  <label>Background Size <input name="backgroundSize" value="160%"></label>
-  <label>Background Position <input name="backgroundPosition" value="50% 50%"></label>
+  <div id="controls">
+    <div id="preview"></div>
+    <input type="range" id="zoom" min="100" max="400" value="160">
+  </div>
+  <input type="hidden" name="backgroundSize" value="160%">
+  <input type="hidden" name="backgroundPosition" value="50% 50%">
   <button type="submit">Upload</button>
 </form>
+<div id="fullImageContainer">
+  <img id="fullImage" src="" alt="full" style="max-width:100%;height:auto;">
+  <div id="cropOverlay"></div>
+</div>
 <script>
-  document.getElementById('uploadForm').addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    const res = await fetch('/upload', {method:'POST', body:data});
-    if(res.ok) alert('Uploaded!'); else alert('Failed');
-  });
+const fileInput=document.querySelector('input[name=image]');
+const preview=document.getElementById('preview');
+const zoom=document.getElementById('zoom');
+const hiddenSize=document.querySelector('input[name=backgroundSize]');
+const hiddenPos=document.querySelector('input[name=backgroundPosition]');
+const controls=document.getElementById('controls');
+const fullImg=document.getElementById('fullImage');
+const crop=document.getElementById('cropOverlay');
+let posX=50,posY=50;
+
+fileInput.addEventListener('change',()=>{
+  const file=fileInput.files[0];
+  if(!file)return;
+  const url=URL.createObjectURL(file);
+  preview.style.backgroundImage=`url('${url}')`;
+  fullImg.src=url;
+  controls.style.display='block';
+  document.getElementById('fullImageContainer').style.display='block';
+});
+
+zoom.addEventListener('input',()=>{
+  preview.style.setProperty('--size',zoom.value+'%');
+  hiddenSize.value=zoom.value+'%';
+  updateOverlay();
+});
+
+let dragging=false,startX=0,startY=0;
+preview.addEventListener('mousedown',e=>{dragging=true;startX=e.clientX;startY=e.clientY;});
+window.addEventListener('mouseup',()=>{dragging=false;});
+window.addEventListener('mousemove',e=>{
+  if(!dragging)return;
+  const rect=preview.getBoundingClientRect();
+  const dx=e.clientX-startX;const dy=e.clientY-startY;
+  startX=e.clientX;startY=e.clientY;
+  posX+=dx/rect.width*100;
+  posY+=dy/rect.height*100;
+  posX=Math.max(0,Math.min(100,posX));
+  posY=Math.max(0,Math.min(100,posY));
+  preview.style.setProperty('--pos',posX+'% '+posY+'%');
+  hiddenPos.value=posX+'% '+posY+'%';
+  updateOverlay();
+});
+
+function updateOverlay(){
+  if(!fullImg.complete)return;
+  const w=fullImg.width;const h=fullImg.height;
+  const scale=parseFloat(zoom.value);
+  const cw=w*100/scale;const ch=h*100/scale;
+  crop.style.width=cw+'px';
+  crop.style.height=ch+'px';
+  crop.style.left=(posX/100*w)+'px';
+  crop.style.top=(posY/100*h)+'px';
+  crop.style.transform='translate(-50%,-50%)';
+}
+
+fullImg.onload=updateOverlay;
+
+document.getElementById('uploadForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const res=await fetch('/upload',{method:'POST',body:fd});
+  if(res.ok) alert('Uploaded!'); else alert('Failed');
+});
 </script>
 </body>
 </html>
