@@ -31,7 +31,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const htmlPath = path.join(__dirname, '..', 'messier.html');
     let html = fs.readFileSync(htmlPath, 'utf8');
     const entry = `<div class="grid-item photographed" onclick="openModal('${label}')" data-full="/photos/messier/${fileName}" style="background-image: url('/photos/messier/thumbs/${fileName}'); background-size: ${backgroundSize}; background-position: ${backgroundPosition};"></div>`;
-    html = html.replace('</div>\n      </div>', `  ${entry}\n        </div>\n      </div>`);
+    html = html.replace('<!-- MESSIER_ITEMS -->', entry + '\n          <!-- MESSIER_ITEMS -->');
     fs.writeFileSync(htmlPath, html);
 
     await git.add(['photos/messier/' + fileName, 'photos/messier/thumbs/' + fileName, 'messier.html']);
