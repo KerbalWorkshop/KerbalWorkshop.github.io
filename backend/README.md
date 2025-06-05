@@ -19,3 +19,7 @@ Open [http://localhost:3000](http://localhost:3000) to upload new images.
 Make sure this repo has write access and you are on the `main` branch with a clean working tree before running the service.
 
 The `messier.html` file must include a `<!-- MESSIER_ITEMS -->` comment inside the Messier grid. New entries will be inserted immediately before this placeholder every time you upload a photo.
+
+This comment marks where the next thumbnail will be added. The uploader replaces
+the `<!-- MESSIER_ITEMS -->` token with the new grid item and reinserts the
+placeholder so subsequent uploads keep working.
