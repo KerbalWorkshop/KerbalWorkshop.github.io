@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Upload Messier Image</title>
+<style>
+body {font-family: Arial, sans-serif; margin:40px;}
+label, input {display:block; margin-bottom:10px;}
+</style>
+</head>
+<body>
+<h1>Upload Messier Image</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+  <label>Label <input name="label" required></label>
+  <label>Image <input type="file" name="image" required></label>
+  <label>Thumbnail Width <input name="thumbSize" type="number" value="400"></label>
+  <label>Background Size <input name="backgroundSize" value="160%"></label>
+  <label>Background Position <input name="backgroundPosition" value="50% 50%"></label>
+  <button type="submit">Upload</button>
+</form>
+<script>
+  document.getElementById('uploadForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const res = await fetch('/upload', {method:'POST', body:data});
+    if(res.ok) alert('Uploaded!'); else alert('Failed');
+  });
+</script>
+</body>
+</html>
