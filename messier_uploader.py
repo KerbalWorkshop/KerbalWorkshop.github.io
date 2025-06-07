@@ -1,11 +1,18 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
+try:
+    from tkinterdnd2 import DND_FILES, TkinterDnD
+    DND_AVAILABLE = True
+except ImportError:  # Fallback when tkinterdnd2 is not installed
+    TkinterDnD = None
+    DND_AVAILABLE = False
 from PIL import Image, ImageTk
 from pathlib import Path
 import re
 import shutil
 
 THUMB_SIZE = 400
+DISPLAY_SIZE = 800  # Maximum width or height for preview
 
 class CropSelector:
     def __init__(self, canvas, photo_scale):
@@ -80,10 +87,17 @@ def update_html(number, label, file_name):
 
     html_path.write_text(html)
 
-class App(tk.Tk):
+base_class = TkinterDnD.Tk if DND_AVAILABLE else tk.Tk
+
+
+class App(base_class):
     def __init__(self):
         super().__init__()
         self.title('Messier Uploader')
+
+        if DND_AVAILABLE:
+            self.drop_target_register(DND_FILES)
+            self.dnd_bind('<<Drop>>', self.on_drop)
 
         self.number_var = tk.IntVar(value=1)
         self.name_var = tk.StringVar()
@@ -92,27 +106,44 @@ class App(tk.Tk):
         self.photo = None
         self.cropper = None
 
-        tk.Label(self, text='Messier Number (1-110)').pack()
-        tk.Spinbox(self, from_=1, to=110, textvariable=self.number_var).pack()
-        tk.Label(self, text='Name (optional)').pack()
-        tk.Entry(self, textvariable=self.name_var).pack()
-        tk.Button(self, text='Select Image', command=self.load_image).pack()
-        self.canvas = tk.Canvas(self)
-        self.canvas.pack()
-        tk.Button(self, text='Save', command=self.save).pack()
+        controls = tk.Frame(self)
+        controls.pack(pady=5)
 
-    def load_image(self):
+        tk.Label(controls, text='Messier Number (1-110)').grid(row=0, column=0, sticky='w')
+        tk.Spinbox(controls, from_=1, to=110, textvariable=self.number_var, width=5).grid(row=0, column=1, sticky='w')
+        tk.Label(controls, text='Name (optional)').grid(row=1, column=0, sticky='w')
+        tk.Entry(controls, textvariable=self.name_var).grid(row=1, column=1, sticky='w')
+        tk.Button(controls, text='Select Image', command=self.select_image).grid(row=2, column=0, columnspan=2, pady=5)
+
+        self.canvas = tk.Canvas(self, width=DISPLAY_SIZE, height=DISPLAY_SIZE)
+        self.canvas.pack()
+
+        tk.Button(self, text='Add to Gallery', command=self.save).pack(pady=10)
+
+    def select_image(self):
         path = filedialog.askopenfilename(filetypes=[('JPEG images', '*.jpg *.jpeg')])
-        if not path:
-            return
+        if path:
+            self.load_image(path)
+
+    def load_image(self, path):
         self.image_path = path
         self.image = Image.open(path)
-        self.photo = ImageTk.PhotoImage(self.image)
-        self.canvas.config(width=self.photo.width(), height=self.photo.height())
+        w, h = self.image.size
+        scale = max(w, h) / DISPLAY_SIZE
+        if scale < 1:
+            scale = 1
+        disp_w, disp_h = int(w / scale), int(h / scale)
+        display_img = self.image.resize((disp_w, disp_h), Image.LANCZOS) if scale != 1 else self.image
+        self.photo = ImageTk.PhotoImage(display_img)
+        self.canvas.config(width=disp_w, height=disp_h)
         self.canvas.delete('all')
         self.canvas.create_image(0, 0, image=self.photo, anchor='nw')
-        scale = self.image.width / self.photo.width()
         self.cropper = CropSelector(self.canvas, scale)
+
+    def on_drop(self, event):
+        files = self.tk.splitlist(event.data)
+        if files:
+            self.load_image(files[0])
 
     def save(self):
         if not self.image_path or not self.cropper:
