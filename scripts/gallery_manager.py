@@ -4,6 +4,7 @@ from tkinter import ttk, filedialog, messagebox, scrolledtext
 from PIL import Image, ImageFile, ImageTk
 from pathlib import Path
 import sqlite3, json, shutil, uuid, traceback, re, os, io, math
+from platform import system
 
 # --- CONFIGURATION ---
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,43 +22,15 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 CAMERAS = ["", "Nikon D3300", "ZWO ASI662MC", "ZWO ASI2600MM Pro"]
 TELESCOPES = ["", "Celestron C8-N", "William Optics RedCat 51"]
-GALLERY_NAMES = ["Messier", "Highlights"]
-
+GALLERY_NAMES = ["Messier", "Highlights", "Solar System"]
 
 # --- HELPER CLASSES ---
-class ScrollableFrame(ttk.Frame):
-    """A scrollable frame widget that can contain other widgets."""
-    def __init__(self, container, *args, **kwargs):
-        super().__init__(container, *args, **kwargs)
-        self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0)
-        vsb = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
-        self.inner = ttk.Frame(self.canvas)
-        self.inner.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
-        self.canvas.create_window((0, 0), window=self.inner, anchor="nw")
-        self.canvas.configure(yscrollcommand=vsb.set)
-        self.canvas.pack(side="left", fill="both", expand=True)
-        vsb.pack(side="right", fill="y")
-
-        # Bind scrolling only when the mouse is over this specific frame
-        self.bind('<Enter>', self._bind_mousewheel)
-        self.bind('<Leave>', self._unbind_mousewheel)
-
-    def _on_mousewheel(self, event):
-        # The actual scroll action
-        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-
-    def _bind_mousewheel(self, event):
-        # This binds the scroll action, but it's restricted to this widget's context
-        self.bind_all("<MouseWheel>", self._on_mousewheel)
-
-    def _unbind_mousewheel(self, event):
-        # This unbinds the scroll action when the mouse leaves
-        self.unbind_all("<MouseWheel>")
-
 class RotatableBox:
-    def __init__(self, canvas, square_mode_var):
+    """A class to draw and manage a rotatable, resizable box on a canvas."""
+    def __init__(self, canvas, square_mode_var, on_draw_callback=None):
         self.canvas = canvas
         self.square_mode = square_mode_var
+        self.on_draw_callback = on_draw_callback # Accept the callback
         self.shape_id = None
         self.handles = []
         self.center_x, self.center_y, self.width, self.height, self.angle = 0, 0, 0, 0, 0.0
@@ -67,39 +40,40 @@ class RotatableBox:
         self.canvas.bind("<ButtonPress-1>", self._on_press)
         self.canvas.bind("<B1-Motion>", self._on_motion)
         self.canvas.bind("<ButtonRelease-1>", self._on_release)
-        self.canvas.bind("<Motion>", self._on_hover)
 
     def _on_press(self, event):
         item = self.canvas.find_withtag(tk.CURRENT)
         if item and "handle" in self.canvas.gettags(item[0]):
-            self._drag_data["mode"] = "resize"
-            if self.handles.index(item[0]) == 4: # 5th handle is rotation
-                self._drag_data["mode"] = "rotate"
-            self._drag_data["handle_index"] = self.handles.index(item[0])
+            self._on_handle_press(event, item[0])
         else:
             self._drag_data["mode"] = "draw"
             self.center_x, self.center_y = event.x, event.y
             self.angle, self.width, self.height = 0, 0, 0
-        self._draw()
+            self._draw()
 
     def _on_motion(self, event):
         mode = self._drag_data["mode"]
         if mode == "idle": return
 
         if mode == "draw":
-            dx, dy = event.x - self.center_x, event.y - self.center_y
+            dx = event.x - self.center_x
+            dy = event.y - self.center_y
             self.angle = 0
             if self.square_mode.get(): self.width = self.height = max(abs(dx), abs(dy)) * 2
             else: self.width, self.height = abs(dx) * 2, abs(dy) * 2
         
         elif mode == "resize":
             handle_index = self._drag_data["handle_index"]
-            opposite_corner = self.get_rotated_corners()[(handle_index + 2) % 4]
-            self.center_x = (event.x + opposite_corner[0]) / 2
-            self.center_y = (event.y + opposite_corner[1]) / 2
+            corners = self.get_rotated_corners()
+            if handle_index >= len(corners): return
+            fixed_corner = corners[(handle_index + 2) % 4]
+            
+            self.center_x = (event.x + fixed_corner[0]) / 2
+            self.center_y = (event.y + fixed_corner[1]) / 2
             
             dx = event.x - self.center_x
             dy = event.y - self.center_y
+            
             cos_a, sin_a = math.cos(-self.angle), math.sin(-self.angle)
             unrotated_dx = dx * cos_a - dy * sin_a
             unrotated_dy = dx * sin_a + dy * cos_a
@@ -111,19 +85,32 @@ class RotatableBox:
             self.angle = math.atan2(event.y - self.center_y, event.x - self.center_x)
 
         self._draw()
-
+        # This line calls the callback to update the buttons
+        if self.on_draw_callback:
+            self.on_draw_callback()
+        
+    def _on_handle_press(self, event, item_id):
+        if item_id in self.handles:
+            self._drag_data["handle_index"] = self.handles.index(item_id)
+            # The 5th handle is the rotation handle
+            if self._drag_data["handle_index"] == 4:
+                self._drag_data["mode"] = "rotate"
+            else:
+                self._drag_data["mode"] = "resize"
+    
     def _on_release(self, event):
         self._drag_data["mode"] = "idle"
         self._drag_data["handle_index"] = -1
 
-    def _on_hover(self, event):
-        if self._drag_data["mode"] != "idle": return
+    def _on_handle_enter(self, event):
         item = self.canvas.find_withtag(tk.CURRENT)
-        if item and "handle" in self.canvas.gettags(item[0]):
-            handle_index = self.handles.index(item[0])
-            self.canvas.config(cursor="exchange" if handle_index == 4 else "sizing")
+        if item and "handle" in self.canvas.gettags(item[0]) and self.handles.index(item[0]) == 4:
+            self.canvas.config(cursor="exchange")
         else:
-            self.canvas.config(cursor="crosshair")
+            self.canvas.config(cursor="sizing")
+
+    def _on_handle_leave(self, event):
+        self.canvas.config(cursor="crosshair")
 
     def _draw(self):
         if self.shape_id: self.canvas.delete(self.shape_id)
@@ -135,7 +122,8 @@ class RotatableBox:
             self.shape_id = None
             return
             
-        self.shape_id = self.canvas.create_polygon(points, outline='red', fill='', width=2, tags="box")
+        flat_points = [coord for point in points for coord in point]
+        self.shape_id = self.canvas.create_polygon(flat_points, outline='red', fill='', width=2, tags="box")
         
         for x, y in points:
             self.handles.append(self.canvas.create_oval(x-4, y-4, x+4, y+4, fill='red', outline='white', tags="handle"))
@@ -160,6 +148,202 @@ class RotatableBox:
     def get_scaled_and_clamped_corners(self, scale_factor, pad_x, pad_y, img_w, img_h):
         if not self.shape_id: return None
         return [(max(0,min(img_w,int((x-pad_x)*scale_factor))), max(0,min(img_h,int((y-pad_y)*scale_factor)))) for x,y in self.get_rotated_corners()]
+    
+
+class SubjectMarkerWindow(tk.Toplevel):
+    def __init__(self, parent, image_path, subjects_to_mark):
+        super().__init__(parent)
+        self.transient(parent)
+        self.grab_set()
+        self.title("Mark Subject Locations")
+        self.geometry("800x700")
+
+        self.image_path = image_path
+        self.subjects = subjects_to_mark
+        self.current_subject_index = 0
+        self.results = {}  # Final results to be returned
+        self.current_marks = {}  # Temp data for the subject currently being marked
+
+        # --- UI Elements ---
+        self.subject_label = ttk.Label(self, text="", font=("Helvetica", 14, "bold"))
+        self.subject_label.pack(pady=(10, 5))
+
+        self.canvas = tk.Canvas(self, bg="gray20", cursor="crosshair")
+        self.canvas.pack(fill="both", expand=True, padx=10, pady=5)
+
+        # --- Config Row ---
+        config_frame = ttk.Frame(self, padding=(0, 5))
+        config_frame.pack(fill='x', padx=10)
+        self.square_mode_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(config_frame, text="Force Square Shape", variable=self.square_mode_var, command=self.reset_drawing).pack(side='left')
+
+        # --- Actions Section ---
+        actions_outer_frame = ttk.Frame(self, padding=(0, 5))
+        actions_outer_frame.pack(fill='x', padx=10)
+        actions_outer_frame.columnconfigure(1, weight=1)
+
+        # Left Column: Buttons
+        button_container = ttk.Frame(actions_outer_frame)
+        button_container.grid(row=0, column=0, sticky='ns')
+        
+        self.coords_frame = ttk.Frame(button_container)
+        self.coords_frame.pack(fill='x', pady=2)
+        self.coords_status = ttk.Label(self.coords_frame, text="◯", foreground="grey")
+        self.coords_status.pack(side='left')
+        ttk.Button(self.coords_frame, text="Save Coordinates", command=self.save_coords).pack(side='left', padx=5)
+
+        self.thumb_frame = ttk.Frame(button_container)
+        self.thumb_frame.pack(fill='x', pady=2)
+        self.thumb_status = ttk.Label(self.thumb_frame, text="◯", foreground="grey")
+        self.thumb_status.pack(side='left')
+        self.thumb_button = ttk.Button(self.thumb_frame, text="Save Thumbnail Area", command=self.save_thumb_area, state="disabled")
+        self.thumb_button.pack(side='left', padx=5)
+
+        style = ttk.Style()
+        style.configure("Accent.TButton", font=("Helvetica", 10, "bold"))
+        # --- FIX: Store a reference to the button ---
+        self.save_both_button = ttk.Button(button_container, text="Save Both", command=self.save_both, style="Accent.TButton", state="disabled")
+        self.save_both_button.pack(fill='x', pady=2)
+
+        # Right Column: Help Text
+        help_text = ("Draw a box around the subject on the image.\n\n"
+                     "- Save Coordinates: Saves the box as the subject's location.\n"
+                     "- Save Thumbnail Area: Saves the box to create a thumbnail.\n"
+                     "- Save Both: Does both at once.\n\n"
+                     "You can save multiple times. Click 'Next' when you are done with the current subject.")
+        help_label = ttk.Label(actions_outer_frame, text=help_text, wraplength=400, justify='left', style='TLabel')
+        help_label.grid(row=0, column=1, sticky='w', padx=20)
+
+        # --- Navigation Row ---
+        nav_frame = ttk.Frame(self, padding=(0, 10))
+        nav_frame.pack(fill='x', padx=10)
+        self.next_button = ttk.Button(nav_frame, text="Next Subject ==>", command=self.next_subject)
+        self.next_button.pack(side='right')
+
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+        self.load_image_for_current_subject()
+
+    def load_image_for_current_subject(self):
+        self.current_marks = {} # Reset for the new subject
+        self.update_status_indicators()
+        
+        subject = self.subjects[self.current_subject_index]
+        self.subject_label.config(text=f"Marking for: {subject['name']}")
+        
+        with Image.open(self.image_path) as img:
+            self.original_w, self.original_h = img.size
+            self.canvas.update()
+            canvas_w, canvas_h = self.canvas.winfo_width(), self.canvas.winfo_height()
+            ratio = min(canvas_w / self.original_w, canvas_h / self.original_h)
+            self.resized_w, self.resized_h = int(self.original_w * ratio), int(self.original_h * ratio)
+            self.pad_x = (canvas_w - self.resized_w) / 2
+            self.pad_y = (canvas_h - self.resized_h) / 2
+            resized_img = img.resize((self.resized_w, self.resized_h), Image.Resampling.LANCZOS)
+            self.photo = ImageTk.PhotoImage(resized_img)
+        
+        self.canvas.delete("all")
+        self.canvas.create_image(self.pad_x, self.pad_y, image=self.photo, anchor="nw")
+        
+        # This must be called AFTER the image is loaded and canvas is ready
+        self.reset_drawing()
+
+        if self.current_subject_index == len(self.subjects) - 1:
+            self.next_button.config(text="Finish & Submit")
+
+    def reset_drawing(self):
+        if hasattr(self, 'cropper') and self.cropper:
+            if self.cropper.shape_id:
+                self.canvas.delete(self.cropper.shape_id)
+            for h in self.cropper.handles:
+                self.canvas.delete(h)
+        self.cropper = RotatableBox(self.canvas, self.square_mode_var, on_draw_callback=self.update_button_states)
+        self.update_button_states()
+
+    def update_button_states(self):
+        # Thumbnail buttons are only active if a square is drawn
+        is_square = self.square_mode_var.get()
+        box_exists = self.cropper and self.cropper.shape_id is not None
+        
+        thumb_state = "normal" if (is_square and box_exists) else "disabled"
+        self.thumb_button.config(state=thumb_state)
+        # --- FIX: Use the direct reference to the button ---
+        self.save_both_button.config(state=thumb_state)
+
+    def update_status_indicators(self):
+        self.coords_status.config(text="✔" if 'bbox_coords' in self.current_marks else "◯", 
+                                  foreground="green" if 'bbox_coords' in self.current_marks else "grey")
+        self.thumb_status.config(text="✔" if 'thumb_coords' in self.current_marks else "◯",
+                                 foreground="green" if 'thumb_coords' in self.current_marks else "grey")
+
+    def save_coords(self):
+        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
+        self.current_marks['bbox_coords'] = coords if coords else "null"
+        self.update_status_indicators()
+
+    def save_thumb_area(self):
+        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
+        if not coords: return # Should be disabled, but as a safeguard
+        self.current_marks['thumb_coords'] = coords
+        self.update_status_indicators()
+
+    def save_both(self):
+        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
+        if not coords: return # Should be disabled, but as a safeguard
+        self.current_marks['bbox_coords'] = coords
+        self.current_marks['thumb_coords'] = coords
+        self.update_status_indicators()
+
+    def next_subject(self):
+        subject_id = self.subjects[self.current_subject_index]['id']
+        if self.current_marks:
+            self.results[subject_id] = self.current_marks
+        
+        if self.current_subject_index < len(self.subjects) - 1:
+            self.current_subject_index += 1
+            self.load_image_for_current_subject()
+        else:
+            self.destroy()
+
+    def on_close(self):
+        if not self.results or messagebox.askyesno("Cancel?", "Are you sure you want to cancel marking? Any unsaved markings will be lost.", parent=self):
+            self.results = None
+            self.destroy()
+
+    
+class ScrollableFrame(ttk.Frame):
+    """A scrollable frame widget that can contain other widgets."""
+    def __init__(self, container, *args, **kwargs):
+        super().__init__(container, *args, **kwargs)
+        self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0)
+        vsb = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.inner = ttk.Frame(self.canvas)
+
+        self.inner.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        
+        self.canvas.create_window((0, 0), window=self.inner, anchor="nw")
+        self.canvas.configure(yscrollcommand=vsb.set)
+        
+        self.canvas.pack(side="left", fill="both", expand=True)
+        vsb.pack(side="right", fill="y")
+
+        # --- FIX: Bind mousewheel event directly to the canvas ---
+        # This is safer than using bind_all, as the binding is
+        # automatically removed when this widget is destroyed.
+        self.canvas.bind("<MouseWheel>", self._on_mousewheel)
+        self.inner.bind("<MouseWheel>", self._on_mousewheel) # Also bind to inner frame
+
+    def _on_mousewheel(self, event):
+        # The actual scroll action
+        # The direction of scroll is different on Windows/macOS vs. Linux
+        if system() == "Linux":
+            if event.num == 4:
+                self.canvas.yview_scroll(-1, "units")
+            elif event.num == 5:
+                self.canvas.yview_scroll(1, "units")
+        else: # For Windows and macOS
+            self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+    # --- FIX: The old, buggy binding methods are now removed ---
 
 class MultiSelectSearchableList(ttk.Frame):
     def __init__(self, parent):
@@ -233,135 +417,79 @@ class MultiSelectSearchableList(ttk.Frame):
     def deselect_all(self):
         self.set_selection([])
 
-class SubjectMarkerWindow(tk.Toplevel):
-    def __init__(self, parent, image_path, subjects_to_mark):
-        super().__init__(parent)
-        self.transient(parent); self.grab_set(); self.title("Mark Subject Locations"); self.geometry("800x650")
-        self.image_path = image_path; self.subjects = subjects_to_mark; self.current_subject_index = 0
-        self.results = {}
-        
-        self.subject_label = ttk.Label(self, text="", font=("Helvetica", 12, "bold")); self.subject_label.pack(pady=10)
-        self.canvas = tk.Canvas(self, bg="gray20", cursor="crosshair"); self.canvas.pack(fill="both", expand=True, padx=10, pady=5)
-        
-        controls_frame = ttk.Frame(self); controls_frame.pack(pady=10, fill='x', padx=10)
-        self.square_mode_var = tk.BooleanVar(value=True)
-        ttk.Checkbutton(controls_frame, text="Force Square Shape", variable=self.square_mode_var, command=self.reset_drawing).pack(side='left', padx=10)
-        
-        action_frame = ttk.Frame(controls_frame); action_frame.pack(side='left', padx=20)
-        ttk.Button(action_frame, text="Save Coordinates", command=self.save_coords).pack(side='left', padx=5)
-        ttk.Button(action_frame, text="Save Thumbnail Area", command=self.save_thumb_area).pack(side='left', padx=5)
-        style = ttk.Style(); style.configure("Accent.TButton", font=("Helvetica", 10, "bold"))
-        ttk.Button(action_frame, text="Save Both", command=self.save_both, style="Accent.TButton").pack(side='left', padx=5)
-        
-        self.next_button = ttk.Button(controls_frame, text="Next Subject ==>", command=self.next_subject); self.next_button.pack(side='right')
-        
-        self.protocol("WM_DELETE_WINDOW", self.on_close)
-        self.load_image_for_current_subject()
-
-    def load_image_for_current_subject(self):
-        self.reset_drawing(); subject = self.subjects[self.current_subject_index]; self.subject_label.config(text=f"Marking for: {subject['name']}")
-        
-        with Image.open(self.image_path) as img:
-            self.original_w, self.original_h = img.size; self.canvas.update()
-            canvas_w, canvas_h = self.canvas.winfo_width(), self.canvas.winfo_height()
-            ratio = min(canvas_w / self.original_w, canvas_h / self.original_h)
-            self.resized_w, self.resized_h = int(self.original_w * ratio), int(self.original_h * ratio)
-            self.pad_x = (canvas_w - self.resized_w) / 2; self.pad_y = (canvas_h - self.resized_h) / 2
-            resized_img = img.resize((self.resized_w, self.resized_h), Image.Resampling.LANCZOS); self.photo = ImageTk.PhotoImage(resized_img)
-        
-        self.canvas.delete("all"); self.canvas.create_image(self.pad_x, self.pad_y, image=self.photo, anchor="nw")
-        
-        if self.current_subject_index == len(self.subjects) - 1:
-            self.next_button.config(text="Finish & Submit")
-
-    def reset_drawing(self):
-        if hasattr(self, 'cropper') and self.cropper:
-            if self.cropper.shape_id: self.canvas.delete(self.cropper.shape_id)
-            for h in self.cropper.handles: self.canvas.delete(h)
-        self.cropper = RotatableBox(self.canvas, self.square_mode_var)
-
-    def save_coords(self):
-        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
-        if not coords: messagebox.showwarning("No Box Drawn", "Please draw a box first.", parent=self); return
-        sid = self.subjects[self.current_subject_index]['id']
-        if sid not in self.results: self.results[sid] = {}
-        self.results[sid]['bbox_coords'] = coords
-        self.subject_label.config(text=f"Marking for: {self.subjects[self.current_subject_index]['name']} (Coordinates Saved)")
-
-    def save_thumb_area(self):
-        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
-        if not coords: messagebox.showwarning("No Box Drawn", "Please draw a box first.", parent=self); return
-        sid = self.subjects[self.current_subject_index]['id']
-        if sid not in self.results: self.results[sid] = {}
-        self.results[sid]['thumb_coords'] = coords
-        self.subject_label.config(text=f"Marking for: {self.subjects[self.current_subject_index]['name']} (Thumbnail Area Saved)")
-
-    def save_both(self):
-        coords = self.cropper.get_scaled_and_clamped_corners(self.original_w/self.resized_w, self.pad_x, self.pad_y, self.original_w, self.original_h)
-        if not coords: messagebox.showwarning("No Box Drawn", "Please draw a box first.", parent=self); return
-        sid = self.subjects[self.current_subject_index]['id']
-        if sid not in self.results: self.results[sid] = {}
-        self.results[sid]['bbox_coords'] = coords
-        self.results[sid]['thumb_coords'] = coords
-        self.subject_label.config(text=f"Marking for: {self.subjects[self.current_subject_index]['name']} (Coordinates & Thumbnail Area Saved)")
-
-    def next_subject(self):
-        # This method no longer requires a box to be drawn.
-        # If no markings were made for the current subject, it will simply be skipped.
-        if self.current_subject_index < len(self.subjects) - 1:
-            self.current_subject_index += 1
-            self.load_image_for_current_subject()
-        else:
-            # If on the last subject, just close the window.
-            # The main app will handle the self.results dictionary, which will
-            # be empty for any subjects that were not explicitly marked.
-            self.destroy()
-
-    def on_close(self):
-        if not self.results or messagebox.askyesno("Cancel?", "Are you sure you want to cancel marking? Any markings made in this session will be lost.", parent=self):
-            self.results = None
-            self.destroy()
-
 class EditImageWindow(tk.Toplevel):
     def __init__(self, parent, image_id):
         super().__init__(parent)
-        self.db = parent.db; self.image_id = image_id
-        self.transient(parent); self.grab_set(); self.title("Edit Image Details"); self.geometry("800x800")
+        self.db = parent.db
+        self.image_id = image_id
+        self.transient(parent)
+        self.grab_set()
+        self.title("Edit Image Details")
+        self.geometry("800x800")
         
         self.image_data = self.db.get_image_details(self.image_id)
-        if not self.image_data: messagebox.showerror("Error", "Could not load image data.", parent=parent); self.destroy(); return
+        if not self.image_data:
+            messagebox.showerror("Error", "Could not load image data.", parent=parent)
+            self.destroy()
+            return
 
-        self.edit_label = tk.StringVar(value=self.image_data.get('label')); self.edit_date = tk.StringVar(value=self.image_data.get('date')); self.edit_integration = tk.StringVar(value=self.image_data.get('integration') or ""); self.edit_camera = tk.StringVar(value=self.image_data.get('camera')); self.edit_telescope = tk.StringVar(value=self.image_data.get('telescope')); self.edit_gallery_vars = {}
+        self.edit_label = tk.StringVar(value=self.image_data.get('label'))
+        self.edit_date = tk.StringVar(value=self.image_data.get('date'))
+        self.edit_integration = tk.StringVar(value=self.image_data.get('integration') or "")
+        self.edit_camera = tk.StringVar(value=self.image_data.get('camera'))
+        self.edit_telescope = tk.StringVar(value=self.image_data.get('telescope'))
+        self.edit_gallery_vars = {}
         self.new_marker_data = None
         self.confirmed_edits = None
 
-        scrollable_area = ScrollableFrame(self); scrollable_area.pack(fill="both", expand=True); main_frame = scrollable_area.inner
-        
-        meta_frame = ttk.LabelFrame(main_frame, text="Metadata", padding="10"); meta_frame.pack(fill='x', expand=True, padx=10, pady=5); meta_frame.columnconfigure(1, weight=1)
+        scrollable_area = ScrollableFrame(self)
+        scrollable_area.pack(fill="both", expand=True)
+        main_frame = scrollable_area.inner
+
+        meta_frame = ttk.LabelFrame(main_frame, text="Metadata", padding="10")
+        meta_frame.pack(fill='x', expand=True, padx=10, pady=5)
+        meta_frame.columnconfigure(1, weight=1)
         fields = {"Label:": self.edit_label, "Date (YYYY-MM-DD):": self.edit_date, "Integration (min):": self.edit_integration, "Camera:": self.edit_camera, "Telescope:": self.edit_telescope}
         for i, (label, var) in enumerate(fields.items()):
             ttk.Label(meta_frame, text=label).grid(row=i, column=0, sticky='w', padx=5, pady=3)
             if "Camera" in label: ttk.Combobox(meta_frame, textvariable=var, values=CAMERAS, state="readonly").grid(row=i, column=1, sticky='we', padx=5, pady=3)
             elif "Telescope" in label: ttk.Combobox(meta_frame, textvariable=var, values=TELESCOPES, state="readonly").grid(row=i, column=1, sticky='we', padx=5, pady=3)
             else: ttk.Entry(meta_frame, textvariable=var).grid(row=i, column=1, sticky='we', padx=5, pady=3)
-        ttk.Label(meta_frame, text="Notes:").grid(row=len(fields), column=0, sticky='nw', padx=5, pady=3); self.edit_notes = scrolledtext.ScrolledText(meta_frame, height=4); self.edit_notes.grid(row=len(fields), column=1, sticky='we', padx=5, pady=3); self.edit_notes.insert("1.0", self.image_data.get('notes') or "")
         
-        assign_frame = ttk.LabelFrame(main_frame, text="Assignments", padding="10"); assign_frame.pack(fill='both', expand=True, padx=10, pady=5); assign_frame.columnconfigure(0, weight=1); assign_frame.rowconfigure(0, weight=1)
+        ttk.Label(meta_frame, text="Notes:").grid(row=len(fields), column=0, sticky='nw', padx=5, pady=3)
+        self.edit_notes = scrolledtext.ScrolledText(meta_frame, height=4)
+        self.edit_notes.grid(row=len(fields), column=1, sticky='we', padx=5, pady=3)
+        self.edit_notes.insert("1.0", self.image_data.get('notes') or "")
         
-        subject_frame = ttk.LabelFrame(assign_frame, text="Subjects"); subject_frame.grid(row=0, column=0, sticky='nsew', padx=(0,5)); subject_frame.rowconfigure(0, weight=1); subject_frame.columnconfigure(0, weight=1)
-        self.subject_chooser = MultiSelectSearchableList(subject_frame); self.subject_chooser.pack(fill='both', expand=True, padx=5, pady=5)
+        assign_frame = ttk.LabelFrame(main_frame, text="Assignments", padding="10")
+        assign_frame.pack(fill='both', expand=True, padx=10, pady=5)
+        assign_frame.columnconfigure(0, weight=1)
+        assign_frame.rowconfigure(0, weight=1)
+        
+        subject_frame = ttk.LabelFrame(assign_frame, text="Subjects")
+        subject_frame.grid(row=0, column=0, sticky='nsew', padx=(0,5))
+        subject_frame.rowconfigure(0, weight=1)
+        subject_frame.columnconfigure(0, weight=1)
+        self.subject_chooser = MultiSelectSearchableList(subject_frame)
+        self.subject_chooser.pack(fill='both', expand=True, padx=5, pady=5)
         self.subject_chooser.populate_items(self.db.get_subjects())
         self.subject_chooser.set_selection([s['id'] for s in self.image_data.get('subjects', [])])
         
-        right_panel = ttk.Frame(assign_frame); right_panel.grid(row=0, column=1, sticky='ns', padx=(5,0))
-        gallery_frame_inner = ttk.LabelFrame(right_panel, text="Galleries", padding="10"); gallery_frame_inner.pack(fill='x', expand=False)
+        right_panel = ttk.Frame(assign_frame)
+        right_panel.grid(row=0, column=1, sticky='ns', padx=(5,0))
+        gallery_frame_inner = ttk.LabelFrame(right_panel, text="Galleries", padding="10")
+        gallery_frame_inner.pack(fill='x', expand=False)
         for gal in self.db.get_galleries():
-            var = tk.BooleanVar(value=(gal['id'] in self.image_data.get('gallery_ids', []))); self.edit_gallery_vars[gal['id']] = var; ttk.Checkbutton(gallery_frame_inner, text=gal['name'], variable=var).pack(anchor='w')
+            var = tk.BooleanVar(value=(gal['id'] in self.image_data.get('gallery_ids', [])))
+            self.edit_gallery_vars[gal['id']] = var
+            ttk.Checkbutton(gallery_frame_inner, text=gal['name'], variable=var).pack(anchor='w')
         
-        marking_frame = ttk.LabelFrame(right_panel, text="Markings", padding="10"); marking_frame.pack(fill='x', expand=False, pady=10)
+        marking_frame = ttk.LabelFrame(right_panel, text="Markings", padding="10")
+        marking_frame.pack(fill='x', expand=False, pady=10)
         ttk.Button(marking_frame, text="Update Markings...", command=self.remake_markings).pack(pady=5)
         
-        btn_frame = ttk.Frame(main_frame); btn_frame.pack(pady=15, side='bottom')
+        btn_frame = ttk.Frame(main_frame)
+        btn_frame.pack(pady=15, side='bottom')
         ttk.Button(btn_frame, text="Save All Changes", command=self.confirm_and_close).pack(side="left", padx=10)
         ttk.Button(btn_frame, text="Cancel", command=self.destroy).pack(side="left", padx=10)
 
@@ -381,7 +509,7 @@ class EditImageWindow(tk.Toplevel):
         if not subjects_to_mark:
             messagebox.showinfo("No Subjects Selected", "You must select subjects in the list before you can create markings.", parent=self)
             return
-        
+
         full_image_path = BASE_DIR / self.image_data['file_path']
         marker_window = SubjectMarkerWindow(self, full_image_path, subjects_to_mark)
         self.wait_window(marker_window)
@@ -389,8 +517,8 @@ class EditImageWindow(tk.Toplevel):
         if marker_window.results is not None:
             self.new_marker_data = marker_window.results
 
-
-            # --- DATABASE MANAGEMENT ---
+# --- DATABASE MANAGEMENT ---
+# --- DATABASE MANAGEMENT ---
 class DatabaseManager:
     def __init__(self, db_path):
         self.db_path = db_path
@@ -406,66 +534,29 @@ class DatabaseManager:
         return cur
 
     def init_db(self):
+        # Check if the database has already been initialized by looking for a key table.
         cur = self.conn.cursor()
         cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='images'")
         if cur.fetchone():
-            # Run migrations on existing databases
-            self.migrate_add_bounding_box_v2()
-            self.migrate_add_image_dims()
+            # If the images table exists, we assume the DB is correctly set up.
+            # The obsolete migration code has been removed.
             return
         
-        # Create database from scratch if it doesn't exist
-        with open(BASE_DIR / 'schema.sql', 'r') as f:
-            self.conn.executescript(f.read())
-        self.conn.commit()
+        # If no tables exist, create the entire database from the schema file.
+        # This now happens only once when a new database file is created.
+        print("Creating new database from schema.sql...")
+        try:
+            with open(BASE_DIR / 'schema.sql', 'r') as f:
+                self.conn.executescript(f.read())
+            self.conn.commit()
+        except FileNotFoundError:
+            print("CRITICAL: schema.sql not found. Cannot create new database.")
+            raise
+        
+        # Populate initial data like galleries
         for g in GALLERY_NAMES:
             self.add_gallery(g)
-
-    def migrate_add_bounding_box_v2(self):
-        try:
-            # Check if the migration is needed by looking for an old-format box
-            cur = self._execute("SELECT bounding_box FROM image_subjects WHERE bounding_box IS NOT NULL AND bounding_box NOT LIKE '%,%,%,%,%,%,%,%' LIMIT 1")
-            old_format_box = cur.fetchone()
-            if old_format_box:
-                print("Applying database migration: Converting bounding boxes to 4-point format...")
-                all_boxes = self._execute("SELECT image_id, subject_id, bounding_box FROM image_subjects WHERE bounding_box IS NOT NULL").fetchall()
-                for row in all_boxes:
-                    coords = row['bounding_box'].split(',')
-                    if len(coords) == 4: # Is it an old 2-point box?
-                        x1, y1, x2, y2 = map(int, coords)
-                        # Calculate the other two corners for the square
-                        new_box_str = f"{x1},{y1},{x2},{y1},{x2},{y2},{x1},{y2}"
-                        self._execute("UPDATE image_subjects SET bounding_box = ? WHERE image_id = ? AND subject_id = ?",
-                                      (new_box_str, row['image_id'], row['subject_id']), c=True)
-                print("Bounding box migration complete.")
-        except sqlite3.OperationalError:
-            # This handles the initial creation case where the column might not exist yet
-            self._execute("ALTER TABLE image_subjects ADD COLUMN bounding_box TEXT", c=True)
-
-    def migrate_add_image_dims(self):
-        try:
-            self._execute("SELECT width FROM images LIMIT 1")
-        except sqlite3.OperationalError:
-            print("Applying database migration: Adding 'width' and 'height' columns...")
-            self._execute("ALTER TABLE images ADD COLUMN width INTEGER", c=True)
-            self._execute("ALTER TABLE images ADD COLUMN height INTEGER", c=True)
-            self.populate_dims_for_old_images()
-
-    def populate_dims_for_old_images(self):
-        images_to_update = self._execute("SELECT id, file_path FROM images WHERE width IS NULL").fetchall()
-        if not images_to_update:
-            return
-        print(f"Found {len(images_to_update)} existing images missing dimensions. Populating now...")
-        for row in images_to_update:
-            try:
-                full_path = BASE_DIR / row['file_path']
-                if full_path.exists():
-                    with Image.open(full_path) as img:
-                        width, height = img.size
-                        self._execute("UPDATE images SET width = ?, height = ? WHERE id = ?", (width, height, row['id']), c=True)
-            except Exception as e:
-                print(f"Could not process dimensions for image {row['id']}: {e}")
-        print("Finished populating dimensions.")
+        print("Database creation complete.")
 
     def add_gallery(self, n):
         self._execute("INSERT OR IGNORE INTO galleries(name) VALUES(?)", (n, ), True)
@@ -489,7 +580,7 @@ class DatabaseManager:
         if t == "subjects":
             self._execute("DELETE FROM image_subjects WHERE subject_id=?", (i, ), True)
         elif t == "galleries":
-            self._execute("DELETE FROM image_galleries WHERE gallery_id=?", (i, ), True)
+            self.conn.execute("DELETE FROM image_galleries WHERE gallery_id=?", (i, ))
         self._execute(f"DELETE FROM {t} WHERE id=?", (i, ), True)
 
     def delete_all(self, t):
@@ -500,14 +591,12 @@ class DatabaseManager:
         self._execute(f"DELETE FROM {t}", (), True)
 
     def save_image_data(self, image_data, subject_data, gallery_ids):
-        # This method now correctly assumes data is pre-formatted by the App class
         cur = self.conn.cursor()
         cur.execute("INSERT INTO images(id, label, file_path, date, integration, camera, telescope, notes, width, height) VALUES(?,?,?,?,?,?,?,?,?,?)",
                     (image_data['id'], image_data['label'], image_data['file_path'], image_data['date'], image_data['integration'],
-                     image_data['camera'], image_data['telescope'], image_data['notes'], image_data['width'], image_data['height']))
+                    image_data['camera'], image_data['telescope'], image_data['notes'], image_data['width'], image_data['height']))
         
         for sid, data in subject_data.items():
-            # It directly saves the 'box' and 'thumb_path' strings it receives
             cur.execute("INSERT INTO image_subjects(image_id, subject_id, bounding_box, thumb_path) VALUES(?,?,?,?)",
                         (image_data['id'], sid, data['box'], data['thumb_path']))
         
@@ -577,8 +666,8 @@ class DatabaseManager:
 
     def update_image_data(self, image_id, new_data):
         self._execute("""UPDATE images SET label=?, date=?, integration=?, camera=?, telescope=?, notes=? WHERE id=?""",
-                      (new_data['label'], new_data['date'], new_data['integration'], new_data['camera'],
-                       new_data['telescope'], new_data['notes'], image_id))
+                    (new_data['label'], new_data['date'], new_data['integration'], new_data['camera'],
+                    new_data['telescope'], new_data['notes'], image_id))
         
         self._execute("DELETE FROM image_galleries WHERE image_id=?", (image_id, ))
         for gid in new_data['gallery_ids']:
@@ -587,35 +676,16 @@ class DatabaseManager:
         self.conn.commit()
 
     def replace_subject_associations(self, image_id, new_subject_data):
-        # This method now correctly assumes data is pre-formatted by the App class
-        # It safely deletes all old associations before inserting the new ones.
         self._execute("DELETE FROM image_subjects WHERE image_id = ?", (image_id, ), c=True)
         for subject_id, data in new_subject_data.items():
+            bbox_str = data.get('box')
+            thumb_path = data.get('thumb_path')
             self._execute("INSERT INTO image_subjects (image_id, subject_id, bounding_box, thumb_path) VALUES (?, ?, ?, ?)",
-                          (image_id, subject_id, data['box'], data['thumb_path']), c=True)
+                          (image_id, subject_id, bbox_str, thumb_path), c=True)
             
 
-
-            # --- MAIN APPLICATION ---
+# --- MAIN APPLICATION ---
 class App(tk.Tk):
-    
-    def _treeview_sort_column(self, col, reverse):
-        """Sorts the treeview columns when a header is clicked."""
-        try:
-            # Try to convert items to numbers for a more natural sort
-            items = [(float(self.tree.set(k, col)), k) for k in self.tree.get_children('')]
-        except ValueError:
-            # If conversion fails, sort as strings (case-insensitive)
-            items = [(self.tree.set(k, col).lower(), k) for k in self.tree.get_children('')]
-
-        items.sort(reverse=reverse)
-
-        for index, (val, k) in enumerate(items):
-            self.tree.move(k, '', index)
-
-        # Reverse the sort direction for the next click
-        self.tree.heading(col, command=lambda: self._treeview_sort_column(col, not reverse))
-
     def __init__(self):
         super().__init__()
         self.report_callback_exception = self.show_error
@@ -748,12 +818,10 @@ class App(tk.Tk):
         frame = self.tab_browse
         cols = ("Label", "Date", "Integration", "Camera", "Telescope", "Galleries", "Subjects", "Bounding Boxes")
         self.tree = ttk.Treeview(frame, columns=cols, show="headings")
-        
         for c in cols:
-            # Add the sorting command to each column header
             self.tree.heading(c, text=c, command=lambda _c=c: self._treeview_sort_column(_c, False))
             self.tree.column(c, width=150, anchor='w')
-
+        
         self.tree.column("Label", width=200)
         self.tree.column("Date", width=100, anchor='center')
         self.tree.column("Integration", width=80, anchor='center')
@@ -774,6 +842,17 @@ class App(tk.Tk):
         ttk.Button(btn_frame, text="Edit Selected", command=self.edit_selected).pack(side="left", padx=5)
         ttk.Button(btn_frame, text="Delete Selected", command=self.delete_selected).pack(side="left", padx=5)
 
+    def _treeview_sort_column(self, col, reverse):
+        """Sorts the treeview columns when a header is clicked."""
+        try:
+            items = [(float(self.tree.set(k, col)), k) for k in self.tree.get_children('') if self.tree.set(k, col)]
+        except (ValueError, tk.TclError):
+            items = [(self.tree.set(k, col).lower(), k) for k in self.tree.get_children('')]
+        items.sort(reverse=reverse)
+        for index, (val, k) in enumerate(items):
+            self.tree.move(k, '', index)
+        self.tree.heading(col, command=lambda: self._treeview_sort_column(col, not reverse))
+
     def refresh_tab_browse(self):
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -784,7 +863,7 @@ class App(tk.Tk):
         for row in self.db.get_all_data_for_publishing():
             gallery_names = [galleries_map.get(gid) for gid in row['gallery_ids'] if gid in galleries_map]
             subject_names = [s['name'] for s in row['subjects']]
-            bounding_boxes = [f"[{s['bounding_box']}]" for s in row['subjects'] if s['bounding_box']]
+            bounding_boxes = [f"[{s['bounding_box']}]" for s in row['subjects'] if s['bounding_box'] and s['bounding_box'] != 'null']
             
             values = (
                 row['label'], row['data']['date'], row['data']['integration'],
@@ -811,53 +890,57 @@ class App(tk.Tk):
         image_id = self.tree.selection()[0]
         
         original_data = self.db.get_image_details(image_id)
-        original_subject_ids = {s['id'] for s in original_data.get('subjects', [])}
 
         edit_window = EditImageWindow(self, image_id)
         self.wait_window(edit_window)
 
         if not hasattr(edit_window, 'confirmed_edits') or not edit_window.confirmed_edits:
-            return
+            return # User cancelled
 
         try:
             confirmed_data = edit_window.confirmed_edits
-            new_subject_ids = set(confirmed_data['subject_ids'])
-            subjects_changed = (original_subject_ids != new_subject_ids)
             marker_results = edit_window.new_marker_data if hasattr(edit_window, 'new_marker_data') else None
 
-            if subjects_changed and not marker_results:
-                messagebox.showerror("Error", "Subjects were changed, but no new markings were made. Please use the 'Update Markings' button before saving.", parent=self)
-                self.refresh_all_tabs()
-                return
-
+            # 1. Update the basic image metadata first
             self.db.update_image_data(image_id, confirmed_data)
 
+            # 2. If new markings were made, process and save them
             if marker_results:
+                # Delete all old thumbnails for this image
                 old_thumb_paths = self.db.get_old_thumb_paths(image_id)
-                for path in old_thumb_paths:
-                    (BASE_DIR / path).unlink(missing_ok=True)
+                for rel_path in old_thumb_paths:
+                    (BASE_DIR / rel_path).unlink(missing_ok=True)
                 
+                # Process the new markings
+                processed_subject_data = {}
                 full_image_path = BASE_DIR / original_data['file_path']
-                new_subject_data = {}
                 with Image.open(full_image_path) as img:
                     for subject_id, data in marker_results.items():
+                        bbox_str = None
+                        if data.get('bbox_coords'):
+                            bbox_list = data['bbox_coords']
+                            bbox_str = ','.join(map(str, [c for p in bbox_list for c in p]))
+
                         thumb_path_str = None
-                        bbox_str = ','.join(map(str, [c for p in data['bbox_coords'] for c in p])) if data.get('bbox_coords') else None
-                        
                         if data.get('thumb_coords'):
+                            box_4_points = data['thumb_coords']
+                            min_x = min(p[0] for p in box_4_points)
+                            min_y = min(p[1] for p in box_4_points)
+                            max_x = max(p[0] for p in box_4_points)
+                            max_y = max(p[1] for p in box_4_points)
+                            
                             thumb_path = THUMB_DIR / f"{image_id}_{subject_id}.jpg"
-                            box = data['thumb_coords']
-                            min_x, max_x = min(p[0] for p in box), max(p[0] for p in box)
-                            min_y, max_y = min(p[1] for p in box), max(p[1] for p in box)
                             cropped = img.crop((min_x, min_y, max_x, max_y))
                             cropped.thumbnail(THUMB_SIZE)
-                            if cropped.mode in ("RGBA", "P"): cropped = cropped.convert("RGB")
+                            if cropped.mode in ("RGBA", "P"):
+                                cropped = cropped.convert("RGB")
                             cropped.save(thumb_path, "JPEG", quality=90)
                             thumb_path_str = str(thumb_path.relative_to(BASE_DIR).as_posix())
                         
-                        new_subject_data[subject_id] = {'box': bbox_str, 'thumb_path': thumb_path_str}
-                
-                self.db.replace_subject_associations(image_id, new_subject_data)
+                        processed_subject_data[subject_id] = {'box': bbox_str, 'thumb_path': thumb_path_str}
+
+                # 3. Replace all subject associations with the newly processed data
+                self.db.replace_subject_associations(image_id, processed_subject_data)
             
             messagebox.showinfo("Success", "Image has been successfully updated.")
 
@@ -868,20 +951,32 @@ class App(tk.Tk):
 
     def _build_manager_tab(self, parent, name, add_cb, del_all_cb, del_one_cb, import_cb=None):
         frame = parent.inner
-        header = ttk.Frame(frame); header.pack(fill="x", padx=10, pady=5)
+        header = ttk.Frame(frame)
+        header.pack(fill="x", padx=10, pady=5)
+        
         ttk.Label(header, text=f"New {name}:").pack(side="left")
         entry_var = tk.StringVar()
         entry = ttk.Entry(header, textvariable=entry_var)
         entry.pack(side="left", padx=5, fill='x', expand=True)
+        
         def add_action():
             val = entry_var.get().strip()
-            if val: add_cb(val); entry_var.set("")
+            if val:
+                add_cb(val)
+                entry_var.set("")
+        
         entry.bind("<Return>", lambda event: add_action())
         ttk.Button(header, text="Add", command=add_action).pack(side="left", padx=5)
-        btn_bar = ttk.Frame(frame); btn_bar.pack(fill='x', padx=10, pady=5)
-        if import_cb: ttk.Button(btn_bar, text=f"Import Messier Objects", command=import_cb).pack(side="left", padx=5)
+        
+        btn_bar = ttk.Frame(frame)
+        btn_bar.pack(fill='x', padx=10, pady=5)
+        
+        if import_cb:
+            ttk.Button(btn_bar, text=f"Import Messier Objects", command=import_cb).pack(side="left", padx=5)
         ttk.Button(btn_bar, text=f"Delete All {name}s", command=del_all_cb).pack(side="right", padx=5)
-        list_frame = ttk.Frame(frame); list_frame.pack(fill="both", expand=True, padx=10, pady=5)
+
+        list_frame = ttk.Frame(frame)
+        list_frame.pack(fill="both", expand=True, padx=10, pady=5)
         return list_frame
 
     def build_tab_subjects(self):
@@ -934,22 +1029,26 @@ class App(tk.Tk):
         marker_window = SubjectMarkerWindow(self, self.source_image_path, subjects_to_mark)
         self.wait_window(marker_window)
         marker_results = marker_window.results
-        if marker_results is None: return
+        if marker_results is None:
+            messagebox.showinfo("Cancelled", "Image save process cancelled.")
+            return
 
         img_id = str(uuid.uuid4()); dest = ORIG_DIR/(img_id + self.source_image_path.suffix); shutil.copy(self.source_image_path, dest)
         
         subject_data = {}
         with Image.open(self.source_image_path) as img:
             image_dims = img.size
-            for subject_id, data in marker_results.items():
+            for subject_id in selected_ids:
+                data = marker_results.get(subject_id, {})
                 thumb_path_str = None
-                bbox_str = ','.join(map(str, [c for p in data['bbox_coords'] for c in p])) if data.get('bbox_coords') else None
-
+                bbox_str = data.get('bbox_coords')
+                if isinstance(bbox_str, list): # Check if it's a list of coords
+                    bbox_str = ','.join(map(str, [c for p in bbox_str for c in p]))
+                
                 if data.get('thumb_coords'):
                     box_4_points = data['thumb_coords']
                     min_x = min(p[0] for p in box_4_points); min_y = min(p[1] for p in box_4_points)
                     max_x = max(p[0] for p in box_4_points); max_y = max(p[1] for p in box_4_points)
-                    
                     thumb_path = THUMB_DIR / f"{img_id}_{subject_id}.jpg"
                     cropped = img.crop((min_x, min_y, max_x, max_y)); cropped.thumbnail(THUMB_SIZE)
                     if cropped.mode in ("RGBA", "P"): cropped = cropped.convert("RGB")
@@ -985,7 +1084,8 @@ class App(tk.Tk):
     def refresh_all_tabs(self):
         all_subjects = self.db.get_subjects()
         # The Add tab chooser is always present
-        self.subject_chooser.populate_items(all_subjects)
+        if hasattr(self, 'subject_chooser'):
+            self.subject_chooser.populate_items(all_subjects)
         
         self._populate_gallery_checkboxes()
         self.refresh_tab_browse()
