@@ -1,409 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Messier Gallery - Hansen Space</title>
-  <link rel="stylesheet" href="/styles.css" />
-  <style>
-    /* body.modal-open is a global utility and fine. */
-    /* .content styles removed, handled by page-main-content-area and content-limiter */
-    /* .intro-section, .intro-title, .intro-text styles removed, handled by .intro-block */
-
-    .gallery-wrapper {
-      background-color: var(--color-dark-grey-panel-bg); /* THEME UPDATE */
-      border-radius: 12px;
-      padding: 30px; /* Or use a theme variable like var(--spacing-large) */
-      margin-bottom: 60px; /* Consistent with .content-divider margin or page-main-content-area padding */
-      border: 1px solid var(--color-light-grey-borders-dividers); /* Added border for definition */
-    }
-
-    .messier-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: clamp(10px, 2vw, 20px); /* Adjusted gap slightly */
-    }
-
-    .grid-item {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      background-color: var(--color-dark-grey-header-footer-bg); /* THEME UPDATE - for empty items */
-      border: 1px solid var(--color-light-grey-borders-dividers);   /* THEME UPDATE */
-      border-radius: 8px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: var(--color-text-secondary); /* THEME UPDATE - for M-number text */
-      cursor: pointer;
-      overflow: hidden; /* Ensure background image doesn't bleed past border-radius */
-    }
-
-    .grid-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Enhanced hover effect */
-    }
-
-    .grid-item.photographed {
-     
-     
-      background-repeat: no-repeat;
-      color: transparent; /* Hides the M-number text */
-    }
-     /* Overlay for photographed items to ensure text (if any was to be shown) is readable */
-    .grid-item.photographed::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    .grid-item.photographed:hover::before {
-        opacity: 1; /* Show subtle gradient on hover for photographed items */
-    }
-
-
-    /* Custom Gallery Modal Styling */
-    #gallery-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85); /* Slightly darker backdrop */
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2200; /* Higher than main nav modal */
-    }
-
-    #gallery-modal.active {
-      display: flex;
-    }
-
-    .gallery-modal-content { /* Renamed from .modal-content to avoid conflict if global .modal styles exist */
-      background: var(--color-dark-grey-panel-bg); /* THEME UPDATE */
-      color: var(--color-text-primary);          /* THEME UPDATE */
-      border-radius: 10px;
-      max-width: 90%;
-      max-height: 90vh; /* Use vh for height */
-      width: 750px; /* Slightly wider modal */
-      font-family: var(--font-primary);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--color-light-grey-borders-dividers);
-      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-    }
-
-    .gallery-modal-header { /* Renamed */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: var(--color-dark-grey-header-footer-bg); /* THEME UPDATE */
-      border-bottom: 1px solid var(--color-light-grey-borders-dividers); /* THEME UPDATE */
-    }
-
-    .gallery-modal-title { /* Renamed */
-      font-family: var(--font-headings);
-      font-weight: 600; /* Use 600 consistent with other titles */
-      font-size: 1.3rem;
-      color: var(--color-text-headings); /* THEME UPDATE */
-    }
-
-    .gallery-modal-close { /* Renamed */
-      font-size: 1.8rem; /* Larger close button */
-      font-weight: bold;
-      line-height: 1;
-      cursor: pointer;
-      color: var(--color-text-secondary); /* THEME UPDATE */
-      transition: color 0.2s ease;
-    }
-    .gallery-modal-close:hover {
-      color: var(--color-text-accent); /* THEME UPDATE */
-    }
-
-    .gallery-modal-body { /* Renamed */
-      padding: 20px;
-      text-align: center;
-      overflow-y: auto; /* Allow body to scroll if content is too tall */
-      flex-grow: 1;
-    }
-
-    .gallery-modal-body img {
-      max-width: 100%;
-      max-height: calc(85vh - 100px); /* Adjust max height based on viewport and header/footer */
-      border-radius: 8px;
-      display: block; /* Ensure img is block to respect margins */
-      margin: 0 auto; /* Center image */
-    }
-
-    .gallery-modal-body p {
-      font-size: 1rem; /* Adjusted size */
-      margin-top: 20px;
-      color: var(--color-text-primary); /* THEME UPDATE */
-      line-height: var(--line-height-base);
-    }
-
-    @media (max-width: 850px) {
-      /* .intro-block responsive styles are global */
-      .grid-item {
-        font-size: 1rem;
-      }
-      .messier-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important; /* Adjusted for smaller screens */
-      }
-      .gallery-modal-content { /* Renamed */
-        width: 95%;
-        max-height: 90vh;
-      }
-      .gallery-modal-title { font-size: 1.1rem; }
-      .gallery-modal-body img { max-height: 70vh; }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Messier Gallery – Hansen Space</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+        .gallery-wrapper { background-color: var(--color-dark-grey-panel-bg); border-radius: 12px; padding: 30px; margin-bottom: 60px; border: 1px solid var(--color-light-grey-borders-dividers); }
+        .messier-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: clamp(10px, 2vw, 20px); }
+        .grid-item { position: relative; aspect-ratio: 1/1; background-color: var(--color-dark-grey-header-footer-bg); border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-headings); font-weight: 600; font-size: 1.2rem; color: var(--color-text-secondary); cursor: pointer; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
+        .grid-item:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,.3); }
+        .grid-item.photographed { background-size: cover; background-position: center; color: transparent; }
+        .grid-item.photographed::before { content: attr(data-label); position: absolute; bottom: 0; left: 0; right: 0; padding: 15px 8px 8px; text-align: center; color: white; font-size: 0.9rem; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8)); opacity:0; transition: opacity .3s ease; }
+        .grid-item.photographed:hover::before { opacity:1; }
+        
+        /* Modal and New Highlighter CSS */
+        #gallery-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:2200;}
+        #gallery-modal.active{display:flex;}
+        .gallery-modal-content{background:var(--color-dark-grey-panel-bg);color:var(--color-text-primary);border-radius:10px;max-width:90%;max-height:90vh;width:800px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--color-light-grey-borders-dividers);box-shadow:0 5px 25px rgba(0,0,0,.5);}
+        .gallery-modal-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:var(--color-dark-grey-header-footer-bg);border-bottom:1px solid var(--color-light-grey-borders-dividers);}
+        .gallery-modal-title{font-family:var(--font-headings);font-weight:600;font-size:1.3rem;color:var(--color-text-headings);}
+        .gallery-modal-close{font-size:1.8rem;font-weight:bold;cursor:pointer;color:var(--color-text-secondary);transition:color .2s ease;}
+        .gallery-modal-close:hover{color:var(--color-text-accent);}
+        .gallery-modal-body{padding:20px;text-align:center;overflow-y:auto;flex-grow:1;}
+        .modal-image-container { position: relative; display: inline-block; line-height: 0; }
+        .modal-image-container img{max-width:100%;height:auto;max-height:calc(85vh - 280px);border-radius:8px;display:block;margin:0 auto;}
+        #bbox-highlighter-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        #bbox-highlighter-svg.visible { opacity: 0.9; }
+        #bbox-highlighter-svg ellipse { fill: none; stroke: var(--color-text-accent); stroke-width: 2px; filter: drop-shadow(0 0 8px var(--color-text-accent)); }
+        .modal-image-details{margin-top:15px;padding-top:15px;border-top:1px solid var(--color-light-grey-borders-dividers);text-align:left;}
+        .subject-pills-container { padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--color-light-grey-borders-dividers); display: flex; flex-wrap: wrap; gap: 10px; }
+        .subject-pill { background-color: var(--color-dark-grey-header-footer-bg); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+        .subject-pill:hover { background-color: var(--color-accent-primary); color: var(--color-text-on-light); }
+        p.detail-item{margin:0!important;padding:5px 0;font-size:.95rem;}
+        p.detail-item strong{color:var(--color-text-headings);font-weight:600;margin-right:8px;}
+    </style>
 </head>
 <body>
-  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
-    <a href="/index.html">Home</a>
-    <a href="/myjourney.html">My Journey</a>
-    <a href="/photography.html" class="active">Photography</a>
-    <a href="/articles">Articles</a>
-    <a href="/tools.html">Tools</a>
-    <a href="/contact.html">Contact</a>
-  </div>
-  
-  <header>
-    <div class="header-inner-container content-limiter">
-      <a class="brand" href="/index.html">
-        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;" />
-      </a>
-      <nav>
-        <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/myjourney.html">My Journey</a></li>
-          <li><a href="/photography.html">Photography</a></li>
-          <li><a href="/articles">Articles</a></li>
-          <li><a href="/tools.html">Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="menu-icon" onclick="toggleModal()">☰</div>
-    </div>
-  </header>
+    <header><div class="header-inner-container content-limiter"><a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo"></a><nav><ul><li><a href="/index.html">Home</a></li><li><a href="/myjourney.html">My Journey</a></li><li><a href="/photography.html" class="active">Photography</a></li><li><a href="/articles">Articles</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/contact.html">Contact</a></li></ul></nav><div class="menu-icon" onclick="toggleModal()">☰</div></div></header>
+    <div class="modal-backdrop" id="modal-backdrop"></div><div class="modal" id="modal"><a href="/index.html">Home</a><a href="/myjourney.html">My Journey</a><a href="/photography.html" class="active">Photography</a><a href="/articles">Articles</a><a href="/tools.html">Tools</a><a href="/contact.html">Contact</a></div>
 
-  <main class="page-main-content-area content-limiter">
-    <div class="intro-block">
-      <h1 class="intro-block__title">MESSIER GALLERY</h1>
-      <p class="intro-block__text">
-        The Messier catalogue is a list of 110 celestial objects that includes star clusters, nebulae, and galaxies. Of those 110, here are the ones I've photographed so far!
-      </p>     
-    </div>
+    <main class="page-main-content-area content-limiter">
+        <div class="intro-block"><h1 class="intro-block__title">MESSIER GALLERY</h1><p class="intro-block__text">The Messier catalogue contains 110 celestial objects. This is my progress cataloging them all.</p></div>
+        <div class="gallery-wrapper"><div class="messier-grid" id="messier-grid"><p>Loading Messier catalog...</p></div></div>
+    </main>
 
-    <!-- NOTE: Increasing background positions shifts image left and up -->
+    <div id="gallery-modal"><div class="gallery-modal-content"><div class="gallery-modal-header"><div class="gallery-modal-title" id="modal-title"></div><span class="gallery-modal-close" id="modal-close-button">×</span></div><div class="gallery-modal-body" id="modal-body"></div></div></div>
 
-    <div class="gallery-wrapper">
-        <div class="messier-grid">
-          <div class="grid-item photographed" onclick="openModal('M1 - Crab Nebula')" data-full="/photos/messier/1.jpg" style="background-image: url('/photos/messier/thumbs/1.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M2')">M2</div>
-          <div class="grid-item photographed" onclick="openModal('M3')" data-full="/photos/messier/3.jpg" style="background-image: url('/photos/messier/thumbs/3.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M4')">M4</div>
-          <div class="grid-item photographed" onclick="openModal('M5')" data-full="/photos/messier/5.jpg" style="background-image: url('/photos/messier/thumbs/5.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M6')">M6</div>
-          <div class="grid-item" onclick="openModal('M7')">M7</div>
-          <div class="grid-item" onclick="openModal('M8')">M8</div>
-          <div class="grid-item" onclick="openModal('M9')">M9</div>
-          <div class="grid-item" onclick="openModal('M10')">M10</div>
-          <div class="grid-item photographed" onclick="openModal('M11 - Wild Duck Cluster')" data-full="/photos/messier/11.jpg" style="background-image: url('/photos/messier/thumbs/11.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M12')">M12</div>
-          <div class="grid-item photographed" onclick="openModal('M13 - Hercules Globular Cluster')" data-full="/photos/messier/13.jpg" style="background-image: url('/photos/messier/thumbs/13.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M14')">M14</div>
-          <div class="grid-item" onclick="openModal('M15')">M15</div>
-          <div class="grid-item photographed" onclick="openModal('M16 - Eagle Nebula')" data-full="/photos/messier/16.jpg" style="background-image: url('/photos/messier/thumbs/16.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M17 - Omega Nebula')" data-full="/photos/messier/17.jpg" style="background-image: url('/photos/messier/thumbs/17.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M18')">M18</div>
-          <div class="grid-item" onclick="openModal('M19')">M19</div>
-          <div class="grid-item photographed" onclick="openModal('M20 - Trifid Nebula')" data-full="/photos/messier/20.jpg" style="background-image: url('/photos/messier/thumbs/20.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M21 - Webb’s Cross')" data-full="/photos/messier/21.jpg" style="background-image: url('/photos/messier/thumbs/21.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M22')">M22</div>
-          <div class="grid-item" onclick="openModal('M23')">M23</div>
-          <div class="grid-item photographed" onclick="openModal('M24 - Sagittarius Star Cloud')" data-full="/photos/messier/24.jpg" style="background-image: url('/photos/messier/thumbs/24.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M25')">M25</div>
-          <div class="grid-item" onclick="openModal('M26')">M26</div>
-          <div class="grid-item photographed" onclick="openModal('M27 - Dumbbell Nebula')" data-full="/photos/messier/27.jpg" style="background-image: url('/photos/messier/thumbs/27.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M28')">M28</div>
-          <div class="grid-item photographed" onclick="openModal('M29 - Cooling Tower Cluster')" data-full="/photos/messier/29.jpg" style="background-image: url('/photos/messier/thumbs/29.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M30')">M30</div>
-          <div class="grid-item photographed" onclick="openModal('M31 - Andromeda Galaxy')" data-full="/photos/messier/31.jpg" style="background-image: url('/photos/messier/thumbs/31.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M32')">M32</div>
-          <div class="grid-item photographed" onclick="openModal('M33 - Triangulum Galaxy')" data-full="/photos/messier/33.jpg" style="background-image: url('/photos/messier/thumbs/33.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M34')">M34</div>
-          <div class="grid-item" onclick="openModal('M35')">M35</div>
-          <div class="grid-item photographed" onclick="openModal('M36 - Pinwheel Cluster')" data-full="/photos/messier/36.jpg" style="background-image: url('/photos/messier/thumbs/36.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M37')">M37</div>
-          <div class="grid-item" onclick="openModal('M38')">M38</div>
-          <div class="grid-item" onclick="openModal('M39')">M39</div>
-          <div class="grid-item photographed" onclick="openModal('M40 - Winnecke 4')" data-full="/photos/messier/40.jpg" style="background-image: url('/photos/messier/thumbs/40.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M41')">M41</div>
-          <div class="grid-item photographed" onclick="openModal('M42 - Orion Nebula')" data-full="/photos/messier/42 43.jpg" style="background-image: url('/photos/messier/thumbs/42 43.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M43 - De Mairan’s Nebula')" data-full="/photos/messier/42 43.jpg" style="background-image: url('/photos/messier/thumbs/42 43.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M44 - Beehive Cluster')" data-full="/photos/messier/44.jpg" style="background-image: url('/photos/messier/thumbs/44.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M45 - Pleiades')" data-full="/photos/messier/45.jpg" style="background-image: url('/photos/messier/thumbs/45.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M46')">M46</div>
-          <div class="grid-item" onclick="openModal('M47')">M47</div>
-          <div class="grid-item" onclick="openModal('M48')">M48</div>
-          <div class="grid-item" onclick="openModal('M49')">M49</div>
-          <div class="grid-item" onclick="openModal('M50')">M50</div>
-          <div class="grid-item photographed" onclick="openModal('M51 - Whirlpool Galaxy')" data-full="/photos/messier/51.jpg" style="background-image: url('/photos/messier/thumbs/51.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M52 - Scorpion Cluster')" data-full="/photos/messier/52.jpg" style="background-image: url('/photos/messier/thumbs/52.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M53')" data-full="/photos/messier/53.jpg" style="background-image: url('/photos/messier/thumbs/53.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M54')">M54</div>
-          <div class="grid-item" onclick="openModal('M55')">M55</div>
-          <div class="grid-item" onclick="openModal('M56')">M56</div>
-          <div class="grid-item photographed" onclick="openModal('M57 - Ring Nebula')" data-full="/photos/messier/57.jpg" style="background-image: url('/photos/messier/thumbs/57.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M58')">M58</div>
-          <div class="grid-item" onclick="openModal('M59')">M59</div>
-          <div class="grid-item" onclick="openModal('M60')">M60</div>
-          <div class="grid-item" onclick="openModal('M61')">M61</div>
-          <div class="grid-item" onclick="openModal('M62')">M62</div>
-          <div class="grid-item photographed" onclick="openModal('M63 - Sunflower Galaxy')" data-full="/photos/messier/63.jpg" style="background-image: url('/photos/messier/thumbs/63.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M64 - Black Eye Galaxy')" data-full="/photos/messier/64.jpg" style="background-image: url('/photos/messier/thumbs/64.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M65 (Part of Leo’s Triplet)')" data-full="/photos/messier/65 66.jpg" style="background-image: url('/photos/messier/thumbs/65 66.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M66 (Part of Leo’s Triplet)')" data-full="/photos/messier/65 66.jpg" style="background-image: url('/photos/messier/thumbs/65 66.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M67 - King Cobra Cluster')" data-full="/photos/messier/67.jpg" style="background-image: url('/photos/messier/thumbs/67.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M68')">M68</div>
-          <div class="grid-item" onclick="openModal('M69')">M69</div>
-          <div class="grid-item" onclick="openModal('M70')">M70</div>
-          <div class="grid-item" onclick="openModal('M71')">M71</div>
-          <div class="grid-item" onclick="openModal('M72')">M72</div>
-          <div class="grid-item" onclick="openModal('M73')">M73</div>
-          <div class="grid-item photographed" onclick="openModal('M74 - Phantom Galaxy')" data-full="/photos/messier/74.jpg" style="background-image: url('/photos/messier/thumbs/74.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M75')">M75</div>
-          <div class="grid-item photographed" onclick="openModal('M76 - Little Dumbbell Nebula')" data-full="/photos/messier/76.jpg" style="background-image: url('/photos/messier/thumbs/76.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M77')">M77</div>
-          <div class="grid-item photographed" onclick="openModal('M78 - Casper the Friendly Ghost Nebula')" data-full="/photos/messier/78.jpg" style="background-image: url('/photos/messier/thumbs/78.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M79')">M79</div>
-          <div class="grid-item" onclick="openModal('M80')">M80</div>
-          <div class="grid-item photographed" onclick="openModal('M81 - Bode’s Galaxy')" data-full="/photos/messier/81.jpg" style="background-image: url('/photos/messier/thumbs/81.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M82 - Cigar Galaxy')" data-full="/photos/messier/82.jpg" style="background-image: url('/photos/messier/thumbs/82.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M83')">M83</div>
-          <div class="grid-item photographed" onclick="openModal('M84')" data-full="/photos/messier/84 86.jpg" style="background-image: url('/photos/messier/thumbs/84 86.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M85')">M85</div>
-          <div class="grid-item photographed" onclick="openModal('M86')" data-full="/photos/messier/84 86.jpg" style="background-image: url('/photos/messier/thumbs/84 86.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M87 - Virgo A Galaxy')" data-full="/photos/messier/87.jpg" style="background-image: url('/photos/messier/thumbs/87.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M88')">M88</div>
-          <div class="grid-item photographed" onclick="openModal('M89')" data-full="/photos/messier/89 90.jpg" style="background-image: url('/photos/messier/thumbs/89 90.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M90')" data-full="/photos/messier/89 90.jpg" style="background-image: url('/photos/messier/thumbs/89 90.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M91')">M91</div>
-          <div class="grid-item photographed" onclick="openModal('M92')" data-full="/photos/messier/92.jpg" style="background-image: url('/photos/messier/thumbs/92.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M93')">M93</div>
-          <div class="grid-item photographed" onclick="openModal('M94 - Cat’s Eye Galaxy')" data-full="/photos/messier/94.jpg" style="background-image: url('/photos/messier/thumbs/94.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M95')" data-full="/photos/messier/95.jpg" style="background-image: url('/photos/messier/thumbs/95.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M105')" data-full="/photos/messier/96 105.jpg" style="background-image: url('/photos/messier/thumbs/96 105.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M97 - Owl Nebula')" data-full="/photos/messier/97 108.jpg" style="background-image: url('/photos/messier/thumbs/97 108.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M98')" data-full="/photos/messier/98.jpg" style="background-image: url('/photos/messier/thumbs/98.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M99 - Coma Pinwheel')" data-full="/photos/messier/99.jpg" style="background-image: url('/photos/messier/thumbs/99.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M100 - Mirror Galaxy')" data-full="/photos/messier/100.jpg" style="background-image: url('/photos/messier/thumbs/100.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M101 - Pinwheel Galaxy')" data-full="/photos/messier/101.jpg" style="background-image: url('/photos/messier/thumbs/101.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M102')">M102</div>
-          <div class="grid-item photographed" onclick="openModal('M103')" data-full="/photos/messier/103.jpg" style="background-image: url('/photos/messier/thumbs/103.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M104 - Sombrero Galaxy')" data-full="/photos/messier/104.jpg" style="background-image: url('/photos/messier/thumbs/104.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M105')" data-full="/photos/messier/96 105.jpg" style="background-image: url('/photos/messier/thumbs/96 105.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M106')" data-full="/photos/messier/106.jpg" style="background-image: url('/photos/messier/thumbs/106.jpg');"></div>
-          <div class="grid-item" onclick="openModal('M107')">M107</div>
-          <div class="grid-item photographed" onclick="openModal('M108 - Surfboard Galaxy')" data-full="/photos/messier/97 108.jpg" style="background-image: url('/photos/messier/thumbs/97 108.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M109')" data-full="/photos/messier/109.jpg" style="background-image: url('/photos/messier/thumbs/109.jpg');"></div>
-          <div class="grid-item photographed" onclick="openModal('M110 - Edward Young Star')" data-full="/photos/messier/110.jpg" style="background-image: url('/photos/messier/thumbs/110.jpg');"></div>
-        </div>
-      </div>
-  </main>
+    <footer><div class="footer-inner-container content-limiter"><div class="social-links"><a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a><a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a><a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a></div><p>© <span id="year">2025</span> Hansen Space.</p></div></footer>
+    
+    <script src="/scripts.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const grid = document.getElementById('messier-grid');
+        const modal = document.getElementById('gallery-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCloseButton = document.getElementById('modal-close-button');
+        let clickTimeoutId = null;
+        let scrollY = 0;
 
-  <div id="gallery-modal" onclick="handleBackdropClick(event)">
-    <div class="gallery-modal-content">
-      <div class="gallery-modal-header">
-        <div class="gallery-modal-title" id="modal-title">Messier Object</div>
-        <span class="gallery-modal-close" onclick="closeModal()">×</span>
-      </div>
-      <div class="gallery-modal-body" id="modal-body">
-        {/* Content injected by JS */}
-      </div>
-    </div>
-  </div>
+        function openModal(shot) {
+            if (!shot) return;
+            modalTitle.textContent = shot.subject.name;
+            let pillsHtml = '<div class="subject-pills-container">';
+            shot.image.subjects.forEach(sub => { pillsHtml += `<span class="subject-pill" data-bbox="${sub.bounding_box}" data-name="${sub.name}">${sub.name}</span>`; });
+            pillsHtml += '</div>';
+            let detailsHtml = '';
+            const details = [ { label: 'Date', value: shot.image.data.date }, { label: 'Camera', value: shot.image.data.camera }, { label: 'Telescope', value: shot.image.data.telescope }, { label: 'Integration', value: shot.image.data.integration, unit: ' min' }, { label: 'Notes', value: shot.image.data.notes, full: true } ];
+            details.forEach(d => { if (d.value && d.value !== 'None' && d.value !== 'null') { const val = d.unit ? d.value + d.unit : d.value; detailsHtml += `<p class="detail-item ${d.full ? 'detail-item-full' : ''}"><strong>${d.label}:</strong> ${val}</p>`; } });
+            
+            modalBody.innerHTML = `
+                <div class="modal-image-container">
+                    <img id="modal-main-image" src="/${shot.image.image_file}" alt="${shot.image.label}" data-original-width="${shot.image.width}" data-original-height="${shot.image.height}">
+                    <svg id="bbox-highlighter-svg"><ellipse/></svg>
+                </div>
+                <div class="modal-image-details">${pillsHtml}${detailsHtml}</div>
+            `;
+            
+            const highlighter = document.getElementById('bbox-highlighter-svg');
+            const modalImage = document.getElementById('modal-main-image');
+            
+            modalImage.onload = () => {
+                document.querySelectorAll('.subject-pill').forEach(pill => {
+                    const bbox = pill.dataset.bbox;
+                    if (bbox && bbox !== 'null') {
+                        pill.addEventListener('mouseenter', () => showHighlighter(bbox, modalImage, highlighter));
+                        pill.addEventListener('mouseleave', () => hideHighlighter(highlighter));
+                        pill.addEventListener('click', () => clickHighlighter(bbox, modalImage, highlighter));
+                    } else { pill.style.cursor = 'default'; pill.style.opacity = '0.6'; }
+                });
+            };
+            
+            scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            modal.style.display = 'flex';
+        }
 
-  <footer>
-    <div class="footer-inner-container content-limiter">
-      <div class="social-links">
-        <a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'"></a>
-        <a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'"></a>
-        <a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'"></a>
-      </div>
-      <p>© <span id="year">2025</span> Hansen Space.</p>
-    </div>
-  </footer>
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
+            window.scrollTo(0, scrollY);
+        }
 
-  <script>
-    let scrollY = 0; // To store scroll position
-  
-    function openModal(label) {
-        const modal = document.getElementById("gallery-modal");
-        const bodyEl = document.getElementById("modal-body"); // Changed variable name
-        const titleEl = document.getElementById("modal-title"); // Changed variable name
-        // Corrected selector to find the specific tile based on the 'label'
-        const tile = document.querySelector(`.grid-item[onclick*="openModal('${label}')"]`);
+        function showHighlighter(bbox, modalImage, svg) {
+            const origW = parseInt(modalImage.dataset.originalWidth, 10);
+            if (isNaN(origW) || !origW) return;
+
+            const rect = modalImage.getBoundingClientRect();
+            const scale = rect.width / origW;
+            const coords = bbox.split(',').map(Number);
+            if (coords.length < 8) return;
+
+            const p1 = {x: coords[0], y: coords[1]}, p2 = {x: coords[2], y: coords[3]};
+            const width = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)) * scale;
+            const height = Math.sqrt(Math.pow(coords[6] - p1.x, 2) + Math.pow(coords[7] - p1.y, 2)) * scale;
+            const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI);
+            const centerX = (p1.x + coords[4]) / 2 * scale;
+            const centerY = (p1.y + coords[5]) / 2 * scale;
+            
+            const ellipse = svg.querySelector('ellipse');
+            ellipse.setAttribute('cx', centerX);
+            ellipse.setAttribute('cy', centerY);
+            ellipse.setAttribute('rx', width / 2);
+            ellipse.setAttribute('ry', height / 2);
+            ellipse.setAttribute('transform', `rotate(${angle}, ${centerX}, ${centerY})`);
+            
+            svg.classList.add('visible');
+        }
+
+        function hideHighlighter(svg) { if (svg.dataset.clickVisible !== 'true') svg.classList.remove('visible'); }
+        function clickHighlighter(bbox, modalImage, svg) {
+            clearTimeout(clickTimeoutId);
+            svg.dataset.clickVisible = 'true';
+            showHighlighter(bbox, modalImage, svg);
+            clickTimeoutId = setTimeout(() => { svg.dataset.clickVisible = 'false'; hideHighlighter(svg); }, 3000);
+        }
         
-        titleEl.textContent = label; // Set title first
+        const renderPlaceholderGrid = (g) => {
+            g.innerHTML = '';
+            for (let i = 1; i <= 110; i++) { const d = document.createElement('div'); d.className = 'grid-item'; d.textContent = `M${i}`; g.appendChild(d); }
+        };
 
-        if (tile && tile.classList.contains('photographed')) {
-            const fullImageUrl = tile.getAttribute('data-full');
-            if (fullImageUrl) {
-                bodyEl.innerHTML = `<img src="${fullImageUrl}" alt="${label} Image">`;
-            } else {
-                bodyEl.innerHTML = `<p>Image for ${label} is currently unavailable.</p>`;
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        modalCloseButton.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        try {
+            const v = Date.now();
+            const [galleriesRes, imagesRes] = await Promise.all([fetch(`/photos/data/galleries.json?v=${v}`), fetch(`/photos/data/all_images.json?v=${v}`)]);
+            if (!galleriesRes.ok || !imagesRes.ok) throw new Error('Failed to load gallery data files.');
+            const galleriesMap = await galleriesRes.json();
+            const allImages = await imagesRes.json();
+            const messierId = galleriesMap['Messier'];
+            if (typeof messierId === 'undefined') throw new Error('"Messier" gallery not found in galleries.json.');
+            const messierImages = allImages.filter(img => img.gallery_ids.includes(messierId));
+            const bestMessierShots = {};
+            const messierNumRegex = /M(\d+)/;
+            messierImages.forEach(image => {
+                image.subjects.forEach(subject => {
+                    const match = subject.name.match(messierNumRegex);
+                    if (match && subject.thumb_path) {
+                        const num = parseInt(match[1], 10);
+                        const existing = bestMessierShots[num];
+                        if (!image.data.date) return;
+                        const currentDate = new Date(image.data.date);
+                        if (!existing || currentDate > new Date(existing.image.data.date)) {
+                            bestMessierShots[num] = { image: image, subject: subject };
+                        }
+                    }
+                });
+            });
+            grid.innerHTML = '';
+            for (let i = 1; i <= 110; i++) {
+                const div = document.createElement('div');
+                div.className = 'grid-item';
+                const shot = bestMessierShots[i];
+                if (shot) {
+                    div.classList.add('photographed');
+                    div.style.backgroundImage = `url('/${shot.subject.thumb_path}')`;
+                    div.dataset.label = shot.subject.name;
+                    div.addEventListener('click', () => openModal(shot));
+                } else {
+                    div.textContent = `M${i}`;
+                }
+                grid.appendChild(div);
             }
-        } else {
-            bodyEl.innerHTML = `<p>Haven't photographed ${label} yet.</p>`;
+        } catch (e) {
+            console.error('Error loading Messier gallery:', e);
+            renderPlaceholderGrid(grid);
         }
-
-        scrollY = window.scrollY;
-        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        if (scrollbarWidth > 0) { // Only apply padding if scrollbar is present
-             document.body.style.paddingRight = `${scrollbarWidth}px`;
-        }
-        document.body.classList.add("modal-open"); // Relies on global style: body.modal-open { overflow: hidden; }
-
-        modal.classList.add("active");
-    }
-
-  
-    function closeModal() {
-        const modal = document.getElementById("gallery-modal");
-        modal.classList.remove("active");
-        document.body.classList.remove("modal-open");
-
-        // Restore body position
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.paddingRight = ''; // Reset paddingRight
-        
-        window.scrollTo(0, scrollY); // Restore scroll position
-    }
-
-    function handleBackdropClick(event) {
-        // Close if the click is on the backdrop itself, not its children
-        if (event.target.id === "gallery-modal") {
-            closeModal();
-        }
-    }
-  </script>
-  <script src="/scripts.js"></script>
+    });
+    </script>
 </body>
 </html>

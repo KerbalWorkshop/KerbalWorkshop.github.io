@@ -1,136 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography – Hansen Space</title>
-  
-  <link rel="stylesheet" href="/styles.css">
-  <style>
-    /* Removed .content, .intro-section, .intro-title, .intro-text styles as they are now handled by global styles or new specific classes. */
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography – Hansen Space</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .photography-portal-container { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+        .gallery-links-wrapper { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .gallery-link-card { position: relative; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 3rem 2rem; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--color-text-headings); background-size: cover; background-position: center; border: 1px solid var(--color-light-grey-borders-dividers); transition: border-color 0.3s ease, background-color 0.3s ease; }
+        .gallery-link-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.75); transition: background-color 0.3s ease; }
+        .gallery-link-card:hover { border-color: var(--color-text-accent); }
+        .gallery-link-card:hover::before { background-color: rgba(0, 0, 0, 0.65); }
+        .gallery-link-card .card-content { position: relative; z-index: 1; }
+        .gallery-link-card h2 { font-family: var(--font-headings); font-size: clamp(1.8rem, 3vw, 2.2rem); margin: 0 0 10px 0; }
+        .gallery-link-card p { font-size: 1.1rem; color: var(--color-text-primary); }
+        #highlights-card { background-image: url('/images/highlights-photos-bg.jpg'); }
+        #messier-card { background-image: url('/images/messier-photos-bg.jpg'); }
+        .search-container { background-color: var(--color-dark-grey-panel-bg); border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 16px; overflow: hidden; }
+        .search-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 1.5rem 2rem; background: transparent; border: none; cursor: pointer; font-family: var(--font-headings); font-size: 1.5rem; color: var(--color-text-headings); }
+        .search-toggle .arrow { border: solid var(--color-text-secondary); border-width: 0 3px 3px 0; display: inline-block; padding: 4px; transform: rotate(45deg); transition: transform 0.3s ease-in-out; }
+        .search-toggle.active .arrow { transform: rotate(-135deg); }
+        .filter-controls { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, margin-top 0.4s ease-in-out; }
+        .filter-grid { display: flex; flex-direction: column; gap: 30px; padding: 0 30px 30px 30px; }
+        .filter-group { display: flex; flex-direction: column; gap: 12px; }
+        .filter-group label { font-weight: 600; color: var(--color-text-secondary); }
+        .filter-group label .current-value { color: var(--color-text-primary); font-weight: normal; margin-left: 10px; font-family: 'Courier New', Courier, monospace; }
+        
+        /* New Subject Search Styles */
+        .subject-search-wrapper { position: relative; }
+        .subject-input-container { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background-color: var(--color-dark-grey-header-footer-bg); border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 8px; padding: 8px; }
+        .subject-pill { display: flex; align-items: center; background-color: var(--color-accent-primary); color: var(--color-text-on-light); padding: 5px 10px; border-radius: 15px; font-size: 0.9rem; font-weight: 600; }
+        .subject-pill .remove-pill { margin-left: 8px; cursor: pointer; font-weight: bold; }
+        #subject-search-input { flex-grow: 1; border: none; background: transparent; color: var(--color-text-primary); padding: 5px; min-width: 150px; }
+        #subject-search-input:focus { outline: none; }
+        #subject-search-results { position: absolute; background-color: #2a2a2a; border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 8px; max-height: 200px; overflow-y: auto; z-index: 1000; width: 100%; margin-top: 5px; }
+        .subject-result-item { padding: 10px 15px; cursor: pointer; color: var(--color-text-primary); }
+        .subject-result-item:hover { background-color: var(--color-accent-primary); }
 
-    /* Elfsight gallery container might need some margin if it's too close to other elements */
-    .elfsight-app-2ce8894c-c8ba-4002-a2a2-70b895f74a65 {
-        margin-top: 40px; 
-        margin-bottom: 40px;
-    }
-
-    /* Centered Button Container for sections like "Messier Gallery" links */
-    .centered-button-container {
-      text-align: center;
-      margin: 60px 0; 
-    }
-
-    .button-group {
-      display: inline-flex; 
-      gap: 20px; 
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    /* .button-standard styles are already in styles.css */
-
-    /* Styling for the "Gear Used" section */
-    .gear-list-section {
-      font-family: var(--font-primary); 
-      font-size: clamp(1rem, 1.15vw, 1.2rem); 
-      line-height: var(--line-height-base);
-      color: var(--color-text-primary); 
-      max-width: 800px; 
-      margin: 0 auto 80px auto; 
-    }
-
-    .gear-list-section p strong {
-      color: var(--color-text-headings); 
-      font-weight: 600; 
-    }
-
-    .gear-list-section ul {
-      padding-left: 20px; 
-      margin-top: 10px; 
-      list-style-type: disc;
-    }
-    
-    .gear-list-section li {
-        margin-bottom: 5px; 
-    }
-
-  </style>
+        .camera-multiselect { display: flex; flex-wrap: wrap; gap: 10px; }
+        .camera-multiselect input[type="checkbox"] { display: none; }
+        .camera-multiselect label { padding: 8px 15px; border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 20px; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; font-weight: 600; color: var(--color-text-secondary); }
+        .camera-multiselect input[type="checkbox"]:checked + label { background-color: var(--color-white-accent-bg); color: var(--color-text-on-light); border-color: var(--color-white-accent-bg); }
+        .range-slider-group { position: relative; height: 20px; }
+        .slider-track { width: 100%; height: 6px; background: var(--color-light-grey-borders-dividers); position: absolute; margin: auto; top: 0; bottom: 0; border-radius: 3px; }
+        .slider-track-highlight { height: 100%; background: var(--color-accent-primary); position: absolute; border-radius: 3px; z-index: 1; }
+        .range-slider-group input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; background: transparent; pointer-events: none; position: absolute; left: 0; height: 20px; margin: 0; }
+        .range-slider-group input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; pointer-events: all; height: 20px; width: 20px; border-radius: 50%; background: var(--color-text-accent); cursor: pointer; z-index: 2; position: relative; }
+        .range-slider-group input[type=range]::-moz-range-thumb { height: 20px; width: 20px; border: 0; border-radius: 50%; background: var(--color-text-accent); cursor: pointer; pointer-events: all; z-index: 2; position: relative; }
+        .search-submit-container { margin-top: 10px; }
+        @media (max-width: 850px) { .search-toggle { font-size: 1.2rem; padding: 1.2rem 1.5rem; } }
+    </style>
 </head>
-<body class="photography-page"> <header>
-    <div class="header-inner-container content-limiter">
-      <a class="brand" href="/index.html">
-        <img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space'; this.onerror=null;">
-      </a>
-      <nav>
-        <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/myjourney.html">My Journey</a></li>
-          <li><a href="/photography.html" class="active">Photography</a></li>
-          <li><a href="/articles">Articles</a></li>
-          <li><a href="/tools.html">Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="menu-icon" onclick="toggleModal()">☰</div>
-    </div>
-  </header>
-  
-  <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div>
-  <div class="modal" id="modal">
-    <a href="/index.html">Home</a>
-    <a href="/myjourney.html">My Journey</a>
-    <a href="/photography.html" class="active">Photography</a>
-    <a href="/articles">Articles</a>
-    <a href="/tools.html">Tools</a>
-    <a href="/contact.html">Contact</a>
-  </div>
-  
+<body class="photography-page">
+    <header><div class="header-inner-container content-limiter"><a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo" onerror="this.src='https://placehold.co/200x50/1c1c1c/FFFFFF?text=Hansen+Space';this.onerror=null;"></a><nav><ul><li><a href="/index.html">Home</a></li><li><a href="/myjourney.html">My Journey</a></li><li><a href="/photography.html" class="active">Photography</a></li><li><a href="/articles">Articles</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/contact.html">Contact</a></li></ul></nav><div class="menu-icon" onclick="toggleModal()">☰</div></div></header>
+    <div class="modal-backdrop" id="modal-backdrop" onclick="toggleModal()"></div><div class="modal" id="modal"><a href="/index.html">Home</a><a href="/myjourney.html">My Journey</a><a href="/photography.html" class="active">Photography</a><a href="/articles">Articles</a><a href="/tools.html">Tools</a><a href="/contact.html">Contact</a></div>
+    <main class="page-main-content-area content-limiter">
+        <div class="intro-block"><h1 class="intro-block__title">PHOTOGRAPHY</h1><p class="intro-block__text">Since October 2024, I've been taking pictures of space through my backyard telescope. This is a collection of my work, from my first attempts to my most recent captures.</p></div>
+        <div class="photography-portal-container">
+            <div class="gallery-links-wrapper"><a href="/highlights.html" id="highlights-card" class="gallery-link-card"><div class="card-content"><h2>Highlights</h2><p>A curated collection of my very best images.</p></div></a><a href="/messier.html" id="messier-card" class="gallery-link-card"><div class="card-content"><h2>Messier Gallery</h2><p>My progress cataloging all 110 Messier objects.</p></div></a></div>
+            <div class="search-container">
+                <button type="button" class="search-toggle" id="search-toggle"><span>Advanced Photo Search</span><i class="arrow"></i></button>
+                <div class="filter-controls" id="filter-controls">
+                    <form class="filter-grid" id="search-form">
+                        <div class="filter-group">
+                            <label>Subject(s)</label>
+                            <div class="subject-search-wrapper">
+                                <div class="subject-input-container" id="subject-input-container">
+                                    <input type="text" id="subject-search-input" placeholder="Type to search for subjects...">
+                                </div>
+                                <div id="subject-search-results" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group"><label>Camera</label><div class="camera-multiselect" id="camera-filter"><input type="checkbox" id="cam1" name="camera" value="Nikon D3300"><label for="cam1">Nikon D3300</label><input type="checkbox" id="cam2" name="camera" value="ZWO ASI662MC"><label for="cam2">ZWO ASI662MC</label><input type="checkbox" id="cam3" name="camera" value="ZWO ASI2600MM Pro"><label for="cam3">ZWO ASI2600MM Pro</label></div></div>
+                        <div class="filter-group"><label>Exposure Time (min): <span id="exposure-value" class="current-value"></span></label><div class="range-slider-group"><div class="slider-track"><div class="slider-track-highlight" id="exposure-track-highlight"></div></div><input type="range" id="min-exposure" min="0" max="100" value="0"><input type="range" id="max-exposure" min="0" max="100" value="100"></div></div>
+                        <div class="filter-group"><label>Date Range: <span id="date-value" class="current-value"></span></label><div class="range-slider-group"><div class="slider-track"><div class="slider-track-highlight" id="date-track-highlight"></div></div><input type="range" id="min-date" value="0"><input type="range" id="max-date"></div></div>
+                        <div class="search-submit-container"><button type="submit" class="button-generic primary" style="width: 100%; padding-top: 15px; padding-bottom: 15px;">Search Photos</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer><div class="footer-inner-container content-limiter"><div class="social-links"><a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'"></a><a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'"></a><a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'"></a></div><p>© <span id="year">2025</span> Hansen Space.</p></div></footer>
+    <script src="/scripts.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const searchToggle = document.getElementById('search-toggle');
+        const filterControls = document.getElementById('filter-controls');
+        searchToggle.addEventListener('click', () => {
+            searchToggle.classList.toggle('active');
+            if (searchToggle.classList.contains('active')) {
+                filterControls.style.maxHeight = filterControls.scrollHeight + "px";
+                filterControls.style.marginTop = "30px";
+            } else {
+                filterControls.style.maxHeight = null;
+                filterControls.style.marginTop = null;
+            }
+        });
 
-  <main class="page-main-content-area content-limiter">
+        // Set all camera checkboxes to checked by default
+        document.querySelectorAll('#camera-filter input[type="checkbox"]').forEach(cb => cb.checked = true);
+        
+        // --- Subject Search Logic ---
+        const subjectInput = document.getElementById('subject-search-input');
+        const subjectResultsContainer = document.getElementById('subject-search-results');
+        const subjectPillContainer = document.getElementById('subject-input-container');
+        let allSubjects = [];
+        let selectedSubjects = new Set();
 
-    <div class="intro-block">
-      <h1 class="intro-block__title">PHOTOGRAPHY</h1>
-      <p class="intro-block__text">
-        Since October 2024, I've been taking pictures of space through my backyard telescope. Below are the best photos I've taken. Prior to beginning astrophotography, I'd never realized there was so much beauty overhead that could be revealed by an amateur telescope sitting in a suburban backyard, and that discovery has been a welcome one. Taking pictures like these isn't easy — there's a laborious process that goes into creating each one — but at least I get to spend my time sitting under the stars.
-      </p> 
-    </div>
+        try {
+            const res = await fetch(`/photos/data/all_images.json?v=${Date.now()}`);
+            if (!res.ok) throw new Error("Could not fetch image data");
+            const allImages = await res.json();
+            const uniqueSubjects = new Set();
+            allImages.forEach(img => img.subjects.forEach(sub => uniqueSubjects.add(sub.name)));
+            allSubjects = Array.from(uniqueSubjects).sort();
+        } catch (e) {
+            console.error("Failed to load subjects for search:", e);
+        }
 
-    <script src="https://static.elfsight.com/platform/platform.js" data-elfsight-app-lazy async></script>
-    <div class="elfsight-app-2ce8894c-c8ba-4002-a2a2-70b895f74a65" data-elfsight-app-lazy></div>
+        subjectInput.addEventListener('input', () => {
+            const query = subjectInput.value.toLowerCase();
+            if (query.length === 0) {
+                subjectResultsContainer.style.display = 'none';
+                return;
+            }
+            const filtered = allSubjects.filter(s => s.toLowerCase().includes(query) && !selectedSubjects.has(s));
+            subjectResultsContainer.innerHTML = '';
+            if (filtered.length > 0) {
+                filtered.slice(0, 10).forEach(sub => {
+                    const item = document.createElement('div');
+                    item.className = 'subject-result-item';
+                    item.textContent = sub;
+                    item.addEventListener('click', () => addSubjectPill(sub));
+                    subjectResultsContainer.appendChild(item);
+                });
+                subjectResultsContainer.style.display = 'block';
+            } else {
+                subjectResultsContainer.style.display = 'none';
+            }
+        });
 
-    <div class="centered-button-container">
-      <div class="button-group">
-        <a href="/myjourney.html" class="button-standard">My Astrophotography Journey →</a>
-        <a href="/messier.html" class="button-standard">Messier Gallery →</a>
-      </div>
-    </div>
+        document.addEventListener('click', (e) => {
+            if (!subjectResultsContainer.contains(e.target) && e.target !== subjectInput) {
+                subjectResultsContainer.style.display = 'none';
+            }
+        });
+        
+        function addSubjectPill(subjectName) {
+            if (selectedSubjects.has(subjectName)) return;
+            selectedSubjects.add(subjectName);
+            const pill = document.createElement('span');
+            pill.className = 'subject-pill';
+            pill.textContent = subjectName;
+            const removeBtn = document.createElement('span');
+            removeBtn.className = 'remove-pill';
+            removeBtn.textContent = '×';
+            removeBtn.addEventListener('click', () => {
+                selectedSubjects.delete(subjectName);
+                pill.remove();
+            });
+            pill.appendChild(removeBtn);
+            subjectPillContainer.insertBefore(pill, subjectInput);
+            subjectInput.value = '';
+            subjectResultsContainer.style.display = 'none';
+        }
 
+        // --- Slider Logic ---
+        const minExpValue = 1, maxExpValue = 1000, L_POWER = 2;
+        const positionToValue = p => Math.round(minExpValue + (Math.pow(p / 100, L_POWER) * (maxExpValue - minExpValue)));
+        function setupDualRangeSlider(minId, maxId, valId, trackId, formatter) {
+            const minSlider = document.getElementById(minId);
+            const maxSlider = document.getElementById(maxId);
+            const valueDisplay = document.getElementById(valId);
+            const trackHighlight = document.getElementById(trackId);
+            function update() {
+                if (+minSlider.value > +maxSlider.value) { [minSlider.value, maxSlider.value] = [maxSlider.value, minSlider.value]; }
+                const minPos = (minSlider.value / minSlider.max) * 100;
+                const maxPos = (maxSlider.value / maxSlider.max) * 100;
+                trackHighlight.style.left = `${minPos}%`;
+                trackHighlight.style.width = `${maxPos - minPos}%`;
+                valueDisplay.textContent = `${formatter(minSlider.value)} - ${formatter(maxSlider.value)}`;
+            }
+            minSlider.addEventListener('input', update);
+            maxSlider.addEventListener('input', update);
+            update();
+        }
+        setupDualRangeSlider('min-exposure', 'max-exposure', 'exposure-value', 'exposure-track-highlight', pos => `${positionToValue(pos)} min`);
+        const startDate = new Date('2024-10-01T00:00:00'); const endDate = new Date();
+        const daysDifference = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
+        const minDateSlider = document.getElementById('min-date'); const maxDateSlider = document.getElementById('max-date');
+        minDateSlider.max = daysDifference; maxDateSlider.max = daysDifference; maxDateSlider.value = daysDifference;
+        const dateFormater = days => { const d = new Date(startDate); d.setDate(startDate.getDate() + +days); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
+        setupDualRangeSlider('min-date', 'max-date', 'date-value', 'date-track-highlight', dateFormater);
 
-    <div class="gear-list-section">
-      <p><strong>Gear Used:</strong></p>
-      <ul>
-        <li>Celestron C8 Newtonian</li>
-        <li>ZWO ASI 662 MC</li>
-        <li>Nikon D3300</li>
-      </ul>
-    </div>
-
-  </main> <footer>
-    <div class="footer-inner-container content-limiter">
-      <div class="social-links">
-        <a href="https://www.youtube.com/hansenspace" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" onerror="this.style.display='none'">
-        </a>
-        <a href="https://instagram.com/hansenspace" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" onerror="this.style.display='none'">
-        </a>
-        <a href="https://tiktok.com/@hansen_space" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" onerror="this.style.display='none'">
-        </a>
-      </div>
-      <p>© <span id="year">2025</span> Hansen Space.</p> </div>
-  </footer>
-
-  <script src="/scripts.js"></script>
-  </body>
+        // --- Form Submission ---
+        document.getElementById('search-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const params = new URLSearchParams();
+            if (selectedSubjects.size > 0) {
+                params.append('subjects', Array.from(selectedSubjects).join(','));
+            }
+            const selectedCameras = Array.from(document.querySelectorAll('#camera-filter input:checked')).map(cb => cb.value);
+            if (selectedCameras.length < document.querySelectorAll('#camera-filter input').length) {
+                params.append('cameras', selectedCameras.join(','));
+            }
+            const minExpSlider = document.getElementById('min-exposure');
+            const maxExpSlider = document.getElementById('max-exposure');
+            if (+minExpSlider.value > 0 || +maxExpSlider.value < 100) {
+                params.append('minExp', positionToValue(minExpSlider.value));
+                params.append('maxExp', positionToValue(maxExpSlider.value));
+            }
+            if (+minDateSlider.value > 0 || +maxDateSlider.value < daysDifference) {
+                const toYYYYMMDD = dStr => new Date(dStr).toISOString().split('T')[0];
+                params.append('minDate', toYYYYMMDD(dateFormater(minDateSlider.value)));
+                params.append('maxDate', toYYYYMMDD(dateFormater(maxDateSlider.value)));
+            }
+            window.location.href = `photography-search-results.html?${params.toString()}`;
+        });
+    });
+    </script>
+</body>
 </html>

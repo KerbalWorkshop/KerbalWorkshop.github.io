@@ -1,0 +1,14 @@
+2025-06-09 00:35:49,619 - INFO - --- Application Session Start ---
+2025-06-09 00:35:49,670 - INFO - Application starting.
+2025-06-09 00:35:49,682 - INFO - Building UI for gallery: 'Messier'
+2025-06-09 00:35:51,237 - INFO - Build process started by user.
+2025-06-09 00:35:51,343 - INFO - Now building gallery: Messier
+2025-06-09 00:35:51,343 - DEBUG - Config for Messier: {'type': 'messier', 'photo_dir': WindowsPath('C:/Users/danej/OneDrive/Desktop/Astrophotography/Website/KerbalWorkshop.github.io/photos/messier'), 'data_dir': WindowsPath('C:/Users/danej/OneDrive/Desktop/Astrophotography/Website/KerbalWorkshop.github.io/photos/data/messier'), 'template_file': WindowsPath('C:/Users/danej/OneDrive/Desktop/Astrophotography/Website/KerbalWorkshop.github.io/messier_template.html'), 'output_file': WindowsPath('C:/Users/danej/OneDrive/Desktop/Astrophotography/Website/KerbalWorkshop.github.io/messier.html'), 'placeholder': ''}
+2025-06-09 00:35:51,344 - DEBUG - Placeholder retrieved from config: '' (Type: <class 'str'>)
+2025-06-09 00:35:51,344 - ERROR - Build failed: Placeholder key is missing or empty in GALLERY_CONFIG for 'Messier'.
+Traceback (most recent call last):
+  File "C:\Users\danej\OneDrive\Desktop\Astrophotography\Website\KerbalWorkshop.github.io\scripts\gallery_uploader.py", line 210, in build_all_html
+    if not placeholder: raise ValueError(f"Placeholder key is missing or empty in GALLERY_CONFIG for '{gallery_name}'.")
+ValueError: Placeholder key is missing or empty in GALLERY_CONFIG for 'Messier'.
+
+2025-06-09 00:36:18,424 - INFO - --- Application Session End ---

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results – Hansen Space</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+        .gallery-wrapper { background-color: var(--color-dark-grey-panel-bg); border-radius: 12px; padding: 30px; margin-bottom: 60px; border:1px solid var(--color-light-grey-borders-dividers); }
+        .gallery-grid { display: flex; flex-direction: column; gap: 20px; }
+        .grid-item { width:100%; display:flex; justify-content:center; align-items:center; background:#000; border-radius:8px; overflow:hidden; cursor:pointer; transition:transform .3s ease, box-shadow .3s ease; }
+        .grid-item:hover { transform:scale(1.01); box-shadow:0 4px 20px rgba(0,0,0,0.4); }
+        .grid-item img { width:auto; height:auto; max-width:100%; max-height:85vh; display:block; }
+        .back-to-search { display:inline-block; margin-bottom:20px; font-weight:600; color:var(--color-text-accent); font-size:1.1rem; }
+        .back-to-search:hover { text-decoration:underline; }
+        #gallery-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:2200;}
+        #gallery-modal.active{display:flex;}
+        .gallery-modal-content{background:var(--color-dark-grey-panel-bg);color:var(--color-text-primary);border-radius:10px;max-width:90%;max-height:90vh;width:800px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--color-light-grey-borders-dividers);box-shadow:0 5px 25px rgba(0,0,0,.5);}
+        .gallery-modal-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:var(--color-dark-grey-header-footer-bg);border-bottom:1px solid var(--color-light-grey-borders-dividers);}
+        .gallery-modal-title{font-family:var(--font-headings);font-weight:600;font-size:1.3rem;color:var(--color-text-headings);}
+        .gallery-modal-close{font-size:1.8rem;font-weight:bold;cursor:pointer;color:var(--color-text-secondary);transition:color .2s ease;}
+        .gallery-modal-close:hover{color:var(--color-text-accent);}
+        .gallery-modal-body{padding:20px;text-align:center;overflow-y:auto;flex-grow:1;}
+        .modal-image-container { position: relative; display: inline-block; line-height: 0; }
+        .modal-image-container img{max-width:100%;height:auto;max-height:calc(85vh - 280px);border-radius:8px;display:block;margin:0 auto;}
+        #bbox-highlighter-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        #bbox-highlighter-svg.visible { opacity: 0.9; }
+        #bbox-highlighter-svg ellipse { fill: none; stroke: var(--color-text-accent); stroke-width: 2px; filter: drop-shadow(0 0 8px var(--color-text-accent)); }
+        .modal-image-details{margin-top:15px;padding-top:15px;border-top:1px solid var(--color-light-grey-borders-dividers);text-align:left;}
+        .subject-pills-container { padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--color-light-grey-borders-dividers); display: flex; flex-wrap: wrap; gap: 10px; }
+        .subject-pill { background-color: var(--color-dark-grey-header-footer-bg); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; }
+        .subject-pill:hover { background-color: var(--color-accent-primary); color: var(--color-text-on-light); }
+        p.detail-item{margin:0!important;padding:5px 0;font-size:.95rem;}
+        p.detail-item strong{color:var(--color-text-headings);font-weight:600;margin-right:8px;}
+    </style>
+</head>
+<body>
+    <header><div class="header-inner-container content-limiter"><a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo"></a><nav><ul><li><a href="/index.html">Home</a></li><li><a href="/myjourney.html">My Journey</a></li><li><a href="/photography.html" class="active">Photography</a></li><li><a href="/articles">Articles</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/contact.html">Contact</a></li></ul></nav><div class="menu-icon" onclick="toggleModal()">☰</div></div></header>
+    <div class="modal-backdrop" id="modal-backdrop"></div><div class="modal" id="modal"><a href="/index.html">Home</a><a href="/myjourney.html">My Journey</a><a href="/photography.html" class="active">Photography</a><a href="/articles">Articles</a><a href="/tools.html">Tools</a><a href="/contact.html">Contact</a></div>
+    <main class="page-main-content-area content-limiter">
+        <div class="intro-block"><h1 class="intro-block__title">SEARCH RESULTS</h1><p class="intro-block__text" id="search-summary"></p></div>
+        <a href="/photography.html" class="back-to-search">← Back to Search</a>
+        <div class="gallery-wrapper"><div class="gallery-grid" id="results-grid"><p>Loading results…</p></div></div>
+    </main>
+    <div id="gallery-modal"><div class="gallery-modal-content"><div class="gallery-modal-header"><div class="gallery-modal-title" id="modal-title"></div><span class="gallery-modal-close" id="modal-close-button">×</span></div><div class="gallery-modal-body" id="modal-body"></div></div></div>
+    <footer><div class="footer-inner-container content-limiter"><div class="social-links"><a href="https://www.youtube.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube"></a><a href="https://instagram.com/hansenspace" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a><a href="https://tiktok.com/@hansen_space" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a></div><p>© <span id="year">2025</span> Hansen Space.</p></div></footer>
+    
+    <script src="/scripts.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const grid = document.getElementById('results-grid');
+        const summary = document.getElementById('search-summary');
+        try {
+            const res = await fetch(`/photos/data/all_images.json?v=${Date.now()}`);
+            if (!res.ok) throw new Error('Could not load image data.');
+            const allImages = await res.json();
+            const params = new URLSearchParams(window.location.search);
+
+            const searchSubjects = params.has('subjects') ? params.get('subjects').split(',') : [];
+            const searchCameras = params.has('cameras') ? params.get('cameras').split(',') : null; // null means "don't filter"
+            const minExp = params.has('minExp') ? parseInt(params.get('minExp'), 10) : null;
+            const maxExp = params.has('maxExp') ? parseInt(params.get('maxExp'), 10) : null;
+            const minDate = params.has('minDate') ? new Date(params.get('minDate') + 'T00:00:00') : null;
+            const maxDate = params.has('maxDate') ? new Date(params.get('maxDate') + 'T00:00:00') : null;
+            
+            const results = allImages.filter(item => {
+                if (searchSubjects.length > 0) {
+                    const itemSubjectNames = new Set(item.subjects.map(s => s.name));
+                    const hasMatch = searchSubjects.some(s => itemSubjectNames.has(s));
+                    if (!hasMatch) return false;
+                }
+                if (searchCameras !== null && !searchCameras.includes(item.data.camera)) return false;
+                if (minExp !== null && (item.data.integration === null || item.data.integration < minExp || item.data.integration > maxExp)) return false;
+                if (minDate !== null && (!item.data.date || new Date(item.data.date + 'T00:00:00') < minDate || new Date(item.data.date + 'T00:00:00') > maxDate)) return false;
+                
+                return true;
+            });
+
+            summary.textContent = `Found ${results.length} matching photo(s).`;
+            grid.innerHTML = '';
+            if (!results.length) { grid.innerHTML = '<p>No results found for your criteria.</p>'; return; }
+            
+            results.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'grid-item';
+                div.addEventListener('click', () => {
+                    const modalData = {
+                        label: item.label,
+                        fullImageSrc: `/${item.image_file}`,
+                        originalWidth: item.width,
+                        details: item.data,
+                        subjects: item.subjects
+                    };
+                    openModal(modalData);
+                });
+                const img = document.createElement('img');
+                img.src = `/${item.image_file}`; img.alt = item.label; img.loading = 'lazy';
+                div.appendChild(img);
+                grid.appendChild(div);
+            });
+
+        } catch(e) {
+            console.error("Search page error:", e);
+            summary.textContent = '';
+            grid.innerHTML = '<p>Error loading search results.</p>';
+        }
+    });
+    </script>
+</body>
+</html>
