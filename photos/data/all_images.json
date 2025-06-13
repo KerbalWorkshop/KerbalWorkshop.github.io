@@ -1,5 +1,119 @@
 [
   {
+    "id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
+    "label": "Eagle Nebula",
+    "image_file": "photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg",
+    "width": 2454,
+    "height": 1626,
+    "data": {
+      "date": "2025-06-12",
+      "integration": 24,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
+        "id": 16,
+        "name": "M16 - Eagle Nebula",
+        "thumb_path": "photos/thumbs/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83_16.jpg",
+        "bounding_box": "null"
+      },
+      {
+        "image_id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
+        "id": 128,
+        "name": "Pillars of Creation",
+        "thumb_path": null,
+        "bounding_box": "1223,583,1512,1014,1297,1158,1008,727"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
+    "id": "a1abcddb-1d8d-4384-a873-83b07d627e48",
+    "label": "Dumbbell Nebula",
+    "image_file": "photos/originals/a1abcddb-1d8d-4384-a873-83b07d627e48.jpg",
+    "width": 2248,
+    "height": 1499,
+    "data": {
+      "date": "2025-06-11",
+      "integration": 60,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "a1abcddb-1d8d-4384-a873-83b07d627e48",
+        "id": 27,
+        "name": "M27 - Dumbbell Nebula",
+        "thumb_path": "photos/thumbs/a1abcddb-1d8d-4384-a873-83b07d627e48_27.jpg",
+        "bounding_box": "949,345,1523,746,1257,1127,683,726"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
+    "id": "466e5101-8772-42e6-8798-b968973712f1",
+    "label": "",
+    "image_file": "photos/originals/466e5101-8772-42e6-8798-b968973712f1.jpg",
+    "width": 4682,
+    "height": 3111,
+    "data": {
+      "date": "2025-06-11",
+      "integration": 15,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "466e5101-8772-42e6-8798-b968973712f1",
+        "id": 39,
+        "name": "M39",
+        "thumb_path": "photos/thumbs/466e5101-8772-42e6-8798-b968973712f1_39.jpg",
+        "bounding_box": "1064,574,3447,574,3447,2958,1064,2958"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "cbe00dc7-0099-446c-9bec-6ed455f54138",
+    "label": "The Great Globular Cluster in Hercules",
+    "image_file": "photos/originals/cbe00dc7-0099-446c-9bec-6ed455f54138.jpg",
+    "width": 2874,
+    "height": 1910,
+    "data": {
+      "date": "2025-06-07",
+      "integration": 42,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "cbe00dc7-0099-446c-9bec-6ed455f54138",
+        "id": 3,
+        "name": "M3",
+        "thumb_path": "photos/thumbs/cbe00dc7-0099-446c-9bec-6ed455f54138_3.jpg",
+        "bounding_box": "592,195,2151,195,2151,1754,592,1754"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
     "id": "361d63e8-afa6-4e9b-a417-ffdb6c3ff204",
     "label": "",
     "image_file": "photos/originals/361d63e8-afa6-4e9b-a417-ffdb6c3ff204.jpg",
@@ -672,10 +786,7 @@
         "bounding_box": "608,605,825,491,1023,867,806,981"
       }
     ],
-    "gallery_ids": [
-      2,
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "5e270de3-93b4-46d1-8705-544bc21f986b",
@@ -859,9 +970,7 @@
         "bounding_box": "470,142,1584,142,1584,1256,470,1256"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "b089cef5-9fc9-4321-8162-c09bd028214f",
@@ -1130,14 +1239,21 @@
         "id": 144,
         "name": "Callisto",
         "thumb_path": null,
-        "bounding_box": "1444,3161,1517,3161,1517,3234,1444,3234"
+        "bounding_box": "1435,3161,1526,3161,1526,3252,1435,3252"
+      },
+      {
+        "image_id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
+        "id": 140,
+        "name": "Great Red Spot",
+        "thumb_path": null,
+        "bounding_box": "1435,2296,1726,2296,1726,2478,1435,2478"
       },
       {
         "image_id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
         "id": 136,
         "name": "Jupiter",
         "thumb_path": null,
-        "bounding_box": "961,1002,3047,1002,3047,3006,961,3006"
+        "bounding_box": "952,993,3047,993,3047,2988,952,2988"
       }
     ],
     "gallery_ids": [
@@ -1491,9 +1607,7 @@
         "bounding_box": "265,213,898,96,997,630,364,747"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "0c346db0-23b4-410d-9cd7-b5b236bf2589",
