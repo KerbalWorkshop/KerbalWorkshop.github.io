@@ -355,12 +355,12 @@
   </header>
 
   <div class="fullscreen-section hero">
-    <div class="hero-image active" style="background-image: url('/photos/Moon-4.jpg')"></div>
-    <div class="hero-image" style="background-image: url('/photos/m42-1.jpg')"></div>
-    <div class="hero-image" style="background-image: url('/photos/moon-3.jpg')"></div>
-    <div class="hero-image" style="background-image: url('/photos/jupiter-mars-1.png')"></div>
-    <div class="hero-image" style="background-image: url('/photos/m51-1.jpg')"></div>
-    <div class="hero-image" style="background-image: url('/photos/m81-1.jpg')"></div>
+    <div class="hero-image active" style="background-image: url('/images/moon-pano-hero.jpg')"></div>
+    <div class="hero-image" style="background-image: url('/photos/originals/a1abcddb-1d8d-4384-a873-83b07d627e48.jpg');"></div>
+    <div class="hero-image" style="background-image: url('/photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg')"></div>
+    <div class="hero-image" style="background-image: url('/images/Jupiter-Mars-1.png')"></div>
+    <div class="hero-image" style="background-image: url('/photos/originals/cbe00dc7-0099-446c-9bec-6ed455f54138.jpg')"></div>
+    <div class="hero-image" style="background-image: url('/photos/originals/7264cb93-caef-46c3-b1d6-05d6a15c6b40.jpg')"></div>
     <div class="hero-text">
       <h1>CAPTURING THE COSMOS</h1>
       <a href="/photography.html" class="section-button">SEE PHOTOGRAPHY →</a>
@@ -457,7 +457,7 @@
         currentImage.addEventListener('transitionend', handleTransitionEnd);
       };
       heroImages.forEach((img, i) => { img.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)'; });
-      setInterval(slideAction, 10000);
+      setInterval(slideAction, 5000);
     };
 
     function slide(containerId, direction) { // This is for card sliders
