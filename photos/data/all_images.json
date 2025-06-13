@@ -243,45 +243,45 @@
     "subjects": [
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
-        "id": 160,
-        "name": "JAXA Kibo Module",
-        "thumb_path": null,
-        "bounding_box": "231,181,250,177,257,209,238,214"
-      },
-      {
-        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
-        "id": 162,
-        "name": "Roscosmos Progress 91",
-        "thumb_path": null,
-        "bounding_box": "163,227,181,219,193,246,175,254"
-      },
-      {
-        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 163,
         "name": "ESA Columbus Orbital Facility",
         "thumb_path": null,
-        "bounding_box": "241,207,256,202,264,227,250,232"
-      },
-      {
-        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
-        "id": 164,
-        "name": "Roscosmos Zvezda Service Module",
-        "thumb_path": null,
-        "bounding_box": "136,220,178,209,184,233,142,244"
+        "bounding_box": "242,208,264,208,264,230,242,230"
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 138,
         "name": "ISS - International Space Station",
         "thumb_path": null,
-        "bounding_box": "111,107,259,68,328,329,180,369"
+        "bounding_box": "99,125,236,71,328,304,191,358"
+      },
+      {
+        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
+        "id": 160,
+        "name": "JAXA Kibo Module",
+        "thumb_path": null,
+        "bounding_box": "229,166,252,162,260,209,238,213"
+      },
+      {
+        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
+        "id": 162,
+        "name": "Roscosmos Progress 91",
+        "thumb_path": null,
+        "bounding_box": "164,228,179,219,196,247,181,257"
+      },
+      {
+        "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
+        "id": 164,
+        "name": "Roscosmos Zvezda Service Module",
+        "thumb_path": null,
+        "bounding_box": "138,213,193,213,193,239,138,239"
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 159,
         "name": "SpaceX Crew-10 Dragon",
         "thumb_path": null,
-        "bounding_box": null
+        "bounding_box": "254,194,278,189,282,206,258,212"
       }
     ],
     "gallery_ids": [
