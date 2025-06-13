@@ -34,6 +34,23 @@
         .subject-pill:hover { background-color: var(--color-accent-primary); color: var(--color-text-on-light); }
         p.detail-item{margin:0!important;padding:5px 0;font-size:.95rem;}
         p.detail-item strong{color:var(--color-text-headings);font-weight:600;margin-right:8px;}
+
+        /* Media query for smaller screens */
+        @media (max-width: 849px) {
+            .messier-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); /* Adjust minmax for smaller items */
+                gap: clamp(5px, 1.5vw, 10px); /* Reduce the gap */
+            }
+
+            .grid-item {
+                font-size: 0.9rem; /* Smaller font size for text */
+            }
+
+            .grid-item.photographed::before {
+                font-size: 0.7rem; /* Smaller font size for image labels */
+                padding: 8px 4px 4px; /* Adjust padding for image labels */
+            }
+        }
     </style>
 </head>
 <body>
