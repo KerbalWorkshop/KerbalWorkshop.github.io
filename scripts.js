@@ -138,7 +138,7 @@ function clickHighlighter(bbox, modalImage, svg) {
     clickTimeoutId = setTimeout(() => {
         svg.dataset.clickVisible = 'false';
         hideHighlighter(svg);
-    }, 3000);
+    }, 500);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
