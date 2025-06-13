@@ -1,11 +1,18 @@
-function toggleModal() {
-  const modal = document.getElementById('mobileModal') || document.getElementById('modal');
-  const backdrop = document.getElementById('modalBackdrop') || document.getElementById('modal-backdrop');
-  modal.classList.toggle('open');
-  backdrop.classList.toggle('open');
-  document.body.classList.toggle('modal-open');
+function toggleModal(forceClose = false) {
+    const modal = document.getElementById('mobileModal') || document.getElementById('modal');
+    const backdrop = document.getElementById('modalBackdrop') || document.getElementById('modal-backdrop');
+    if (!modal || !backdrop) return;
+    const isOpen = modal.classList.contains('open');
+    if (forceClose || isOpen) {
+        modal.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.classList.remove('modal-open');
+    } else {
+        modal.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.classList.add('modal-open');
+    }
 }
-
 
 // --- Universal Gallery Modal Logic ---
 let scrollY = 0;
@@ -44,12 +51,12 @@ function openModal(data) {
 
     modalBody.innerHTML = `
         <div class="modal-image-container">
-            <img id="modal-main-image" src="${data.fullImageSrc}" alt="${data.label}" data-original-width="${data.originalWidth}">
-            <div id="bbox-highlighter"></div>
+            <img id="modal-main-image" src="${data.fullImageSrc}" alt="${data.label}" data-original-width="${data.originalWidth}" data-original-height="${data.originalHeight}">
+            <svg id="bbox-highlighter-svg"><ellipse/></svg>
         </div>
         <div class="modal-image-details">${pillsHtml}${detailsHtml}</div>`;
 
-    const highlighter = document.getElementById('bbox-highlighter');
+    const highlighter = document.getElementById('bbox-highlighter-svg');
     const modalImage = document.getElementById('modal-main-image');
     
     modalImage.onload = () => {
@@ -59,10 +66,10 @@ function openModal(data) {
                 pill.addEventListener('mouseenter', () => showHighlighter(bbox, modalImage, highlighter));
                 pill.addEventListener('mouseleave', () => hideHighlighter(highlighter));
                 pill.addEventListener('click', () => clickHighlighter(bbox, modalImage, highlighter));
-            } else { pill.style.cursor = 'default'; pill.style.opacity = '0.6'; }
+            }
         });
     };
-
+    
     scrollY = window.scrollY;
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
@@ -74,42 +81,75 @@ function closeModal() {
     const modal = document.getElementById('gallery-modal');
     if (!modal) return;
     modal.style.display = 'none';
-    document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
+    document.body.style.position = ''; 
+    document.body.style.top = ''; 
+    document.body.style.width = '';
     window.scrollTo(0, scrollY);
 }
 
-function handleBackdropClick(e) { if (e.target.id === 'gallery-modal') closeModal(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-function showHighlighter(bbox, modalImage, highlighter) {
-    const origW = parseInt(modalImage.dataset.originalWidth, 10);
-    if (isNaN(origW) || !origW) return;
-    const rect = modalImage.getBoundingClientRect();
-    const dispW = rect.width;
-    const scale = dispW / origW;
-    const [x1, y1, x2, y2] = bbox.split(',').map(Number);
-    const radius = ((x2 - x1) * scale) / 2;
-    const centerX = ((x1 + x2) / 2) * scale;
-    const centerY = ((y1 + y2) / 2) * scale;
-    highlighter.style.width = `${radius * 2}px`;
-    highlighter.style.height = `${radius * 2}px`;
-    highlighter.style.left = `${centerX - radius}px`;
-    highlighter.style.top = `${centerY - radius}px`;
-    highlighter.classList.add('visible');
-}
-
-function hideHighlighter(highlighter) {
-    if (highlighter.dataset.clickVisible !== 'true') {
-        highlighter.classList.remove('visible');
+function handleBackdropClick(e) { 
+    if (e.target.id === 'gallery-modal') {
+        closeModal(); 
     }
 }
 
-function clickHighlighter(bbox, modalImage, highlighter) {
-    clearTimeout(clickTimeoutId);
-    highlighter.dataset.clickVisible = 'true';
-    showHighlighter(bbox, modalImage, highlighter);
-    clickTimeoutId = setTimeout(() => {
-        highlighter.dataset.clickVisible = 'false';
-        hideHighlighter(highlighter);
-    }, 500);
+document.addEventListener('keydown', e => { 
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+function showHighlighter(bbox, modalImage, svg) {
+    const origW = parseInt(modalImage.dataset.originalWidth, 10);
+    if (isNaN(origW) || !origW) return;
+
+    const rect = modalImage.getBoundingClientRect();
+    const scale = rect.width / origW;
+    const coords = bbox.split(',').map(Number);
+    if (coords.length < 8) return;
+
+    const p1 = {x: coords[0], y: coords[1]}, p2 = {x: coords[2], y: coords[3]};
+    const width = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)) * scale;
+    const height = Math.sqrt(Math.pow(coords[6] - p1.x, 2) + Math.pow(coords[7] - p1.y, 2)) * scale;
+    const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI);
+    const centerX = (p1.x + coords[4]) / 2 * scale;
+    const centerY = (p1.y + coords[5]) / 2 * scale;
+    
+    const ellipse = svg.querySelector('ellipse');
+    ellipse.setAttribute('cx', centerX);
+    ellipse.setAttribute('cy', centerY);
+    ellipse.setAttribute('rx', width / 2);
+    ellipse.setAttribute('ry', height / 2);
+    ellipse.setAttribute('transform', `rotate(${angle}, ${centerX}, ${centerY})`);
+    
+    svg.classList.add('visible');
 }
+
+function hideHighlighter(svg) { 
+    if (svg.dataset.clickVisible !== 'true') {
+        svg.classList.remove('visible'); 
+    }
+}
+
+function clickHighlighter(bbox, modalImage, svg) {
+    clearTimeout(clickTimeoutId);
+    svg.dataset.clickVisible = 'true';
+    showHighlighter(bbox, modalImage, svg);
+    clickTimeoutId = setTimeout(() => {
+        svg.dataset.clickVisible = 'false';
+        hideHighlighter(svg);
+    }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const galleryModal = document.getElementById('gallery-modal');
+    const modalCloseButton = document.getElementById('modal-close-button');
+    if (galleryModal) {
+        galleryModal.addEventListener('click', (e) => { 
+            if (e.target === galleryModal) closeModal(); 
+        });
+    }
+    if(modalCloseButton) {
+        modalCloseButton.addEventListener('click', closeModal);
+    }
+});

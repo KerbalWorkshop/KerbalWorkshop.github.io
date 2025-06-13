@@ -17,6 +17,7 @@
         .gallery-link-card p { font-size: 1.1rem; color: var(--color-text-primary); }
         #highlights-card { background-image: url('/images/highlights-photos-bg.jpg'); }
         #messier-card { background-image: url('/images/messier-photos-bg.jpg'); }
+        #solar-system-card { background-image: url('/images/solar-system-photos-bg.jpg'); } /* <-- Added style for new card */
         .search-container { background-color: var(--color-dark-grey-panel-bg); border: 1px solid var(--color-light-grey-borders-dividers); border-radius: 16px; overflow: hidden; }
         .search-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 1.5rem 2rem; background: transparent; border: none; cursor: pointer; font-family: var(--font-headings); font-size: 1.5rem; color: var(--color-text-headings); }
         .search-toggle .arrow { border: solid var(--color-text-secondary); border-width: 0 3px 3px 0; display: inline-block; padding: 4px; transform: rotate(45deg); transition: transform 0.3s ease-in-out; }
@@ -58,7 +59,16 @@
     <main class="page-main-content-area content-limiter">
         <div class="intro-block"><h1 class="intro-block__title">PHOTOGRAPHY</h1><p class="intro-block__text">Since October 2024, I've been taking pictures of space through my backyard telescope. This is a collection of my work, from my first attempts to my most recent captures.</p></div>
         <div class="photography-portal-container">
-            <div class="gallery-links-wrapper"><a href="/highlights.html" id="highlights-card" class="gallery-link-card"><div class="card-content"><h2>Highlights</h2><p>A curated collection of my very best images.</p></div></a><a href="/messier.html" id="messier-card" class="gallery-link-card"><div class="card-content"><h2>Messier Gallery</h2><p>My progress cataloging all 110 Messier objects.</p></div></a></div>
+            <div class="gallery-links-wrapper">
+                <a href="/highlights.html" id="highlights-card" class="gallery-link-card"><div class="card-content"><h2>Highlights</h2><p>A curated collection of my very best images.</p></div></a>
+                <a href="/messier.html" id="messier-card" class="gallery-link-card"><div class="card-content"><h2>Messier Gallery</h2><p>My progress cataloging all 110 Messier objects.</p></div></a>
+                <a href="/solar-system.html" id="solar-system-card" class="gallery-link-card">
+                    <div class="card-content">
+                        <h2>Solar System</h2>
+                        <p>Planets, moons, and other celestial bodies in our cosmic neighborhood.</p>
+                    </div>
+                </a>
+                </div>
             <div class="search-container">
                 <button type="button" class="search-toggle" id="search-toggle"><span>Advanced Photo Search</span><i class="arrow"></i></button>
                 <div class="filter-controls" id="filter-controls">
