@@ -1,5 +1,55 @@
 [
   {
+    "id": "2502aaba-c410-4c9a-9098-1d27498ebf1d",
+    "label": "",
+    "image_file": "photos/originals/2502aaba-c410-4c9a-9098-1d27498ebf1d.jpeg",
+    "width": 2279,
+    "height": 2360,
+    "data": {
+      "date": "2025-06-13",
+      "integration": 72,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "2502aaba-c410-4c9a-9098-1d27498ebf1d",
+        "id": 17,
+        "name": "M17 - Omega Nebula",
+        "thumb_path": "photos/thumbs/2502aaba-c410-4c9a-9098-1d27498ebf1d_17.jpg",
+        "bounding_box": "null"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "50f1051e-a80c-45cb-b104-c76696839407",
+    "label": "Pacman Nebula",
+    "image_file": "photos/originals/50f1051e-a80c-45cb-b104-c76696839407.jpeg",
+    "width": 3353,
+    "height": 2129,
+    "data": {
+      "date": "2025-06-13",
+      "integration": 117,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "50f1051e-a80c-45cb-b104-c76696839407",
+        "id": 170,
+        "name": "NGC 281 - Pacman Nebula",
+        "thumb_path": null,
+        "bounding_box": "560,427,2181,427,2181,2047,560,2047"
+      }
+    ],
+    "gallery_ids": []
+  },
+  {
     "id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg",
@@ -651,9 +701,7 @@
         "bounding_box": "2192,771,3605,771,3605,2365,2192,2365"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "8c05b2b8-0aae-46c7-ade6-41c3391fd469",
