@@ -1,0 +1,752 @@
+[
+  {
+    "id": "a1",
+    "title": "SUMMER 2024",
+    "date_text": "SUMMER 2024",
+    "body_text": "One night, I decided to point my phone at the sky and take a long exposure photo. To my surprise, the image had revealed the band of the Milky Way like I had never seen it before.\nThat summer, I would take my phone out to the backyard every night and hold it up to the sky as it would collect light for 10 seconds. I would be able to zoom into those photos and see more stars than ever before.\nWhile my phone was able to cut through my neighborhood’s light pollution and show me the unfettered night sky, I longed to see the same view with my own eyes.",
+    "layout_type": "standard_grid",
+    "sort_order": 1,
+    "images": [
+      {
+        "id": "a1-1",
+        "entry_id": "a1",
+        "file_path": "journeyimages/2024-07-26.jpg",
+        "alt_text": "Long Exposure Shot 1",
+        "aspect_ratio": null,
+        "sort_order": 1
+      },
+      {
+        "id": "a1-2",
+        "entry_id": "a1",
+        "file_path": "journeyimages/2024-08-28 (2).jpg",
+        "alt_text": "Long Exposure Shot 2",
+        "aspect_ratio": null,
+        "sort_order": 2
+      },
+      {
+        "id": "a1-3",
+        "entry_id": "a1",
+        "file_path": "journeyimages/2024-08-28.jpg",
+        "alt_text": "Long Exposure Shot 3",
+        "aspect_ratio": null,
+        "sort_order": 3
+      },
+      {
+        "id": "a1-4",
+        "entry_id": "a1",
+        "file_path": "journeyimages/2024-08-29.jpg",
+        "alt_text": "Long Exposure Shot 4",
+        "aspect_ratio": null,
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a2",
+    "title": "SEPTEMBER 1 2024",
+    "date_text": "SEPTEMBER 1 2024",
+    "body_text": "Over 2024’s Labor Day weekend, I spent one night camping on California’s Point Reyes seashore. Having recently learned of the Bortle scale, I knew that I would be distant enough from civilization to be situated in a Bortle 3 zone—an area with skies dark enough to see the Milky Way and thousands of stars.\nWhen the Sun set that evening, I could not keep my eyes off the sky until the Milky Way came into view.\nEarlier that day, I had downloaded Stellarium, a stargazing app, on my phone. While exploring the app after the night was underway, I noticed a large oval on the screen labeled “M31”. Clicking it, I realized the oval was marking where to find the Andromeda Galaxy in the sky. I was impressed that the app included such arcane celestial objects in its representation of the night sky, though it seemed obvious that I would never see distant galaxies firsthand. Yet when I trained my eyes between Mirach and Schedar, I saw it. A faint but noticeable +smudge of light+(2) in the sky.\nOnly later did it truly hit me—that smudge of light was an entire galaxy, a behemoth. Billions of stars, worlds colliding, coalescing, and possibly harboring life, humbly lurking overhead as nothing more than a gentle, soft patch of light. Wow.",
+    "layout_type": "standard_grid",
+    "sort_order": 2,
+    "images": [
+      {
+        "id": "a2-1",
+        "entry_id": "a2",
+        "file_path": "journeyimages/2024-09-01.jpg",
+        "alt_text": "Dark Skies Shot 2",
+        "aspect_ratio": null,
+        "sort_order": 1
+      },
+      {
+        "id": "a2-2",
+        "entry_id": "a2",
+        "file_path": "journeyimages/2024-09-02.jpg",
+        "alt_text": "Dark Skies Shot 3",
+        "aspect_ratio": null,
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": "a3",
+    "title": "SEPTEMBER 14 2024",
+    "date_text": "SEPTEMBER 14 2024",
+    "body_text": "With a newfound fascination for the night sky, I pulled out my old telescope—a 90mm Cassegrain—and pointed it at the Moon. I had done this many times, but this time I decided to snap a +picture of the view of the Moon+(2) by placing my phone against the eyepiece. I did the same for +Saturn+(1).\nThese pictures immortalized my observations, letting me relive the experience whenever I wanted.",
+    "layout_type": "standard_grid",
+    "sort_order": 3,
+    "images": [
+      {
+        "id": "a3-1",
+        "entry_id": "a3",
+        "file_path": "journeyimages/2024-09-14 (2).jpg",
+        "alt_text": "Telescope View 1",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 1
+      },
+      {
+        "id": "a3-2",
+        "entry_id": "a3",
+        "file_path": "journeyimages/2024-09-14.jpg",
+        "alt_text": "Telescope View 2",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": "a4",
+    "title": "OCTOBER 2024",
+    "date_text": "OCTOBER 2024",
+    "body_text": "October was a month of learning for me. I taught myself the constellations. I learned the names of stars and deep sky objects. I realized that Jupiter and Mars were both lurking in the winter hexagon, a rich starry region of the sky augmented by the presence of the two bright planets.\nOne night, I stayed up past 3 am to catch a glimpse of this winter hexagon, letting sidereal time progress until the winter's night sky was overhead. It was dazzling. Sirius, Betelgeuse, Rigel, Procyon, Aldebaran, Capella, punctuated by Jupiter and Mars.\nI looked at the Orion Nebula through my telescope for the first time, amazed. I took a +10 second exposure of the nebula+(6) with my phone, surprised to see blue and purple nebulosity in the image. I was hooked, determined to improve at photographing space.",
+    "layout_type": "standard_grid",
+    "sort_order": 4,
+    "images": [
+      {
+        "id": "a4-1",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-04 (2).jpg",
+        "alt_text": "October Nebula 1",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 1
+      },
+      {
+        "id": "a4-2",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-04 (3).jpg",
+        "alt_text": "October Nebula 2",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 2
+      },
+      {
+        "id": "a4-3",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-04.jpg",
+        "alt_text": "October Nebula 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a4-4",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-05.jpg",
+        "alt_text": "October Nebula 4",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      },
+      {
+        "id": "a4-5",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-05 (2).jpg",
+        "alt_text": "October Nebula 5",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 5
+      },
+      {
+        "id": "a4-6",
+        "entry_id": "a4",
+        "file_path": "journeyimages/2024-10-05 (3).jpg",
+        "alt_text": "October Nebula 6",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 6
+      }
+    ]
+  },
+  {
+    "id": "a5",
+    "title": "OCTOBER 10 2024",
+    "date_text": "OCTOBER 10 2024",
+    "body_text": "I bought a +new telescope+(1)—a Celestron C8N, a huge upgrade over my old one—and when it arrived, I literally could not wait to use it. I set it up instantly and brought it outside to look at the Moon in broad daylight. +What I saw+(2) astonished me. I could see small craters, valleys, and mountains. The details were incredible, and I felt like I was *there*, on the Moon.\nThat night, I pointed the new telescope at +Saturn+(3). It looked WAY bigger, brighter, and more real in this telescope than in my old one. I stayed up until the early morning hours to see the Orion Nebula and wasn’t disappointed. I +captured it+(4) with my phone, this time resolving far more detail than I had ever seen before.",
+    "layout_type": "standard_grid",
+    "sort_order": 5,
+    "images": [
+      {
+        "id": "a5-1",
+        "entry_id": "a5",
+        "file_path": "journeyimages/telescope_image.jpg",
+        "alt_text": "Telescope Image",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 1
+      },
+      {
+        "id": "a5-2",
+        "entry_id": "a5",
+        "file_path": "journeyimages/2024-10-10 (2).jpg",
+        "alt_text": "October 10 Shot 2",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 2
+      },
+      {
+        "id": "a5-3",
+        "entry_id": "a5",
+        "file_path": "journeyimages/2024-10-12.jpg",
+        "alt_text": "October 10 Shot 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a5-4",
+        "entry_id": "a5",
+        "file_path": "journeyimages/2024-10-10.jpg",
+        "alt_text": "October 10 Shot 4",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a6",
+    "title": "OCTOBER 13 2024",
+    "date_text": "OCTOBER 13 2024",
+    "body_text": "On this day, my new Barlow lens and a ZWO planetary camera arrived in the mail. That night, I eagerly aimed the telescope with its new equipment at the planets. I realized that, although directly observing these worlds through an eyepiece felt more visceral, capturing them with a camera revealed stunning amounts of detail. These first attempts at planetary imaging were amateur work, but I felt proud nonetheless.\nOh, and I also +saw a comet+(4) paying a visit to the inner solar system.",
+    "layout_type": "standard_grid",
+    "sort_order": 6,
+    "images": [
+      {
+        "id": "a6-1",
+        "entry_id": "a6",
+        "file_path": "journeyimages/2024-10-13 (2).jpg",
+        "alt_text": "October 13 Shot 1",
+        "aspect_ratio": "2 / 1",
+        "sort_order": 1
+      },
+      {
+        "id": "a6-2",
+        "entry_id": "a6",
+        "file_path": "journeyimages/2024-10-13.jpg",
+        "alt_text": "October 13 Shot 3",
+        "aspect_ratio": "16 / 9",
+        "sort_order": 2
+      },
+      {
+        "id": "a6-3",
+        "entry_id": "a6",
+        "file_path": "journeyimages/2024-10-13 (3).jpg",
+        "alt_text": "October 13 Shot 2",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 3
+      },
+      {
+        "id": "a6-4",
+        "entry_id": "a6",
+        "file_path": "journeyimages/2024-10-14.jpg",
+        "alt_text": "October 13 Shot 4",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a7",
+    "title": "OCTOBER 15 2024",
+    "date_text": "OCTOBER 15 2024",
+    "body_text": "Recalling that September night when I'd first seen the Andromeda Galaxy with my own eyes, I wondered how it would look through my telescope. +Photographing Andromeda+(1) and other deep-sky objects proved technically challenging with my limited equipment, optimized more for planets than nebulae or galaxies. Yet, in a single night, I managed to capture satisfying images of six different cosmic targets. These images were remarkable to me—the +Deer Lick galaxy+(5) is 40 million light years away!",
+    "layout_type": "standard_grid",
+    "sort_order": 7,
+    "images": [
+      {
+        "id": "a7-1",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-15 (2).jpg",
+        "alt_text": "October 15 Shot 1",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 1
+      },
+      {
+        "id": "a7-2",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-15.jpg",
+        "alt_text": "October 15 Shot 2",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 2
+      },
+      {
+        "id": "a7-3",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-19 (2).jpg",
+        "alt_text": "October 15 Shot 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a7-4",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-19 (4).jpg",
+        "alt_text": "October 15 Shot 5",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      },
+      {
+        "id": "a7-5",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-19 (3).jpg",
+        "alt_text": "October 15 Shot 4",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 5
+      },
+      {
+        "id": "a7-6",
+        "entry_id": "a7",
+        "file_path": "journeyimages/2024-10-19 (5).jpg",
+        "alt_text": "October 15 Shot 6",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 6
+      }
+    ]
+  },
+  {
+    "id": "a8",
+    "title": "OCTOBER 29 2024",
+    "date_text": "OCTOBER 29 2024",
+    "body_text": "Over the month of October, I spent hours with my telescope each clear night. I improved at collimation, polar alignment, lucky imaging, and image stacking and processing. My planetary images steadily improved. In these images from October, I resolved +Saturn’s Cassini Division and moon Titan+(1), +Mars’ surface detail+(2), the +planet Neptune+(3), and +craters and rilles in the Moon’s Mare Crisium+(4).",
+    "layout_type": "standard_grid",
+    "sort_order": 8,
+    "images": [
+      {
+        "id": "a8-1",
+        "entry_id": "a8",
+        "file_path": "journeyimages/2024-10-19 (8).jpg",
+        "alt_text": "October 29 Shot 1",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 1
+      },
+      {
+        "id": "a8-2",
+        "entry_id": "a8",
+        "file_path": "journeyimages/2024-10-19 (9).jpg",
+        "alt_text": "October 29 Shot 2",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 2
+      },
+      {
+        "id": "a8-3",
+        "entry_id": "a8",
+        "file_path": "journeyimages/2024-10-19 (7).jpg",
+        "alt_text": "October 29 Shot 3",
+        "aspect_ratio": "16 / 9",
+        "sort_order": 3
+      },
+      {
+        "id": "a8-4",
+        "entry_id": "a8",
+        "file_path": "journeyimages/2024-10-19.jpg",
+        "alt_text": "October 29 Shot 4",
+        "aspect_ratio": "16 / 9",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a9",
+    "title": "NOVEMBER 2 2024",
+    "date_text": "NOVEMBER 2 2024",
+    "body_text": "After much experimentation, I managed to rig my old Nikon DSLR with a custom 3D-printed adapter, allowing me to connect it to my telescope. The setup was a pain to use, but it worked. I was able to capture much wider fields than I previously had been able to with my planetary camera. I photographed the +Horsehead Nebula+(1), the +Pleiades+(2), the +Eagle Nebula+(3), the +Orion Nebula+(4), and more.",
+    "layout_type": "standard_grid",
+    "sort_order": 9,
+    "images": [
+      {
+        "id": "a9-1",
+        "entry_id": "a9",
+        "file_path": "journeyimages/2024-11-02 (2).jpg",
+        "alt_text": "November 2 Shot 1",
+        "aspect_ratio": "1564 / 1000",
+        "sort_order": 1
+      },
+      {
+        "id": "a9-2",
+        "entry_id": "a9",
+        "file_path": "journeyimages/2024-11-02.jpg",
+        "alt_text": "November 2 Shot 2",
+        "aspect_ratio": "1564 / 1000",
+        "sort_order": 2
+      },
+      {
+        "id": "a9-3",
+        "entry_id": "a9",
+        "file_path": "journeyimages/2024-11-03 (3).jpg",
+        "alt_text": "November 2 Shot 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a9-4",
+        "entry_id": "a9",
+        "file_path": "journeyimages/2024-11-03.jpg",
+        "alt_text": "November 2 Shot 4",
+        "aspect_ratio": "1564 / 1000",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a10",
+    "title": "NOVEMBER 2024",
+    "date_text": "NOVEMBER 2024",
+    "body_text": "November was a great month for the Moon. During the first week of the month, the Moon passed _close to +Saturn+(3) in the sky. The lunar cycle culminated with a +supermoon+(1). And finally, the Moon departed into the early morning sky following a +close conjunction with Mars+(4). In addition to photographing all of those lunar events, I also +visited Stanford’s student observatory+(2) with its large telescopes in November. A great month.",
+    "layout_type": "standard_grid",
+    "sort_order": 10,
+    "images": [
+      {
+        "id": "a10-1",
+        "entry_id": "a10",
+        "file_path": "journeyimages/2024-11-15.jpg",
+        "alt_text": "November Shot 1",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 1
+      },
+      {
+        "id": "a10-2",
+        "entry_id": "a10",
+        "file_path": "journeyimages/2024-11-18.jpg",
+        "alt_text": "November Shot 2",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 2
+      },
+      {
+        "id": "a10-3",
+        "entry_id": "a10",
+        "file_path": "journeyimages/2024-11-10.jpg",
+        "alt_text": "November Shot 3",
+        "aspect_ratio": "16 / 9",
+        "sort_order": 3
+      },
+      {
+        "id": "a10-4",
+        "entry_id": "a10",
+        "file_path": "journeyimages/2024-11-20.jpg",
+        "alt_text": "November Shot 4",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a11",
+    "title": "DECEMBER 2024 (Deep Sky)",
+    "date_text": "DECEMBER 2024",
+    "body_text": "I eventually realized that my DSLR’s red channel was broken. It was far less sensitive than its blue and green channels. This led to failed attempts at photographing faint red objects like the Cone and Rosette nebulae. I decided to focus my efforts on brighter targets such as the +Pacman Nebula+(1), the +Orion Nebula+(2), +Bode’s Galaxy+(3), and the +Cigar Galaxy+(4).",
+    "layout_type": "standard_grid",
+    "sort_order": 11,
+    "images": [
+      {
+        "id": "a11-1",
+        "entry_id": "a11",
+        "file_path": "journeyimages/2024-12-02 (2).jpg",
+        "alt_text": "Deep Sky Shot 1",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 1
+      },
+      {
+        "id": "a11-2",
+        "entry_id": "a11",
+        "file_path": "journeyimages/2024-12-17 (2).jpg",
+        "alt_text": "Deep Sky Shot 2",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 2
+      },
+      {
+        "id": "a11-3",
+        "entry_id": "a11",
+        "file_path": "journeyimages/2024-12-17.jpg",
+        "alt_text": "Deep Sky Shot 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a11-4",
+        "entry_id": "a11",
+        "file_path": "journeyimages/2024-12-01.jpg",
+        "alt_text": "Deep Sky Shot 4",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a12",
+    "title": "DECEMBER 2024 (YouTube Launch)",
+    "date_text": "DECEMBER 2024",
+    "body_text": "I launched a YouTube channel called +HansenSpace+(https://youtube.com/@hansenspace). I posted a video called +“How To Find Earth in the Universe”+(https://www.youtube.com/watch?v=uUuM8NdmaAU), which explored a highly theoretical scenario where celestial “landmarks”—local stars, clusters, nebulae, galaxies, and galactic filaments—could guide a lost space traveler back to Earth. The video was highly successful, inspiring me to make more space visualizations like it. The core tenet behind every HansenSpace video is that it must be an eye-opening presentation of information delivered in a creative way.",
+    "layout_type": "youtube_layout",
+    "sort_order": 12,
+    "images": [
+      {
+        "id": "a12-1",
+        "entry_id": "a12",
+        "file_path": "journeyimages/2024-12-25.jpg",
+        "alt_text": "YouTube Launch Shot 1",
+        "aspect_ratio": null,
+        "sort_order": 1
+      },
+      {
+        "id": "a12-2",
+        "entry_id": "a12",
+        "file_path": "journeyimages/2024-12-28.jpg",
+        "alt_text": "YouTube Launch Shot 2",
+        "aspect_ratio": null,
+        "sort_order": 2
+      },
+      {
+        "id": "a12-3",
+        "entry_id": "a12",
+        "file_path": "journeyimages/2024-12-29.jpg",
+        "alt_text": "YouTube Launch Shot 3",
+        "aspect_ratio": null,
+        "sort_order": 3
+      },
+      {
+        "id": "a12-4",
+        "entry_id": "a12",
+        "file_path": "journeyimages/2025-01-02.jpg",
+        "alt_text": "YouTube Launch Shot 4",
+        "aspect_ratio": null,
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a13",
+    "title": "JANUARY 2025 (Astrophotography Shorts)",
+    "date_text": "JANUARY 2025",
+    "body_text": "I began documenting my astrophotography journey, posting short videos on YouTube, Instagram, and TikTok. My goal was to share the wonder of astrophotography with a wider audience and encourage others to look up at the sky or even buy their own telescope.",
+    "layout_type": "shorts_layout",
+    "sort_order": 13,
+    "images": [
+      {
+        "id": "a13-1",
+        "entry_id": "a13",
+        "file_path": "journeyimages/2025-01-12 (3).jpg",
+        "alt_text": "Shorts Shot 1",
+        "aspect_ratio": null,
+        "sort_order": 1
+      },
+      {
+        "id": "a13-2",
+        "entry_id": "a13",
+        "file_path": "journeyimages/2025-01-12 (2).jpg",
+        "alt_text": "Shorts Shot 2",
+        "aspect_ratio": null,
+        "sort_order": 2
+      },
+      {
+        "id": "a13-3",
+        "entry_id": "a13",
+        "file_path": "journeyimages/2025-01-05 (3).jpg",
+        "alt_text": "Shorts Shot 3",
+        "aspect_ratio": null,
+        "sort_order": 3
+      },
+      {
+        "id": "a13-4",
+        "entry_id": "a13",
+        "file_path": "journeyimages/2025-01-05 (2).jpg",
+        "alt_text": "Shorts Shot 4",
+        "aspect_ratio": null,
+        "sort_order": 4
+      },
+      {
+        "id": "a13-5",
+        "entry_id": "a13",
+        "file_path": "journeyimages/2025-01-21.jpg",
+        "alt_text": "Shorts Shot 5",
+        "aspect_ratio": null,
+        "sort_order": 5
+      }
+    ]
+  },
+  {
+    "id": "a14",
+    "title": "JANUARY 13 2025",
+    "date_text": "JANUARY 13 2025",
+    "body_text": "On the night of January 13, I prepared to capture a major cosmic event—a Moon-Mars occultation. I +set up both of my telescopes+(3) in front of my house and invited neighbors to watch the event while I filmed through my larger scope. Due to the low altitude of Mars' ingress in the sky, I was only able to witness +Mars enteringg the occultation+(2) through my smaller scope, which I had relocated to a spot with better visibility. Yet, precisely at the moment predicted by the Stellarium app, and exactly above the lunar crater I expected, Mars reemerged from behind the Moon’s western limb. Unfortunately, the quality of my +final image+(4) was inhibited by cloud cover, but I can’t complain! I'm continually amazed by how we can forecast such cosmic events with astonishing precision, even as far in advance as we do. In moments like these, it feels as though we are playing God with the universe, in a sense.",
+    "layout_type": "standard_grid",
+    "sort_order": 14,
+    "images": [
+      {
+        "id": "a14-1",
+        "entry_id": "a14",
+        "file_path": "journeyimages/2025-01-12.jpg",
+        "alt_text": "Occultation Shot 1",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 1
+      },
+      {
+        "id": "a14-2",
+        "entry_id": "a14",
+        "file_path": "journeyimages/2025-01-13.jpg",
+        "alt_text": "Occultation Shot 2",
+        "aspect_ratio": "3 / 4",
+        "sort_order": 2
+      },
+      {
+        "id": "a14-3",
+        "entry_id": "a14",
+        "file_path": "journeyimages/2025-01-13(2).jpg",
+        "alt_text": "Occultation Shot 3",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 3
+      },
+      {
+        "id": "a14-4",
+        "entry_id": "a14",
+        "file_path": "journeyimages/2025-01-13 (3).jpg",
+        "alt_text": "Occultation Shot 4",
+        "aspect_ratio": "4 / 3",
+        "sort_order": 4
+      }
+    ]
+  },
+  {
+    "id": "a15",
+    "title": "JANUARY 2025 (Planetary)",
+    "date_text": "JANUARY 2025",
+    "body_text": "I spent every clear night in January outside using the telescope. Due to my DSLR's issues, I focused on planetary photography. Jupiter had just surpassed its opposition, but was still big and bright in the sky, and Mars was at its maximum angular size. I added Bob's Knobs to my telescope to hone in my collimation. I captured timelapses of the rotations of both Jupiter and Mars and pushed to photograph as much surface detail as I could with my scope. By the end of the month, the planets had begun to fade in the sky as the Earth passed them by.",
+    "layout_type": "standard_grid",
+    "sort_order": 15,
+    "images": [
+      {
+        "id": "a15-1",
+        "entry_id": "a15",
+        "file_path": "journeyimages/2025-01-05.jpg",
+        "alt_text": "Planetary Shot 1",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 1
+      },
+      {
+        "id": "a15-2",
+        "entry_id": "a15",
+        "file_path": "journeyimages/2025-01-18.jpg",
+        "alt_text": "Planetary Shot 2",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": "a16",
+    "title": "SPRING 2025",
+    "date_text": "SPRING 2025",
+    "body_text": "For about a month, clear nights were scarce, so I focused exclusively on photographing the Moon.  I spent two nights in February capturing more than 100 individual panels of the waxing gibbous Moon with my Barlow lens, stitching them together into a +highly detailed mosaic+(1).\nOn March 13, I attempted to capture the most spectacular celestial event of the year—a total lunar eclipse. Unfortunately, as totality approached, thick clouds moved in as forecasted. The +image sequence I captured+(2) not only shows the Moon vanishing into Earth's shadow but also fading behind the encroaching clouds. My experience had sadly confirmed that cosmic events directly correlate with thick cloud cover.",
+    "layout_type": "spring_layout",
+    "sort_order": 16,
+    "images": [
+      {
+        "id": "a16-1",
+        "entry_id": "a16",
+        "file_path": "images/moon-pano-hero.jpg",
+        "alt_text": "Lunar Focus Shot 1",
+        "aspect_ratio": null,
+        "sort_order": 1
+      },
+      {
+        "id": "a16-2",
+        "entry_id": "a16",
+        "file_path": "journeyimages/2025-03-13.jpg",
+        "alt_text": "Lunar Focus Shot 2",
+        "aspect_ratio": null,
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": "b3bff08b-9235-40cc-9fcb-8e3178485e88",
+    "title": "APRIL 2025 (Panama)",
+    "date_text": "APRIL 2025",
+    "body_text": "I traveled to Panama, able to appreciate the southern night sky for the first time. The Omega Centauri cluster was a brilliant sight through binoculars and +looked like a fuzzy star to the naked eye+(1). It was great to also see +Canopus+(2), +Alpha Centauri, and Crux+(3).",
+    "layout_type": "standard_grid",
+    "sort_order": 17,
+    "images": [
+      {
+        "id": "07b5ef9b-0208-4d10-905f-a63c8930b17e",
+        "entry_id": "b3bff08b-9235-40cc-9fcb-8e3178485e88",
+        "file_path": "journeyimages/IMG_7387_4b533c4d.jpg",
+        "alt_text": "Omega Centauri Cluster",
+        "aspect_ratio": "",
+        "sort_order": 1
+      },
+      {
+        "id": "b7d0a2aa-8096-4f23-91e3-7e6aa5791f5e",
+        "entry_id": "b3bff08b-9235-40cc-9fcb-8e3178485e88",
+        "file_path": "journeyimages/IMG_7402_06855a84.jpg",
+        "alt_text": "Canopus",
+        "aspect_ratio": "",
+        "sort_order": 2
+      },
+      {
+        "id": "8ceb6c24-b1ea-456a-8a7e-fcd98e407b39",
+        "entry_id": "b3bff08b-9235-40cc-9fcb-8e3178485e88",
+        "file_path": "journeyimages/IMG_7385_6ac38bb0.jpg",
+        "alt_text": "Centaurus and Crux",
+        "aspect_ratio": "",
+        "sort_order": 3
+      }
+    ]
+  },
+  {
+    "id": "b3f5ec8f-9d1a-4a29-9a46-9bf8b4e364a3",
+    "title": "JUNE 2025 (Upgrade)",
+    "date_text": "JUNE 2025",
+    "body_text": "After months of enduring astrophotography with an old, problematic DSLR, I bit the bullet and upgraded my setup. I bought a ZWO ASI2600MM, and paired it with an AM5N mount. I also added a filter wheel, LRGB filter set, a better off-axis guiding system, and an ASIAIR Plus. Although the struggles I had with the old setup were fun to overcome, I was relieved to finally have access to much better data.",
+    "layout_type": "standard_grid",
+    "sort_order": 18,
+    "images": [
+      {
+        "id": "2fd802bb-0e5f-4374-92cd-b501f8a3ba41",
+        "entry_id": "b3f5ec8f-9d1a-4a29-9a46-9bf8b4e364a3",
+        "file_path": "journeyimages/IMG_8169_bbf1d8f2.JPG",
+        "alt_text": "",
+        "aspect_ratio": "",
+        "sort_order": 1
+      },
+      {
+        "id": "5c3fef9b-cfdc-48bd-91d4-13573d92756a",
+        "entry_id": "b3f5ec8f-9d1a-4a29-9a46-9bf8b4e364a3",
+        "file_path": "journeyimages/IMG_8170_5fd20a49.JPG",
+        "alt_text": "",
+        "aspect_ratio": "",
+        "sort_order": 2
+      }
+    ]
+  },
+  {
+    "id": "8f7e23db-dc5d-4fea-acd0-d3a365237f4e",
+    "title": "JUNE 2025 (Imaging)",
+    "date_text": "JUNE 2025",
+    "body_text": "During the first week with the new setup, I shot the +Whirlpool Galaxy+(1), the +Pinwheel Galaxy+(2), and many late-night targets like the +Omega Nebula+(3) and the +Dumbbell Nebula+(4). Relatively short exposure times were yielding the best images I had ever taken. I also began a multi-night shoot of NGC 5033, an intriguing Seyfert galaxy near Cor Caroli.",
+    "layout_type": "standard_grid",
+    "sort_order": 19,
+    "images": [
+      {
+        "id": "b9d8ce07-0c0a-4df0-b953-208f4393c08c",
+        "entry_id": "8f7e23db-dc5d-4fea-acd0-d3a365237f4e",
+        "file_path": "photos/originals/f3a087a0-4d66-4533-8cce-0f92984333a0.jpg",
+        "alt_text": "Whirlpool Galaxy",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 1
+      },
+      {
+        "id": "b98a867d-c050-4ce7-a955-fbb79785fbcd",
+        "entry_id": "8f7e23db-dc5d-4fea-acd0-d3a365237f4e",
+        "file_path": "photos/originals/361d63e8-afa6-4e9b-a417-ffdb6c3ff204.jpg",
+        "alt_text": "Pinwheel Galaxy",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 2
+      },
+      {
+        "id": "fe53f0b7-d711-4bfa-ad00-401eeffa289b",
+        "entry_id": "8f7e23db-dc5d-4fea-acd0-d3a365237f4e",
+        "file_path": "photos/originals/2502aaba-c410-4c9a-9098-1d27498ebf1d.jpeg",
+        "alt_text": "Omega Nebula",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 3
+      },
+      {
+        "id": "dbf75cd9-5784-43b1-87d6-204eb836ca0b",
+        "entry_id": "8f7e23db-dc5d-4fea-acd0-d3a365237f4e",
+        "file_path": "photos/originals/a1abcddb-1d8d-4384-a873-83b07d627e48.jpg",
+        "alt_text": "Dumbbell Nebula",
+        "aspect_ratio": "1 / 1",
+        "sort_order": 4
+      }
+    ]
+  }
+]

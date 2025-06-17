@@ -1,10 +1,11 @@
 [
   {
     "id": "2502aaba-c410-4c9a-9098-1d27498ebf1d",
-    "label": "",
+    "label": "Omega Nebula",
     "image_file": "photos/originals/2502aaba-c410-4c9a-9098-1d27498ebf1d.jpeg",
     "width": 2279,
     "height": 2360,
+    "featured": true,
     "data": {
       "date": "2025-06-13",
       "integration": 72,
@@ -31,6 +32,7 @@
     "image_file": "photos/originals/50f1051e-a80c-45cb-b104-c76696839407.jpeg",
     "width": 3353,
     "height": 2129,
+    "featured": false,
     "data": {
       "date": "2025-06-13",
       "integration": 117,
@@ -55,6 +57,7 @@
     "image_file": "photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg",
     "width": 2454,
     "height": 1626,
+    "featured": false,
     "data": {
       "date": "2025-06-12",
       "integration": 24,
@@ -89,6 +92,7 @@
     "image_file": "photos/originals/a1abcddb-1d8d-4384-a873-83b07d627e48.jpg",
     "width": 2248,
     "height": 1499,
+    "featured": true,
     "data": {
       "date": "2025-06-11",
       "integration": 60,
@@ -116,6 +120,7 @@
     "image_file": "photos/originals/466e5101-8772-42e6-8798-b968973712f1.jpg",
     "width": 4682,
     "height": 3111,
+    "featured": false,
     "data": {
       "date": "2025-06-11",
       "integration": 15,
@@ -142,6 +147,7 @@
     "image_file": "photos/originals/cbe00dc7-0099-446c-9bec-6ed455f54138.jpg",
     "width": 2874,
     "height": 1910,
+    "featured": false,
     "data": {
       "date": "2025-06-07",
       "integration": 42,
@@ -169,6 +175,7 @@
     "image_file": "photos/originals/361d63e8-afa6-4e9b-a417-ffdb6c3ff204.jpg",
     "width": 3638,
     "height": 2702,
+    "featured": false,
     "data": {
       "date": "2025-06-06",
       "integration": 148,
@@ -195,6 +202,7 @@
     "image_file": "photos/originals/f3a087a0-4d66-4533-8cce-0f92984333a0.jpg",
     "width": 1950,
     "height": 1308,
+    "featured": false,
     "data": {
       "date": "2025-06-04",
       "integration": 60,
@@ -229,6 +237,7 @@
     "image_file": "photos/originals/a088bc7f-53e9-42ba-acc2-05810c0ebbce.jpg",
     "width": 3374,
     "height": 1860,
+    "featured": false,
     "data": {
       "date": "2025-06-02",
       "integration": null,
@@ -283,6 +292,7 @@
     "image_file": "photos/originals/787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8.png",
     "width": 432,
     "height": 432,
+    "featured": false,
     "data": {
       "date": "2025-05-27",
       "integration": null,
@@ -344,6 +354,7 @@
     "image_file": "photos/originals/82b371a3-57c0-4219-8eca-97be4b447022.png",
     "width": 432,
     "height": 432,
+    "featured": false,
     "data": {
       "date": "2025-05-27",
       "integration": null,
@@ -396,6 +407,7 @@
     "image_file": "photos/originals/294ef7e0-b9f7-4392-802a-72b2573508ac.jpg",
     "width": 3886,
     "height": 2580,
+    "featured": false,
     "data": {
       "date": "2025-05-19",
       "integration": 173,
@@ -423,6 +435,7 @@
     "image_file": "photos/originals/bde74acf-5df9-43dd-bf84-e0eba61190d8.jpg",
     "width": 3405,
     "height": 3284,
+    "featured": false,
     "data": {
       "date": "2025-05-19",
       "integration": 47,
@@ -449,6 +462,7 @@
     "image_file": "photos/originals/4946a347-b5a4-469e-995e-d03985a7decd.jpg",
     "width": 2004,
     "height": 1446,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 15,
@@ -475,6 +489,7 @@
     "image_file": "photos/originals/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2.jpg",
     "width": 1822,
     "height": 1619,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 15,
@@ -501,6 +516,7 @@
     "image_file": "photos/originals/f6325bbf-bf33-4160-b950-2a1df081c4c3.jpg",
     "width": 5432,
     "height": 3853,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 90,
@@ -527,6 +543,7 @@
     "image_file": "photos/originals/aa8c53b6-b073-4b44-8ba3-d5287189ac4d.jpg",
     "width": 5644,
     "height": 3699,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 45,
@@ -553,6 +570,7 @@
     "image_file": "photos/originals/b2cbec77-9ca1-4664-9a70-9f7f592dfd31.jpg",
     "width": 5527,
     "height": 3548,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 36,
@@ -600,6 +618,7 @@
     "image_file": "photos/originals/53f2d6fd-2a17-49a5-ae5d-9becf041d99f.jpg",
     "width": 5428,
     "height": 3814,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 36,
@@ -633,6 +652,7 @@
     "image_file": "photos/originals/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1.jpg",
     "width": 5461,
     "height": 3384,
+    "featured": false,
     "data": {
       "date": "2025-05-18",
       "integration": 42,
@@ -659,6 +679,7 @@
     "image_file": "photos/originals/3708f9dd-831c-4950-a873-46b88685c971.jpg",
     "width": 5848,
     "height": 3838,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 8,
@@ -685,6 +706,7 @@
     "image_file": "photos/originals/81230cc0-1b33-426f-8219-4171e9f450ba.jpg",
     "width": 5841,
     "height": 3802,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 35,
@@ -709,6 +731,7 @@
     "image_file": "photos/originals/8c05b2b8-0aae-46c7-ade6-41c3391fd469.jpg",
     "width": 5922,
     "height": 3904,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 4,
@@ -735,6 +758,7 @@
     "image_file": "photos/originals/71f41629-8f5a-4ef5-a88a-7e1b876df51a.jpg",
     "width": 5797,
     "height": 3786,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 25,
@@ -782,6 +806,7 @@
     "image_file": "photos/originals/d02a44db-076f-468b-bd4b-3180ef7abaaf.jpg",
     "width": 5626,
     "height": 3668,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 30,
@@ -808,6 +833,7 @@
     "image_file": "photos/originals/1ea61511-0e40-4ae2-a95b-64adf10dfe84.jpg",
     "width": 5725,
     "height": 3767,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 30,
@@ -834,6 +860,7 @@
     "image_file": "photos/originals/3a77d311-9639-432c-aea6-43fb9cbfb109.jpg",
     "width": 5669,
     "height": 3729,
+    "featured": false,
     "data": {
       "date": "2025-05-17",
       "integration": 70,
@@ -867,6 +894,7 @@
     "image_file": "photos/originals/a9fa2859-fe35-4147-812f-495779d55bc2.jpg",
     "width": 5505,
     "height": 3597,
+    "featured": false,
     "data": {
       "date": "2025-05-07",
       "integration": 23,
@@ -893,6 +921,7 @@
     "image_file": "photos/originals/6e2aa560-8822-4720-96d9-2c640d9cd4cf.jpg",
     "width": 5724,
     "height": 3700,
+    "featured": false,
     "data": {
       "date": "2025-05-07",
       "integration": 5,
@@ -926,6 +955,7 @@
     "image_file": "photos/originals/fead76a3-5d51-42ef-8bb6-342dc7becf4d.jpg",
     "width": 5244,
     "height": 3619,
+    "featured": false,
     "data": {
       "date": "2025-05-07",
       "integration": null,
@@ -952,6 +982,7 @@
     "image_file": "photos/originals/f4eaaca6-93d8-4db1-a3de-be19d37f47f9.jpg",
     "width": 1867,
     "height": 1501,
+    "featured": false,
     "data": {
       "date": "2025-05-07",
       "integration": 90,
@@ -978,6 +1009,7 @@
     "image_file": "photos/originals/e59c0b0b-cffb-4540-8dde-daaf49dedbd6.jpg",
     "width": 1596,
     "height": 1314,
+    "featured": false,
     "data": {
       "date": "2025-05-05",
       "integration": 170,
@@ -1009,6 +1041,7 @@
     "image_file": "photos/originals/5e270de3-93b4-46d1-8705-544bc21f986b.jpg",
     "width": 1392,
     "height": 899,
+    "featured": false,
     "data": {
       "date": "2025-05-05",
       "integration": 100,
@@ -1035,6 +1068,7 @@
     "image_file": "photos/originals/28c8bbe6-3187-4160-8588-c6fa1e8c99f8.png",
     "width": 3000,
     "height": 3000,
+    "featured": false,
     "data": {
       "date": "2025-04-30",
       "integration": null,
@@ -1068,6 +1102,7 @@
     "image_file": "photos/originals/6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0.jpg",
     "width": 5715,
     "height": 3710,
+    "featured": false,
     "data": {
       "date": "2025-04-02",
       "integration": null,
@@ -1143,6 +1178,7 @@
     "image_file": "photos/originals/6b3bc70e-6e88-4834-854e-d5f7af569b38.jpg",
     "width": 4341,
     "height": 3407,
+    "featured": false,
     "data": {
       "date": "2025-04-01",
       "integration": 340,
@@ -1169,6 +1205,7 @@
     "image_file": "photos/originals/7264cb93-caef-46c3-b1d6-05d6a15c6b40.jpg",
     "width": 5532,
     "height": 3421,
+    "featured": false,
     "data": {
       "date": "2025-03-25",
       "integration": 100,
@@ -1202,6 +1239,7 @@
     "image_file": "photos/originals/40d7f955-7eed-40d3-a501-2190be2bb20c.jpg",
     "width": 4948,
     "height": 3189,
+    "featured": false,
     "data": {
       "date": "2025-03-23",
       "integration": 70,
@@ -1254,6 +1292,7 @@
     "image_file": "photos/originals/46907060-adc9-4b12-a75f-fadbb7fc6c6c.jpg",
     "width": 2080,
     "height": 1389,
+    "featured": false,
     "data": {
       "date": "2025-03-22",
       "integration": null,
@@ -1278,6 +1317,7 @@
     "image_file": "photos/originals/b089cef5-9fc9-4321-8162-c09bd028214f.jpg",
     "width": 2785,
     "height": 1915,
+    "featured": false,
     "data": {
       "date": "2025-03-22",
       "integration": null,
@@ -1304,6 +1344,7 @@
     "image_file": "photos/originals/42b74ab4-da93-4d4b-866e-dbe451d00129.jpg",
     "width": 1523,
     "height": 1028,
+    "featured": false,
     "data": {
       "date": "2025-03-22",
       "integration": null,
@@ -1330,6 +1371,7 @@
     "image_file": "photos/originals/a073acc2-8f91-4529-948a-3958a568978a.jpg",
     "width": 3700,
     "height": 2508,
+    "featured": false,
     "data": {
       "date": "2025-03-22",
       "integration": null,
@@ -1370,6 +1412,7 @@
     "image_file": "photos/originals/a9f6edab-e28d-4633-b04f-e56fb0768b10.jpg",
     "width": 3016,
     "height": 2281,
+    "featured": false,
     "data": {
       "date": "2025-03-22",
       "integration": null,
@@ -1396,6 +1439,7 @@
     "image_file": "photos/originals/973651b0-4460-4fc3-a416-330a770bbdab.jpg",
     "width": 8000,
     "height": 5333,
+    "featured": false,
     "data": {
       "date": "2025-03-13",
       "integration": null,
@@ -1429,6 +1473,7 @@
     "image_file": "photos/originals/0dc31f80-ba53-409a-9b79-fe99b180b652.jpg",
     "width": 2250,
     "height": 2250,
+    "featured": false,
     "data": {
       "date": "2025-03-13",
       "integration": null,
@@ -1456,6 +1501,7 @@
     "image_file": "photos/originals/50d9cc89-71dd-4de9-b3e4-a622696361e7.jpg",
     "width": 11340,
     "height": 3780,
+    "featured": false,
     "data": {
       "date": "2025-02-08",
       "integration": null,
@@ -1560,6 +1606,7 @@
     "image_file": "photos/originals/80aeac93-77e2-45ee-82f9-80e8cec2d146.jpg",
     "width": 4000,
     "height": 4000,
+    "featured": false,
     "data": {
       "date": "2025-01-18",
       "integration": null,
@@ -1586,6 +1633,7 @@
     "image_file": "photos/originals/59b74cfc-6b1a-4c11-8e19-73c1e8975ab4.jpg",
     "width": 4000,
     "height": 4000,
+    "featured": false,
     "data": {
       "date": "2025-01-05",
       "integration": null,
@@ -1627,6 +1675,7 @@
     "image_file": "photos/originals/1c4131d6-bde5-4158-88a8-7104c5bc1d59.jpg",
     "width": 4000,
     "height": 4000,
+    "featured": false,
     "data": {
       "date": "2025-01-05",
       "integration": null,
@@ -1681,6 +1730,7 @@
     "image_file": "photos/originals/b49e8ea7-3a2a-4501-a722-d8c5eb7e7c76.jpg",
     "width": 4291,
     "height": 3218,
+    "featured": false,
     "data": {
       "date": "2024-12-17",
       "integration": 120,
@@ -1715,6 +1765,7 @@
     "image_file": "photos/originals/218d5be4-f103-41b5-b339-d97e43f98d76.jpg",
     "width": 2435,
     "height": 1847,
+    "featured": false,
     "data": {
       "date": "2024-12-17",
       "integration": null,
@@ -1762,6 +1813,7 @@
     "image_file": "photos/originals/15998577-0ca4-4002-9fa4-c57a97edd588.png",
     "width": 4092,
     "height": 2678,
+    "featured": false,
     "data": {
       "date": "2024-12-02",
       "integration": 200,
@@ -1786,6 +1838,7 @@
     "image_file": "photos/originals/d6814416-14ce-4c52-8233-e40a7190298d.jpg",
     "width": 4568,
     "height": 3574,
+    "featured": false,
     "data": {
       "date": "2024-11-02",
       "integration": null,
@@ -1819,6 +1872,7 @@
     "image_file": "photos/originals/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a.jpg",
     "width": 4885,
     "height": 3170,
+    "featured": false,
     "data": {
       "date": "2024-11-02",
       "integration": null,
@@ -1845,6 +1899,7 @@
     "image_file": "photos/originals/7c93a033-651a-491f-a013-32cefd0f3374.jpg",
     "width": 1720,
     "height": 965,
+    "featured": false,
     "data": {
       "date": "2024-10-28",
       "integration": null,
@@ -1871,6 +1926,7 @@
     "image_file": "photos/originals/4a7eea52-952b-4196-b028-b8cd1cc86700.jpg",
     "width": 5404,
     "height": 3140,
+    "featured": false,
     "data": {
       "date": "2024-10-28",
       "integration": null,
@@ -1897,6 +1953,7 @@
     "image_file": "photos/originals/780b5cf7-739d-4313-8878-c7621fc99332.jpg",
     "width": 2057,
     "height": 1552,
+    "featured": false,
     "data": {
       "date": "2024-10-28",
       "integration": null,
@@ -1923,6 +1980,7 @@
     "image_file": "photos/originals/67750bec-9d1f-4094-8ea1-908aa1bfd907.jpg",
     "width": 1260,
     "height": 806,
+    "featured": false,
     "data": {
       "date": "2024-10-28",
       "integration": null,
@@ -1949,6 +2007,7 @@
     "image_file": "photos/originals/c76a6fa3-f819-4068-8ffb-382c1950361f.jpg",
     "width": 1615,
     "height": 977,
+    "featured": false,
     "data": {
       "date": "2024-10-19",
       "integration": 10,
@@ -1975,6 +2034,7 @@
     "image_file": "photos/originals/29d52384-5a14-4674-bb79-86638ad795a1.jpg",
     "width": 1301,
     "height": 836,
+    "featured": false,
     "data": {
       "date": "2024-10-19",
       "integration": null,
@@ -1999,6 +2059,7 @@
     "image_file": "photos/originals/0c346db0-23b4-410d-9cd7-b5b236bf2589.jpg",
     "width": 2344,
     "height": 2344,
+    "featured": false,
     "data": {
       "date": "2024-10-19",
       "integration": null,
@@ -2025,6 +2086,7 @@
     "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
     "width": 4996,
     "height": 3357,
+    "featured": false,
     "data": {
       "date": "",
       "integration": null,
@@ -2051,6 +2113,7 @@
     "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
     "width": 5589,
     "height": 3166,
+    "featured": false,
     "data": {
       "date": "",
       "integration": null,
@@ -2077,6 +2140,7 @@
     "image_file": "photos/originals/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0.jpg",
     "width": 1766,
     "height": 1292,
+    "featured": false,
     "data": {
       "date": "",
       "integration": null,
@@ -2118,6 +2182,7 @@
     "image_file": "photos/originals/c7eaa67d-df59-45be-97a2-5e7c5aab5686.jpg",
     "width": 1042,
     "height": 1852,
+    "featured": false,
     "data": {
       "date": "",
       "integration": null,
