@@ -6,10 +6,57 @@
     <title>Solar System Gallery – Hansen Space</title>
     <link rel="stylesheet" href="/styles.css" />
     <style>
-        .gallery-grid { display: flex; flex-direction: column; gap: 20px; }
-        .grid-item { width: 100%; display: flex; justify-content: center; align-items: center; background-color: #000; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .grid-item:hover { transform: scale(1.01); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-        .grid-item img { width: auto; height: auto; max-width: 100%; max-height: 85vh; display: block; }
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .grid-item {
+            flex: auto;
+            /* A temporary height that JS will override on desktop */
+            height: 300px; 
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.01);
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .grid-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover; /* Crop to fill on desktop */
+            display: block;
+        }
+
+        /* --- Media Query for smaller screens (below 850px) --- */
+        @media (max-width: 850px) {
+            .gallery-grid {
+                flex-direction: column; /* Stack items vertically */
+            }
+
+            .grid-item {
+                width: 100%; 
+                /* Override JS height to let content determine size */
+                height: auto !important; 
+                flex-basis: auto !important;
+                flex-grow: 0 !important;
+            }
+
+            .grid-item img {
+                /* Show full image without cropping on mobile */
+                object-fit: contain; 
+                height: auto;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -27,6 +74,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const grid = document.getElementById('gallery-grid');
         try {
+            // --- Configuration: Controls the gallery's "density" ---
+            const IDEAL_ROW_HEIGHT = 350;
+
             const v = Date.now();
             const [galleriesRes, imagesRes] = await Promise.all([ fetch(`/photos/data/galleries.json?v=${v}`), fetch(`/photos/data/all_images.json?v=${v}`) ]);
             if (!galleriesRes.ok || !imagesRes.ok) throw new Error('Failed to load gallery data.');
@@ -34,38 +84,93 @@
             const galleriesMap = await galleriesRes.json();
             const allImages = await imagesRes.json();
             
-            const solarSystemId = galleriesMap['Solar System']; // <-- Changed from 'Highlights'
+            const solarSystemId = galleriesMap['Solar System'];
             if (typeof solarSystemId === 'undefined') throw new Error('"Solar System" gallery not found.');
             
-            const solarSystemImages = allImages.filter(img => img.gallery_ids.includes(solarSystemId)); // <-- Changed from 'highlightImages'
+            const solarSystemImages = allImages.filter(img => img.gallery_ids.includes(solarSystemId));
             
             grid.innerHTML = '';
-            if (!solarSystemImages.length) { // <-- Changed from 'highlightImages'
+            if (!solarSystemImages.length) {
                 grid.innerHTML = '<p>No Solar System images have been added yet.</p>';
                 return;
             }
 
-            solarSystemImages.forEach(item => { // <-- Changed from 'highlightImages'
-                const div = document.createElement('div');
-                div.className = 'grid-item';
-                div.addEventListener('click', () => {
-                    const modalData = {
-                        label: item.label,
-                        fullImageSrc: `/${item.image_file}`,
-                        originalWidth: item.width,
-                        originalHeight: item.height,
-                        details: item.data,
-                        subjects: item.subjects
+            // --- NEW Intelligent Layout Logic ---
+            const imageLoadPromises = solarSystemImages.map(item => {
+                return new Promise((resolve, reject) => {
+                    const div = document.createElement('div');
+                    div.className = 'grid-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = `/${item.image_file}`;
+                    img.alt = item.label;
+
+                    img.onload = () => {
+                        div.appendChild(img);
+                        div.addEventListener('click', () => {
+                            const modalData = {
+                                label: item.label,
+                                fullImageSrc: `/${item.image_file}`,
+                                originalWidth: item.width,
+                                originalHeight: item.height,
+                                details: item.data,
+                                subjects: item.subjects
+                            };
+                            openModal(modalData);
+                        });
+                        resolve({ 
+                            element: div, 
+                            ratio: img.naturalWidth / img.naturalHeight 
+                        });
                     };
-                    openModal(modalData);
+                    img.onerror = reject;
                 });
-                const img = document.createElement('img');
-                img.src = `/${item.image_file}`;
-                img.alt = item.label;
-                img.loading = 'lazy';
-                div.appendChild(img);
-                grid.appendChild(div);
             });
+
+            const loadedImages = await Promise.all(imageLoadPromises);
+
+            loadedImages.forEach(imgData => {
+                grid.appendChild(imgData.element);
+            });
+
+            function layoutDesktopGallery(images, galleryWidth) {
+                let currentRow = [];
+                let currentRowRatioSum = 0;
+                const gap = 15;
+
+                images.forEach((imgData, index) => {
+                    currentRow.push(imgData);
+                    currentRowRatioSum += imgData.ratio;
+
+                    const currentWidthIfIdeal = (currentRowRatioSum * IDEAL_ROW_HEIGHT) + (currentRow.length - 1) * gap;
+
+                    if (currentWidthIfIdeal > galleryWidth || index === images.length - 1) {
+                        const rowWidthWithoutGaps = galleryWidth - (currentRow.length - 1) * gap;
+                        const finalRowHeight = rowWidthWithoutGaps / currentRowRatioSum;
+
+                        currentRow.forEach(itemInRow => {
+                            itemInRow.element.style.height = `${finalRowHeight}px`;
+                        });
+
+                        currentRow = [];
+                        currentRowRatioSum = 0;
+                    }
+                });
+            }
+            
+            function applyLayout() {
+                if (window.innerWidth <= 850) {
+                    loadedImages.forEach(imgData => {
+                        imgData.element.style.height = '';
+                    });
+                } else {
+                    layoutDesktopGallery(loadedImages, grid.clientWidth);
+                }
+            }
+            
+            setTimeout(applyLayout, 10);
+            window.addEventListener('resize', applyLayout);
+
         } catch (e) {
             console.error('Error loading Solar System gallery:', e);
             grid.innerHTML = '<p>Error loading gallery data. Please try again later.</p>';

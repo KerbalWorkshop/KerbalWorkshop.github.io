@@ -2,7 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Search Results – Hansen Space</title><link rel="stylesheet" href="/styles.css" />
-    <style>.gallery-grid { display: flex; flex-direction: column; gap: 20px; } .grid-item { width:100%; display:flex; justify-content:center; align-items:center; background:#000; border-radius:8px; overflow:hidden; cursor:pointer; transition:transform .3s ease, box-shadow .3s ease; } .grid-item:hover { transform:scale(1.01); box-shadow:0 4px 20px rgba(0,0,0,0.4); } .grid-item img { width:auto; height:auto; max-width:100%; max-height:85vh; display:block; } .back-to-search { display:inline-block; margin-bottom:20px; font-weight:600; color:var(--color-text-accent); font-size:1.1rem; } .back-to-search:hover { text-decoration:underline; }</style>
+    <style>
+        /* --- Final, Intelligent Gallery CSS --- */
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .grid-item {
+            flex: auto;
+            height: 300px; /* Temporary height, JS will override on desktop */
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.01);
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .grid-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover; /* Crop to fill on desktop */
+            display: block;
+        }
+
+        .back-to-search {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--color-text-accent);
+            font-size: 1.1rem;
+        }
+        
+        .back-to-search:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Media Query for smaller screens (below 850px) --- */
+        @media (max-width: 850px) {
+            .gallery-grid {
+                flex-direction: column; /* Stack items vertically */
+            }
+
+            .grid-item {
+                width: 100%;
+                /* Override JS height to let content determine size */
+                height: auto !important;
+                flex-basis: auto !important;
+                flex-grow: 0 !important;
+            }
+
+            .grid-item img {
+                /* Show full image without cropping on mobile */
+                object-fit: contain;
+                height: auto;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header><div class="header-inner-container content-limiter"><a class="brand" href="/index.html"><img src="/images/logo.png" alt="Hansen Space Logo"></a><nav><ul><li><a href="/index.html">Home</a></li><li><a href="/myjourney.html">My Journey</a></li><li><a href="/photography.html" class="active">Photography</a></li><li><a href="/articles">Articles</a></li><li><a href="/tools.html">Tools</a></li><li><a href="/contact.html">Contact</a></li></ul></nav><div class="menu-icon" onclick="toggleModal()">☰</div></div></header>
@@ -21,11 +85,15 @@
         const grid = document.getElementById('results-grid');
         const summary = document.getElementById('search-summary');
         try {
+            // --- Configuration: Controls the gallery's "density" ---
+            const IDEAL_ROW_HEIGHT = 350;
+
             const res = await fetch(`/photos/data/all_images.json?v=${Date.now()}`);
             if (!res.ok) throw new Error('Could not load image data.');
             const allImages = await res.json();
             const params = new URLSearchParams(window.location.search);
 
+            // --- Existing Search Logic (Untouched) ---
             const searchSubjects = params.has('subjects') ? params.get('subjects').split(',') : [];
             const searchCameras = params.has('cameras') ? params.get('cameras').split(',') : null;
             const minExp = params.has('minExp') ? parseInt(params.get('minExp'), 10) : null;
@@ -45,22 +113,90 @@
                 return true;
             });
 
+            // --- Existing Summary and No Results Logic (Untouched) ---
             summary.textContent = `Found ${results.length} matching photo(s).`;
             grid.innerHTML = '';
-            if (!results.length) { grid.innerHTML = '<p>No results found for your criteria.</p>'; return; }
+            if (!results.length) { 
+                grid.innerHTML = '<p>No results found for your criteria.</p>'; 
+                return; 
+            }
             
-            results.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'grid-item';
-                div.addEventListener('click', () => {
-                    const modalData = { label: item.label, fullImageSrc: `/${item.image_file}`, originalWidth: item.width, originalHeight: item.height, details: item.data, subjects: item.subjects };
-                    openModal(modalData);
+            // --- NEW Intelligent Layout Logic ---
+            const imageLoadPromises = results.map(item => {
+                return new Promise((resolve, reject) => {
+                    const div = document.createElement('div');
+                    div.className = 'grid-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = `/${item.image_file}`;
+                    img.alt = item.label;
+
+                    img.onload = () => {
+                        div.appendChild(img);
+                        div.addEventListener('click', () => {
+                            const modalData = { 
+                                label: item.label, 
+                                fullImageSrc: `/${item.image_file}`, 
+                                originalWidth: item.width, 
+                                originalHeight: item.height, 
+                                details: item.data, 
+                                subjects: item.subjects 
+                            };
+                            openModal(modalData);
+                        });
+                        resolve({ 
+                            element: div, 
+                            ratio: img.naturalWidth / img.naturalHeight 
+                        });
+                    };
+                    img.onerror = reject;
                 });
-                const img = document.createElement('img');
-                img.src = `/${item.image_file}`; img.alt = item.label; img.loading = 'lazy';
-                div.appendChild(img);
-                grid.appendChild(div);
             });
+
+            const loadedImages = await Promise.all(imageLoadPromises);
+
+            loadedImages.forEach(imgData => {
+                grid.appendChild(imgData.element);
+            });
+
+            function layoutDesktopGallery(images, galleryWidth) {
+                let currentRow = [];
+                let currentRowRatioSum = 0;
+                const gap = 15;
+
+                images.forEach((imgData, index) => {
+                    currentRow.push(imgData);
+                    currentRowRatioSum += imgData.ratio;
+
+                    const currentWidthIfIdeal = (currentRowRatioSum * IDEAL_ROW_HEIGHT) + (currentRow.length - 1) * gap;
+
+                    if (currentWidthIfIdeal > galleryWidth || index === images.length - 1) {
+                        const rowWidthWithoutGaps = galleryWidth - (currentRow.length - 1) * gap;
+                        const finalRowHeight = rowWidthWithoutGaps / currentRowRatioSum;
+
+                        currentRow.forEach(itemInRow => {
+                            itemInRow.element.style.height = `${finalRowHeight}px`;
+                        });
+
+                        currentRow = [];
+                        currentRowRatioSum = 0;
+                    }
+                });
+            }
+            
+            function applyLayout() {
+                if (window.innerWidth <= 850) {
+                    loadedImages.forEach(imgData => {
+                        imgData.element.style.height = '';
+                    });
+                } else {
+                    layoutDesktopGallery(loadedImages, grid.clientWidth);
+                }
+            }
+            
+            setTimeout(applyLayout, 10);
+            window.addEventListener('resize', applyLayout);
+
         } catch(e) {
             console.error("Search page error:", e);
             summary.textContent = '';
