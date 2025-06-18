@@ -1,32 +1,5 @@
 [
   {
-    "id": "2502aaba-c410-4c9a-9098-1d27498ebf1d",
-    "label": "Omega Nebula",
-    "image_file": "photos/originals/2502aaba-c410-4c9a-9098-1d27498ebf1d.jpeg",
-    "width": 2279,
-    "height": 2360,
-    "featured": true,
-    "data": {
-      "date": "2025-06-13",
-      "integration": 72,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "2502aaba-c410-4c9a-9098-1d27498ebf1d",
-        "id": 17,
-        "name": "M17 - Omega Nebula",
-        "thumb_path": "photos/thumbs/2502aaba-c410-4c9a-9098-1d27498ebf1d_17.jpg",
-        "bounding_box": "null"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "50f1051e-a80c-45cb-b104-c76696839407",
     "label": "Pacman Nebula",
     "image_file": "photos/originals/50f1051e-a80c-45cb-b104-c76696839407.jpeg",
@@ -50,6 +23,34 @@
       }
     ],
     "gallery_ids": []
+  },
+  {
+    "id": "3073da49-7394-46ac-a21a-a83eb4d75246",
+    "label": "Omega Nebula",
+    "image_file": "photos/originals/3073da49-7394-46ac-a21a-a83eb4d75246.png",
+    "width": 2635,
+    "height": 1748,
+    "featured": true,
+    "data": {
+      "date": "2025-06-13",
+      "integration": 72,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "3073da49-7394-46ac-a21a-a83eb4d75246",
+        "id": 17,
+        "name": "M17 - Omega Nebula",
+        "thumb_path": "photos/thumbs/3073da49-7394-46ac-a21a-a83eb4d75246_17.jpg",
+        "bounding_box": "null"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
   },
   {
     "id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
@@ -87,34 +88,6 @@
     ]
   },
   {
-    "id": "a1abcddb-1d8d-4384-a873-83b07d627e48",
-    "label": "Dumbbell Nebula",
-    "image_file": "photos/originals/a1abcddb-1d8d-4384-a873-83b07d627e48.jpg",
-    "width": 2248,
-    "height": 1499,
-    "featured": true,
-    "data": {
-      "date": "2025-06-11",
-      "integration": 60,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "a1abcddb-1d8d-4384-a873-83b07d627e48",
-        "id": 27,
-        "name": "M27 - Dumbbell Nebula",
-        "thumb_path": "photos/thumbs/a1abcddb-1d8d-4384-a873-83b07d627e48_27.jpg",
-        "bounding_box": "949,345,1523,746,1257,1127,683,726"
-      }
-    ],
-    "gallery_ids": [
-      2,
-      1
-    ]
-  },
-  {
     "id": "466e5101-8772-42e6-8798-b968973712f1",
     "label": "",
     "image_file": "photos/originals/466e5101-8772-42e6-8798-b968973712f1.jpg",
@@ -138,6 +111,34 @@
       }
     ],
     "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "c571061a-74bb-4fca-91d4-00add2e8a8a6",
+    "label": "Dumbbell Nebula",
+    "image_file": "photos/originals/c571061a-74bb-4fca-91d4-00add2e8a8a6.jpg",
+    "width": 2327,
+    "height": 1552,
+    "featured": true,
+    "data": {
+      "date": "2025-06-11",
+      "integration": 60,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "c571061a-74bb-4fca-91d4-00add2e8a8a6",
+        "id": 27,
+        "name": "M27 - Dumbbell Nebula",
+        "thumb_path": "photos/thumbs/c571061a-74bb-4fca-91d4-00add2e8a8a6_27.jpg",
+        "bounding_box": "1025,449,1486,766,1244,1117,783,799"
+      }
+    ],
+    "gallery_ids": [
+      2,
       1
     ]
   },
