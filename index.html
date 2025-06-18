@@ -390,11 +390,11 @@
 
   <main class="page-main-content-area">
     <div class="content-limiter">
-      <section class="articles-section"> <h2 class="section-title">LATEST ARTICLES</h2>
+      <section class="articles-section">
+        <h2 class="section-title">LATEST ARTICLES</h2>
         <div id="articles-container">
-          <a href="/articles/2025-05-16" class="article-item"> <img src="/articles/images/1-11.jpg" alt="Article 1 Thumbnail" onerror="this.src='https://placehold.co/110x110/2a2a2a/FFFFFF?text=Article'; this.onerror=null;"> <div class="article-item-content"> <h3>The 11 greatest cosmic events of our lifetimes</h3> <p>See what the universe has to offer in our short window of existence on this planet.</p> </div> </a>
           </div>
-        <a href="/articles" class="button-generic outline see-all-articles-custom-margin">See All Articles →</a>
+        <a href="/articles/index.html" class="button-generic outline see-all-articles-custom-margin">See All Articles →</a>
       </section>
 
       <div class="content-divider"></div> <section class="interactive-section tools-section">
@@ -494,11 +494,71 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      heroSlider();
-      const yearSpan = document.getElementById('year');
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
+        heroSlider();
+        const yearSpan = document.getElementById('year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // --- START: NEW DYNAMIC ARTICLE LOADER ---
+        const loadLatestArticles = async () => {
+            const container = document.getElementById('articles-container');
+            // If the container doesn't exist on the page, do nothing.
+            if (!container) return;
+
+            try {
+                // Fetch the JSON file created by your Python script.
+                const response = await fetch('/data/articles.json?v=' + Date.now());
+                const allArticles = await response.json();
+
+                if (!allArticles || allArticles.length === 0) {
+                    // You can optionally display a message if there are no articles.
+                    container.innerHTML = '<p style="text-align: center; padding: 20px 0;">No articles published yet.</p>';
+                    return;
+                }
+
+                // Since the JSON is pre-sorted newest-first, take the first 5.
+                // .slice(0, 5) correctly handles arrays with less than 5 items.
+                const latestArticles = allArticles.slice(0, 5);
+
+                // Clear the container before adding new items.
+                container.innerHTML = '';
+
+                // Loop through the latest articles and create the HTML for each one.
+                latestArticles.forEach(article => {
+                    // Create the main link element (the article item)
+                    const articleLink = document.createElement('a');
+                    // The link correctly points to the article's generated folder.
+                    articleLink.href = `/articles/${article.publish_date}/`;
+                    articleLink.className = 'article-item';
+                    
+                    // Use a placeholder if the hero image is missing.
+                    const heroImage = article.hero_image_path ? `/${article.hero_image_path}` : 'https://placehold.co/110x110/2a2a2a/FFFFFF?text=Article';
+
+                    // Build the inner HTML using the structure your CSS expects.
+                    articleLink.innerHTML = `
+                        <img src="${heroImage}" alt="${article.title}" onerror="this.onerror=null;this.src='https://placehold.co/110x110/2a2a2a/FFFFFF?text=Article';">
+                        <div class="article-item-content">
+                            <h3>${article.title}</h3>
+                            <p>${article.subtitle || ''}</p>
+                        </div>
+                    `;
+                    
+                    // Add the newly created article item to the page.
+                    container.appendChild(articleLink);
+                });
+
+            } catch (error) {
+                console.error("Failed to load latest articles:", error);
+                // Display an error message inside the container if the fetch fails.
+                container.innerHTML = '<p style="text-align: center; padding: 20px 0;">Could not load articles.</p>';
+            }
+        };
+
+        // Call the new function to run it.
+        loadLatestArticles();
+        // --- END: NEW DYNAMIC ARTICLE LOADER ---
+
     });
 
     window.addEventListener('load', () => {
