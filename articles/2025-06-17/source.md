@@ -20,6 +20,6 @@ The Winter Hexagon is special because it has the capability to inspire everyone 
 
 ![My telescope pointed at Jupiter.](/images/2-5.jpg)
 
-![My  telescope, again, pointed at Jupiter. Sirius visible on the horizon.](/images/2-6.jpg)
+![My  telescope pointed at Mars. Sirius visible on the horizon.](/images/2-6.jpg)
 
-The Sun is currently positioned dead in the center of the Winter Hexagon, meaning we won't see it for another few months. I am looking forward to its return this winter, although we'll have to wait for two winters from now to see both Mars and Jupiter return to the winter skies, near opposition once again.
+The Sun currently lies in the center of the Winter Hexagon, meaning we won't see the hexagon for another few months. I am looking forward to its return this winter, although we'll have to wait for two winters from now to see Mars and Jupiter together again, both near their oppositions.
