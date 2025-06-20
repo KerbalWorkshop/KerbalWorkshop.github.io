@@ -65,7 +65,7 @@
     "image_file": "photos/originals/3073da49-7394-46ac-a21a-a83eb4d75246.png",
     "width": 2635,
     "height": 1748,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-13",
       "integration": 72,
@@ -93,7 +93,7 @@
     "image_file": "photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg",
     "width": 2454,
     "height": 1626,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-06-12",
       "integration": 24,
