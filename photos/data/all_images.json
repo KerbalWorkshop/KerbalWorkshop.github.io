@@ -35,6 +35,40 @@
     ]
   },
   {
+    "id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
+    "label": "Eagle Nebula - Starless",
+    "image_file": "photos/originals/fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3.jpg",
+    "width": 2879,
+    "height": 1814,
+    "featured": true,
+    "data": {
+      "date": "2025-06-17",
+      "integration": 153,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": "This version of my capture of the Eagle Nebula underwent star removal - using a program called Starnet++ - to reveal the subtle details in the dust of the nebula."
+    },
+    "subjects": [
+      {
+        "image_id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
+        "id": 16,
+        "name": "M16 - Eagle Nebula",
+        "thumb_path": null,
+        "bounding_box": "null"
+      },
+      {
+        "image_id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
+        "id": 128,
+        "name": "Pillars of Creation",
+        "thumb_path": null,
+        "bounding_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "50f1051e-a80c-45cb-b104-c76696839407",
     "label": "Pacman Nebula",
     "image_file": "photos/originals/50f1051e-a80c-45cb-b104-c76696839407.jpeg",
@@ -65,7 +99,7 @@
     "image_file": "photos/originals/3073da49-7394-46ac-a21a-a83eb4d75246.png",
     "width": 2635,
     "height": 1748,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-13",
       "integration": 72,
