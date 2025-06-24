@@ -8,7 +8,11 @@ CREATE TABLE IF NOT EXISTS images (
     telescope TEXT,
     notes TEXT,
     width INTEGER,
-    height INTEGER
+    height INTEGER,
+    featured INTEGER DEFAULT 0,
+    preview_path TEXT,
+    preview_width INTEGER,
+    preview_height INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS subjects (
@@ -24,8 +28,8 @@ CREATE TABLE IF NOT EXISTS galleries (
 CREATE TABLE IF NOT EXISTS image_subjects (
     image_id TEXT,
     subject_id INTEGER,
-    thumb_path TEXT,
     bounding_box TEXT,
+    thumbnail_box TEXT,
     PRIMARY KEY(image_id, subject_id),
     FOREIGN KEY(image_id) REFERENCES images(id) ON DELETE CASCADE,
     FOREIGN KEY(subject_id) REFERENCES subjects(id) ON DELETE CASCADE

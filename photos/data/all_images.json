@@ -3,8 +3,11 @@
     "id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/715a6fa3-af89-4bef-8e5b-debe838e5211.jpg",
+    "preview_file": "photos/previews/715a6fa3-af89-4bef-8e5b-debe838e5211_preview.jpg",
     "width": 4678,
     "height": 3047,
+    "preview_width": 1200,
+    "preview_height": 782,
     "featured": true,
     "data": {
       "date": "2025-06-17",
@@ -18,15 +21,15 @@
         "image_id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "thumb_path": "photos/thumbs/715a6fa3-af89-4bef-8e5b-debe838e5211_16.jpg",
-        "bounding_box": "1261,611,3291,611,3291,2641,1261,2641"
+        "bounding_box": "430,990,3046,107,3708,2067,1093,2950",
+        "thumbnail_box": "1460,978,2717,978,2717,2235,1460,2235"
       },
       {
         "image_id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
         "id": 128,
         "name": "Pillars of Creation",
-        "thumb_path": null,
-        "bounding_box": "2115,1545,2337,1451,2457,1737,2235,1830"
+        "bounding_box": "2102,1555,2310,1442,2446,1694,2239,1806",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -38,8 +41,11 @@
     "id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
     "label": "Eagle Nebula - Starless",
     "image_file": "photos/originals/fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3.jpg",
+    "preview_file": "photos/previews/fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3_preview.jpg",
     "width": 2879,
     "height": 1814,
+    "preview_width": 1200,
+    "preview_height": 756,
     "featured": true,
     "data": {
       "date": "2025-06-17",
@@ -53,15 +59,15 @@
         "image_id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "fb702ae3-1ae8-4df4-9a74-b93d3a1de8a3",
         "id": 128,
         "name": "Pillars of Creation",
-        "thumb_path": null,
-        "bounding_box": "1372,795,1617,872,1481,1306,1236,1229"
+        "bounding_box": "1372,795,1617,872,1481,1306,1236,1229",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -72,8 +78,11 @@
     "id": "50f1051e-a80c-45cb-b104-c76696839407",
     "label": "Pacman Nebula",
     "image_file": "photos/originals/50f1051e-a80c-45cb-b104-c76696839407.jpeg",
+    "preview_file": "photos/previews/50f1051e-a80c-45cb-b104-c76696839407_preview.jpg",
     "width": 3353,
     "height": 2129,
+    "preview_width": 1200,
+    "preview_height": 762,
     "featured": false,
     "data": {
       "date": "2025-06-13",
@@ -87,8 +96,8 @@
         "image_id": "50f1051e-a80c-45cb-b104-c76696839407",
         "id": 170,
         "name": "NGC 281 - Pacman Nebula",
-        "thumb_path": null,
-        "bounding_box": "560,427,2181,427,2181,2047,560,2047"
+        "bounding_box": "560,427,2181,427,2181,2047,560,2047",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -97,8 +106,11 @@
     "id": "3073da49-7394-46ac-a21a-a83eb4d75246",
     "label": "Omega Nebula",
     "image_file": "photos/originals/3073da49-7394-46ac-a21a-a83eb4d75246.png",
+    "preview_file": "photos/previews/3073da49-7394-46ac-a21a-a83eb4d75246_preview.jpg",
     "width": 2635,
     "height": 1748,
+    "preview_width": 1200,
+    "preview_height": 796,
     "featured": false,
     "data": {
       "date": "2025-06-13",
@@ -112,8 +124,8 @@
         "image_id": "3073da49-7394-46ac-a21a-a83eb4d75246",
         "id": 17,
         "name": "M17 - Omega Nebula",
-        "thumb_path": "photos/thumbs/3073da49-7394-46ac-a21a-a83eb4d75246_17.jpg",
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -125,8 +137,11 @@
     "id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83.jpg",
+    "preview_file": "photos/previews/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83_preview.jpg",
     "width": 2454,
     "height": 1626,
+    "preview_width": 1200,
+    "preview_height": 795,
     "featured": false,
     "data": {
       "date": "2025-06-12",
@@ -140,15 +155,15 @@
         "image_id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "thumb_path": "photos/thumbs/65e4a484-d3e5-4d38-a9d7-6ca6fa062d83_16.jpg",
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
         "id": 128,
         "name": "Pillars of Creation",
-        "thumb_path": null,
-        "bounding_box": "1223,583,1512,1014,1297,1158,1008,727"
+        "bounding_box": "1223,583,1512,1014,1297,1158,1008,727",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -157,8 +172,11 @@
     "id": "466e5101-8772-42e6-8798-b968973712f1",
     "label": "",
     "image_file": "photos/originals/466e5101-8772-42e6-8798-b968973712f1.jpg",
+    "preview_file": "photos/previews/466e5101-8772-42e6-8798-b968973712f1_preview.jpg",
     "width": 4682,
     "height": 3111,
+    "preview_width": 1200,
+    "preview_height": 797,
     "featured": false,
     "data": {
       "date": "2025-06-11",
@@ -172,8 +190,8 @@
         "image_id": "466e5101-8772-42e6-8798-b968973712f1",
         "id": 39,
         "name": "M39",
-        "thumb_path": "photos/thumbs/466e5101-8772-42e6-8798-b968973712f1_39.jpg",
-        "bounding_box": "1064,574,3447,574,3447,2958,1064,2958"
+        "bounding_box": "1064,574,3447,574,3447,2958,1064,2958",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -184,8 +202,11 @@
     "id": "c571061a-74bb-4fca-91d4-00add2e8a8a6",
     "label": "Dumbbell Nebula",
     "image_file": "photos/originals/c571061a-74bb-4fca-91d4-00add2e8a8a6.jpg",
+    "preview_file": "photos/previews/c571061a-74bb-4fca-91d4-00add2e8a8a6_preview.jpg",
     "width": 2327,
     "height": 1552,
+    "preview_width": 1200,
+    "preview_height": 800,
     "featured": true,
     "data": {
       "date": "2025-06-11",
@@ -199,8 +220,8 @@
         "image_id": "c571061a-74bb-4fca-91d4-00add2e8a8a6",
         "id": 27,
         "name": "M27 - Dumbbell Nebula",
-        "thumb_path": "photos/thumbs/c571061a-74bb-4fca-91d4-00add2e8a8a6_27.jpg",
-        "bounding_box": "1025,449,1486,766,1244,1117,783,799"
+        "bounding_box": "1025,449,1486,766,1244,1117,783,799",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -212,8 +233,11 @@
     "id": "cbe00dc7-0099-446c-9bec-6ed455f54138",
     "label": "The Great Globular Cluster in Hercules",
     "image_file": "photos/originals/cbe00dc7-0099-446c-9bec-6ed455f54138.jpg",
+    "preview_file": "photos/previews/cbe00dc7-0099-446c-9bec-6ed455f54138_preview.jpg",
     "width": 2874,
     "height": 1910,
+    "preview_width": 1200,
+    "preview_height": 797,
     "featured": false,
     "data": {
       "date": "2025-06-07",
@@ -227,8 +251,8 @@
         "image_id": "cbe00dc7-0099-446c-9bec-6ed455f54138",
         "id": 3,
         "name": "M3",
-        "thumb_path": "photos/thumbs/cbe00dc7-0099-446c-9bec-6ed455f54138_3.jpg",
-        "bounding_box": "592,195,2151,195,2151,1754,592,1754"
+        "bounding_box": "592,195,2151,195,2151,1754,592,1754",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -240,8 +264,11 @@
     "id": "361d63e8-afa6-4e9b-a417-ffdb6c3ff204",
     "label": "",
     "image_file": "photos/originals/361d63e8-afa6-4e9b-a417-ffdb6c3ff204.jpg",
+    "preview_file": "photos/previews/361d63e8-afa6-4e9b-a417-ffdb6c3ff204_preview.jpg",
     "width": 3638,
     "height": 2702,
+    "preview_width": 1200,
+    "preview_height": 891,
     "featured": false,
     "data": {
       "date": "2025-06-06",
@@ -255,8 +282,8 @@
         "image_id": "361d63e8-afa6-4e9b-a417-ffdb6c3ff204",
         "id": 101,
         "name": "M101 - Pinwheel Galaxy",
-        "thumb_path": "photos/thumbs/361d63e8-afa6-4e9b-a417-ffdb6c3ff204_101.jpg",
-        "bounding_box": "1203,818,2323,818,2323,1939,1203,1939"
+        "bounding_box": "1203,818,2323,818,2323,1939,1203,1939",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -267,8 +294,11 @@
     "id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
     "label": "Whirlpool Galaxy",
     "image_file": "photos/originals/f3a087a0-4d66-4533-8cce-0f92984333a0.jpg",
+    "preview_file": "photos/previews/f3a087a0-4d66-4533-8cce-0f92984333a0_preview.jpg",
     "width": 1950,
     "height": 1308,
+    "preview_width": 1200,
+    "preview_height": 805,
     "featured": false,
     "data": {
       "date": "2025-06-04",
@@ -282,15 +312,15 @@
         "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
         "id": 51,
         "name": "M51 - Whirlpool Galaxy",
-        "thumb_path": "photos/thumbs/f3a087a0-4d66-4533-8cce-0f92984333a0_51.jpg",
-        "bounding_box": "622,435,1369,386,1401,864,654,913"
+        "bounding_box": "622,435,1369,386,1401,864,654,913",
+        "thumbnail_box": null
       },
       {
         "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
         "id": 111,
         "name": "M51b - NGC 5195",
-        "thumb_path": null,
-        "bounding_box": "1201,551,1362,551,1362,760,1201,760"
+        "bounding_box": "1201,551,1362,551,1362,760,1201,760",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -302,8 +332,11 @@
     "id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
     "label": "",
     "image_file": "photos/originals/a088bc7f-53e9-42ba-acc2-05810c0ebbce.jpg",
+    "preview_file": "photos/previews/a088bc7f-53e9-42ba-acc2-05810c0ebbce_preview.jpg",
     "width": 3374,
     "height": 1860,
+    "preview_width": 1200,
+    "preview_height": 662,
     "featured": false,
     "data": {
       "date": "2025-06-02",
@@ -317,36 +350,36 @@
         "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
         "id": 155,
         "name": "Langrenus Crater",
-        "thumb_path": null,
-        "bounding_box": "1762,1446,1895,1395,1933,1495,1800,1545"
+        "bounding_box": "1762,1446,1895,1395,1933,1495,1800,1545",
+        "thumbnail_box": null
       },
       {
         "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
         "id": 156,
         "name": "Theophilius Crater",
-        "thumb_path": null,
-        "bounding_box": null
+        "bounding_box": null,
+        "thumbnail_box": null
       },
       {
         "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
         "id": 157,
         "name": "Aristoteles Crater",
-        "thumb_path": null,
-        "bounding_box": "391,359,457,350,471,449,404,459"
+        "bounding_box": "391,359,457,350,471,449,404,459",
+        "thumbnail_box": null
       },
       {
         "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
         "id": 158,
         "name": "Eudoxus Crater",
-        "thumb_path": null,
-        "bounding_box": "500,396,550,377,573,437,524,457"
+        "bounding_box": "500,396,550,377,573,437,524,457",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -357,8 +390,11 @@
     "id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
     "label": "International Space Station",
     "image_file": "photos/originals/787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8.png",
+    "preview_file": "photos/previews/787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8_preview.jpg",
     "width": 432,
     "height": 432,
+    "preview_width": 432,
+    "preview_height": 432,
     "featured": false,
     "data": {
       "date": "2025-05-27",
@@ -372,43 +408,43 @@
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 163,
         "name": "ESA Columbus Orbital Facility",
-        "thumb_path": null,
-        "bounding_box": "242,208,264,208,264,230,242,230"
+        "bounding_box": "242,208,264,208,264,230,242,230",
+        "thumbnail_box": null
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 138,
         "name": "ISS - International Space Station",
-        "thumb_path": null,
-        "bounding_box": "99,125,236,71,328,304,191,358"
+        "bounding_box": "99,125,236,71,328,304,191,358",
+        "thumbnail_box": null
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 160,
         "name": "JAXA Kibo Module",
-        "thumb_path": null,
-        "bounding_box": "229,166,252,162,260,209,238,213"
+        "bounding_box": "229,166,252,162,260,209,238,213",
+        "thumbnail_box": null
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 162,
         "name": "Roscosmos Progress 91",
-        "thumb_path": null,
-        "bounding_box": "164,228,179,219,196,247,181,257"
+        "bounding_box": "164,228,179,219,196,247,181,257",
+        "thumbnail_box": null
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 164,
         "name": "Roscosmos Zvezda Service Module",
-        "thumb_path": null,
-        "bounding_box": "138,213,193,213,193,239,138,239"
+        "bounding_box": "138,213,193,213,193,239,138,239",
+        "thumbnail_box": null
       },
       {
         "image_id": "787dc3c0-3db6-4f5c-8c1f-e6480fce6ae8",
         "id": 159,
         "name": "SpaceX Crew-10 Dragon",
-        "thumb_path": null,
-        "bounding_box": "254,194,278,189,282,206,258,212"
+        "bounding_box": "254,194,278,189,282,206,258,212",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -419,8 +455,11 @@
     "id": "82b371a3-57c0-4219-8eca-97be4b447022",
     "label": "ISS - Radiators Face On",
     "image_file": "photos/originals/82b371a3-57c0-4219-8eca-97be4b447022.png",
+    "preview_file": "photos/previews/82b371a3-57c0-4219-8eca-97be4b447022_preview.jpg",
     "width": 432,
     "height": 432,
+    "preview_width": 432,
+    "preview_height": 432,
     "featured": false,
     "data": {
       "date": "2025-05-27",
@@ -434,36 +473,36 @@
         "image_id": "82b371a3-57c0-4219-8eca-97be4b447022",
         "id": 160,
         "name": "JAXA Kibo Module",
-        "thumb_path": null,
-        "bounding_box": "245,161,267,164,260,219,238,216"
+        "bounding_box": "245,161,267,164,260,219,238,216",
+        "thumbnail_box": null
       },
       {
         "image_id": "82b371a3-57c0-4219-8eca-97be4b447022",
         "id": 163,
         "name": "ESA Columbus Orbital Facility",
-        "thumb_path": null,
-        "bounding_box": "242,211,258,211,258,233,242,233"
+        "bounding_box": "242,211,258,211,258,233,242,233",
+        "thumbnail_box": null
       },
       {
         "image_id": "82b371a3-57c0-4219-8eca-97be4b447022",
         "id": 164,
         "name": "Roscosmos Zvezda Service Module",
-        "thumb_path": null,
-        "bounding_box": "129,199,196,199,196,230,129,230"
+        "bounding_box": "129,199,196,199,196,230,129,230",
+        "thumbnail_box": null
       },
       {
         "image_id": "82b371a3-57c0-4219-8eca-97be4b447022",
         "id": 138,
         "name": "ISS - International Space Station",
-        "thumb_path": null,
-        "bounding_box": "146,62,293,69,279,366,132,359"
+        "bounding_box": "146,62,293,69,279,366,132,359",
+        "thumbnail_box": null
       },
       {
         "image_id": "82b371a3-57c0-4219-8eca-97be4b447022",
         "id": 159,
         "name": "SpaceX Crew-10 Dragon",
-        "thumb_path": null,
-        "bounding_box": "253,196,284,196,284,222,253,222"
+        "bounding_box": "253,196,284,196,284,222,253,222",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -472,8 +511,11 @@
     "id": "294ef7e0-b9f7-4392-802a-72b2573508ac",
     "label": "Cat's Eye Galaxy",
     "image_file": "photos/originals/294ef7e0-b9f7-4392-802a-72b2573508ac.jpg",
+    "preview_file": "photos/previews/294ef7e0-b9f7-4392-802a-72b2573508ac_preview.jpg",
     "width": 3886,
     "height": 2580,
+    "preview_width": 1200,
+    "preview_height": 797,
     "featured": false,
     "data": {
       "date": "2025-05-19",
@@ -487,8 +529,8 @@
         "image_id": "294ef7e0-b9f7-4392-802a-72b2573508ac",
         "id": 94,
         "name": "M94",
-        "thumb_path": "photos/thumbs/294ef7e0-b9f7-4392-802a-72b2573508ac_94.jpg",
-        "bounding_box": "1684,1052,1990,1052,1990,1463,1684,1463"
+        "bounding_box": "1684,1052,1990,1052,1990,1463,1684,1463",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -500,8 +542,11 @@
     "id": "bde74acf-5df9-43dd-bf84-e0eba61190d8",
     "label": "",
     "image_file": "photos/originals/bde74acf-5df9-43dd-bf84-e0eba61190d8.jpg",
+    "preview_file": "photos/previews/bde74acf-5df9-43dd-bf84-e0eba61190d8_preview.jpg",
     "width": 3405,
     "height": 3284,
+    "preview_width": 1200,
+    "preview_height": 1157,
     "featured": false,
     "data": {
       "date": "2025-05-19",
@@ -515,8 +560,8 @@
         "image_id": "bde74acf-5df9-43dd-bf84-e0eba61190d8",
         "id": 95,
         "name": "M95",
-        "thumb_path": "photos/thumbs/bde74acf-5df9-43dd-bf84-e0eba61190d8_95.jpg",
-        "bounding_box": "1582,1511,1792,1511,1792,1721,1582,1721"
+        "bounding_box": "1582,1511,1792,1511,1792,1721,1582,1721",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -527,8 +572,11 @@
     "id": "4946a347-b5a4-469e-995e-d03985a7decd",
     "label": "",
     "image_file": "photos/originals/4946a347-b5a4-469e-995e-d03985a7decd.jpg",
+    "preview_file": "photos/previews/4946a347-b5a4-469e-995e-d03985a7decd_preview.jpg",
     "width": 2004,
     "height": 1446,
+    "preview_width": 1200,
+    "preview_height": 866,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -542,8 +590,8 @@
         "image_id": "4946a347-b5a4-469e-995e-d03985a7decd",
         "id": 20,
         "name": "M20 - Trifid Nebula",
-        "thumb_path": "photos/thumbs/4946a347-b5a4-469e-995e-d03985a7decd_20.jpg",
-        "bounding_box": "441,271,1727,271,1727,1214,441,1214"
+        "bounding_box": "441,271,1727,271,1727,1214,441,1214",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -554,8 +602,11 @@
     "id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
     "label": "",
     "image_file": "photos/originals/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2.jpg",
+    "preview_file": "photos/previews/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2_preview.jpg",
     "width": 1822,
     "height": 1619,
+    "preview_width": 1200,
+    "preview_height": 1066,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -569,8 +620,8 @@
         "image_id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
         "id": 21,
         "name": "M21 - Webb's Cross",
-        "thumb_path": "photos/thumbs/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2_21.jpg",
-        "bounding_box": "426,255,1537,255,1537,1366,426,1366"
+        "bounding_box": "426,255,1537,255,1537,1366,426,1366",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -581,8 +632,11 @@
     "id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
     "label": "",
     "image_file": "photos/originals/f6325bbf-bf33-4160-b950-2a1df081c4c3.jpg",
+    "preview_file": "photos/previews/f6325bbf-bf33-4160-b950-2a1df081c4c3_preview.jpg",
     "width": 5432,
     "height": 3853,
+    "preview_width": 1200,
+    "preview_height": 851,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -596,8 +650,8 @@
         "image_id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
         "id": 67,
         "name": "M67",
-        "thumb_path": "photos/thumbs/f6325bbf-bf33-4160-b950-2a1df081c4c3_67.jpg",
-        "bounding_box": "1302,875,3899,875,3899,3472,1302,3472"
+        "bounding_box": "1302,875,3899,875,3899,3472,1302,3472",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -608,8 +662,11 @@
     "id": "aa8c53b6-b073-4b44-8ba3-d5287189ac4d",
     "label": "",
     "image_file": "photos/originals/aa8c53b6-b073-4b44-8ba3-d5287189ac4d.jpg",
+    "preview_file": "photos/previews/aa8c53b6-b073-4b44-8ba3-d5287189ac4d_preview.jpg",
     "width": 5644,
     "height": 3699,
+    "preview_width": 1200,
+    "preview_height": 786,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -623,8 +680,8 @@
         "image_id": "aa8c53b6-b073-4b44-8ba3-d5287189ac4d",
         "id": 87,
         "name": "M87 - Virgo A",
-        "thumb_path": "photos/thumbs/aa8c53b6-b073-4b44-8ba3-d5287189ac4d_87.jpg",
-        "bounding_box": "2543,1704,2746,1704,2746,1906,2543,1906"
+        "bounding_box": "2543,1704,2746,1704,2746,1906,2543,1906",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -635,8 +692,11 @@
     "id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
     "label": "",
     "image_file": "photos/originals/b2cbec77-9ca1-4664-9a70-9f7f592dfd31.jpg",
+    "preview_file": "photos/previews/b2cbec77-9ca1-4664-9a70-9f7f592dfd31_preview.jpg",
     "width": 5527,
     "height": 3548,
+    "preview_width": 1200,
+    "preview_height": 770,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -650,29 +710,29 @@
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 105,
         "name": "M105",
-        "thumb_path": "photos/thumbs/b2cbec77-9ca1-4664-9a70-9f7f592dfd31_105.jpg",
-        "bounding_box": "4147,1715,4292,1715,4292,1861,4147,1861"
+        "bounding_box": "4147,1715,4292,1715,4292,1861,4147,1861",
+        "thumbnail_box": null
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 96,
         "name": "M96",
-        "thumb_path": "photos/thumbs/b2cbec77-9ca1-4664-9a70-9f7f592dfd31_96.jpg",
-        "bounding_box": "477,1597,626,1533,718,1749,570,1813"
+        "bounding_box": "477,1597,626,1533,718,1749,570,1813",
+        "thumbnail_box": null
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 121,
         "name": "NGC 3384",
-        "thumb_path": null,
-        "bounding_box": "4469,1427,4655,1283,4727,1376,4541,1520"
+        "bounding_box": "4469,1427,4655,1283,4727,1376,4541,1520",
+        "thumbnail_box": null
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 122,
         "name": "NGC 3389",
-        "thumb_path": null,
-        "bounding_box": "4259,942,4315,958,4262,1142,4206,1125"
+        "bounding_box": "4259,942,4315,958,4262,1142,4206,1125",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -683,8 +743,11 @@
     "id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
     "label": "",
     "image_file": "photos/originals/53f2d6fd-2a17-49a5-ae5d-9becf041d99f.jpg",
+    "preview_file": "photos/previews/53f2d6fd-2a17-49a5-ae5d-9becf041d99f_preview.jpg",
     "width": 5428,
     "height": 3814,
+    "preview_width": 1200,
+    "preview_height": 843,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -698,15 +761,15 @@
         "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
         "id": 108,
         "name": "M108 - Surfboard Galaxy",
-        "thumb_path": "photos/thumbs/53f2d6fd-2a17-49a5-ae5d-9becf041d99f_108.jpg",
-        "bounding_box": "4003,3011,4180,3086,3964,3599,3787,3524"
+        "bounding_box": "4003,3011,4180,3086,3964,3599,3787,3524",
+        "thumbnail_box": null
       },
       {
         "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
         "id": 97,
         "name": "M97 - Owl Nebula",
-        "thumb_path": "photos/thumbs/53f2d6fd-2a17-49a5-ae5d-9becf041d99f_97.jpg",
-        "bounding_box": "1852,156,2131,156,2131,434,1852,434"
+        "bounding_box": "1852,156,2131,156,2131,434,1852,434",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -717,8 +780,11 @@
     "id": "8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1",
     "label": "",
     "image_file": "photos/originals/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1.jpg",
+    "preview_file": "photos/previews/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1_preview.jpg",
     "width": 5461,
     "height": 3384,
+    "preview_width": 1200,
+    "preview_height": 744,
     "featured": false,
     "data": {
       "date": "2025-05-18",
@@ -732,8 +798,8 @@
         "image_id": "8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1",
         "id": 109,
         "name": "M109",
-        "thumb_path": "photos/thumbs/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1_109.jpg",
-        "bounding_box": "2971,1431,3177,1590,2946,1889,2740,1731"
+        "bounding_box": "2971,1431,3177,1590,2946,1889,2740,1731",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -744,8 +810,11 @@
     "id": "3708f9dd-831c-4950-a873-46b88685c971",
     "label": "",
     "image_file": "photos/originals/3708f9dd-831c-4950-a873-46b88685c971.jpg",
+    "preview_file": "photos/previews/3708f9dd-831c-4950-a873-46b88685c971_preview.jpg",
     "width": 5848,
     "height": 3838,
+    "preview_width": 1200,
+    "preview_height": 788,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -759,8 +828,8 @@
         "image_id": "3708f9dd-831c-4950-a873-46b88685c971",
         "id": 11,
         "name": "M11 - Wild Duck Cluster",
-        "thumb_path": "photos/thumbs/3708f9dd-831c-4950-a873-46b88685c971_11.jpg",
-        "bounding_box": "1951,1144,3145,1144,3145,2338,1951,2338"
+        "bounding_box": "1951,1144,3145,1144,3145,2338,1951,2338",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -771,8 +840,11 @@
     "id": "81230cc0-1b33-426f-8219-4171e9f450ba",
     "label": "",
     "image_file": "photos/originals/81230cc0-1b33-426f-8219-4171e9f450ba.jpg",
+    "preview_file": "photos/previews/81230cc0-1b33-426f-8219-4171e9f450ba_preview.jpg",
     "width": 5841,
     "height": 3802,
+    "preview_width": 1200,
+    "preview_height": 781,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -786,8 +858,8 @@
         "image_id": "81230cc0-1b33-426f-8219-4171e9f450ba",
         "id": 17,
         "name": "M17 - Omega Nebula",
-        "thumb_path": "photos/thumbs/81230cc0-1b33-426f-8219-4171e9f450ba_17.jpg",
-        "bounding_box": "2192,771,3605,771,3605,2365,2192,2365"
+        "bounding_box": "2192,771,3605,771,3605,2365,2192,2365",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -796,8 +868,11 @@
     "id": "8c05b2b8-0aae-46c7-ade6-41c3391fd469",
     "label": "",
     "image_file": "photos/originals/8c05b2b8-0aae-46c7-ade6-41c3391fd469.jpg",
+    "preview_file": "photos/previews/8c05b2b8-0aae-46c7-ade6-41c3391fd469_preview.jpg",
     "width": 5922,
     "height": 3904,
+    "preview_width": 1200,
+    "preview_height": 791,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -811,8 +886,8 @@
         "image_id": "8c05b2b8-0aae-46c7-ade6-41c3391fd469",
         "id": 24,
         "name": "M24 - Sagittarius Star Cloud",
-        "thumb_path": "photos/thumbs/8c05b2b8-0aae-46c7-ade6-41c3391fd469_24.jpg",
-        "bounding_box": null
+        "bounding_box": null,
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -823,8 +898,11 @@
     "id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
     "label": "",
     "image_file": "photos/originals/71f41629-8f5a-4ef5-a88a-7e1b876df51a.jpg",
+    "preview_file": "photos/previews/71f41629-8f5a-4ef5-a88a-7e1b876df51a_preview.jpg",
     "width": 5797,
     "height": 3786,
+    "preview_width": 1200,
+    "preview_height": 784,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -838,29 +916,29 @@
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 89,
         "name": "M89",
-        "thumb_path": "photos/thumbs/71f41629-8f5a-4ef5-a88a-7e1b876df51a_89.jpg",
-        "bounding_box": "1742,2027,1897,2027,1897,2182,1742,2182"
+        "bounding_box": "1742,2027,1897,2027,1897,2182,1742,2182",
+        "thumbnail_box": null
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 90,
         "name": "M90",
-        "thumb_path": "photos/thumbs/71f41629-8f5a-4ef5-a88a-7e1b876df51a_90.jpg",
-        "bounding_box": "4597,1768,5029,1768,5029,1992,4597,1992"
+        "bounding_box": "4597,1768,5029,1768,5029,1992,4597,1992",
+        "thumbnail_box": null
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 125,
         "name": "NGC 4550",
-        "thumb_path": null,
-        "bounding_box": "298,1675,385,1732,356,1775,270,1718"
+        "bounding_box": "298,1675,385,1732,356,1775,270,1718",
+        "thumbnail_box": null
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 126,
         "name": "NGC 4551",
-        "thumb_path": null,
-        "bounding_box": "591,1588,620,1607,546,1723,517,1705"
+        "bounding_box": "591,1588,620,1607,546,1723,517,1705",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -871,8 +949,11 @@
     "id": "d02a44db-076f-468b-bd4b-3180ef7abaaf",
     "label": "",
     "image_file": "photos/originals/d02a44db-076f-468b-bd4b-3180ef7abaaf.jpg",
+    "preview_file": "photos/previews/d02a44db-076f-468b-bd4b-3180ef7abaaf_preview.jpg",
     "width": 5626,
     "height": 3668,
+    "preview_width": 1200,
+    "preview_height": 782,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -886,8 +967,8 @@
         "image_id": "d02a44db-076f-468b-bd4b-3180ef7abaaf",
         "id": 98,
         "name": "M98",
-        "thumb_path": "photos/thumbs/d02a44db-076f-468b-bd4b-3180ef7abaaf_98.jpg",
-        "bounding_box": "2386,1304,2692,1670,2577,1766,2272,1399"
+        "bounding_box": "2386,1304,2692,1670,2577,1766,2272,1399",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -898,8 +979,11 @@
     "id": "1ea61511-0e40-4ae2-a95b-64adf10dfe84",
     "label": "",
     "image_file": "photos/originals/1ea61511-0e40-4ae2-a95b-64adf10dfe84.jpg",
+    "preview_file": "photos/previews/1ea61511-0e40-4ae2-a95b-64adf10dfe84_preview.jpg",
     "width": 5725,
     "height": 3767,
+    "preview_width": 1200,
+    "preview_height": 790,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -913,8 +997,8 @@
         "image_id": "1ea61511-0e40-4ae2-a95b-64adf10dfe84",
         "id": 99,
         "name": "M99 - Coma Pinwheel Galaxy",
-        "thumb_path": "photos/thumbs/1ea61511-0e40-4ae2-a95b-64adf10dfe84_99.jpg",
-        "bounding_box": "2544,1725,2956,1725,2956,2137,2544,2137"
+        "bounding_box": "2544,1725,2956,1725,2956,2137,2544,2137",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -925,8 +1009,11 @@
     "id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
     "label": "",
     "image_file": "photos/originals/3a77d311-9639-432c-aea6-43fb9cbfb109.jpg",
+    "preview_file": "photos/previews/3a77d311-9639-432c-aea6-43fb9cbfb109_preview.jpg",
     "width": 5669,
     "height": 3729,
+    "preview_width": 1200,
+    "preview_height": 789,
     "featured": false,
     "data": {
       "date": "2025-05-17",
@@ -940,15 +1027,15 @@
         "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
         "id": 100,
         "name": "M100",
-        "thumb_path": "photos/thumbs/3a77d311-9639-432c-aea6-43fb9cbfb109_100.jpg",
-        "bounding_box": "2630,2014,3038,2014,3038,2388,2630,2388"
+        "bounding_box": "2630,2014,3038,2014,3038,2388,2630,2388",
+        "thumbnail_box": null
       },
       {
         "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
         "id": 123,
         "name": "NGC 4312",
-        "thumb_path": null,
-        "bounding_box": "1413,2051,1578,2157,1544,2210,1379,2104"
+        "bounding_box": "1413,2051,1578,2157,1544,2210,1379,2104",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -959,8 +1046,11 @@
     "id": "a9fa2859-fe35-4147-812f-495779d55bc2",
     "label": "",
     "image_file": "photos/originals/a9fa2859-fe35-4147-812f-495779d55bc2.jpg",
+    "preview_file": "photos/previews/a9fa2859-fe35-4147-812f-495779d55bc2_preview.jpg",
     "width": 5505,
     "height": 3597,
+    "preview_width": 1200,
+    "preview_height": 784,
     "featured": false,
     "data": {
       "date": "2025-05-07",
@@ -974,8 +1064,8 @@
         "image_id": "a9fa2859-fe35-4147-812f-495779d55bc2",
         "id": 5,
         "name": "M5",
-        "thumb_path": "photos/thumbs/a9fa2859-fe35-4147-812f-495779d55bc2_5.jpg",
-        "bounding_box": "2202,1025,3531,1025,3531,2354,2202,2354"
+        "bounding_box": "2202,1025,3531,1025,3531,2354,2202,2354",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -986,8 +1076,11 @@
     "id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
     "label": "",
     "image_file": "photos/originals/6e2aa560-8822-4720-96d9-2c640d9cd4cf.jpg",
+    "preview_file": "photos/previews/6e2aa560-8822-4720-96d9-2c640d9cd4cf_preview.jpg",
     "width": 5724,
     "height": 3700,
+    "preview_width": 1200,
+    "preview_height": 776,
     "featured": false,
     "data": {
       "date": "2025-05-07",
@@ -1001,15 +1094,15 @@
         "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
         "id": 40,
         "name": "M40",
-        "thumb_path": "photos/thumbs/6e2aa560-8822-4720-96d9-2c640d9cd4cf_40.jpg",
-        "bounding_box": "3128,2038,3227,2103,3134,2244,3036,2179"
+        "bounding_box": "3128,2038,3227,2103,3134,2244,3036,2179",
+        "thumbnail_box": null
       },
       {
         "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
         "id": 127,
         "name": "NGC 4290",
-        "thumb_path": null,
-        "bounding_box": "2819,2916,2937,2916,2937,3034,2819,3034"
+        "bounding_box": "2819,2916,2937,2916,2937,3034,2819,3034",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1020,8 +1113,11 @@
     "id": "fead76a3-5d51-42ef-8bb6-342dc7becf4d",
     "label": "",
     "image_file": "photos/originals/fead76a3-5d51-42ef-8bb6-342dc7becf4d.jpg",
+    "preview_file": "photos/previews/fead76a3-5d51-42ef-8bb6-342dc7becf4d_preview.jpg",
     "width": 5244,
     "height": 3619,
+    "preview_width": 1200,
+    "preview_height": 828,
     "featured": false,
     "data": {
       "date": "2025-05-07",
@@ -1035,8 +1131,8 @@
         "image_id": "fead76a3-5d51-42ef-8bb6-342dc7becf4d",
         "id": 44,
         "name": "M44 - Beehive Cluster",
-        "thumb_path": "photos/thumbs/fead76a3-5d51-42ef-8bb6-342dc7becf4d_44.jpg",
-        "bounding_box": null
+        "bounding_box": null,
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1047,8 +1143,11 @@
     "id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
     "label": "",
     "image_file": "photos/originals/f4eaaca6-93d8-4db1-a3de-be19d37f47f9.jpg",
+    "preview_file": "photos/previews/f4eaaca6-93d8-4db1-a3de-be19d37f47f9_preview.jpg",
     "width": 1867,
     "height": 1501,
+    "preview_width": 1200,
+    "preview_height": 965,
     "featured": false,
     "data": {
       "date": "2025-05-07",
@@ -1062,8 +1161,8 @@
         "image_id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
         "id": 63,
         "name": "M63 - Sunflower Galaxy",
-        "thumb_path": "photos/thumbs/f4eaaca6-93d8-4db1-a3de-be19d37f47f9_63.jpg",
-        "bounding_box": "571,475,1243,585,1183,950,511,840"
+        "bounding_box": "571,475,1243,585,1183,950,511,840",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1074,8 +1173,11 @@
     "id": "e59c0b0b-cffb-4540-8dde-daaf49dedbd6",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/e59c0b0b-cffb-4540-8dde-daaf49dedbd6.jpg",
+    "preview_file": "photos/previews/e59c0b0b-cffb-4540-8dde-daaf49dedbd6_preview.jpg",
     "width": 1596,
     "height": 1314,
+    "preview_width": 1200,
+    "preview_height": 988,
     "featured": false,
     "data": {
       "date": "2025-05-05",
@@ -1089,15 +1191,15 @@
         "image_id": "e59c0b0b-cffb-4540-8dde-daaf49dedbd6",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "thumb_path": "photos/thumbs/e59c0b0b-cffb-4540-8dde-daaf49dedbd6_16.jpg",
-        "bounding_box": null
+        "bounding_box": null,
+        "thumbnail_box": null
       },
       {
         "image_id": "e59c0b0b-cffb-4540-8dde-daaf49dedbd6",
         "id": 128,
         "name": "Pillars of Creation",
-        "thumb_path": null,
-        "bounding_box": "608,605,825,491,1023,867,806,981"
+        "bounding_box": "608,605,825,491,1023,867,806,981",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -1106,8 +1208,11 @@
     "id": "5e270de3-93b4-46d1-8705-544bc21f986b",
     "label": "Black Eye Galaxy",
     "image_file": "photos/originals/5e270de3-93b4-46d1-8705-544bc21f986b.jpg",
+    "preview_file": "photos/previews/5e270de3-93b4-46d1-8705-544bc21f986b_preview.jpg",
     "width": 1392,
     "height": 899,
+    "preview_width": 1200,
+    "preview_height": 775,
     "featured": false,
     "data": {
       "date": "2025-05-05",
@@ -1121,8 +1226,8 @@
         "image_id": "5e270de3-93b4-46d1-8705-544bc21f986b",
         "id": 64,
         "name": "M64 - Black Eye Galaxy",
-        "thumb_path": "photos/thumbs/5e270de3-93b4-46d1-8705-544bc21f986b_64.jpg",
-        "bounding_box": "406,628,714,135,938,275,630,768"
+        "bounding_box": "406,628,714,135,938,275,630,768",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1133,8 +1238,11 @@
     "id": "28c8bbe6-3187-4160-8588-c6fa1e8c99f8",
     "label": "The Plane in the Moon",
     "image_file": "photos/originals/28c8bbe6-3187-4160-8588-c6fa1e8c99f8.png",
+    "preview_file": "photos/previews/28c8bbe6-3187-4160-8588-c6fa1e8c99f8_preview.jpg",
     "width": 3000,
     "height": 3000,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2025-04-30",
@@ -1148,15 +1256,15 @@
         "image_id": "28c8bbe6-3187-4160-8588-c6fa1e8c99f8",
         "id": 154,
         "name": "Transit",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "28c8bbe6-3187-4160-8588-c6fa1e8c99f8",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1167,8 +1275,11 @@
     "id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
     "label": "Markarian's Chain",
     "image_file": "photos/originals/6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0.jpg",
+    "preview_file": "photos/previews/6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0_preview.jpg",
     "width": 5715,
     "height": 3710,
+    "preview_width": 1200,
+    "preview_height": 779,
     "featured": false,
     "data": {
       "date": "2025-04-02",
@@ -1182,57 +1293,57 @@
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 84,
         "name": "M84",
-        "thumb_path": "photos/thumbs/6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0_84.jpg",
-        "bounding_box": "2671,3381,2840,3381,2840,3550,2671,3550"
+        "bounding_box": "2671,3381,2840,3381,2840,3550,2671,3550",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 86,
         "name": "M86",
-        "thumb_path": "photos/thumbs/6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0_86.jpg",
-        "bounding_box": "3137,2248,3415,2079,3676,2511,3398,2679"
+        "bounding_box": "3137,2248,3415,2079,3676,2511,3398,2679",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 116,
         "name": "NGC 4388",
-        "thumb_path": null,
-        "bounding_box": "2049,2178,2179,2214,2076,2589,1946,2553"
+        "bounding_box": "2049,2178,2179,2214,2076,2589,1946,2553",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 115,
         "name": "NGC 4402",
-        "thumb_path": null,
-        "bounding_box": "4081,2544,4179,2572,4102,2848,4004,2821"
+        "bounding_box": "4081,2544,4179,2572,4102,2848,4004,2821",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 117,
         "name": "NGC 4413",
-        "thumb_path": null,
-        "bounding_box": "2190,1316,2334,1482,2053,1726,1909,1560"
+        "bounding_box": "2190,1316,2334,1482,2053,1726,1909,1560",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 118,
         "name": "NGC 4425",
-        "thumb_path": null,
-        "bounding_box": "2665,895,3073,849,3102,1107,2694,1153"
+        "bounding_box": "2665,895,3073,849,3102,1107,2694,1153",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 120,
         "name": "NGC 4435 - The Eyes",
-        "thumb_path": null,
-        "bounding_box": "4091,774,4360,748,4379,950,4110,976"
+        "bounding_box": "4091,774,4360,748,4379,950,4110,976",
+        "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 119,
         "name": "NGC 4438 - The Eyes",
-        "thumb_path": null,
-        "bounding_box": "4422,925,4649,989,4599,1166,4372,1102"
+        "bounding_box": "4422,925,4649,989,4599,1166,4372,1102",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1243,8 +1354,11 @@
     "id": "6b3bc70e-6e88-4834-854e-d5f7af569b38",
     "label": "Messier 106",
     "image_file": "photos/originals/6b3bc70e-6e88-4834-854e-d5f7af569b38.jpg",
+    "preview_file": "photos/previews/6b3bc70e-6e88-4834-854e-d5f7af569b38_preview.jpg",
     "width": 4341,
     "height": 3407,
+    "preview_width": 1200,
+    "preview_height": 942,
     "featured": false,
     "data": {
       "date": "2025-04-01",
@@ -1258,8 +1372,8 @@
         "image_id": "6b3bc70e-6e88-4834-854e-d5f7af569b38",
         "id": 106,
         "name": "M106",
-        "thumb_path": "photos/thumbs/6b3bc70e-6e88-4834-854e-d5f7af569b38_106.jpg",
-        "bounding_box": "1865,751,2892,1801,2366,2316,1339,1265"
+        "bounding_box": "1865,751,2892,1801,2366,2316,1339,1265",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1270,8 +1384,11 @@
     "id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
     "label": "Bode's Galaxy and the Cigar Galaxy",
     "image_file": "photos/originals/7264cb93-caef-46c3-b1d6-05d6a15c6b40.jpg",
+    "preview_file": "photos/previews/7264cb93-caef-46c3-b1d6-05d6a15c6b40_preview.jpg",
     "width": 5532,
     "height": 3421,
+    "preview_width": 1200,
+    "preview_height": 742,
     "featured": false,
     "data": {
       "date": "2025-03-25",
@@ -1285,15 +1402,15 @@
         "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
         "id": 81,
         "name": "M81 - Bode's Galaxy",
-        "thumb_path": "photos/thumbs/7264cb93-caef-46c3-b1d6-05d6a15c6b40_81.jpg",
-        "bounding_box": "955,1256,1584,596,2473,1442,1845,2102"
+        "bounding_box": "955,1256,1584,596,2473,1442,1845,2102",
+        "thumbnail_box": null
       },
       {
         "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
         "id": 82,
         "name": "M82 - Cigar Galaxy",
-        "thumb_path": "photos/thumbs/7264cb93-caef-46c3-b1d6-05d6a15c6b40_82.jpg",
-        "bounding_box": "4055,2373,4504,2010,4612,2144,4163,2507"
+        "bounding_box": "4055,2373,4504,2010,4612,2144,4163,2507",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1304,8 +1421,11 @@
     "id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
     "label": "Horsehead Nebula",
     "image_file": "photos/originals/40d7f955-7eed-40d3-a501-2190be2bb20c.jpg",
+    "preview_file": "photos/previews/40d7f955-7eed-40d3-a501-2190be2bb20c_preview.jpg",
     "width": 4948,
     "height": 3189,
+    "preview_width": 1200,
+    "preview_height": 773,
     "featured": false,
     "data": {
       "date": "2025-03-23",
@@ -1319,36 +1439,36 @@
         "image_id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
         "id": 165,
         "name": "Barnard 33 - Horsehead Nebula",
-        "thumb_path": null,
-        "bounding_box": "3469,1165,3830,1386,3513,1903,3151,1681"
+        "bounding_box": "3469,1165,3830,1386,3513,1903,3151,1681",
+        "thumbnail_box": null
       },
       {
         "image_id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
         "id": 166,
         "name": "NGC 2023",
-        "thumb_path": null,
-        "bounding_box": "2190,1620,2800,1620,2800,2303,2190,2303"
+        "bounding_box": "2190,1620,2800,1620,2800,2303,2190,2303",
+        "thumbnail_box": null
       },
       {
         "image_id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
         "id": 167,
         "name": "NGC 2024 - Flame Nebula",
-        "thumb_path": null,
-        "bounding_box": "39,653,1434,653,1434,2441,39,2441"
+        "bounding_box": "39,653,1434,653,1434,2441,39,2441",
+        "thumbnail_box": null
       },
       {
         "image_id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
         "id": 168,
         "name": "IC 434",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
         "id": 169,
         "name": "Alnitak",
-        "thumb_path": null,
-        "bounding_box": "1289,508,1464,508,1464,682,1289,682"
+        "bounding_box": "1289,508,1464,508,1464,682,1289,682",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -1357,8 +1477,11 @@
     "id": "46907060-adc9-4b12-a75f-fadbb7fc6c6c",
     "label": "",
     "image_file": "photos/originals/46907060-adc9-4b12-a75f-fadbb7fc6c6c.jpg",
+    "preview_file": "photos/previews/46907060-adc9-4b12-a75f-fadbb7fc6c6c_preview.jpg",
     "width": 2080,
     "height": 1389,
+    "preview_width": 1200,
+    "preview_height": 801,
     "featured": false,
     "data": {
       "date": "2025-03-22",
@@ -1372,8 +1495,8 @@
         "image_id": "46907060-adc9-4b12-a75f-fadbb7fc6c6c",
         "id": 3,
         "name": "M3",
-        "thumb_path": "photos/thumbs/46907060-adc9-4b12-a75f-fadbb7fc6c6c_3.jpg",
-        "bounding_box": "470,142,1584,142,1584,1256,470,1256"
+        "bounding_box": "470,142,1584,142,1584,1256,470,1256",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -1382,8 +1505,11 @@
     "id": "b089cef5-9fc9-4321-8162-c09bd028214f",
     "label": "",
     "image_file": "photos/originals/b089cef5-9fc9-4321-8162-c09bd028214f.jpg",
+    "preview_file": "photos/previews/b089cef5-9fc9-4321-8162-c09bd028214f_preview.jpg",
     "width": 2785,
     "height": 1915,
+    "preview_width": 1200,
+    "preview_height": 825,
     "featured": false,
     "data": {
       "date": "2025-03-22",
@@ -1397,8 +1523,8 @@
         "image_id": "b089cef5-9fc9-4321-8162-c09bd028214f",
         "id": 13,
         "name": "M13 - Hercules Globular Cluster",
-        "thumb_path": "photos/thumbs/b089cef5-9fc9-4321-8162-c09bd028214f_13.jpg",
-        "bounding_box": "827,427,1896,427,1896,1495,827,1495"
+        "bounding_box": "827,427,1896,427,1896,1495,827,1495",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1409,8 +1535,11 @@
     "id": "42b74ab4-da93-4d4b-866e-dbe451d00129",
     "label": "",
     "image_file": "photos/originals/42b74ab4-da93-4d4b-866e-dbe451d00129.jpg",
+    "preview_file": "photos/previews/42b74ab4-da93-4d4b-866e-dbe451d00129_preview.jpg",
     "width": 1523,
     "height": 1028,
+    "preview_width": 1200,
+    "preview_height": 810,
     "featured": false,
     "data": {
       "date": "2025-03-22",
@@ -1424,8 +1553,8 @@
         "image_id": "42b74ab4-da93-4d4b-866e-dbe451d00129",
         "id": 57,
         "name": "M57 - Ring Nebula",
-        "thumb_path": "photos/thumbs/42b74ab4-da93-4d4b-866e-dbe451d00129_57.jpg",
-        "bounding_box": "745,449,824,500,767,586,689,535"
+        "bounding_box": "745,449,824,500,767,586,689,535",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1436,8 +1565,11 @@
     "id": "a073acc2-8f91-4529-948a-3958a568978a",
     "label": "Leo Triplet",
     "image_file": "photos/originals/a073acc2-8f91-4529-948a-3958a568978a.jpg",
+    "preview_file": "photos/previews/a073acc2-8f91-4529-948a-3958a568978a_preview.jpg",
     "width": 3700,
     "height": 2508,
+    "preview_width": 1200,
+    "preview_height": 813,
     "featured": false,
     "data": {
       "date": "2025-03-22",
@@ -1451,22 +1583,22 @@
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 65,
         "name": "M65",
-        "thumb_path": "photos/thumbs/a073acc2-8f91-4529-948a-3958a568978a_65.jpg",
-        "bounding_box": "2693,367,3312,571,3237,799,2617,595"
+        "bounding_box": "2693,367,3312,571,3237,799,2617,595",
+        "thumbnail_box": null
       },
       {
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 66,
         "name": "M66",
-        "thumb_path": "photos/thumbs/a073acc2-8f91-4529-948a-3958a568978a_66.jpg",
-        "bounding_box": "2827,1932,3308,2019,3262,2276,2781,2189"
+        "bounding_box": "2827,1932,3308,2019,3262,2276,2781,2189",
+        "thumbnail_box": null
       },
       {
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 129,
         "name": "NGC 3628",
-        "thumb_path": null,
-        "bounding_box": "265,926,609,926,609,1932,265,1932"
+        "bounding_box": "265,926,609,926,609,1932,265,1932",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1477,8 +1609,11 @@
     "id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
     "label": "",
     "image_file": "photos/originals/a9f6edab-e28d-4633-b04f-e56fb0768b10.jpg",
+    "preview_file": "photos/previews/a9f6edab-e28d-4633-b04f-e56fb0768b10_preview.jpg",
     "width": 3016,
     "height": 2281,
+    "preview_width": 1200,
+    "preview_height": 908,
     "featured": false,
     "data": {
       "date": "2025-03-22",
@@ -1492,8 +1627,8 @@
         "image_id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
         "id": 104,
         "name": "M104 - Sombrero Galaxy",
-        "thumb_path": "photos/thumbs/a9f6edab-e28d-4633-b04f-e56fb0768b10_104.jpg",
-        "bounding_box": "1449,796,1684,852,1531,1498,1295,1442"
+        "bounding_box": "1449,796,1684,852,1531,1498,1295,1442",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1504,8 +1639,11 @@
     "id": "973651b0-4460-4fc3-a416-330a770bbdab",
     "label": "Eclipsed by Clouds",
     "image_file": "photos/originals/973651b0-4460-4fc3-a416-330a770bbdab.jpg",
+    "preview_file": "photos/previews/973651b0-4460-4fc3-a416-330a770bbdab_preview.jpg",
     "width": 8000,
     "height": 5333,
+    "preview_width": 1200,
+    "preview_height": 800,
     "featured": false,
     "data": {
       "date": "2025-03-13",
@@ -1519,15 +1657,15 @@
         "image_id": "973651b0-4460-4fc3-a416-330a770bbdab",
         "id": 153,
         "name": "Eclipse",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       },
       {
         "image_id": "973651b0-4460-4fc3-a416-330a770bbdab",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1538,8 +1676,11 @@
     "id": "0dc31f80-ba53-409a-9b79-fe99b180b652",
     "label": "",
     "image_file": "photos/originals/0dc31f80-ba53-409a-9b79-fe99b180b652.jpg",
+    "preview_file": "photos/previews/0dc31f80-ba53-409a-9b79-fe99b180b652_preview.jpg",
     "width": 2250,
     "height": 2250,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2025-03-13",
@@ -1553,8 +1694,8 @@
         "image_id": "0dc31f80-ba53-409a-9b79-fe99b180b652",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "479,462,1775,462,1775,1759,479,1759"
+        "bounding_box": "479,462,1775,462,1775,1759,479,1759",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1566,8 +1707,11 @@
     "id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
     "label": "Sunrise from North to South",
     "image_file": "photos/originals/50d9cc89-71dd-4de9-b3e4-a622696361e7.jpg",
+    "preview_file": "photos/previews/50d9cc89-71dd-4de9-b3e4-a622696361e7_preview.jpg",
     "width": 11340,
     "height": 3780,
+    "preview_width": 1200,
+    "preview_height": 400,
     "featured": false,
     "data": {
       "date": "2025-02-08",
@@ -1581,85 +1725,85 @@
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 130,
         "name": "Tycho Crater",
-        "thumb_path": null,
-        "bounding_box": "8843,1244,9100,1244,9100,1572,8843,1572"
+        "bounding_box": "8843,1244,9100,1244,9100,1572,8843,1572",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 131,
         "name": "Clavius Crater",
-        "thumb_path": null,
-        "bounding_box": "9728,952,10277,952,10277,1629,9728,1629"
+        "bounding_box": "9728,952,10277,952,10277,1629,9728,1629",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 132,
         "name": "Copernicus Crater",
-        "thumb_path": null,
-        "bounding_box": "3965,2228,4307,2228,4307,2571,3965,2571"
+        "bounding_box": "3965,2228,4307,2228,4307,2571,3965,2571",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 133,
         "name": "Plato Crater",
-        "thumb_path": null,
-        "bounding_box": "877,672,1088,637,1148,1003,937,1038"
+        "bounding_box": "877,672,1088,637,1148,1003,937,1038",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 134,
         "name": "Moretus Crater",
-        "thumb_path": null,
-        "bounding_box": "10535,484,10748,492,10732,934,10518,926"
+        "bounding_box": "10535,484,10748,492,10732,934,10518,926",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 145,
         "name": "Montes Apenninus",
-        "thumb_path": null,
-        "bounding_box": "2609,212,2929,7,3851,1451,3530,1655"
+        "bounding_box": "2609,212,2929,7,3851,1451,3530,1655",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 146,
         "name": "Archimedes Crater",
-        "thumb_path": null,
-        "bounding_box": "2297,603,2558,603,2558,952,2297,952"
+        "bounding_box": "2297,603,2558,603,2558,952,2297,952",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 147,
         "name": "Montes Carpatus",
-        "thumb_path": null,
-        "bounding_box": "3479,2142,3929,2185,3831,3199,3380,3155"
+        "bounding_box": "3479,2142,3929,2185,3831,3199,3380,3155",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 148,
         "name": "Eratosthenes Crater",
-        "thumb_path": null,
-        "bounding_box": "3580,1451,3808,1451,3808,1693,3580,1693"
+        "bounding_box": "3580,1451,3808,1451,3808,1693,3580,1693",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 149,
         "name": "Reinhold Crater",
-        "thumb_path": null,
-        "bounding_box": "4650,2621,4835,2621,4835,2749,4650,2749"
+        "bounding_box": "4650,2621,4835,2621,4835,2749,4650,2749",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 150,
         "name": "Bullialdus Crater",
-        "thumb_path": null,
-        "bounding_box": "6925,2457,7124,2457,7124,2656,6925,2656"
+        "bounding_box": "6925,2457,7124,2457,7124,2656,6925,2656",
+        "thumbnail_box": null
       },
       {
         "image_id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1671,8 +1815,11 @@
     "id": "80aeac93-77e2-45ee-82f9-80e8cec2d146",
     "label": "Mars 2025",
     "image_file": "photos/originals/80aeac93-77e2-45ee-82f9-80e8cec2d146.jpg",
+    "preview_file": "photos/previews/80aeac93-77e2-45ee-82f9-80e8cec2d146_preview.jpg",
     "width": 4000,
     "height": 4000,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2025-01-18",
@@ -1686,8 +1833,8 @@
         "image_id": "80aeac93-77e2-45ee-82f9-80e8cec2d146",
         "id": 135,
         "name": "Mars",
-        "thumb_path": null,
-        "bounding_box": "1371,1366,2646,1366,2646,2642,1371,2642"
+        "bounding_box": "1371,1366,2646,1366,2646,2642,1371,2642",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1698,8 +1845,11 @@
     "id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
     "label": "The 0.1 Percent",
     "image_file": "photos/originals/59b74cfc-6b1a-4c11-8e19-73c1e8975ab4.jpg",
+    "preview_file": "photos/previews/59b74cfc-6b1a-4c11-8e19-73c1e8975ab4_preview.jpg",
     "width": 4000,
     "height": 4000,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2025-01-05",
@@ -1713,22 +1863,22 @@
         "image_id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
         "id": 144,
         "name": "Callisto",
-        "thumb_path": null,
-        "bounding_box": "1435,3161,1526,3161,1526,3252,1435,3252"
+        "bounding_box": "1435,3161,1526,3161,1526,3252,1435,3252",
+        "thumbnail_box": null
       },
       {
         "image_id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
         "id": 140,
         "name": "Great Red Spot",
-        "thumb_path": null,
-        "bounding_box": "1435,2296,1726,2296,1726,2478,1435,2478"
+        "bounding_box": "1435,2296,1726,2296,1726,2478,1435,2478",
+        "thumbnail_box": null
       },
       {
         "image_id": "59b74cfc-6b1a-4c11-8e19-73c1e8975ab4",
         "id": 136,
         "name": "Jupiter",
-        "thumb_path": null,
-        "bounding_box": "952,993,3047,993,3047,2988,952,2988"
+        "bounding_box": "952,993,3047,993,3047,2988,952,2988",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1740,8 +1890,11 @@
     "id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
     "label": "The Jovian System",
     "image_file": "photos/originals/1c4131d6-bde5-4158-88a8-7104c5bc1d59.jpg",
+    "preview_file": "photos/previews/1c4131d6-bde5-4158-88a8-7104c5bc1d59_preview.jpg",
     "width": 4000,
     "height": 4000,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2025-01-05",
@@ -1755,36 +1908,36 @@
         "image_id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
         "id": 136,
         "name": "Jupiter",
-        "thumb_path": null,
-        "bounding_box": null
+        "bounding_box": null,
+        "thumbnail_box": null
       },
       {
         "image_id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
         "id": 140,
         "name": "Great Red Spot",
-        "thumb_path": null,
-        "bounding_box": "1626,2186,1826,2186,1826,2369,1626,2369"
+        "bounding_box": "1626,2186,1826,2186,1826,2369,1626,2369",
+        "thumbnail_box": null
       },
       {
         "image_id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
         "id": 141,
         "name": "Io",
-        "thumb_path": null,
-        "bounding_box": "861,2150,915,2150,915,2205,861,2205"
+        "bounding_box": "861,2150,915,2150,915,2205,861,2205",
+        "thumbnail_box": null
       },
       {
         "image_id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
         "id": 143,
         "name": "Ganymede",
-        "thumb_path": null,
-        "bounding_box": "870,2533,943,2533,943,2605,870,2605"
+        "bounding_box": "870,2533,943,2533,943,2605,870,2605",
+        "thumbnail_box": null
       },
       {
         "image_id": "1c4131d6-bde5-4158-88a8-7104c5bc1d59",
         "id": 144,
         "name": "Callisto",
-        "thumb_path": null,
-        "bounding_box": "1626,2915,1681,2915,1681,2970,1626,2970"
+        "bounding_box": "1626,2915,1681,2915,1681,2970,1626,2970",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1795,8 +1948,11 @@
     "id": "218d5be4-f103-41b5-b339-d97e43f98d76",
     "label": "",
     "image_file": "photos/originals/218d5be4-f103-41b5-b339-d97e43f98d76.jpg",
+    "preview_file": "photos/previews/218d5be4-f103-41b5-b339-d97e43f98d76_preview.jpg",
     "width": 2435,
     "height": 1847,
+    "preview_width": 1200,
+    "preview_height": 910,
     "featured": false,
     "data": {
       "date": "2024-12-17",
@@ -1810,29 +1966,29 @@
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 78,
         "name": "M78",
-        "thumb_path": "photos/thumbs/218d5be4-f103-41b5-b339-d97e43f98d76_78.jpg",
-        "bounding_box": "686,607,1036,607,1036,956,686,956"
+        "bounding_box": "686,607,1036,607,1036,956,686,956",
+        "thumbnail_box": null
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 114,
         "name": "NGC 2064",
-        "thumb_path": null,
-        "bounding_box": "235,488,1188,488,1188,1440,235,1440"
+        "bounding_box": "235,488,1188,488,1188,1440,235,1440",
+        "thumbnail_box": null
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 112,
         "name": "NGC 2067",
-        "thumb_path": null,
-        "bounding_box": "745,709,1430,1138,1243,1438,557,1009"
+        "bounding_box": "745,709,1430,1138,1243,1438,557,1009",
+        "thumbnail_box": null
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 113,
         "name": "NGC 2071",
-        "thumb_path": null,
-        "bounding_box": "1676,619,2215,619,2215,1158,1676,1158"
+        "bounding_box": "1676,619,2215,619,2215,1158,1676,1158",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1843,8 +1999,11 @@
     "id": "425450c5-558a-40fb-8714-a81dfa19450b",
     "label": "Orion Nebula",
     "image_file": "photos/originals/425450c5-558a-40fb-8714-a81dfa19450b.jpg",
+    "preview_file": "photos/previews/425450c5-558a-40fb-8714-a81dfa19450b_preview.jpg",
     "width": 5677,
     "height": 3728,
+    "preview_width": 1200,
+    "preview_height": 788,
     "featured": false,
     "data": {
       "date": "2024-12-17",
@@ -1858,15 +2017,15 @@
         "image_id": "425450c5-558a-40fb-8714-a81dfa19450b",
         "id": 42,
         "name": "M42 - Orion Nebula",
-        "thumb_path": "photos/thumbs/425450c5-558a-40fb-8714-a81dfa19450b_42.jpg",
-        "bounding_box": "1827,203,5124,203,5124,3501,1827,3501"
+        "bounding_box": "1827,203,5124,203,5124,3501,1827,3501",
+        "thumbnail_box": null
       },
       {
         "image_id": "425450c5-558a-40fb-8714-a81dfa19450b",
         "id": 43,
         "name": "M43 - De Mairan\u2019s Nebula",
-        "thumb_path": "photos/thumbs/425450c5-558a-40fb-8714-a81dfa19450b_43.jpg",
-        "bounding_box": "4529,1351,5073,1351,5073,1895,4529,1895"
+        "bounding_box": "4529,1351,5073,1351,5073,1895,4529,1895",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1877,8 +2036,11 @@
     "id": "15998577-0ca4-4002-9fa4-c57a97edd588",
     "label": "Pacman Nebula",
     "image_file": "photos/originals/15998577-0ca4-4002-9fa4-c57a97edd588.png",
+    "preview_file": "photos/previews/15998577-0ca4-4002-9fa4-c57a97edd588_preview.jpg",
     "width": 4092,
     "height": 2678,
+    "preview_width": 1200,
+    "preview_height": 785,
     "featured": false,
     "data": {
       "date": "2024-12-02",
@@ -1892,8 +2054,8 @@
         "image_id": "15998577-0ca4-4002-9fa4-c57a97edd588",
         "id": 170,
         "name": "NGC 281 - Pacman Nebula",
-        "thumb_path": null,
-        "bounding_box": "1117,500,2766,500,2766,2149,1117,2149"
+        "bounding_box": "1117,500,2766,500,2766,2149,1117,2149",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -1902,8 +2064,11 @@
     "id": "d6814416-14ce-4c52-8233-e40a7190298d",
     "label": "",
     "image_file": "photos/originals/d6814416-14ce-4c52-8233-e40a7190298d.jpg",
+    "preview_file": "photos/previews/d6814416-14ce-4c52-8233-e40a7190298d_preview.jpg",
     "width": 4568,
     "height": 3574,
+    "preview_width": 1200,
+    "preview_height": 939,
     "featured": false,
     "data": {
       "date": "2024-11-02",
@@ -1917,15 +2082,15 @@
         "image_id": "d6814416-14ce-4c52-8233-e40a7190298d",
         "id": 31,
         "name": "M31 - Andromeda Galaxy",
-        "thumb_path": "photos/thumbs/d6814416-14ce-4c52-8233-e40a7190298d_31.jpg",
-        "bounding_box": "58,1113,3676,154,4257,2347,639,3305"
+        "bounding_box": "58,1113,3676,154,4257,2347,639,3305",
+        "thumbnail_box": null
       },
       {
         "image_id": "d6814416-14ce-4c52-8233-e40a7190298d",
         "id": 32,
         "name": "M32 - Le Gentil",
-        "thumb_path": null,
-        "bounding_box": "460,830,639,830,639,1009,460,1009"
+        "bounding_box": "460,830,639,830,639,1009,460,1009",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1936,8 +2101,11 @@
     "id": "c4f70928-88b0-45f1-8bc0-a2cfb1bda54a",
     "label": "",
     "image_file": "photos/originals/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a.jpg",
+    "preview_file": "photos/previews/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a_preview.jpg",
     "width": 4885,
     "height": 3170,
+    "preview_width": 1200,
+    "preview_height": 779,
     "featured": false,
     "data": {
       "date": "2024-11-02",
@@ -1951,8 +2119,8 @@
         "image_id": "c4f70928-88b0-45f1-8bc0-a2cfb1bda54a",
         "id": 33,
         "name": "M33 - Triangulum Galaxy",
-        "thumb_path": "photos/thumbs/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a_33.jpg",
-        "bounding_box": "859,375,4039,375,4039,2652,859,2652"
+        "bounding_box": "859,375,4039,375,4039,2652,859,2652",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1963,8 +2131,11 @@
     "id": "7c93a033-651a-491f-a013-32cefd0f3374",
     "label": "",
     "image_file": "photos/originals/7c93a033-651a-491f-a013-32cefd0f3374.jpg",
+    "preview_file": "photos/previews/7c93a033-651a-491f-a013-32cefd0f3374_preview.jpg",
     "width": 1720,
     "height": 965,
+    "preview_width": 1200,
+    "preview_height": 673,
     "featured": false,
     "data": {
       "date": "2024-10-28",
@@ -1978,8 +2149,8 @@
         "image_id": "7c93a033-651a-491f-a013-32cefd0f3374",
         "id": 29,
         "name": "M29 - Cooling Tower Cluster",
-        "thumb_path": "photos/thumbs/7c93a033-651a-491f-a013-32cefd0f3374_29.jpg",
-        "bounding_box": "456,132,1254,132,1254,930,456,930"
+        "bounding_box": "456,132,1254,132,1254,930,456,930",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1990,8 +2161,11 @@
     "id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
     "label": "",
     "image_file": "photos/originals/4a7eea52-952b-4196-b028-b8cd1cc86700.jpg",
+    "preview_file": "photos/previews/4a7eea52-952b-4196-b028-b8cd1cc86700_preview.jpg",
     "width": 5404,
     "height": 3140,
+    "preview_width": 1200,
+    "preview_height": 697,
     "featured": false,
     "data": {
       "date": "2024-10-28",
@@ -2005,8 +2179,8 @@
         "image_id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
         "id": 45,
         "name": "M45 - Pleiades",
-        "thumb_path": "photos/thumbs/4a7eea52-952b-4196-b028-b8cd1cc86700_45.jpg",
-        "bounding_box": "n,u,l,l"
+        "bounding_box": "n,u,l,l",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2017,8 +2191,11 @@
     "id": "780b5cf7-739d-4313-8878-c7621fc99332",
     "label": "",
     "image_file": "photos/originals/780b5cf7-739d-4313-8878-c7621fc99332.jpg",
+    "preview_file": "photos/previews/780b5cf7-739d-4313-8878-c7621fc99332_preview.jpg",
     "width": 2057,
     "height": 1552,
+    "preview_width": 1200,
+    "preview_height": 905,
     "featured": false,
     "data": {
       "date": "2024-10-28",
@@ -2032,8 +2209,8 @@
         "image_id": "780b5cf7-739d-4313-8878-c7621fc99332",
         "id": 74,
         "name": "M74 - Phantom Galaxy",
-        "thumb_path": "photos/thumbs/780b5cf7-739d-4313-8878-c7621fc99332_74.jpg",
-        "bounding_box": "794,467,1311,467,1311,1012,794,1012"
+        "bounding_box": "794,467,1311,467,1311,1012,794,1012",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2044,8 +2221,11 @@
     "id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
     "label": "",
     "image_file": "photos/originals/67750bec-9d1f-4094-8ea1-908aa1bfd907.jpg",
+    "preview_file": "photos/previews/67750bec-9d1f-4094-8ea1-908aa1bfd907_preview.jpg",
     "width": 1260,
     "height": 806,
+    "preview_width": 1200,
+    "preview_height": 768,
     "featured": false,
     "data": {
       "date": "2024-10-28",
@@ -2059,8 +2239,8 @@
         "image_id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
         "id": 76,
         "name": "M76 - Little Dumbbell Nebula",
-        "thumb_path": "photos/thumbs/67750bec-9d1f-4094-8ea1-908aa1bfd907_76.jpg",
-        "bounding_box": "414,309,701,166,817,401,530,543"
+        "bounding_box": "414,309,701,166,817,401,530,543",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2071,8 +2251,11 @@
     "id": "c76a6fa3-f819-4068-8ffb-382c1950361f",
     "label": "",
     "image_file": "photos/originals/c76a6fa3-f819-4068-8ffb-382c1950361f.jpg",
+    "preview_file": "photos/previews/c76a6fa3-f819-4068-8ffb-382c1950361f_preview.jpg",
     "width": 1615,
     "height": 977,
+    "preview_width": 1200,
+    "preview_height": 726,
     "featured": false,
     "data": {
       "date": "2024-10-19",
@@ -2086,8 +2269,8 @@
         "image_id": "c76a6fa3-f819-4068-8ffb-382c1950361f",
         "id": 1,
         "name": "M1 - Crab Nebula",
-        "thumb_path": "photos/thumbs/c76a6fa3-f819-4068-8ffb-382c1950361f_1.jpg",
-        "bounding_box": "397,200,823,200,823,839,397,839"
+        "bounding_box": "397,200,823,200,823,839,397,839",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2098,8 +2281,11 @@
     "id": "29d52384-5a14-4674-bb79-86638ad795a1",
     "label": "",
     "image_file": "photos/originals/29d52384-5a14-4674-bb79-86638ad795a1.jpg",
+    "preview_file": "photos/previews/29d52384-5a14-4674-bb79-86638ad795a1_preview.jpg",
     "width": 1301,
     "height": 836,
+    "preview_width": 1200,
+    "preview_height": 771,
     "featured": false,
     "data": {
       "date": "2024-10-19",
@@ -2113,8 +2299,8 @@
         "image_id": "29d52384-5a14-4674-bb79-86638ad795a1",
         "id": 27,
         "name": "M27 - Dumbbell Nebula",
-        "thumb_path": "photos/thumbs/29d52384-5a14-4674-bb79-86638ad795a1_27.jpg",
-        "bounding_box": "265,213,898,96,997,630,364,747"
+        "bounding_box": "265,213,898,96,997,630,364,747",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": []
@@ -2123,8 +2309,11 @@
     "id": "0c346db0-23b4-410d-9cd7-b5b236bf2589",
     "label": "",
     "image_file": "photos/originals/0c346db0-23b4-410d-9cd7-b5b236bf2589.jpg",
+    "preview_file": "photos/previews/0c346db0-23b4-410d-9cd7-b5b236bf2589_preview.jpg",
     "width": 2344,
     "height": 2344,
+    "preview_width": 1200,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "2024-10-19",
@@ -2138,8 +2327,8 @@
         "image_id": "0c346db0-23b4-410d-9cd7-b5b236bf2589",
         "id": 137,
         "name": "Saturn",
-        "thumb_path": null,
-        "bounding_box": "648,945,1705,945,1705,1404,648,1404"
+        "bounding_box": "648,945,1705,945,1705,1404,648,1404",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2150,8 +2339,11 @@
     "id": "fc283f93-e648-4762-8d99-8fe615214315",
     "label": "",
     "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
+    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
     "width": 4996,
     "height": 3357,
+    "preview_width": 1200,
+    "preview_height": 806,
     "featured": false,
     "data": {
       "date": "",
@@ -2165,8 +2357,8 @@
         "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
         "id": 36,
         "name": "M36 - Pinwheel Cluster",
-        "thumb_path": "photos/thumbs/fc283f93-e648-4762-8d99-8fe615214315_36.jpg",
-        "bounding_box": "1556,707,3515,707,3515,2666,1556,2666"
+        "bounding_box": "1556,707,3515,707,3515,2666,1556,2666",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2177,8 +2369,11 @@
     "id": "4101f360-818f-49db-903e-1172a8405009",
     "label": "",
     "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
+    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
     "width": 5589,
     "height": 3166,
+    "preview_width": 1200,
+    "preview_height": 680,
     "featured": false,
     "data": {
       "date": "",
@@ -2192,8 +2387,8 @@
         "image_id": "4101f360-818f-49db-903e-1172a8405009",
         "id": 53,
         "name": "M53",
-        "thumb_path": "photos/thumbs/4101f360-818f-49db-903e-1172a8405009_53.jpg",
-        "bounding_box": "2411,1198,3307,1198,3307,2094,2411,2094"
+        "bounding_box": "2411,1198,3307,1198,3307,2094,2411,2094",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2204,8 +2399,11 @@
     "id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
     "label": "The Lunar South Pole",
     "image_file": "photos/originals/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0.jpg",
+    "preview_file": "photos/previews/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0_preview.jpg",
     "width": 1766,
     "height": 1292,
+    "preview_width": 1200,
+    "preview_height": 878,
     "featured": false,
     "data": {
       "date": "",
@@ -2219,22 +2417,22 @@
         "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
         "id": 131,
         "name": "Clavius Crater",
-        "thumb_path": null,
-        "bounding_box": "441,983,1180,983,1180,1283,441,1283"
+        "bounding_box": "441,983,1180,983,1180,1283,441,1283",
+        "thumbnail_box": null
       },
       {
         "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "n,u,l,l"
+        "bounding_box": "n,u,l,l",
+        "thumbnail_box": null
       },
       {
         "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
         "id": 134,
         "name": "Moretus Crater",
-        "thumb_path": null,
-        "bounding_box": "38,476,409,476,409,676,38,676"
+        "bounding_box": "38,476,409,476,409,676,38,676",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -2246,8 +2444,11 @@
     "id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
     "label": "Mineral Moon",
     "image_file": "photos/originals/c7eaa67d-df59-45be-97a2-5e7c5aab5686.jpg",
+    "preview_file": "photos/previews/c7eaa67d-df59-45be-97a2-5e7c5aab5686_preview.jpg",
     "width": 1042,
     "height": 1852,
+    "preview_width": 675,
+    "preview_height": 1200,
     "featured": false,
     "data": {
       "date": "",
@@ -2261,43 +2462,43 @@
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 132,
         "name": "Copernicus Crater",
-        "thumb_path": null,
-        "bounding_box": "956,1250,1040,1250,1040,1347,956,1347"
+        "bounding_box": "956,1250,1040,1250,1040,1347,956,1347",
+        "thumbnail_box": null
       },
       {
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 133,
         "name": "Plato Crater",
-        "thumb_path": null,
-        "bounding_box": "9,881,96,830,133,893,47,945"
+        "bounding_box": "9,881,96,830,133,893,47,945",
+        "thumbnail_box": null
       },
       {
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 145,
         "name": "Montes Apenninus",
-        "thumb_path": null,
-        "bounding_box": "179,1309,770,1309,770,1475,179,1475"
+        "bounding_box": "179,1309,770,1309,770,1475,179,1475",
+        "thumbnail_box": null
       },
       {
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 146,
         "name": "Archimedes Crater",
-        "thumb_path": null,
-        "bounding_box": "313,1198,385,1198,385,1274,313,1274"
+        "bounding_box": "313,1198,385,1198,385,1274,313,1274",
+        "thumbnail_box": null
       },
       {
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 148,
         "name": "Eratosthenes Crater",
-        "thumb_path": null,
-        "bounding_box": "717,1332,783,1332,783,1398,717,1398"
+        "bounding_box": "717,1332,783,1332,783,1398,717,1398",
+        "thumbnail_box": null
       },
       {
         "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
         "id": 124,
         "name": "Moon",
-        "thumb_path": null,
-        "bounding_box": "null"
+        "bounding_box": "null",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [

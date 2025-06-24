@@ -26,24 +26,30 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const grid = document.getElementById('messier-grid');
         const renderPlaceholderGrid = (g) => { g.innerHTML = ''; for (let i = 1; i <= 110; i++) { const d = document.createElement('div'); d.className = 'grid-item'; d.textContent = `M${i}`; g.appendChild(d); }};
+        
         try {
             const v = Date.now();
             const [galleriesRes, imagesRes] = await Promise.all([fetch(`/photos/data/galleries.json?v=${v}`), fetch(`/photos/data/all_images.json?v=${v}`)]);
             if (!galleriesRes.ok || !imagesRes.ok) throw new Error('Failed to load gallery data files.');
+            
             const galleriesMap = await galleriesRes.json();
             const allImages = await imagesRes.json();
             const messierId = galleriesMap['Messier'];
             if (typeof messierId === 'undefined') throw new Error('"Messier" gallery not found in galleries.json.');
+
             const messierImages = allImages.filter(img => img.gallery_ids.includes(messierId));
             const bestMessierShots = {};
             const messierNumRegex = /M(\d+)/;
+
             messierImages.forEach(image => {
                 image.subjects.forEach(subject => {
                     const match = subject.name.match(messierNumRegex);
-                    if (match && subject.thumb_path) {
+                    // We now check for thumbnail_box instead of thumb_path
+                    if (match && subject.thumbnail_box) {
                         const num = parseInt(match[1], 10);
                         const existing = bestMessierShots[num];
                         if (!image.data.date) return;
+                        
                         const currentDate = new Date(image.data.date);
                         if (!existing || currentDate > new Date(existing.image.data.date)) {
                             bestMessierShots[num] = { image: image, subject: subject };
@@ -51,20 +57,71 @@
                     }
                 });
             });
+            
             grid.innerHTML = '';
             for (let i = 1; i <= 110; i++) {
                 const div = document.createElement('div');
                 div.className = 'grid-item';
                 const shot = bestMessierShots[i];
-                if (shot) {
+
+                // --- MODIFIED LOGIC FOR DYNAMIC CROPPING ---
+                if (shot && shot.subject.thumbnail_box) {
                     div.classList.add('photographed');
-                    div.style.backgroundImage = `url('/${shot.subject.thumb_path}')`;
                     div.dataset.label = shot.subject.name;
+
+                    // 1. Set the background to the main preview image
+                    div.style.backgroundImage = `url('/${shot.image.preview_file}')`;
+
+                    // 2. Parse the thumbnail_box coordinates
+                    const coords = shot.subject.thumbnail_box.split(',').map(Number);
+                    const points = [];
+                    for (let j = 0; j < coords.length; j += 2) {
+                        points.push({ x: coords[j], y: coords[j+1] });
+                    }
+
+                    // 3. Calculate the crop window dimensions from the original image coordinates
+                    const minX = Math.min(...points.map(p => p.x));
+                    const minY = Math.min(...points.map(p => p.y));
+                    const maxX = Math.max(...points.map(p => p.x));
+                    const maxY = Math.max(...points.map(p => p.y));
+
+                    const cropWidthOrig = maxX - minX;
+                    const cropHeightOrig = maxY - minY;
+
+                    if (cropWidthOrig > 0 && cropHeightOrig > 0) {
+                        // 4. Calculate scaling and positioning for the CSS
+                        const scaleFactor = shot.image.preview_width / shot.image.width;
+                        
+                        // How much we need to zoom the preview image so the crop area fills the div
+                        const zoom = 160 / (cropWidthOrig * scaleFactor); 
+
+                        // Calculate the size of the full background image at this new zoom level
+                        const bgSizeX = shot.image.preview_width * zoom;
+                        const bgSizeY = shot.image.preview_height * zoom;
+
+                        // Calculate the offset to bring the top-left of the crop to the corner
+                        const bgPosX = - (minX * scaleFactor * zoom);
+                        const bgPosY = - (minY * scaleFactor * zoom);
+
+                        // 5. Apply the dynamic styles
+                        div.style.backgroundSize = `${bgSizeX}px ${bgSizeY}px`;
+                        div.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
+                    }
+                    
                     div.addEventListener('click', () => {
-                        const modalData = { label: shot.subject.name, fullImageSrc: `/${shot.image.image_file}`, originalWidth: shot.image.width, originalHeight: shot.image.height, details: shot.image.data, subjects: shot.image.subjects };
+                        const modalData = { 
+                            label: shot.subject.name, 
+                            fullImageSrc: `/${shot.image.image_file}`, 
+                            originalWidth: shot.image.width, 
+                            originalHeight: shot.image.height, 
+                            details: shot.image.data, 
+                            subjects: shot.image.subjects 
+                        };
                         openModal(modalData);
                     });
-                } else { div.textContent = `M${i}`; }
+                } else {
+                    div.textContent = `M${i}`;
+                }
                 grid.appendChild(div);
             }
         } catch (e) {

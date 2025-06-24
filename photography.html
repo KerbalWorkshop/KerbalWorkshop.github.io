@@ -190,7 +190,6 @@
             if (!res.ok) throw new Error("Could not fetch image data");
             const allImages = await res.json();
 
-            // --- FIXED Featured Slideshow Logic ---
             featuredImages = allImages.filter(img => img.featured);
             let slideshowHTML = `
                 <div class="featured-container">
@@ -201,7 +200,7 @@
                 featuredImages.forEach((item, index) => {
                     slideshowHTML += `
                         <div class="slide" data-index="${index}">
-                            <img src="/${item.image_file}" alt="${item.label}" loading="lazy">
+                            <img src="/${item.preview_file}" alt="${item.label}" loading="lazy">
                             <div class="label-overlay">${item.label}</div>
                         </div>`;
                 });
@@ -214,7 +213,6 @@
             slides = Array.from(placeholder.querySelectorAll('.slide'));
             const slideshowWrapper = document.getElementById('slideshow-wrapper');
             
-            // Add hover effect to the entire frame
             slides.forEach(slide => {
                 slide.addEventListener('mouseenter', () => {
                     if (slide.classList.contains('is-active')) {
@@ -232,13 +230,13 @@
 
                 slideshowIntervalId = setInterval(() => {
                     slides[currentSlideIndex].classList.remove('is-active');
+                    slideshowWrapper.classList.remove('hovered'); // Remove hover effect on change
                     currentSlideIndex = (currentSlideIndex + 1) % slides.length;
                     slides[currentSlideIndex].classList.add('is-active');
                 }, 10000);
             };
 
             if (slides.length > 0) {
-                // Initialize the first slide and add click listeners
                 slides[0].classList.add('is-active');
                 slides.forEach((slide) => {
                     slide.addEventListener('click', (e) => {
@@ -246,7 +244,7 @@
                         const index = parseInt(e.currentTarget.dataset.index, 10);
                         openModal({
                             label: featuredImages[index].label,
-                            fullImageSrc: `/${featuredImages[index].image_file}`,
+                            fullImageSrc: `/${featuredImages[index].image_file}`, // Modal still uses full-res
                             originalWidth: featuredImages[index].width,
                             originalHeight: featuredImages[index].height,
                             details: featuredImages[index].data,
@@ -255,10 +253,8 @@
                     });
                 });
                 
-                // Start cycling if needed
                 startSlideshow();
                 
-                // Hook into modal close events to restart slideshow
                 const modalCloseButton = document.getElementById('modal-close-button');
                 const galleryModal = document.getElementById('gallery-modal');
                 const restart = () => { 
@@ -276,7 +272,6 @@
                 });
             }
 
-            // --- Subject Search Logic ---
             const uniqueSubjects = new Set();
             allImages.forEach(img => img.subjects.forEach(sub => uniqueSubjects.add(sub.name)));
             allSubjects = Array.from(uniqueSubjects).sort();
@@ -286,7 +281,7 @@
             placeholder.innerHTML = `<div class="featured-container"><h2>Featured Photo</h2><div class="slideshow-wrapper"><div class="slideshow-placeholder">Error loading featured photo.</div></div></div>`;
         }
         
-        // --- Advanced Search Logic (Restored) ---
+        // --- Advanced Search Logic (Remains Unchanged) ---
         const searchToggle = document.getElementById('search-toggle');
         const filterControls = document.getElementById('filter-controls');
         searchToggle.addEventListener('click', () => {
@@ -296,7 +291,6 @@
         });
         document.querySelectorAll('#camera-filter input[type="checkbox"]').forEach(cb => cb.checked = true);
         
-        // Subject search functionality
         if (subjectInput) {
             subjectInput.addEventListener('input', () => {
                 const query = subjectInput.value.toLowerCase();
@@ -304,13 +298,8 @@
                     subjectResultsContainer.style.display = 'none'; 
                     return; 
                 }
-                
-                const filtered = allSubjects.filter(s => 
-                    s.toLowerCase().includes(query) && !selectedSubjects.has(s)
-                );
-                
+                const filtered = allSubjects.filter(s => s.toLowerCase().includes(query) && !selectedSubjects.has(s));
                 subjectResultsContainer.innerHTML = '';
-                
                 if (filtered.length > 0) {
                     filtered.slice(0, 10).forEach(sub => {
                         const item = document.createElement('div');
@@ -327,8 +316,7 @@
         }
         
         document.addEventListener('click', (e) => {
-            if (subjectResultsContainer && !subjectResultsContainer.contains(e.target) && 
-                e.target !== subjectInput && subjectResultsContainer.style.display === 'block') {
+            if (subjectResultsContainer && !subjectResultsContainer.contains(e.target) && e.target !== subjectInput && subjectResultsContainer.style.display === 'block') {
                 subjectResultsContainer.style.display = 'none';
             }
         });
@@ -336,11 +324,9 @@
         function addSubjectPill(subjectName) {
             if (selectedSubjects.has(subjectName)) return;
             selectedSubjects.add(subjectName);
-            
             const pill = document.createElement('span');
             pill.className = 'subject-pill'; 
             pill.textContent = subjectName;
-            
             const removeBtn = document.createElement('span');
             removeBtn.className = 'remove-pill'; 
             removeBtn.textContent = '×';
@@ -349,18 +335,13 @@
                 selectedSubjects.delete(subjectName);
                 pill.remove();
             });
-            
             pill.appendChild(removeBtn);
-            
-            // Insert before the input field
             const input = document.getElementById('subject-search-input');
             subjectPillContainer.insertBefore(pill, input);
-            
             subjectInput.value = '';
             subjectResultsContainer.style.display = 'none';
         }
         
-        // Range slider logic
         const minExpValue = 1, maxExpValue = 1000, L_POWER = 2;
         const positionToValue = p => Math.round(minExpValue + (Math.pow(p / 100, L_POWER) * (maxExpValue - minExpValue)));
         
@@ -369,74 +350,59 @@
             const maxSlider = document.getElementById(maxId);
             const valueDisplay = document.getElementById(valId);
             const trackHighlight = document.getElementById(trackId);
-            
             function update() {
                 if (+minSlider.value > +maxSlider.value) { 
                     [minSlider.value, maxSlider.value] = [maxSlider.value, minSlider.value]; 
                 }
-                
                 const minPos = (minSlider.value / minSlider.max) * 100;
                 const maxPos = (maxSlider.value / maxSlider.max) * 100;
-                
                 trackHighlight.style.left = `${minPos}%`;
                 trackHighlight.style.width = `${maxPos - minPos}%`;
                 valueDisplay.textContent = `${formatter(minSlider.value)} - ${formatter(maxSlider.value)}`;
             }
-            
             minSlider.addEventListener('input', update);
             maxSlider.addEventListener('input', update);
             update();
         }
         
-        setupDualRangeSlider('min-exposure', 'max-exposure', 'exposure-value', 'exposure-track-highlight', 
-                             pos => `${positionToValue(pos)} min`);
+        setupDualRangeSlider('min-exposure', 'max-exposure', 'exposure-value', 'exposure-track-highlight', pos => `${positionToValue(pos)} min`);
         
         const startDate = new Date('2024-10-01T00:00:00'); 
         const endDate = new Date();
         const daysDifference = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
-        
         const minDateSlider = document.getElementById('min-date'); 
         const maxDateSlider = document.getElementById('max-date');
         minDateSlider.max = daysDifference; 
         maxDateSlider.max = daysDifference; 
         maxDateSlider.value = daysDifference;
-        
         const dateFormatter = days => { 
             const d = new Date(startDate); 
             d.setDate(startDate.getDate() + +days); 
             return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); 
         };
-        
         setupDualRangeSlider('min-date', 'max-date', 'date-value', 'date-track-highlight', dateFormatter);
         
-        // Search form submission
         document.getElementById('search-form').addEventListener('submit', event => {
             event.preventDefault();
             const params = new URLSearchParams();
-            
             if (selectedSubjects.size > 0) {
                 params.append('subjects', Array.from(selectedSubjects).join(','));
             }
-            
-            const selectedCameras = Array.from(document.querySelectorAll('#camera-filter input:checked'))
-                                        .map(cb => cb.value);
+            const selectedCameras = Array.from(document.querySelectorAll('#camera-filter input:checked')).map(cb => cb.value);
             if (selectedCameras.length < document.querySelectorAll('#camera-filter input').length) {
                 params.append('cameras', selectedCameras.join(','));
             }
-            
             const minExpSlider = document.getElementById('min-exposure');
             const maxExpSlider = document.getElementById('max-exposure');
             if (+minExpSlider.value > 0 || +maxExpSlider.value < 100) {
                 params.append('minExp', positionToValue(minExpSlider.value));
                 params.append('maxExp', positionToValue(maxExpSlider.value));
             }
-            
             if (+minDateSlider.value > 0 || +maxDateSlider.value < daysDifference) {
                 const toYYYYMMDD = dStr => new Date(dStr).toISOString().split('T')[0];
                 params.append('minDate', toYYYYMMDD(dateFormatter(minDateSlider.value)));
                 params.append('maxDate', toYYYYMMDD(dateFormatter(maxDateSlider.value)));
             }
-            
             window.location.href = `photography-search-results.html?${params.toString()}`;
         });
     });
