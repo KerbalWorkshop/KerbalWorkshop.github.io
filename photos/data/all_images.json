@@ -21,14 +21,14 @@
         "image_id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "bounding_box": "430,990,3046,107,3708,2067,1093,2950",
-        "thumbnail_box": "1460,978,2717,978,2717,2235,1460,2235"
+        "bounding_box": null,
+        "thumbnail_box": "1003,385,3231,385,3231,2613,1003,2613"
       },
       {
         "image_id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
         "id": 128,
         "name": "Pillars of Creation",
-        "bounding_box": "2102,1555,2310,1442,2446,1694,2239,1806",
+        "bounding_box": "2097,1541,2326,1445,2460,1764,2230,1860",
         "thumbnail_box": null
       }
     ],
@@ -124,8 +124,8 @@
         "image_id": "3073da49-7394-46ac-a21a-a83eb4d75246",
         "id": 17,
         "name": "M17 - Omega Nebula",
-        "bounding_box": "null",
-        "thumbnail_box": null
+        "bounding_box": "538,28,2194,28,2194,1684,538,1684",
+        "thumbnail_box": "538,28,2194,28,2194,1684,538,1684"
       }
     ],
     "gallery_ids": [
@@ -190,8 +190,8 @@
         "image_id": "466e5101-8772-42e6-8798-b968973712f1",
         "id": 39,
         "name": "M39",
-        "bounding_box": "1064,574,3447,574,3447,2958,1064,2958",
-        "thumbnail_box": null
+        "bounding_box": "729,153,3588,153,3588,3011,729,3011",
+        "thumbnail_box": "729,153,3588,153,3588,3011,729,3011"
       }
     ],
     "gallery_ids": [
@@ -220,8 +220,8 @@
         "image_id": "c571061a-74bb-4fca-91d4-00add2e8a8a6",
         "id": 27,
         "name": "M27 - Dumbbell Nebula",
-        "bounding_box": "1025,449,1486,766,1244,1117,783,799",
-        "thumbnail_box": null
+        "bounding_box": "1027,457,1484,757,1259,1098,803,798",
+        "thumbnail_box": "811,445,1482,445,1482,1117,811,1117"
       }
     ],
     "gallery_ids": [
@@ -251,8 +251,8 @@
         "image_id": "cbe00dc7-0099-446c-9bec-6ed455f54138",
         "id": 3,
         "name": "M3",
-        "bounding_box": "592,195,2151,195,2151,1754,592,1754",
-        "thumbnail_box": null
+        "bounding_box": "747,358,1992,358,1992,1602,747,1602",
+        "thumbnail_box": "747,358,1992,358,1992,1602,747,1602"
       }
     ],
     "gallery_ids": [
@@ -282,8 +282,8 @@
         "image_id": "361d63e8-afa6-4e9b-a417-ffdb6c3ff204",
         "id": 101,
         "name": "M101 - Pinwheel Galaxy",
-        "bounding_box": "1203,818,2323,818,2323,1939,1203,1939",
-        "thumbnail_box": null
+        "bounding_box": "1147,855,2256,855,2256,1920,1147,1920",
+        "thumbnail_box": "887,570,2573,570,2573,2256,887,2256"
       }
     ],
     "gallery_ids": [
@@ -312,14 +312,14 @@
         "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
         "id": 51,
         "name": "M51 - Whirlpool Galaxy",
-        "bounding_box": "622,435,1369,386,1401,864,654,913",
-        "thumbnail_box": null
+        "bounding_box": "653,420,1364,420,1364,898,653,898",
+        "thumbnail_box": "505,153,1505,153,1505,1152,505,1152"
       },
       {
         "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
         "id": 111,
         "name": "M51b - NGC 5195",
-        "bounding_box": "1201,551,1362,551,1362,760,1201,760",
+        "bounding_box": "1204,545,1352,545,1352,754,1204,754",
         "thumbnail_box": null
       }
     ],
@@ -329,10 +329,10 @@
     ]
   },
   {
-    "id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
-    "label": "",
-    "image_file": "photos/originals/a088bc7f-53e9-42ba-acc2-05810c0ebbce.jpg",
-    "preview_file": "photos/previews/a088bc7f-53e9-42ba-acc2-05810c0ebbce_preview.jpg",
+    "id": "5779198c-b983-4eb6-9c47-6d7e00ce0a0c",
+    "label": "First Quarter Moon",
+    "image_file": "photos/originals/5779198c-b983-4eb6-9c47-6d7e00ce0a0c.jpg",
+    "preview_file": "photos/previews/5779198c-b983-4eb6-9c47-6d7e00ce0a0c.jpg",
     "width": 3374,
     "height": 1860,
     "preview_width": 1200,
@@ -343,42 +343,35 @@
       "integration": null,
       "camera": "ZWO ASI662MC",
       "telescope": "Celestron C8-N",
-      "notes": "4-panel mosaic"
+      "notes": "4-panel mosaic."
     },
     "subjects": [
       {
-        "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
-        "id": 124,
-        "name": "Moon",
-        "bounding_box": "null",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
-        "id": 155,
-        "name": "Langrenus Crater",
-        "bounding_box": "1762,1446,1895,1395,1933,1495,1800,1545",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
-        "id": 156,
-        "name": "Theophilius Crater",
-        "bounding_box": null,
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
+        "image_id": "5779198c-b983-4eb6-9c47-6d7e00ce0a0c",
         "id": 157,
         "name": "Aristoteles Crater",
-        "bounding_box": "391,359,457,350,471,449,404,459",
+        "bounding_box": "401,366,462,366,462,453,401,453",
         "thumbnail_box": null
       },
       {
-        "image_id": "a088bc7f-53e9-42ba-acc2-05810c0ebbce",
+        "image_id": "5779198c-b983-4eb6-9c47-6d7e00ce0a0c",
         "id": 158,
         "name": "Eudoxus Crater",
-        "bounding_box": "500,396,550,377,573,437,524,457",
+        "bounding_box": "514,387,566,387,566,440,514,440",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "5779198c-b983-4eb6-9c47-6d7e00ce0a0c",
+        "id": 155,
+        "name": "Langrenus Crater",
+        "bounding_box": "1768,1437,1901,1407,1922,1499,1789,1529",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "5779198c-b983-4eb6-9c47-6d7e00ce0a0c",
+        "id": 124,
+        "name": "Moon",
+        "bounding_box": null,
         "thumbnail_box": null
       }
     ],
@@ -529,8 +522,8 @@
         "image_id": "294ef7e0-b9f7-4392-802a-72b2573508ac",
         "id": 94,
         "name": "M94",
-        "bounding_box": "1684,1052,1990,1052,1990,1463,1684,1463",
-        "thumbnail_box": null
+        "bounding_box": "1677,1039,1979,1039,1979,1474,1677,1474",
+        "thumbnail_box": "1441,858,2227,858,2227,1643,1441,1643"
       }
     ],
     "gallery_ids": [
@@ -560,8 +553,8 @@
         "image_id": "bde74acf-5df9-43dd-bf84-e0eba61190d8",
         "id": 95,
         "name": "M95",
-        "bounding_box": "1582,1511,1792,1511,1792,1721,1582,1721",
-        "thumbnail_box": null
+        "bounding_box": "1487,1411,1939,1530,1864,1814,1413,1694",
+        "thumbnail_box": "1278,1205,2095,1205,2095,2022,1278,2022"
       }
     ],
     "gallery_ids": [
@@ -590,8 +583,8 @@
         "image_id": "4946a347-b5a4-469e-995e-d03985a7decd",
         "id": 20,
         "name": "M20 - Trifid Nebula",
-        "bounding_box": "441,271,1727,271,1727,1214,441,1214",
-        "thumbnail_box": null
+        "bounding_box": "411,223,1693,223,1693,1213,411,1213",
+        "thumbnail_box": "391,57,1734,57,1734,1400,391,1400"
       }
     ],
     "gallery_ids": [
@@ -620,8 +613,8 @@
         "image_id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
         "id": 21,
         "name": "M21 - Webb's Cross",
-        "bounding_box": "426,255,1537,255,1537,1366,426,1366",
-        "thumbnail_box": null
+        "bounding_box": "475,394,1408,394,1408,1327,475,1327",
+        "thumbnail_box": "475,394,1408,394,1408,1327,475,1327"
       }
     ],
     "gallery_ids": [
@@ -650,8 +643,8 @@
         "image_id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
         "id": 67,
         "name": "M67",
-        "bounding_box": "1302,875,3899,875,3899,3472,1302,3472",
-        "thumbnail_box": null
+        "bounding_box": "1735,1437,3353,1437,3353,3054,1735,3054",
+        "thumbnail_box": "1735,1437,3353,1437,3353,3054,1735,3054"
       }
     ],
     "gallery_ids": [
@@ -680,8 +673,8 @@
         "image_id": "aa8c53b6-b073-4b44-8ba3-d5287189ac4d",
         "id": 87,
         "name": "M87 - Virgo A",
-        "bounding_box": "2543,1704,2746,1704,2746,1906,2543,1906",
-        "thumbnail_box": null
+        "bounding_box": "2461,1622,2822,1622,2822,1983,2461,1983",
+        "thumbnail_box": "2461,1622,2822,1622,2822,1983,2461,1983"
       }
     ],
     "gallery_ids": [
@@ -710,28 +703,28 @@
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 105,
         "name": "M105",
-        "bounding_box": "4147,1715,4292,1715,4292,1861,4147,1861",
-        "thumbnail_box": null
+        "bounding_box": "4088,1805,4253,1658,4350,1767,4185,1914",
+        "thumbnail_box": "4041,1609,4402,1609,4402,1970,4041,1970"
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 96,
         "name": "M96",
-        "bounding_box": "477,1597,626,1533,718,1749,570,1813",
-        "thumbnail_box": null
+        "bounding_box": "317,1528,801,1460,851,1816,367,1884",
+        "thumbnail_box": "242,1315,965,1315,965,2038,242,2038"
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 121,
         "name": "NGC 3384",
-        "bounding_box": "4469,1427,4655,1283,4727,1376,4541,1520",
-        "thumbnail_box": null
+        "bounding_box": "4406,1450,4683,1234,4778,1356,4502,1572",
+        "thumbnail_box": "4371,1176,4814,1176,4814,1620,4371,1620"
       },
       {
         "image_id": "b2cbec77-9ca1-4664-9a70-9f7f592dfd31",
         "id": 122,
         "name": "NGC 3389",
-        "bounding_box": "4259,942,4315,958,4262,1142,4206,1125",
+        "bounding_box": "4230,966,4325,986,4293,1140,4197,1120",
         "thumbnail_box": null
       }
     ],
@@ -761,15 +754,15 @@
         "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
         "id": 108,
         "name": "M108 - Surfboard Galaxy",
-        "bounding_box": "4003,3011,4180,3086,3964,3599,3787,3524",
-        "thumbnail_box": null
+        "bounding_box": "4058,3021,4187,3088,3941,3562,3812,3495",
+        "thumbnail_box": "3684,2984,4331,2984,4331,3632,3684,3632"
       },
       {
         "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
         "id": 97,
         "name": "M97 - Owl Nebula",
-        "bounding_box": "1852,156,2131,156,2131,434,1852,434",
-        "thumbnail_box": null
+        "bounding_box": "1864,177,2107,177,2107,420,1864,420",
+        "thumbnail_box": "1783,97,2188,97,2188,501,1783,501"
       }
     ],
     "gallery_ids": [
@@ -798,8 +791,8 @@
         "image_id": "8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1",
         "id": 109,
         "name": "M109",
-        "bounding_box": "2971,1431,3177,1590,2946,1889,2740,1731",
-        "thumbnail_box": null
+        "bounding_box": "2986,1416,3225,1600,2962,1941,2723,1757",
+        "thumbnail_box": "2673,1377,3275,1377,3275,1980,2673,1980"
       }
     ],
     "gallery_ids": [
@@ -828,8 +821,8 @@
         "image_id": "3708f9dd-831c-4950-a873-46b88685c971",
         "id": 11,
         "name": "M11 - Wild Duck Cluster",
-        "bounding_box": "1951,1144,3145,1144,3145,2338,1951,2338",
-        "thumbnail_box": null
+        "bounding_box": "2110,1317,2989,1317,2989,2196,2110,2196",
+        "thumbnail_box": "2110,1317,2989,1317,2989,2196,2110,2196"
       }
     ],
     "gallery_ids": [
@@ -887,7 +880,7 @@
         "id": 24,
         "name": "M24 - Sagittarius Star Cloud",
         "bounding_box": null,
-        "thumbnail_box": null
+        "thumbnail_box": "1768,811,4037,811,4037,3081,1768,3081"
       }
     ],
     "gallery_ids": [
@@ -916,28 +909,28 @@
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 89,
         "name": "M89",
-        "bounding_box": "1742,2027,1897,2027,1897,2182,1742,2182",
-        "thumbnail_box": null
+        "bounding_box": "1718,2007,1910,2007,1910,2199,1718,2199",
+        "thumbnail_box": "1645,1943,1983,1943,1983,2280,1645,2280"
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 90,
         "name": "M90",
-        "bounding_box": "4597,1768,5029,1768,5029,1992,4597,1992",
+        "bounding_box": "4604,1790,5038,1790,5038,1967,4604,1967",
         "thumbnail_box": null
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 125,
         "name": "NGC 4550",
-        "bounding_box": "298,1675,385,1732,356,1775,270,1718",
+        "bounding_box": "296,1660,407,1740,367,1796,256,1715",
         "thumbnail_box": null
       },
       {
         "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
         "id": 126,
         "name": "NGC 4551",
-        "bounding_box": "591,1588,620,1607,546,1723,517,1705",
+        "bounding_box": "560,1600,627,1643,572,1730,505,1687",
         "thumbnail_box": null
       }
     ],
@@ -967,7 +960,7 @@
         "image_id": "d02a44db-076f-468b-bd4b-3180ef7abaaf",
         "id": 98,
         "name": "M98",
-        "bounding_box": "2386,1304,2692,1670,2577,1766,2272,1399",
+        "bounding_box": "2215,1400,2367,1267,2757,1712,2604,1845",
         "thumbnail_box": null
       }
     ],
@@ -997,8 +990,8 @@
         "image_id": "1ea61511-0e40-4ae2-a95b-64adf10dfe84",
         "id": 99,
         "name": "M99 - Coma Pinwheel Galaxy",
-        "bounding_box": "2544,1725,2956,1725,2956,2137,2544,2137",
-        "thumbnail_box": null
+        "bounding_box": "2551,1740,2918,1740,2918,2107,2551,2107",
+        "thumbnail_box": "2439,1620,3078,1620,3078,2259,2439,2259"
       }
     ],
     "gallery_ids": [
@@ -1027,14 +1020,14 @@
         "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
         "id": 100,
         "name": "M100",
-        "bounding_box": "2630,2014,3038,2014,3038,2388,2630,2388",
-        "thumbnail_box": null
+        "bounding_box": "2613,2008,3047,2008,3047,2395,2613,2395",
+        "thumbnail_box": "2502,1865,3166,1865,3166,2530,2502,2530"
       },
       {
         "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
         "id": 123,
         "name": "NGC 4312",
-        "bounding_box": "1413,2051,1578,2157,1544,2210,1379,2104",
+        "bounding_box": "1411,2004,1648,2162,1569,2280,1332,2122",
         "thumbnail_box": null
       }
     ],
@@ -1064,8 +1057,8 @@
         "image_id": "a9fa2859-fe35-4147-812f-495779d55bc2",
         "id": 5,
         "name": "M5",
-        "bounding_box": "2202,1025,3531,1025,3531,2354,2202,2354",
-        "thumbnail_box": null
+        "bounding_box": "2447,1265,3286,1265,3286,2104,2447,2104",
+        "thumbnail_box": "2447,1265,3286,1265,3286,2104,2447,2104"
       }
     ],
     "gallery_ids": [
@@ -1094,14 +1087,14 @@
         "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
         "id": 40,
         "name": "M40",
-        "bounding_box": "3128,2038,3227,2103,3134,2244,3036,2179",
-        "thumbnail_box": null
+        "bounding_box": "3073,2164,3130,2072,3177,2101,3121,2193",
+        "thumbnail_box": "3034,2046,3222,2046,3222,2234,3034,2234"
       },
       {
         "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
         "id": 127,
         "name": "NGC 4290",
-        "bounding_box": "2819,2916,2937,2916,2937,3034,2819,3034",
+        "bounding_box": "2791,2963,2931,2899,2963,2969,2823,3033",
         "thumbnail_box": null
       }
     ],
@@ -1132,7 +1125,7 @@
         "id": 44,
         "name": "M44 - Beehive Cluster",
         "bounding_box": null,
-        "thumbnail_box": null
+        "thumbnail_box": "271,330,3411,330,3411,3470,271,3470"
       }
     ],
     "gallery_ids": [
@@ -1161,8 +1154,8 @@
         "image_id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
         "id": 63,
         "name": "M63 - Sunflower Galaxy",
-        "bounding_box": "571,475,1243,585,1183,950,511,840",
-        "thumbnail_box": null
+        "bounding_box": "561,534,1273,534,1273,935,561,935",
+        "thumbnail_box": "507,327,1321,327,1321,1141,507,1141"
       }
     ],
     "gallery_ids": [
@@ -1226,8 +1219,8 @@
         "image_id": "5e270de3-93b4-46d1-8705-544bc21f986b",
         "id": 64,
         "name": "M64 - Black Eye Galaxy",
-        "bounding_box": "406,628,714,135,938,275,630,768",
-        "thumbnail_box": null
+        "bounding_box": "747,23,1071,278,595,883,271,629",
+        "thumbnail_box": "308,87,1037,87,1037,816,308,816"
       }
     ],
     "gallery_ids": [
@@ -1293,56 +1286,56 @@
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 84,
         "name": "M84",
-        "bounding_box": "2671,3381,2840,3381,2840,3550,2671,3550",
-        "thumbnail_box": null
+        "bounding_box": "2629,3321,2896,3321,2896,3588,2629,3588",
+        "thumbnail_box": "2558,3266,2951,3266,2951,3659,2558,3659"
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 86,
         "name": "M86",
-        "bounding_box": "3137,2248,3415,2079,3676,2511,3398,2679",
-        "thumbnail_box": null
+        "bounding_box": "3153,2268,3471,2093,3696,2502,3378,2677",
+        "thumbnail_box": "3095,2059,3734,2059,3734,2697,3095,2697"
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 116,
         "name": "NGC 4388",
-        "bounding_box": "2049,2178,2179,2214,2076,2589,1946,2553",
+        "bounding_box": "2074,2121,2234,2183,2048,2663,1888,2601",
         "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 115,
         "name": "NGC 4402",
-        "bounding_box": "4081,2544,4179,2572,4102,2848,4004,2821",
+        "bounding_box": "4088,2512,4198,2545,4095,2883,3985,2849",
         "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 117,
         "name": "NGC 4413",
-        "bounding_box": "2190,1316,2334,1482,2053,1726,1909,1560",
+        "bounding_box": "2153,1387,2260,1508,2074,1672,1967,1551",
         "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 118,
         "name": "NGC 4425",
-        "bounding_box": "2665,895,3073,849,3102,1107,2694,1153",
+        "bounding_box": "2764,967,3010,931,3026,1044,2781,1080",
         "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 120,
         "name": "NGC 4435 - The Eyes",
-        "bounding_box": "4091,774,4360,748,4379,950,4110,976",
+        "bounding_box": "4077,776,4420,776,4420,938,4077,938",
         "thumbnail_box": null
       },
       {
         "image_id": "6f3547e4-7037-4a5a-8a87-17cf3d0cb9b0",
         "id": 119,
         "name": "NGC 4438 - The Eyes",
-        "bounding_box": "4422,925,4649,989,4599,1166,4372,1102",
+        "bounding_box": "4435,986,4606,986,4606,1120,4435,1120",
         "thumbnail_box": null
       }
     ],
@@ -1372,8 +1365,8 @@
         "image_id": "6b3bc70e-6e88-4834-854e-d5f7af569b38",
         "id": 106,
         "name": "M106",
-        "bounding_box": "1865,751,2892,1801,2366,2316,1339,1265",
-        "thumbnail_box": null
+        "bounding_box": "1892,813,2801,1882,2340,2274,1431,1206",
+        "thumbnail_box": "1448,902,2748,902,2748,2203,1448,2203"
       }
     ],
     "gallery_ids": [
@@ -1402,15 +1395,15 @@
         "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
         "id": 81,
         "name": "M81 - Bode's Galaxy",
-        "bounding_box": "955,1256,1584,596,2473,1442,1845,2102",
-        "thumbnail_box": null
+        "bounding_box": "1064,1151,1714,674,2374,1573,1724,2050",
+        "thumbnail_box": "1033,645,2439,645,2439,2051,1033,2051"
       },
       {
         "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
         "id": 82,
         "name": "M82 - Cigar Galaxy",
-        "bounding_box": "4055,2373,4504,2010,4612,2144,4163,2507",
-        "thumbnail_box": null
+        "bounding_box": "4065,2386,4502,1975,4622,2102,4185,2513",
+        "thumbnail_box": "4027,1929,4636,1929,4636,2538,4027,2538"
       }
     ],
     "gallery_ids": [
@@ -1523,8 +1516,8 @@
         "image_id": "b089cef5-9fc9-4321-8162-c09bd028214f",
         "id": 13,
         "name": "M13 - Hercules Globular Cluster",
-        "bounding_box": "827,427,1896,427,1896,1495,827,1495",
-        "thumbnail_box": null
+        "bounding_box": "864,474,1847,474,1847,1457,864,1457",
+        "thumbnail_box": "864,474,1847,474,1847,1457,864,1457"
       }
     ],
     "gallery_ids": [
@@ -1553,8 +1546,8 @@
         "image_id": "42b74ab4-da93-4d4b-866e-dbe451d00129",
         "id": 57,
         "name": "M57 - Ring Nebula",
-        "bounding_box": "745,449,824,500,767,586,689,535",
-        "thumbnail_box": null
+        "bounding_box": "761,454,822,495,766,578,704,537",
+        "thumbnail_box": "676,431,846,431,846,601,676,601"
       }
     ],
     "gallery_ids": [
@@ -1583,21 +1576,21 @@
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 65,
         "name": "M65",
-        "bounding_box": "2693,367,3312,571,3237,799,2617,595",
-        "thumbnail_box": null
+        "bounding_box": "2748,419,3260,618,3194,786,2683,588",
+        "thumbnail_box": "2636,244,3338,244,3338,946,2636,946"
       },
       {
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 66,
         "name": "M66",
-        "bounding_box": "2827,1932,3308,2019,3262,2276,2781,2189",
-        "thumbnail_box": null
+        "bounding_box": "2833,2004,3264,2004,3264,2211,2833,2211",
+        "thumbnail_box": "2748,1796,3365,1796,3365,2413,2748,2413"
       },
       {
         "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
         "id": 129,
         "name": "NGC 3628",
-        "bounding_box": "265,926,609,926,609,1932,265,1932",
+        "bounding_box": "281,893,616,893,616,2004,281,2004",
         "thumbnail_box": null
       }
     ],
@@ -1627,8 +1620,8 @@
         "image_id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
         "id": 104,
         "name": "M104 - Sombrero Galaxy",
-        "bounding_box": "1449,796,1684,852,1531,1498,1295,1442",
-        "thumbnail_box": null
+        "bounding_box": "1464,903,1605,934,1503,1406,1361,1376",
+        "thumbnail_box": "1169,841,1798,841,1798,1469,1169,1469"
       }
     ],
     "gallery_ids": [
@@ -1966,28 +1959,28 @@
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 78,
         "name": "M78",
-        "bounding_box": "686,607,1036,607,1036,956,686,956",
-        "thumbnail_box": null
+        "bounding_box": "630,571,1131,571,1131,1072,630,1072",
+        "thumbnail_box": "630,571,1131,571,1131,1072,630,1072"
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 114,
         "name": "NGC 2064",
-        "bounding_box": "235,488,1188,488,1188,1440,235,1440",
+        "bounding_box": "144,270,1178,270,1178,1303,144,1303",
         "thumbnail_box": null
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 112,
         "name": "NGC 2067",
-        "bounding_box": "745,709,1430,1138,1243,1438,557,1009",
+        "bounding_box": "544,921,807,694,1253,1209,990,1436",
         "thumbnail_box": null
       },
       {
         "image_id": "218d5be4-f103-41b5-b339-d97e43f98d76",
         "id": 113,
         "name": "NGC 2071",
-        "bounding_box": "1676,619,2215,619,2215,1158,1676,1158",
+        "bounding_box": "1730,708,2113,708,2113,1060,1730,1060",
         "thumbnail_box": null
       }
     ],
@@ -2017,15 +2010,15 @@
         "image_id": "425450c5-558a-40fb-8714-a81dfa19450b",
         "id": 42,
         "name": "M42 - Orion Nebula",
-        "bounding_box": "1827,203,5124,203,5124,3501,1827,3501",
-        "thumbnail_box": null
+        "bounding_box": "1320,695,4932,48,5455,2965,1843,3612",
+        "thumbnail_box": "2838,608,5194,608,5194,2965,2838,2965"
       },
       {
         "image_id": "425450c5-558a-40fb-8714-a81dfa19450b",
         "id": 43,
         "name": "M43 - De Mairan\u2019s Nebula",
-        "bounding_box": "4529,1351,5073,1351,5073,1895,4529,1895",
-        "thumbnail_box": null
+        "bounding_box": "4554,1367,5044,1367,5044,1858,4554,1858",
+        "thumbnail_box": "4554,1367,5044,1367,5044,1858,4554,1858"
       }
     ],
     "gallery_ids": [
@@ -2082,15 +2075,15 @@
         "image_id": "d6814416-14ce-4c52-8233-e40a7190298d",
         "id": 31,
         "name": "M31 - Andromeda Galaxy",
-        "bounding_box": "58,1113,3676,154,4257,2347,639,3305",
-        "thumbnail_box": null
+        "bounding_box": null,
+        "thumbnail_box": "450,98,3677,98,3677,3325,450,3325"
       },
       {
         "image_id": "d6814416-14ce-4c52-8233-e40a7190298d",
         "id": 32,
         "name": "M32 - Le Gentil",
-        "bounding_box": "460,830,639,830,639,1009,460,1009",
-        "thumbnail_box": null
+        "bounding_box": "442,862,546,799,640,955,536,1018",
+        "thumbnail_box": "412,787,670,787,670,1045,412,1045"
       }
     ],
     "gallery_ids": [
@@ -2119,8 +2112,8 @@
         "image_id": "c4f70928-88b0-45f1-8bc0-a2cfb1bda54a",
         "id": 33,
         "name": "M33 - Triangulum Galaxy",
-        "bounding_box": "859,375,4039,375,4039,2652,859,2652",
-        "thumbnail_box": null
+        "bounding_box": "1132,544,3739,544,3739,2613,1132,2613",
+        "thumbnail_box": "1400,564,3457,564,3457,2620,1400,2620"
       }
     ],
     "gallery_ids": [
@@ -2149,8 +2142,8 @@
         "image_id": "7c93a033-651a-491f-a013-32cefd0f3374",
         "id": 29,
         "name": "M29 - Cooling Tower Cluster",
-        "bounding_box": "456,132,1254,132,1254,930,456,930",
-        "thumbnail_box": null
+        "bounding_box": "421,80,1228,80,1228,887,421,887",
+        "thumbnail_box": "520,221,1195,221,1195,896,520,896"
       }
     ],
     "gallery_ids": [
@@ -2179,8 +2172,8 @@
         "image_id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
         "id": 45,
         "name": "M45 - Pleiades",
-        "bounding_box": "n,u,l,l",
-        "thumbnail_box": null
+        "bounding_box": null,
+        "thumbnail_box": "1876,72,4914,72,4914,3111,1876,3111"
       }
     ],
     "gallery_ids": [
@@ -2209,8 +2202,8 @@
         "image_id": "780b5cf7-739d-4313-8878-c7621fc99332",
         "id": 74,
         "name": "M74 - Phantom Galaxy",
-        "bounding_box": "794,467,1311,467,1311,1012,794,1012",
-        "thumbnail_box": null
+        "bounding_box": "752,498,1311,498,1311,1058,752,1058",
+        "thumbnail_box": "518,264,1545,264,1545,1291,518,1291"
       }
     ],
     "gallery_ids": [
@@ -2239,8 +2232,8 @@
         "image_id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
         "id": 76,
         "name": "M76 - Little Dumbbell Nebula",
-        "bounding_box": "414,309,701,166,817,401,530,543",
-        "thumbnail_box": null
+        "bounding_box": "418,295,728,175,820,411,510,531",
+        "thumbnail_box": "402,147,833,147,833,577,402,577"
       }
     ],
     "gallery_ids": [
@@ -2269,8 +2262,8 @@
         "image_id": "c76a6fa3-f819-4068-8ffb-382c1950361f",
         "id": 1,
         "name": "M1 - Crab Nebula",
-        "bounding_box": "397,200,823,200,823,839,397,839",
-        "thumbnail_box": null
+        "bounding_box": "418,172,836,172,836,806,418,806",
+        "thumbnail_box": "254,139,991,139,991,876,254,876"
       }
     ],
     "gallery_ids": [
@@ -2357,8 +2350,8 @@
         "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
         "id": 36,
         "name": "M36 - Pinwheel Cluster",
-        "bounding_box": "1556,707,3515,707,3515,2666,1556,2666",
-        "thumbnail_box": null
+        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
+        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
       }
     ],
     "gallery_ids": [
@@ -2387,8 +2380,8 @@
         "image_id": "4101f360-818f-49db-903e-1172a8405009",
         "id": 53,
         "name": "M53",
-        "bounding_box": "2411,1198,3307,1198,3307,2094,2411,2094",
-        "thumbnail_box": null
+        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
+        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
       }
     ],
     "gallery_ids": [

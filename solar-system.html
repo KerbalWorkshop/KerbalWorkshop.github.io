@@ -74,7 +74,6 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const grid = document.getElementById('gallery-grid');
         try {
-            // --- Configuration: Controls the gallery's "density" ---
             const IDEAL_ROW_HEIGHT = 350;
 
             const v = Date.now();
@@ -95,14 +94,14 @@
                 return;
             }
 
-            // --- NEW Intelligent Layout Logic ---
             const imageLoadPromises = solarSystemImages.map(item => {
                 return new Promise((resolve, reject) => {
                     const div = document.createElement('div');
                     div.className = 'grid-item';
                     
                     const img = document.createElement('img');
-                    img.src = `/${item.image_file}`;
+                    // --- MODIFIED LINE ---
+                    img.src = `/${item.preview_file}`; // Use the smaller preview file
                     img.alt = item.label;
 
                     img.onload = () => {
@@ -110,7 +109,7 @@
                         div.addEventListener('click', () => {
                             const modalData = {
                                 label: item.label,
-                                fullImageSrc: `/${item.image_file}`,
+                                fullImageSrc: `/${item.image_file}`, // Modal still uses full-res
                                 originalWidth: item.width,
                                 originalHeight: item.height,
                                 details: item.data,
