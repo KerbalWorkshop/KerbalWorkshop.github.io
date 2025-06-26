@@ -1,5 +1,35 @@
 [
   {
+    "id": "2adb95ea-287a-44cd-89ff-b19eef314b77",
+    "label": "The Cygnus Wal",
+    "image_file": "photos/originals/2adb95ea-287a-44cd-89ff-b19eef314b77.jpeg",
+    "preview_file": "photos/previews/2adb95ea-287a-44cd-89ff-b19eef314b77_preview.jpg",
+    "width": 4367,
+    "height": 2163,
+    "preview_width": 1200,
+    "preview_height": 594,
+    "featured": false,
+    "data": {
+      "date": "2025-06-25",
+      "integration": 100,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "2adb95ea-287a-44cd-89ff-b19eef314b77",
+        "id": 171,
+        "name": "NGC 7000",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "715a6fa3-af89-4bef-8e5b-debe838e5211",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/715a6fa3-af89-4bef-8e5b-debe838e5211.jpg",
