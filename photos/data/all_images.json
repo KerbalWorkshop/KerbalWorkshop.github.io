@@ -1,14 +1,14 @@
 [
   {
     "id": "2adb95ea-287a-44cd-89ff-b19eef314b77",
-    "label": "The Cygnus Wal",
+    "label": "The Cygnus Wall",
     "image_file": "photos/originals/2adb95ea-287a-44cd-89ff-b19eef314b77.jpeg",
     "preview_file": "photos/previews/2adb95ea-287a-44cd-89ff-b19eef314b77_preview.jpg",
     "width": 4367,
     "height": 2163,
     "preview_width": 1200,
     "preview_height": 594,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-06-25",
       "integration": 100,
