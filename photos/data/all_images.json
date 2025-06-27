@@ -1,24 +1,31 @@
 [
   {
-    "id": "2adb95ea-287a-44cd-89ff-b19eef314b77",
+    "id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
     "label": "The Cygnus Wall",
-    "image_file": "photos/originals/2adb95ea-287a-44cd-89ff-b19eef314b77.jpeg",
-    "preview_file": "photos/previews/2adb95ea-287a-44cd-89ff-b19eef314b77_preview.jpg",
-    "width": 4367,
-    "height": 2163,
+    "image_file": "photos/originals/16abc163-d97a-4fe6-93c3-7ccfc64cf1cb.jpg",
+    "preview_file": "photos/previews/16abc163-d97a-4fe6-93c3-7ccfc64cf1cb_preview.jpg",
+    "width": 4259,
+    "height": 2623,
     "preview_width": 1200,
-    "preview_height": 594,
+    "preview_height": 739,
     "featured": true,
     "data": {
-      "date": "2025-06-25",
-      "integration": 100,
+      "date": "2025-06-26",
+      "integration": 360,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "2adb95ea-287a-44cd-89ff-b19eef314b77",
+        "image_id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
+        "id": 172,
+        "name": "Cygnus Wall",
+        "bounding_box": "163,943,3914,566,4056,1977,305,2354",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
         "id": 171,
         "name": "NGC 7000",
         "bounding_box": null,
