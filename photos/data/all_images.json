@@ -38,7 +38,7 @@
     "height": 3047,
     "preview_width": 1200,
     "preview_height": 782,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-17",
       "integration": 153,
@@ -76,7 +76,7 @@
     "height": 1814,
     "preview_width": 1200,
     "preview_height": 756,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-17",
       "integration": 153,
