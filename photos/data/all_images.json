@@ -1,5 +1,47 @@
 [
   {
+    "id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+    "label": "The Double Cluster",
+    "image_file": "photos/originals/b5d32f53-a5a7-47f8-851c-26b835a5b588.jpg",
+    "preview_file": "photos/previews/b5d32f53-a5a7-47f8-851c-26b835a5b588_preview.jpg",
+    "width": 5664,
+    "height": 3888,
+    "preview_width": 1200,
+    "preview_height": 824,
+    "featured": true,
+    "data": {
+      "date": "2025-06-27",
+      "integration": 72,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "id": 173,
+        "name": "Caldwell 14 - Double Cluster",
+        "bounding_box": null,
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "id": 174,
+        "name": "NGC 869",
+        "bounding_box": "2609,560,3598,560,3598,1549,2609,1549",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "id": 175,
+        "name": "NGC 884",
+        "bounding_box": "1949,2613,2675,2613,2675,3339,1949,3339",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": []
+  },
+  {
     "id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
     "label": "The Cygnus Wall",
     "image_file": "photos/originals/16abc163-d97a-4fe6-93c3-7ccfc64cf1cb.jpg",
