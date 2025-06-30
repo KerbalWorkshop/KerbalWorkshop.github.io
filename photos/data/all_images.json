@@ -38,10 +38,10 @@
     ]
   },
   {
-    "id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+    "id": "555cb969-3101-4673-b8cc-730dde57b654",
     "label": "The Double Cluster",
-    "image_file": "photos/originals/b5d32f53-a5a7-47f8-851c-26b835a5b588.jpg",
-    "preview_file": "photos/previews/b5d32f53-a5a7-47f8-851c-26b835a5b588_preview.jpg",
+    "image_file": "photos/originals/555cb969-3101-4673-b8cc-730dde57b654.jpg",
+    "preview_file": "photos/previews/555cb969-3101-4673-b8cc-730dde57b654_preview.jpg",
     "width": 5664,
     "height": 3888,
     "preview_width": 1200,
@@ -56,24 +56,24 @@
     },
     "subjects": [
       {
-        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
         "id": 173,
         "name": "Caldwell 14 - Double Cluster",
         "bounding_box": null,
         "thumbnail_box": null
       },
       {
-        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
         "id": 174,
         "name": "NGC 869",
-        "bounding_box": "2609,560,3598,560,3598,1549,2609,1549",
+        "bounding_box": "2733,684,3458,684,3458,1409,2733,1409",
         "thumbnail_box": null
       },
       {
-        "image_id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
+        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
         "id": 175,
         "name": "NGC 884",
-        "bounding_box": "1949,2613,2675,2613,2675,3339,1949,3339",
+        "bounding_box": "1908,2588,2683,2588,2683,3363,1908,3363",
         "thumbnail_box": null
       }
     ],
