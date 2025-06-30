@@ -77,7 +77,9 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": []
+    "gallery_ids": [
+      4
+    ]
   },
   {
     "id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
@@ -284,7 +286,7 @@
   },
   {
     "id": "466e5101-8772-42e6-8798-b968973712f1",
-    "label": "",
+    "label": "Messier 39",
     "image_file": "photos/originals/466e5101-8772-42e6-8798-b968973712f1.jpg",
     "preview_file": "photos/previews/466e5101-8772-42e6-8798-b968973712f1_preview.jpg",
     "width": 4682,
@@ -309,7 +311,8 @@
       }
     ],
     "gallery_ids": [
-      1
+      1,
+      4
     ]
   },
   {
@@ -371,7 +374,8 @@
     ],
     "gallery_ids": [
       2,
-      1
+      1,
+      4
     ]
   },
   {

@@ -174,7 +174,7 @@
                 <a href="/highlights.html" id="highlights-card" class="gallery-link-card">
                     <div class="card-content">
                         <h2>Highlights</h2>
-                        <p>A curated collection of my very best images.</p>
+                        <p>A collection of my favorite astrophotography images I've taken.</p>
                     </div>
                 </a>
                 <a href="/messier.html" id="messier-card" class="gallery-link-card">
@@ -183,10 +183,16 @@
                         <p>My progress cataloging all 110 Messier objects.</p>
                     </div>
                 </a>
+                <a href="/star-clusters.html" id="star-clusters-card" class="gallery-link-card">
+                    <div class="card-content">
+                        <h2>Star Clusters</h2>
+                        <p>A collection of open and globular star clusters.</p>
+                    </div>
+                </a>
                 <a href="/solar-system.html" id="solar-system-card" class="gallery-link-card">
                     <div class="card-content">
                         <h2>Solar System</h2>
-                        <p>Planets, moons, and other celestial bodies in our cosmic neighborhood.</p>
+                        <p>Planets, moons, asteroids, satellites.</p>
                     </div>
                 </a>
             </div>
@@ -240,21 +246,19 @@
             featuredSlideshowIntervalId = null;
         };
 
-        // --- NEW: Resilient Animation Logic using requestAnimationFrame ---
         const gallerySlideshows = [];
         let lastTimestamp = 0;
 
         function galleryAnimationLoop(timestamp) {
             if (!lastTimestamp) lastTimestamp = timestamp;
             const elapsed = timestamp - lastTimestamp;
-            // Cap the elapsed time to prevent huge jumps when tab is inactive
             const cappedElapsed = Math.min(elapsed, 100); 
             lastTimestamp = timestamp;
 
             gallerySlideshows.forEach(show => {
                 show.elapsedTime += cappedElapsed;
                 if (show.elapsedTime >= show.interval) {
-                    show.elapsedTime -= show.interval; // Subtract interval, don't reset to 0
+                    show.elapsedTime -= show.interval;
                     
                     const exitingSlide = show.slides[show.currentIndex];
                     exitingSlide.classList.add('is-exiting');
@@ -275,7 +279,6 @@
 
         const setupGallerySlideshow = (cardId, images, initialDelay, intervalDuration) => {
             if (!images || images.length === 0) {
-                // If no images, just show a static background or placeholder text
                 const card = document.getElementById(cardId);
                 card.querySelector('.card-content p').textContent = "No images in this gallery yet.";
                 return;
@@ -314,7 +317,6 @@
             if (!res.ok) throw new Error("Could not fetch image data");
             const allImages = await res.json();
 
-            // --- 1. Featured Photos Slideshow (Unchanged logic) ---
             featuredImages = allImages.filter(img => img.featured);
             if (featuredImages.length > 0) {
                 featuredHeading.textContent = featuredImages.length > 1 ? "Featured Photos" : "Featured Photo";
@@ -359,26 +361,25 @@
                 slideshowWrapper.innerHTML = `<div class="slideshow-placeholder">No featured photo available.</div>`;
             }
 
-            // --- 2. CORRECTED Gallery Slideshow Setup ---
-            // CORRECTED MAPPING: 1=Messier, 2=Highlights, 3=Solar System
             const galleryMapping = {
                 'highlights-card': 2,
                 'messier-card': 1,
+                'star-clusters-card': 4, // Added new gallery
                 'solar-system-card': 3 
             };
             
             const highlightsImages = allImages.filter(img => Array.isArray(img.gallery_ids) && img.gallery_ids.includes(galleryMapping['highlights-card']));
             const messierImages = allImages.filter(img => Array.isArray(img.gallery_ids) && img.gallery_ids.includes(galleryMapping['messier-card']));
+            const starClustersImages = allImages.filter(img => Array.isArray(img.gallery_ids) && img.gallery_ids.includes(galleryMapping['star-clusters-card']));
             const solarSystemImages = allImages.filter(img => Array.isArray(img.gallery_ids) && img.gallery_ids.includes(galleryMapping['solar-system-card']));
 
             setupGallerySlideshow('highlights-card', highlightsImages, 0, 8000);
-            setupGallerySlideshow('messier-card', messierImages, 2500, 8000);
-            setupGallerySlideshow('solar-system-card', solarSystemImages, 5000, 8000);
+            setupGallerySlideshow('messier-card', messierImages, 2000, 8000);
+            setupGallerySlideshow('star-clusters-card', starClustersImages, 4000, 8000);
+            setupGallerySlideshow('solar-system-card', solarSystemImages, 6000, 8000);
 
-            // Start the single, resilient animation loop
             requestAnimationFrame(galleryAnimationLoop);
 
-            // --- 3. Populate Data for Search (Unchanged) ---
             const uniqueSubjects = new Set();
             allImages.forEach(img => img.subjects.forEach(sub => uniqueSubjects.add(sub.name)));
             allSubjects = Array.from(uniqueSubjects).sort();
@@ -388,7 +389,6 @@
             slideshowWrapper.innerHTML = `<div class="slideshow-placeholder">Error loading featured photos.</div>`;
         }
         
-        // --- Advanced Search Logic (Remains Unchanged) ---
         const searchToggle = document.getElementById('search-toggle');
         const filterControls = document.getElementById('filter-controls');
         searchToggle.addEventListener('click', () => {
