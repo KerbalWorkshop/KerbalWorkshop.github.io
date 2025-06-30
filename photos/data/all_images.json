@@ -1,5 +1,43 @@
 [
   {
+    "id": "99ddc9ca-0a0e-443a-b5d9-eb9354e26485",
+    "label": "Eagle Nebula",
+    "image_file": "photos/originals/99ddc9ca-0a0e-443a-b5d9-eb9354e26485.jpg",
+    "preview_file": "photos/previews/99ddc9ca-0a0e-443a-b5d9-eb9354e26485_preview.jpg",
+    "width": 1676,
+    "height": 1366,
+    "preview_width": 1200,
+    "preview_height": 978,
+    "featured": true,
+    "data": {
+      "date": "2025-06-28",
+      "integration": 240,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": "Ha: 29x3 min |\nOiii: 37x3 min |\nSii: 14x3 min"
+    },
+    "subjects": [
+      {
+        "image_id": "99ddc9ca-0a0e-443a-b5d9-eb9354e26485",
+        "id": 16,
+        "name": "M16 - Eagle Nebula",
+        "bounding_box": null,
+        "thumbnail_box": "206,43,1480,43,1480,1317,206,1317"
+      },
+      {
+        "image_id": "99ddc9ca-0a0e-443a-b5d9-eb9354e26485",
+        "id": 128,
+        "name": "Pillars of Creation",
+        "bounding_box": "725,544,939,544,939,842,725,842",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
     "id": "b5d32f53-a5a7-47f8-851c-26b835a5b588",
     "label": "The Double Cluster",
     "image_file": "photos/originals/b5d32f53-a5a7-47f8-851c-26b835a5b588.jpg",
@@ -112,8 +150,7 @@
       }
     ],
     "gallery_ids": [
-      2,
-      1
+      2
     ]
   },
   {
@@ -149,9 +186,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      2
-    ]
+    "gallery_ids": []
   },
   {
     "id": "50f1051e-a80c-45cb-b104-c76696839407",
