@@ -1,5 +1,35 @@
 [
   {
+    "id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
+    "label": "Crescent Nebula",
+    "image_file": "photos/originals/94c4bfb8-e2dc-45eb-b456-5138af25ba84.jpg",
+    "preview_file": "photos/previews/94c4bfb8-e2dc-45eb-b456-5138af25ba84_preview.jpg",
+    "width": 5461,
+    "height": 3123,
+    "preview_width": 1200,
+    "preview_height": 686,
+    "featured": false,
+    "data": {
+      "date": "2025-07-01",
+      "integration": 228,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": "In this image, Hydrogen-alpha emission is assigned to the green channel, so all the green color you see is hydrogen gas."
+    },
+    "subjects": [
+      {
+        "image_id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
+        "id": 176,
+        "name": "NGC 6888 - Crescent Nebula",
+        "bounding_box": "2086,1120,3472,1120,3472,2156,2086,2156",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "99ddc9ca-0a0e-443a-b5d9-eb9354e26485",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/99ddc9ca-0a0e-443a-b5d9-eb9354e26485.jpg",
