@@ -1,7 +1,7 @@
 [
   {
     "id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
-    "label": "Crescent Nebula",
+    "label": "Crescent Nebula (SHO)",
     "image_file": "photos/originals/94c4bfb8-e2dc-45eb-b456-5138af25ba84.jpg",
     "preview_file": "photos/previews/94c4bfb8-e2dc-45eb-b456-5138af25ba84_preview.jpg",
     "width": 5461,
@@ -22,6 +22,34 @@
         "id": 176,
         "name": "NGC 6888 - Crescent Nebula",
         "bounding_box": "2086,1120,3472,1120,3472,2156,2086,2156",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": []
+  },
+  {
+    "id": "680da608-8926-448c-a43c-58429c5f5247",
+    "label": "Crescent Nebula",
+    "image_file": "photos/originals/680da608-8926-448c-a43c-58429c5f5247.jpg",
+    "preview_file": "photos/previews/680da608-8926-448c-a43c-58429c5f5247_preview.jpg",
+    "width": 5461,
+    "height": 3126,
+    "preview_width": 1200,
+    "preview_height": 687,
+    "featured": false,
+    "data": {
+      "date": "2025-07-01",
+      "integration": 228,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "680da608-8926-448c-a43c-58429c5f5247",
+        "id": 176,
+        "name": "NGC 6888 - Crescent Nebula",
+        "bounding_box": "2044,966,3521,966,3521,2163,2044,2163",
         "thumbnail_box": null
       }
     ],
