@@ -96,35 +96,35 @@
     ]
   },
   {
-    "id": "8f2d2518-7b94-41fa-a502-69b188db48f3",
+    "id": "a88b26e5-60c4-4b24-a732-0943177a79ff",
     "label": "Eagle Nebula",
-    "image_file": "photos/originals/8f2d2518-7b94-41fa-a502-69b188db48f3.png",
-    "preview_file": "photos/previews/8f2d2518-7b94-41fa-a502-69b188db48f3_preview.jpg",
-    "width": 5627,
-    "height": 3295,
+    "image_file": "photos/originals/a88b26e5-60c4-4b24-a732-0943177a79ff.png",
+    "preview_file": "photos/previews/a88b26e5-60c4-4b24-a732-0943177a79ff_preview.jpg",
+    "width": 2755,
+    "height": 1648,
     "preview_width": 1200,
-    "preview_height": 703,
+    "preview_height": 718,
     "featured": false,
     "data": {
       "date": "2025-06-28",
       "integration": 240,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
-      "notes": "Ha: 29x3 min | Oiii: 37x3 min | Sii: 14x3 min"
+      "notes": "This image was downscaled by a pixel factor of 4 so that I could upload it (GitHub has a max file size of 50MB for me).\nHa: 29x3 min | Oiii: 37x3 min | Sii: 14x3 min"
     },
     "subjects": [
       {
-        "image_id": "8f2d2518-7b94-41fa-a502-69b188db48f3",
+        "image_id": "a88b26e5-60c4-4b24-a732-0943177a79ff",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "bounding_box": "1244,1951,3051,310,4273,1656,2467,3295",
+        "bounding_box": "610,929,1557,152,2141,863,1193,1640",
         "thumbnail_box": null
       },
       {
-        "image_id": "8f2d2518-7b94-41fa-a502-69b188db48f3",
+        "image_id": "a88b26e5-60c4-4b24-a732-0943177a79ff",
         "id": 128,
         "name": "Pillars of Creation",
-        "bounding_box": "2743,1797,2901,1696,3056,1939,2898,2040",
+        "bounding_box": "1300,886,1400,828,1483,972,1383,1030",
         "thumbnail_box": null
       }
     ],
