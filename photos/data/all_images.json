@@ -1,5 +1,36 @@
 [
   {
+    "id": "af7c38ba-12fd-43be-839b-8651a382d38c",
+    "label": "Omega Nebula",
+    "image_file": "photos/originals/af7c38ba-12fd-43be-839b-8651a382d38c.jpg",
+    "preview_file": "photos/previews/af7c38ba-12fd-43be-839b-8651a382d38c_preview.jpg",
+    "width": 6097,
+    "height": 4047,
+    "preview_width": 1200,
+    "preview_height": 797,
+    "featured": false,
+    "data": {
+      "date": "2025-08-15",
+      "integration": 45,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "af7c38ba-12fd-43be-839b-8651a382d38c",
+        "id": 17,
+        "name": "M17 - Omega Nebula",
+        "bounding_box": "1667,1226,4171,1226,4171,3695,1667,3695",
+        "thumbnail_box": "1564,977,4411,977,4411,3824,1564,3824"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
     "id": "d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105",
     "label": "The Pleiades",
     "image_file": "photos/originals/d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105.jpg",
@@ -368,10 +399,7 @@
         "thumbnail_box": "538,28,2194,28,2194,1684,538,1684"
       }
     ],
-    "gallery_ids": [
-      2,
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "65e4a484-d3e5-4d38-a9d7-6ca6fa062d83",
