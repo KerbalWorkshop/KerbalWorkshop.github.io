@@ -61,6 +61,36 @@
     ]
   },
   {
+    "id": "300ca1c0-8172-491b-a458-ea4081a825f4",
+    "label": "Ring Nebula",
+    "image_file": "photos/originals/300ca1c0-8172-491b-a458-ea4081a825f4.jpg",
+    "preview_file": "photos/previews/300ca1c0-8172-491b-a458-ea4081a825f4_preview.jpg",
+    "width": 5851,
+    "height": 3876,
+    "preview_width": 1200,
+    "preview_height": 795,
+    "featured": false,
+    "data": {
+      "date": "2025-08-14",
+      "integration": 55,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "300ca1c0-8172-491b-a458-ea4081a825f4",
+        "id": 57,
+        "name": "M57 - Ring Nebula",
+        "bounding_box": "2859,1848,3056,1848,3056,2029,2859,2029",
+        "thumbnail_box": "2810,1791,3106,1791,3106,2087,2810,2087"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
     "label": "Crescent Nebula (SHO)",
     "image_file": "photos/originals/94c4bfb8-e2dc-45eb-b456-5138af25ba84.jpg",
@@ -1818,9 +1848,7 @@
         "thumbnail_box": "676,431,846,431,846,601,676,601"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "a073acc2-8f91-4529-948a-3958a568978a",
