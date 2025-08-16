@@ -1,5 +1,36 @@
 [
   {
+    "id": "d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105",
+    "label": "The Pleiades",
+    "image_file": "photos/originals/d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105.jpg",
+    "preview_file": "photos/previews/d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105_preview.jpg",
+    "width": 6235,
+    "height": 4154,
+    "preview_width": 1200,
+    "preview_height": 799,
+    "featured": false,
+    "data": {
+      "date": "2025-08-14",
+      "integration": 20,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105",
+        "id": 45,
+        "name": "M45 - Pleiades",
+        "bounding_box": null,
+        "thumbnail_box": "1479,96,5319,96,5319,3936,1479,3936"
+      }
+    ],
+    "gallery_ids": [
+      1,
+      4
+    ]
+  },
+  {
     "id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
     "label": "Crescent Nebula (SHO)",
     "image_file": "photos/originals/94c4bfb8-e2dc-45eb-b456-5138af25ba84.jpg",
@@ -2386,9 +2417,7 @@
         "thumbnail_box": "1876,72,4914,72,4914,3111,1876,3111"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "780b5cf7-739d-4313-8878-c7621fc99332",
