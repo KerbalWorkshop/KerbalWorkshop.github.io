@@ -1,9 +1,9 @@
 [
   {
-    "id": "af7c38ba-12fd-43be-839b-8651a382d38c",
+    "id": "da47f15d-208e-4455-bdb6-2fe7cf75ea83",
     "label": "Omega Nebula",
-    "image_file": "photos/originals/af7c38ba-12fd-43be-839b-8651a382d38c.jpg",
-    "preview_file": "photos/previews/af7c38ba-12fd-43be-839b-8651a382d38c_preview.jpg",
+    "image_file": "photos/originals/da47f15d-208e-4455-bdb6-2fe7cf75ea83.png",
+    "preview_file": "photos/previews/da47f15d-208e-4455-bdb6-2fe7cf75ea83_preview.jpg",
     "width": 6097,
     "height": 4047,
     "preview_width": 1200,
@@ -18,15 +18,14 @@
     },
     "subjects": [
       {
-        "image_id": "af7c38ba-12fd-43be-839b-8651a382d38c",
+        "image_id": "da47f15d-208e-4455-bdb6-2fe7cf75ea83",
         "id": 17,
         "name": "M17 - Omega Nebula",
-        "bounding_box": "1667,1226,4171,1226,4171,3695,1667,3695",
-        "thumbnail_box": "1564,977,4411,977,4411,3824,1564,3824"
+        "bounding_box": "1659,994,4437,994,4437,3773,1659,3773",
+        "thumbnail_box": "1659,994,4437,994,4437,3773,1659,3773"
       }
     ],
     "gallery_ids": [
-      2,
       1
     ]
   },
