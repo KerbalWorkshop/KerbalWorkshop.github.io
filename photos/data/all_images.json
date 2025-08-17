@@ -1031,43 +1031,6 @@
     ]
   },
   {
-    "id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
-    "label": "",
-    "image_file": "photos/originals/53f2d6fd-2a17-49a5-ae5d-9becf041d99f.jpg",
-    "preview_file": "photos/previews/53f2d6fd-2a17-49a5-ae5d-9becf041d99f_preview.jpg",
-    "width": 5428,
-    "height": 3814,
-    "preview_width": 1200,
-    "preview_height": 843,
-    "featured": false,
-    "data": {
-      "date": "2025-05-18",
-      "integration": 36,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
-        "id": 108,
-        "name": "M108 - Surfboard Galaxy",
-        "bounding_box": "4058,3021,4187,3088,3941,3562,3812,3495",
-        "thumbnail_box": "3684,2984,4331,2984,4331,3632,3684,3632"
-      },
-      {
-        "image_id": "53f2d6fd-2a17-49a5-ae5d-9becf041d99f",
-        "id": 97,
-        "name": "M97 - Owl Nebula",
-        "bounding_box": "1864,177,2107,177,2107,420,1864,420",
-        "thumbnail_box": "1783,97,2188,97,2188,501,1783,501"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "769ec9aa-5139-43cb-9ed1-c5207020bdfa",
     "label": "",
     "image_file": "photos/originals/769ec9aa-5139-43cb-9ed1-c5207020bdfa.jpg",
@@ -1121,6 +1084,43 @@
         "name": "M109",
         "bounding_box": "2782,1724,3010,1485,3166,1634,2938,1872",
         "thumbnail_box": "2630,1341,3318,1341,3318,2030,2630,2030"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "7448d736-5864-486b-a4c3-30abaa603da4",
+    "label": "",
+    "image_file": "photos/originals/7448d736-5864-486b-a4c3-30abaa603da4.jpg",
+    "preview_file": "photos/previews/7448d736-5864-486b-a4c3-30abaa603da4_preview.jpg",
+    "width": 5428,
+    "height": 3814,
+    "preview_width": 1200,
+    "preview_height": 843,
+    "featured": false,
+    "data": {
+      "date": "2025-05-18",
+      "integration": 36,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "7448d736-5864-486b-a4c3-30abaa603da4",
+        "id": 108,
+        "name": "M108 - Surfboard Galaxy",
+        "bounding_box": "4061,3004,4205,3078,3938,3596,3794,3522",
+        "thumbnail_box": "3555,2857,4437,2857,4437,3738,3555,3738"
+      },
+      {
+        "image_id": "7448d736-5864-486b-a4c3-30abaa603da4",
+        "id": 97,
+        "name": "M97 - Owl Nebula",
+        "bounding_box": "1856,161,2115,161,2115,420,1856,420",
+        "thumbnail_box": "1719,32,2252,32,2252,566,1719,566"
       }
     ],
     "gallery_ids": [
@@ -1297,10 +1297,10 @@
     ]
   },
   {
-    "id": "1ea61511-0e40-4ae2-a95b-64adf10dfe84",
+    "id": "e972fec0-b0ea-41a8-93ee-21dce46d99e4",
     "label": "",
-    "image_file": "photos/originals/1ea61511-0e40-4ae2-a95b-64adf10dfe84.jpg",
-    "preview_file": "photos/previews/1ea61511-0e40-4ae2-a95b-64adf10dfe84_preview.jpg",
+    "image_file": "photos/originals/e972fec0-b0ea-41a8-93ee-21dce46d99e4.jpg",
+    "preview_file": "photos/previews/e972fec0-b0ea-41a8-93ee-21dce46d99e4_preview.jpg",
     "width": 5725,
     "height": 3767,
     "preview_width": 1200,
@@ -1315,11 +1315,11 @@
     },
     "subjects": [
       {
-        "image_id": "1ea61511-0e40-4ae2-a95b-64adf10dfe84",
+        "image_id": "e972fec0-b0ea-41a8-93ee-21dce46d99e4",
         "id": 99,
         "name": "M99 - Coma Pinwheel Galaxy",
-        "bounding_box": "2551,1740,2918,1740,2918,2107,2551,2107",
-        "thumbnail_box": "2439,1620,3078,1620,3078,2259,2439,2259"
+        "bounding_box": "2575,1764,2926,1764,2926,2115,2575,2115",
+        "thumbnail_box": "2351,1525,3133,1525,3133,2307,2351,2307"
       }
     ],
     "gallery_ids": [
@@ -1327,10 +1327,10 @@
     ]
   },
   {
-    "id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
+    "id": "f5535933-b113-4223-959b-b4b8de5d75f9",
     "label": "",
-    "image_file": "photos/originals/3a77d311-9639-432c-aea6-43fb9cbfb109.jpg",
-    "preview_file": "photos/previews/3a77d311-9639-432c-aea6-43fb9cbfb109_preview.jpg",
+    "image_file": "photos/originals/f5535933-b113-4223-959b-b4b8de5d75f9.jpg",
+    "preview_file": "photos/previews/f5535933-b113-4223-959b-b4b8de5d75f9_preview.jpg",
     "width": 5669,
     "height": 3729,
     "preview_width": 1200,
@@ -1345,17 +1345,17 @@
     },
     "subjects": [
       {
-        "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
+        "image_id": "f5535933-b113-4223-959b-b4b8de5d75f9",
         "id": 100,
         "name": "M100",
-        "bounding_box": "2613,2008,3047,2008,3047,2395,2613,2395",
-        "thumbnail_box": "2502,1865,3166,1865,3166,2530,2502,2530"
+        "bounding_box": "2597,2016,3071,2016,3071,2379,2597,2379",
+        "thumbnail_box": "2447,1818,3221,1818,3221,2593,2447,2593"
       },
       {
-        "image_id": "3a77d311-9639-432c-aea6-43fb9cbfb109",
+        "image_id": "f5535933-b113-4223-959b-b4b8de5d75f9",
         "id": 123,
         "name": "NGC 4312",
-        "bounding_box": "1411,2004,1648,2162,1569,2280,1332,2122",
+        "bounding_box": "1377,2007,1640,2183,1587,2261,1324,2086",
         "thumbnail_box": null
       }
     ],
