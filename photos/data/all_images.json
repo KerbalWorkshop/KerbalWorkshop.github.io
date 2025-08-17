@@ -1,5 +1,35 @@
 [
   {
+    "id": "e3360b75-0f5c-47e5-bb86-00d5da48ef52",
+    "label": "",
+    "image_file": "photos/originals/e3360b75-0f5c-47e5-bb86-00d5da48ef52.jpg",
+    "preview_file": "photos/previews/e3360b75-0f5c-47e5-bb86-00d5da48ef52_preview.jpg",
+    "width": 5205,
+    "height": 3655,
+    "preview_width": 1200,
+    "preview_height": 843,
+    "featured": false,
+    "data": {
+      "date": "2025-11-02",
+      "integration": 20,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "e3360b75-0f5c-47e5-bb86-00d5da48ef52",
+        "id": 33,
+        "name": "M33 - Triangulum Galaxy",
+        "bounding_box": "1037,968,4461,968,4461,3183,1037,3183",
+        "thumbnail_box": "1502,782,4074,782,4074,3353,1502,3353"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "da47f15d-208e-4455-bdb6-2fe7cf75ea83",
     "label": "Omega Nebula",
     "image_file": "photos/originals/da47f15d-208e-4455-bdb6-2fe7cf75ea83.png",
@@ -2381,36 +2411,6 @@
         "name": "M32 - Le Gentil",
         "bounding_box": "442,862,546,799,640,955,536,1018",
         "thumbnail_box": "412,787,670,787,670,1045,412,1045"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "c4f70928-88b0-45f1-8bc0-a2cfb1bda54a",
-    "label": "",
-    "image_file": "photos/originals/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a.jpg",
-    "preview_file": "photos/previews/c4f70928-88b0-45f1-8bc0-a2cfb1bda54a_preview.jpg",
-    "width": 4885,
-    "height": 3170,
-    "preview_width": 1200,
-    "preview_height": 779,
-    "featured": false,
-    "data": {
-      "date": "2024-11-02",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "c4f70928-88b0-45f1-8bc0-a2cfb1bda54a",
-        "id": 33,
-        "name": "M33 - Triangulum Galaxy",
-        "bounding_box": "1132,544,3739,544,3739,2613,1132,2613",
-        "thumbnail_box": "1400,564,3457,564,3457,2620,1400,2620"
       }
     ],
     "gallery_ids": [
