@@ -890,36 +890,6 @@
     ]
   },
   {
-    "id": "4946a347-b5a4-469e-995e-d03985a7decd",
-    "label": "",
-    "image_file": "photos/originals/4946a347-b5a4-469e-995e-d03985a7decd.jpg",
-    "preview_file": "photos/previews/4946a347-b5a4-469e-995e-d03985a7decd_preview.jpg",
-    "width": 2004,
-    "height": 1446,
-    "preview_width": 1200,
-    "preview_height": 866,
-    "featured": false,
-    "data": {
-      "date": "2025-05-18",
-      "integration": 15,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "4946a347-b5a4-469e-995e-d03985a7decd",
-        "id": 20,
-        "name": "M20 - Trifid Nebula",
-        "bounding_box": "411,223,1693,223,1693,1213,411,1213",
-        "thumbnail_box": "391,57,1734,57,1734,1400,391,1400"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
     "label": "",
     "image_file": "photos/originals/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2.jpg",
@@ -1121,6 +1091,36 @@
         "name": "M109",
         "bounding_box": "2986,1416,3225,1600,2962,1941,2723,1757",
         "thumbnail_box": "2673,1377,3275,1377,3275,1980,2673,1980"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "769ec9aa-5139-43cb-9ed1-c5207020bdfa",
+    "label": "",
+    "image_file": "photos/originals/769ec9aa-5139-43cb-9ed1-c5207020bdfa.jpg",
+    "preview_file": "photos/previews/769ec9aa-5139-43cb-9ed1-c5207020bdfa_preview.jpg",
+    "width": 2004,
+    "height": 1446,
+    "preview_width": 1200,
+    "preview_height": 866,
+    "featured": false,
+    "data": {
+      "date": "2025-05-18",
+      "integration": 15,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "769ec9aa-5139-43cb-9ed1-c5207020bdfa",
+        "id": 20,
+        "name": "M20 - Trifid Nebula",
+        "bounding_box": "447,202,1807,202,1807,1237,447,1237",
+        "thumbnail_box": "389,64,1719,64,1719,1394,389,1394"
       }
     ],
     "gallery_ids": [
