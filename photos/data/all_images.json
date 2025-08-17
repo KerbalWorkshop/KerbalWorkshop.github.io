@@ -91,29 +91,29 @@
     ]
   },
   {
-    "id": "300ca1c0-8172-491b-a458-ea4081a825f4",
-    "label": "Ring Nebula",
-    "image_file": "photos/originals/300ca1c0-8172-491b-a458-ea4081a825f4.jpg",
-    "preview_file": "photos/previews/300ca1c0-8172-491b-a458-ea4081a825f4_preview.jpg",
-    "width": 5851,
-    "height": 3876,
+    "id": "f96017c0-7f45-4d73-a6eb-8cbe925f3856",
+    "label": "",
+    "image_file": "photos/originals/f96017c0-7f45-4d73-a6eb-8cbe925f3856.jpg",
+    "preview_file": "photos/previews/f96017c0-7f45-4d73-a6eb-8cbe925f3856_preview.jpg",
+    "width": 1375,
+    "height": 911,
     "preview_width": 1200,
     "preview_height": 795,
     "featured": false,
     "data": {
       "date": "2025-08-14",
-      "integration": 55,
+      "integration": 45,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "300ca1c0-8172-491b-a458-ea4081a825f4",
+        "image_id": "f96017c0-7f45-4d73-a6eb-8cbe925f3856",
         "id": 57,
         "name": "M57 - Ring Nebula",
-        "bounding_box": "2859,1840,3056,1840,3056,2037,2859,2037",
-        "thumbnail_box": "2752,1729,3163,1729,3163,2140,2752,2140"
+        "bounding_box": "554,337,793,337,793,577,554,577",
+        "thumbnail_box": "477,256,882,256,882,662,477,662"
       }
     ],
     "gallery_ids": [
