@@ -284,8 +284,8 @@
 
     <section id="observability-section">
       <div class="section-heading-block">
-        <h2 class="section-heading-block__title">IN THE SKY <span style="font-size: 0.6em; color: var(--color-text-secondary); font-weight: 400;">(Next 365 Days, Daily Steps)</span></h2>
-        <p class="section-heading-block__text">Predicted viewing favorability for each planet over the coming year, sampled daily. Brighter colors (towards green) indicate better chances to observe, based on a combined score of apparent magnitude and elongation from the Sun. Darker (towards red) means less favorable. Hover over bars for details.</p>
+        <h2 class="section-heading-block__title">IN THE SKY</h2>
+        <p class="section-heading-block__text">Viewing favorability for each planet over the coming year. Greener colors indicate better observability, based on a combined score of apparent magnitude and elongation from the Sun. Hover over bars for details.</p>
       </div>
       <div id="observability-content-area">
         <div id="observability-chart"></div>
@@ -510,8 +510,15 @@
                 const img = document.createElement('img'); img.src = `planets/${p}.png`; img.alt = p; 
                 img.onerror = function() { this.style.display='none'; slot.querySelector('.size-label').textContent = 'Image N/A';}; 
                 // REVERTED: Set height to calculated px, width to auto for proportional scaling by height
-                img.style.height = `${planetData.px}px`; 
-                img.style.width = 'auto'; 
+                if (p === 'saturn') {
+                  // SPECIAL CASE: For Saturn's wide image, we must constrain its width first to prevent it from breaking the layout.
+                  img.style.width = '100%';
+                  img.style.height = 'auto';
+                } else {
+                  // STANDARD CASE: For all other (mostly round) planets, setting height by polar diameter works correctly.
+                  img.style.height = `${planetData.px}px`;
+                  img.style.width = 'auto';
+                }
                 imgContainer.appendChild(img); 
                 const label = document.createElement('div'); label.className = 'size-label'; label.textContent = planetData.label || 'N/A'; 
                 slot.appendChild(imgContainer); slot.appendChild(label); 
