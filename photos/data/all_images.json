@@ -1068,36 +1068,6 @@
     ]
   },
   {
-    "id": "8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1",
-    "label": "",
-    "image_file": "photos/originals/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1.jpg",
-    "preview_file": "photos/previews/8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1_preview.jpg",
-    "width": 5461,
-    "height": 3384,
-    "preview_width": 1200,
-    "preview_height": 744,
-    "featured": false,
-    "data": {
-      "date": "2025-05-18",
-      "integration": 42,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "8b4cf1bb-6885-425d-ad7e-eb12d95ee8a1",
-        "id": 109,
-        "name": "M109",
-        "bounding_box": "2986,1416,3225,1600,2962,1941,2723,1757",
-        "thumbnail_box": "2673,1377,3275,1377,3275,1980,2673,1980"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "769ec9aa-5139-43cb-9ed1-c5207020bdfa",
     "label": "",
     "image_file": "photos/originals/769ec9aa-5139-43cb-9ed1-c5207020bdfa.jpg",
@@ -1121,6 +1091,36 @@
         "name": "M20 - Trifid Nebula",
         "bounding_box": "447,202,1807,202,1807,1237,447,1237",
         "thumbnail_box": "389,64,1719,64,1719,1394,389,1394"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "a38d3123-1da8-415b-a9d7-0bb0c9c84a99",
+    "label": "",
+    "image_file": "photos/originals/a38d3123-1da8-415b-a9d7-0bb0c9c84a99.jpg",
+    "preview_file": "photos/previews/a38d3123-1da8-415b-a9d7-0bb0c9c84a99_preview.jpg",
+    "width": 5461,
+    "height": 3384,
+    "preview_width": 1200,
+    "preview_height": 744,
+    "featured": false,
+    "data": {
+      "date": "2025-05-18",
+      "integration": 42,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "a38d3123-1da8-415b-a9d7-0bb0c9c84a99",
+        "id": 109,
+        "name": "M109",
+        "bounding_box": "2782,1724,3010,1485,3166,1634,2938,1872",
+        "thumbnail_box": "2630,1341,3318,1341,3318,2030,2630,2030"
       }
     ],
     "gallery_ids": [
@@ -1852,36 +1852,6 @@
     "gallery_ids": []
   },
   {
-    "id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
-    "label": "",
-    "image_file": "photos/originals/a9f6edab-e28d-4633-b04f-e56fb0768b10.jpg",
-    "preview_file": "photos/previews/a9f6edab-e28d-4633-b04f-e56fb0768b10_preview.jpg",
-    "width": 3016,
-    "height": 2281,
-    "preview_width": 1200,
-    "preview_height": 908,
-    "featured": false,
-    "data": {
-      "date": "2025-03-22",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
-        "id": 104,
-        "name": "M104 - Sombrero Galaxy",
-        "bounding_box": "1464,903,1605,934,1503,1406,1361,1376",
-        "thumbnail_box": "1169,841,1798,841,1798,1469,1169,1469"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "b416c689-d0fb-477f-8ba4-14e6a148218f",
     "label": "Leo Triplet",
     "image_file": "photos/originals/b416c689-d0fb-477f-8ba4-14e6a148218f.jpg",
@@ -1949,6 +1919,36 @@
         "name": "M13 - Hercules Globular Cluster",
         "bounding_box": "876,464,1835,464,1835,1422,876,1422",
         "thumbnail_box": "876,464,1835,464,1835,1422,876,1422"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c",
+    "label": "",
+    "image_file": "photos/originals/b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c.jpg",
+    "preview_file": "photos/previews/b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c_preview.jpg",
+    "width": 3016,
+    "height": 2281,
+    "preview_width": 1200,
+    "preview_height": 908,
+    "featured": false,
+    "data": {
+      "date": "2025-03-22",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c",
+        "id": 104,
+        "name": "M104 - Sombrero Galaxy",
+        "bounding_box": "1459,936,1600,970,1498,1393,1357,1359",
+        "thumbnail_box": "1106,778,1870,778,1870,1541,1106,1541"
       }
     ],
     "gallery_ids": [
