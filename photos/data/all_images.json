@@ -1,65 +1,5 @@
 [
   {
-    "id": "fc283f93-e648-4762-8d99-8fe615214315",
-    "label": "",
-    "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
-    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
-    "width": 4996,
-    "height": 3357,
-    "preview_width": 1200,
-    "preview_height": 806,
-    "featured": false,
-    "data": {
-      "date": "2025-10-28",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
-        "id": 36,
-        "name": "M36 - Pinwheel Cluster",
-        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
-        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "4101f360-818f-49db-903e-1172a8405009",
-    "label": "",
-    "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
-    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
-    "width": 5589,
-    "height": 3166,
-    "preview_width": 1200,
-    "preview_height": 680,
-    "featured": false,
-    "data": {
-      "date": "2025-10-28",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "4101f360-818f-49db-903e-1172a8405009",
-        "id": 53,
-        "name": "M53",
-        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
-        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "a9bb1ef3-7ed7-4026-946b-de7a022486e8",
     "label": "Core of the Pacman Nebula",
     "image_file": "photos/originals/a9bb1ef3-7ed7-4026-946b-de7a022486e8.png",
@@ -2648,6 +2588,36 @@
     ]
   },
   {
+    "id": "fc283f93-e648-4762-8d99-8fe615214315",
+    "label": "",
+    "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
+    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
+    "width": 4996,
+    "height": 3357,
+    "preview_width": 1200,
+    "preview_height": 806,
+    "featured": false,
+    "data": {
+      "date": "2024-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
+        "id": 36,
+        "name": "M36 - Pinwheel Cluster",
+        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
+        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
     "label": "",
     "image_file": "photos/originals/4a7eea52-952b-4196-b028-b8cd1cc86700.jpg",
@@ -2674,6 +2644,36 @@
       }
     ],
     "gallery_ids": []
+  },
+  {
+    "id": "4101f360-818f-49db-903e-1172a8405009",
+    "label": "",
+    "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
+    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
+    "width": 5589,
+    "height": 3166,
+    "preview_width": 1200,
+    "preview_height": 680,
+    "featured": false,
+    "data": {
+      "date": "2024-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "4101f360-818f-49db-903e-1172a8405009",
+        "id": 53,
+        "name": "M53",
+        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
+        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
   },
   {
     "id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
