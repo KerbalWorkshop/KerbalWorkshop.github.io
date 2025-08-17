@@ -2476,36 +2476,6 @@
     "gallery_ids": []
   },
   {
-    "id": "780b5cf7-739d-4313-8878-c7621fc99332",
-    "label": "",
-    "image_file": "photos/originals/780b5cf7-739d-4313-8878-c7621fc99332.jpg",
-    "preview_file": "photos/previews/780b5cf7-739d-4313-8878-c7621fc99332_preview.jpg",
-    "width": 2057,
-    "height": 1552,
-    "preview_width": 1200,
-    "preview_height": 905,
-    "featured": false,
-    "data": {
-      "date": "2024-10-28",
-      "integration": null,
-      "camera": "ZWO ASI662MC",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "780b5cf7-739d-4313-8878-c7621fc99332",
-        "id": 74,
-        "name": "M74 - Phantom Galaxy",
-        "bounding_box": "752,498,1311,498,1311,1058,752,1058",
-        "thumbnail_box": "518,264,1545,264,1545,1291,518,1291"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
     "label": "",
     "image_file": "photos/originals/67750bec-9d1f-4094-8ea1-908aa1bfd907.jpg",
@@ -2529,6 +2499,36 @@
         "name": "M76 - Little Dumbbell Nebula",
         "bounding_box": "418,295,728,175,820,411,510,531",
         "thumbnail_box": "402,147,833,147,833,577,402,577"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "ef360676-3f8f-4417-a934-fdce93d83453",
+    "label": "",
+    "image_file": "photos/originals/ef360676-3f8f-4417-a934-fdce93d83453.jpg",
+    "preview_file": "photos/previews/ef360676-3f8f-4417-a934-fdce93d83453_preview.jpg",
+    "width": 3757,
+    "height": 2553,
+    "preview_width": 1200,
+    "preview_height": 815,
+    "featured": false,
+    "data": {
+      "date": "2024-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "ef360676-3f8f-4417-a934-fdce93d83453",
+        "id": 74,
+        "name": "M74 - Phantom Galaxy",
+        "bounding_box": "1726,1521,2257,1521,2257,1997,1726,1997",
+        "thumbnail_box": "1559,1301,2446,1301,2446,2189,1559,2189"
       }
     ],
     "gallery_ids": [
