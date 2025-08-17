@@ -1,5 +1,65 @@
 [
   {
+    "id": "fc283f93-e648-4762-8d99-8fe615214315",
+    "label": "",
+    "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
+    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
+    "width": 4996,
+    "height": 3357,
+    "preview_width": 1200,
+    "preview_height": 806,
+    "featured": false,
+    "data": {
+      "date": "2025-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
+        "id": 36,
+        "name": "M36 - Pinwheel Cluster",
+        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
+        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "4101f360-818f-49db-903e-1172a8405009",
+    "label": "",
+    "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
+    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
+    "width": 5589,
+    "height": 3166,
+    "preview_width": 1200,
+    "preview_height": 680,
+    "featured": false,
+    "data": {
+      "date": "2025-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "4101f360-818f-49db-903e-1172a8405009",
+        "id": 53,
+        "name": "M53",
+        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
+        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "a9bb1ef3-7ed7-4026-946b-de7a022486e8",
     "label": "Core of the Pacman Nebula",
     "image_file": "photos/originals/a9bb1ef3-7ed7-4026-946b-de7a022486e8.png",
@@ -2024,6 +2084,51 @@
     ]
   },
   {
+    "id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
+    "label": "The Lunar South Pole",
+    "image_file": "photos/originals/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0.jpg",
+    "preview_file": "photos/previews/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0_preview.jpg",
+    "width": 1766,
+    "height": 1292,
+    "preview_width": 1200,
+    "preview_height": 878,
+    "featured": false,
+    "data": {
+      "date": "2025-02-08",
+      "integration": null,
+      "camera": "ZWO ASI662MC",
+      "telescope": "Celestron C8-N",
+      "notes": "Favorable libration tilted the Moon's South Pole toward the Earth for this shot. Visible are craters Clavius, Moretus, Malapert A and B, and more."
+    },
+    "subjects": [
+      {
+        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
+        "id": 131,
+        "name": "Clavius Crater",
+        "bounding_box": "441,983,1180,983,1180,1283,441,1283",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
+        "id": 124,
+        "name": "Moon",
+        "bounding_box": "n,u,l,l",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
+        "id": 134,
+        "name": "Moretus Crater",
+        "bounding_box": "38,476,409,476,409,676,38,676",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2,
+      3
+    ]
+  },
+  {
     "id": "50d9cc89-71dd-4de9-b3e4-a622696361e7",
     "label": "Sunrise from North to South",
     "image_file": "photos/originals/50d9cc89-71dd-4de9-b3e4-a622696361e7.jpg",
@@ -2154,6 +2259,71 @@
         "id": 135,
         "name": "Mars",
         "bounding_box": "1371,1366,2646,1366,2646,2642,1371,2642",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      3
+    ]
+  },
+  {
+    "id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+    "label": "Mineral Moon",
+    "image_file": "photos/originals/c7eaa67d-df59-45be-97a2-5e7c5aab5686.jpg",
+    "preview_file": "photos/previews/c7eaa67d-df59-45be-97a2-5e7c5aab5686_preview.jpg",
+    "width": 1042,
+    "height": 1852,
+    "preview_width": 675,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-01-18",
+      "integration": null,
+      "camera": "ZWO ASI662MC",
+      "telescope": "Celestron C8-N",
+      "notes": "3x barlow"
+    },
+    "subjects": [
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 132,
+        "name": "Copernicus Crater",
+        "bounding_box": "956,1250,1040,1250,1040,1347,956,1347",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 133,
+        "name": "Plato Crater",
+        "bounding_box": "9,881,96,830,133,893,47,945",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 145,
+        "name": "Montes Apenninus",
+        "bounding_box": "179,1309,770,1309,770,1475,179,1475",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 146,
+        "name": "Archimedes Crater",
+        "bounding_box": "313,1198,385,1198,385,1274,313,1274",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 148,
+        "name": "Eratosthenes Crater",
+        "bounding_box": "717,1332,783,1332,783,1398,717,1398",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
+        "id": 124,
+        "name": "Moon",
+        "bounding_box": "null",
         "thumbnail_box": null
       }
     ],
@@ -2646,176 +2816,6 @@
         "id": 137,
         "name": "Saturn",
         "bounding_box": "648,945,1705,945,1705,1404,648,1404",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      3
-    ]
-  },
-  {
-    "id": "fc283f93-e648-4762-8d99-8fe615214315",
-    "label": "",
-    "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
-    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
-    "width": 4996,
-    "height": 3357,
-    "preview_width": 1200,
-    "preview_height": 806,
-    "featured": false,
-    "data": {
-      "date": "",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
-        "id": 36,
-        "name": "M36 - Pinwheel Cluster",
-        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
-        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "4101f360-818f-49db-903e-1172a8405009",
-    "label": "",
-    "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
-    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
-    "width": 5589,
-    "height": 3166,
-    "preview_width": 1200,
-    "preview_height": 680,
-    "featured": false,
-    "data": {
-      "date": "",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "4101f360-818f-49db-903e-1172a8405009",
-        "id": 53,
-        "name": "M53",
-        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
-        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
-    "label": "The Lunar South Pole",
-    "image_file": "photos/originals/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0.jpg",
-    "preview_file": "photos/previews/d592bec6-e9d0-4c3d-be3f-fcfab0b982d0_preview.jpg",
-    "width": 1766,
-    "height": 1292,
-    "preview_width": 1200,
-    "preview_height": 878,
-    "featured": false,
-    "data": {
-      "date": "",
-      "integration": null,
-      "camera": "ZWO ASI662MC",
-      "telescope": "Celestron C8-N",
-      "notes": "Favorable libration tilted the Moon's South Pole toward the Earth for this shot. Visible are craters Clavius, Moretus, Malapert A and B, and more."
-    },
-    "subjects": [
-      {
-        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
-        "id": 131,
-        "name": "Clavius Crater",
-        "bounding_box": "441,983,1180,983,1180,1283,441,1283",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
-        "id": 124,
-        "name": "Moon",
-        "bounding_box": "n,u,l,l",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "d592bec6-e9d0-4c3d-be3f-fcfab0b982d0",
-        "id": 134,
-        "name": "Moretus Crater",
-        "bounding_box": "38,476,409,476,409,676,38,676",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2,
-      3
-    ]
-  },
-  {
-    "id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-    "label": "Mineral Moon",
-    "image_file": "photos/originals/c7eaa67d-df59-45be-97a2-5e7c5aab5686.jpg",
-    "preview_file": "photos/previews/c7eaa67d-df59-45be-97a2-5e7c5aab5686_preview.jpg",
-    "width": 1042,
-    "height": 1852,
-    "preview_width": 675,
-    "preview_height": 1200,
-    "featured": false,
-    "data": {
-      "date": "",
-      "integration": null,
-      "camera": "ZWO ASI662MC",
-      "telescope": "Celestron C8-N",
-      "notes": "3x barlow"
-    },
-    "subjects": [
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 132,
-        "name": "Copernicus Crater",
-        "bounding_box": "956,1250,1040,1250,1040,1347,956,1347",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 133,
-        "name": "Plato Crater",
-        "bounding_box": "9,881,96,830,133,893,47,945",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 145,
-        "name": "Montes Apenninus",
-        "bounding_box": "179,1309,770,1309,770,1475,179,1475",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 146,
-        "name": "Archimedes Crater",
-        "bounding_box": "313,1198,385,1198,385,1274,313,1274",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 148,
-        "name": "Eratosthenes Crater",
-        "bounding_box": "717,1332,783,1332,783,1398,717,1398",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "c7eaa67d-df59-45be-97a2-5e7c5aab5686",
-        "id": 124,
-        "name": "Moon",
-        "bounding_box": "null",
         "thumbnail_box": null
       }
     ],
