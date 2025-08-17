@@ -1401,36 +1401,6 @@
     ]
   },
   {
-    "id": "fead76a3-5d51-42ef-8bb6-342dc7becf4d",
-    "label": "",
-    "image_file": "photos/originals/fead76a3-5d51-42ef-8bb6-342dc7becf4d.jpg",
-    "preview_file": "photos/previews/fead76a3-5d51-42ef-8bb6-342dc7becf4d_preview.jpg",
-    "width": 5244,
-    "height": 3619,
-    "preview_width": 1200,
-    "preview_height": 828,
-    "featured": false,
-    "data": {
-      "date": "2025-05-07",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "fead76a3-5d51-42ef-8bb6-342dc7becf4d",
-        "id": 44,
-        "name": "M44 - Beehive Cluster",
-        "bounding_box": null,
-        "thumbnail_box": "271,330,3411,330,3411,3470,271,3470"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
     "label": "",
     "image_file": "photos/originals/f4eaaca6-93d8-4db1-a3de-be19d37f47f9.jpg",
@@ -1458,6 +1428,37 @@
     ],
     "gallery_ids": [
       1
+    ]
+  },
+  {
+    "id": "d17bb704-bd41-4332-88b8-b6832c1f6ca3",
+    "label": "",
+    "image_file": "photos/originals/d17bb704-bd41-4332-88b8-b6832c1f6ca3.jpg",
+    "preview_file": "photos/previews/d17bb704-bd41-4332-88b8-b6832c1f6ca3_preview.jpg",
+    "width": 5244,
+    "height": 3619,
+    "preview_width": 1200,
+    "preview_height": 828,
+    "featured": false,
+    "data": {
+      "date": "2025-05-07",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "d17bb704-bd41-4332-88b8-b6832c1f6ca3",
+        "id": 44,
+        "name": "M44 - Beehive Cluster",
+        "bounding_box": null,
+        "thumbnail_box": "779,621,3666,621,3666,3508,779,3508"
+      }
+    ],
+    "gallery_ids": [
+      1,
+      4
     ]
   },
   {
@@ -1793,36 +1794,6 @@
     "gallery_ids": []
   },
   {
-    "id": "b089cef5-9fc9-4321-8162-c09bd028214f",
-    "label": "",
-    "image_file": "photos/originals/b089cef5-9fc9-4321-8162-c09bd028214f.jpg",
-    "preview_file": "photos/previews/b089cef5-9fc9-4321-8162-c09bd028214f_preview.jpg",
-    "width": 2785,
-    "height": 1915,
-    "preview_width": 1200,
-    "preview_height": 825,
-    "featured": false,
-    "data": {
-      "date": "2025-03-22",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "b089cef5-9fc9-4321-8162-c09bd028214f",
-        "id": 13,
-        "name": "M13 - Hercules Globular Cluster",
-        "bounding_box": "864,474,1847,474,1847,1457,864,1457",
-        "thumbnail_box": "864,474,1847,474,1847,1457,864,1457"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "42b74ab4-da93-4d4b-866e-dbe451d00129",
     "label": "",
     "image_file": "photos/originals/42b74ab4-da93-4d4b-866e-dbe451d00129.jpg",
@@ -1918,6 +1889,36 @@
         "name": "NGC 3628",
         "bounding_box": "1124,1291,1456,1305,1413,2359,1081,2346",
         "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "7de1dd48-8adf-4cb9-8701-d064395d8e33",
+    "label": "",
+    "image_file": "photos/originals/7de1dd48-8adf-4cb9-8701-d064395d8e33.jpg",
+    "preview_file": "photos/previews/7de1dd48-8adf-4cb9-8701-d064395d8e33_preview.jpg",
+    "width": 2785,
+    "height": 1915,
+    "preview_width": 1200,
+    "preview_height": 825,
+    "featured": false,
+    "data": {
+      "date": "2025-03-22",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "7de1dd48-8adf-4cb9-8701-d064395d8e33",
+        "id": 13,
+        "name": "M13 - Hercules Globular Cluster",
+        "bounding_box": "876,464,1835,464,1835,1422,876,1422",
+        "thumbnail_box": "876,464,1835,464,1835,1422,876,1422"
       }
     ],
     "gallery_ids": [
