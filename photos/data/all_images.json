@@ -82,8 +82,8 @@
         "image_id": "300ca1c0-8172-491b-a458-ea4081a825f4",
         "id": 57,
         "name": "M57 - Ring Nebula",
-        "bounding_box": "2859,1848,3056,1848,3056,2029,2859,2029",
-        "thumbnail_box": "2810,1791,3106,1791,3106,2087,2810,2087"
+        "bounding_box": "2859,1840,3056,1840,3056,2037,2859,2037",
+        "thumbnail_box": "2752,1729,3163,1729,3163,2140,2752,2140"
       }
     ],
     "gallery_ids": [
@@ -1851,50 +1851,6 @@
     "gallery_ids": []
   },
   {
-    "id": "a073acc2-8f91-4529-948a-3958a568978a",
-    "label": "Leo Triplet",
-    "image_file": "photos/originals/a073acc2-8f91-4529-948a-3958a568978a.jpg",
-    "preview_file": "photos/previews/a073acc2-8f91-4529-948a-3958a568978a_preview.jpg",
-    "width": 3700,
-    "height": 2508,
-    "preview_width": 1200,
-    "preview_height": 813,
-    "featured": false,
-    "data": {
-      "date": "2025-03-22",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
-        "id": 65,
-        "name": "M65",
-        "bounding_box": "2748,419,3260,618,3194,786,2683,588",
-        "thumbnail_box": "2636,244,3338,244,3338,946,2636,946"
-      },
-      {
-        "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
-        "id": 66,
-        "name": "M66",
-        "bounding_box": "2833,2004,3264,2004,3264,2211,2833,2211",
-        "thumbnail_box": "2748,1796,3365,1796,3365,2413,2748,2413"
-      },
-      {
-        "image_id": "a073acc2-8f91-4529-948a-3958a568978a",
-        "id": 129,
-        "name": "NGC 3628",
-        "bounding_box": "281,893,616,893,616,2004,281,2004",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "a9f6edab-e28d-4633-b04f-e56fb0768b10",
     "label": "",
     "image_file": "photos/originals/a9f6edab-e28d-4633-b04f-e56fb0768b10.jpg",
@@ -1918,6 +1874,50 @@
         "name": "M104 - Sombrero Galaxy",
         "bounding_box": "1464,903,1605,934,1503,1406,1361,1376",
         "thumbnail_box": "1169,841,1798,841,1798,1469,1169,1469"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "b416c689-d0fb-477f-8ba4-14e6a148218f",
+    "label": "Leo Triplet",
+    "image_file": "photos/originals/b416c689-d0fb-477f-8ba4-14e6a148218f.jpg",
+    "preview_file": "photos/previews/b416c689-d0fb-477f-8ba4-14e6a148218f_preview.jpg",
+    "width": 4967,
+    "height": 3411,
+    "preview_width": 1200,
+    "preview_height": 824,
+    "featured": false,
+    "data": {
+      "date": "2025-03-22",
+      "integration": 30,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "b416c689-d0fb-477f-8ba4-14e6a148218f",
+        "id": 65,
+        "name": "M65",
+        "bounding_box": "3512,812,4111,976,4066,1143,3466,979",
+        "thumbnail_box": "3380,567,4218,567,4218,1406,3380,1406"
+      },
+      {
+        "image_id": "b416c689-d0fb-477f-8ba4-14e6a148218f",
+        "id": 66,
+        "name": "M66",
+        "bounding_box": "3690,2303,4176,2443,4096,2721,3610,2581",
+        "thumbnail_box": "3495,2093,4334,2093,4334,2931,3495,2931"
+      },
+      {
+        "image_id": "b416c689-d0fb-477f-8ba4-14e6a148218f",
+        "id": 129,
+        "name": "NGC 3628",
+        "bounding_box": "1124,1291,1456,1305,1413,2359,1081,2346",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
