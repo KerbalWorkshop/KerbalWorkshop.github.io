@@ -60,37 +60,6 @@
     ]
   },
   {
-    "id": "d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105",
-    "label": "The Pleiades",
-    "image_file": "photos/originals/d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105.jpg",
-    "preview_file": "photos/previews/d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105_preview.jpg",
-    "width": 6235,
-    "height": 4154,
-    "preview_width": 1200,
-    "preview_height": 799,
-    "featured": false,
-    "data": {
-      "date": "2025-08-14",
-      "integration": 20,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "d0fd11bb-84e4-46eb-a5fa-1b3b3d2b0105",
-        "id": 45,
-        "name": "M45 - Pleiades",
-        "bounding_box": null,
-        "thumbnail_box": "1479,96,5319,96,5319,3936,1479,3936"
-      }
-    ],
-    "gallery_ids": [
-      1,
-      4
-    ]
-  },
-  {
     "id": "f96017c0-7f45-4d73-a6eb-8cbe925f3856",
     "label": "",
     "image_file": "photos/originals/f96017c0-7f45-4d73-a6eb-8cbe925f3856.jpg",
@@ -118,6 +87,37 @@
     ],
     "gallery_ids": [
       1
+    ]
+  },
+  {
+    "id": "8da29fcc-68b5-46d4-a6bd-6c7819dc85bd",
+    "label": "The Pleiades",
+    "image_file": "photos/originals/8da29fcc-68b5-46d4-a6bd-6c7819dc85bd.jpg",
+    "preview_file": "photos/previews/8da29fcc-68b5-46d4-a6bd-6c7819dc85bd_preview.jpg",
+    "width": 6215,
+    "height": 4115,
+    "preview_width": 1200,
+    "preview_height": 795,
+    "featured": false,
+    "data": {
+      "date": "2025-08-14",
+      "integration": 20,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "8da29fcc-68b5-46d4-a6bd-6c7819dc85bd",
+        "id": 45,
+        "name": "M45 - Pleiades",
+        "bounding_box": null,
+        "thumbnail_box": "2382,471,5892,471,5892,3980,2382,3980"
+      }
+    ],
+    "gallery_ids": [
+      1,
+      4
     ]
   },
   {
@@ -890,36 +890,6 @@
     ]
   },
   {
-    "id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
-    "label": "",
-    "image_file": "photos/originals/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2.jpg",
-    "preview_file": "photos/previews/6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2_preview.jpg",
-    "width": 1822,
-    "height": 1619,
-    "preview_width": 1200,
-    "preview_height": 1066,
-    "featured": false,
-    "data": {
-      "date": "2025-05-18",
-      "integration": 15,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "6f8b4907-58fc-4a9a-8e76-cbfc2e8a0ee2",
-        "id": 21,
-        "name": "M21 - Webb's Cross",
-        "bounding_box": "475,394,1408,394,1408,1327,475,1327",
-        "thumbnail_box": "475,394,1408,394,1408,1327,475,1327"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
     "label": "",
     "image_file": "photos/originals/f6325bbf-bf33-4160-b950-2a1df081c4c3.jpg",
@@ -1128,29 +1098,29 @@
     ]
   },
   {
-    "id": "3708f9dd-831c-4950-a873-46b88685c971",
+    "id": "4cb84a41-0c1b-4464-ae7a-2e6b6434f20a",
     "label": "",
-    "image_file": "photos/originals/3708f9dd-831c-4950-a873-46b88685c971.jpg",
-    "preview_file": "photos/previews/3708f9dd-831c-4950-a873-46b88685c971_preview.jpg",
-    "width": 5848,
-    "height": 3838,
+    "image_file": "photos/originals/4cb84a41-0c1b-4464-ae7a-2e6b6434f20a.jpg",
+    "preview_file": "photos/previews/4cb84a41-0c1b-4464-ae7a-2e6b6434f20a_preview.jpg",
+    "width": 1822,
+    "height": 1619,
     "preview_width": 1200,
-    "preview_height": 788,
+    "preview_height": 1066,
     "featured": false,
     "data": {
-      "date": "2025-05-17",
-      "integration": 8,
+      "date": "2025-05-18",
+      "integration": 15,
       "camera": "Nikon D3300",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "3708f9dd-831c-4950-a873-46b88685c971",
-        "id": 11,
-        "name": "M11 - Wild Duck Cluster",
-        "bounding_box": "2110,1317,2989,1317,2989,2196,2110,2196",
-        "thumbnail_box": "2110,1317,2989,1317,2989,2196,2110,2196"
+        "image_id": "4cb84a41-0c1b-4464-ae7a-2e6b6434f20a",
+        "id": 21,
+        "name": "M21 - Webb's Cross",
+        "bounding_box": "276,130,1696,130,1696,1550,276,1550",
+        "thumbnail_box": "276,130,1696,130,1696,1550,276,1550"
       }
     ],
     "gallery_ids": [
@@ -1184,36 +1154,6 @@
       }
     ],
     "gallery_ids": []
-  },
-  {
-    "id": "8c05b2b8-0aae-46c7-ade6-41c3391fd469",
-    "label": "",
-    "image_file": "photos/originals/8c05b2b8-0aae-46c7-ade6-41c3391fd469.jpg",
-    "preview_file": "photos/previews/8c05b2b8-0aae-46c7-ade6-41c3391fd469_preview.jpg",
-    "width": 5922,
-    "height": 3904,
-    "preview_width": 1200,
-    "preview_height": 791,
-    "featured": false,
-    "data": {
-      "date": "2025-05-17",
-      "integration": 4,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "8c05b2b8-0aae-46c7-ade6-41c3391fd469",
-        "id": 24,
-        "name": "M24 - Sagittarius Star Cloud",
-        "bounding_box": null,
-        "thumbnail_box": "1768,811,4037,811,4037,3081,1768,3081"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
   },
   {
     "id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
@@ -1364,29 +1304,29 @@
     ]
   },
   {
-    "id": "a9fa2859-fe35-4147-812f-495779d55bc2",
+    "id": "fd8b86c2-f8ad-4764-a763-fe07fe4c2fa7",
     "label": "",
-    "image_file": "photos/originals/a9fa2859-fe35-4147-812f-495779d55bc2.jpg",
-    "preview_file": "photos/previews/a9fa2859-fe35-4147-812f-495779d55bc2_preview.jpg",
-    "width": 5505,
-    "height": 3597,
+    "image_file": "photos/originals/fd8b86c2-f8ad-4764-a763-fe07fe4c2fa7.jpg",
+    "preview_file": "photos/previews/fd8b86c2-f8ad-4764-a763-fe07fe4c2fa7_preview.jpg",
+    "width": 5848,
+    "height": 3838,
     "preview_width": 1200,
-    "preview_height": 784,
+    "preview_height": 788,
     "featured": false,
     "data": {
-      "date": "2025-05-07",
-      "integration": 23,
+      "date": "2025-05-17",
+      "integration": 8,
       "camera": "Nikon D3300",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "a9fa2859-fe35-4147-812f-495779d55bc2",
-        "id": 5,
-        "name": "M5",
-        "bounding_box": "2447,1265,3286,1265,3286,2104,2447,2104",
-        "thumbnail_box": "2447,1265,3286,1265,3286,2104,2447,2104"
+        "image_id": "fd8b86c2-f8ad-4764-a763-fe07fe4c2fa7",
+        "id": 11,
+        "name": "M11 - Wild Duck Cluster",
+        "bounding_box": "1923,1163,3176,1163,3176,2415,1923,2415",
+        "thumbnail_box": "1923,1163,3176,1163,3176,2415,1923,2415"
       }
     ],
     "gallery_ids": [
@@ -1394,36 +1334,29 @@
     ]
   },
   {
-    "id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
+    "id": "6e4addc8-fb1a-4c85-944e-af4d0d39de87",
     "label": "",
-    "image_file": "photos/originals/6e2aa560-8822-4720-96d9-2c640d9cd4cf.jpg",
-    "preview_file": "photos/previews/6e2aa560-8822-4720-96d9-2c640d9cd4cf_preview.jpg",
-    "width": 5724,
-    "height": 3700,
+    "image_file": "photos/originals/6e4addc8-fb1a-4c85-944e-af4d0d39de87.jpg",
+    "preview_file": "photos/previews/6e4addc8-fb1a-4c85-944e-af4d0d39de87_preview.jpg",
+    "width": 5922,
+    "height": 3904,
     "preview_width": 1200,
-    "preview_height": 776,
+    "preview_height": 791,
     "featured": false,
     "data": {
-      "date": "2025-05-07",
-      "integration": 5,
+      "date": "2025-05-17",
+      "integration": 4,
       "camera": "Nikon D3300",
       "telescope": "Celestron C8-N",
-      "notes": "This is just a double star!"
+      "notes": ""
     },
     "subjects": [
       {
-        "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
-        "id": 40,
-        "name": "M40",
-        "bounding_box": "3073,2164,3130,2072,3177,2101,3121,2193",
-        "thumbnail_box": "3034,2046,3222,2046,3222,2234,3034,2234"
-      },
-      {
-        "image_id": "6e2aa560-8822-4720-96d9-2c640d9cd4cf",
-        "id": 127,
-        "name": "NGC 4290",
-        "bounding_box": "2791,2963,2931,2899,2963,2969,2823,3033",
-        "thumbnail_box": null
+        "image_id": "6e4addc8-fb1a-4c85-944e-af4d0d39de87",
+        "id": 24,
+        "name": "M24 - Sagittarius Star Cloud",
+        "bounding_box": null,
+        "thumbnail_box": "1321,422,4236,422,4236,3337,1321,3337"
       }
     ],
     "gallery_ids": [
@@ -1461,10 +1394,40 @@
     ]
   },
   {
-    "id": "d17bb704-bd41-4332-88b8-b6832c1f6ca3",
+    "id": "ee3302fb-fa09-4ca5-8f8b-e08013553624",
     "label": "",
-    "image_file": "photos/originals/d17bb704-bd41-4332-88b8-b6832c1f6ca3.jpg",
-    "preview_file": "photos/previews/d17bb704-bd41-4332-88b8-b6832c1f6ca3_preview.jpg",
+    "image_file": "photos/originals/ee3302fb-fa09-4ca5-8f8b-e08013553624.jpg",
+    "preview_file": "photos/previews/ee3302fb-fa09-4ca5-8f8b-e08013553624_preview.jpg",
+    "width": 4351,
+    "height": 2897,
+    "preview_width": 1200,
+    "preview_height": 799,
+    "featured": false,
+    "data": {
+      "date": "2025-05-07",
+      "integration": 23,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "ee3302fb-fa09-4ca5-8f8b-e08013553624",
+        "id": 5,
+        "name": "M5",
+        "bounding_box": "1579,860,2771,860,2771,2052,1579,2052",
+        "thumbnail_box": "1579,860,2771,860,2771,2052,1579,2052"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "d8e16e1c-94d8-4b5e-8a73-4ec785a2c977",
+    "label": "",
+    "image_file": "photos/originals/d8e16e1c-94d8-4b5e-8a73-4ec785a2c977.jpg",
+    "preview_file": "photos/previews/d8e16e1c-94d8-4b5e-8a73-4ec785a2c977_preview.jpg",
     "width": 5244,
     "height": 3619,
     "preview_width": 1200,
@@ -1479,11 +1442,48 @@
     },
     "subjects": [
       {
-        "image_id": "d17bb704-bd41-4332-88b8-b6832c1f6ca3",
+        "image_id": "d8e16e1c-94d8-4b5e-8a73-4ec785a2c977",
         "id": 44,
         "name": "M44 - Beehive Cluster",
         "bounding_box": null,
-        "thumbnail_box": "779,621,3666,621,3666,3508,779,3508"
+        "thumbnail_box": "641,337,3850,337,3850,3547,641,3547"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "eb099d6a-3e22-490c-953f-6fb6f9b1e183",
+    "label": "",
+    "image_file": "photos/originals/eb099d6a-3e22-490c-953f-6fb6f9b1e183.jpg",
+    "preview_file": "photos/previews/eb099d6a-3e22-490c-953f-6fb6f9b1e183_preview.jpg",
+    "width": 5724,
+    "height": 3700,
+    "preview_width": 1200,
+    "preview_height": 776,
+    "featured": false,
+    "data": {
+      "date": "2025-05-07",
+      "integration": 5,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "eb099d6a-3e22-490c-953f-6fb6f9b1e183",
+        "id": 40,
+        "name": "M40",
+        "bounding_box": "3069,2178,3133,2061,3195,2094,3131,2212",
+        "thumbnail_box": "3010,2013,3261,2013,3261,2264,3010,2264"
+      },
+      {
+        "image_id": "eb099d6a-3e22-490c-953f-6fb6f9b1e183",
+        "id": 127,
+        "name": "NGC 4290",
+        "bounding_box": "2830,2909,2924,2909,2924,3003,2830,3003",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1895,36 +1895,6 @@
     ]
   },
   {
-    "id": "7de1dd48-8adf-4cb9-8701-d064395d8e33",
-    "label": "",
-    "image_file": "photos/originals/7de1dd48-8adf-4cb9-8701-d064395d8e33.jpg",
-    "preview_file": "photos/previews/7de1dd48-8adf-4cb9-8701-d064395d8e33_preview.jpg",
-    "width": 2785,
-    "height": 1915,
-    "preview_width": 1200,
-    "preview_height": 825,
-    "featured": false,
-    "data": {
-      "date": "2025-03-22",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "7de1dd48-8adf-4cb9-8701-d064395d8e33",
-        "id": 13,
-        "name": "M13 - Hercules Globular Cluster",
-        "bounding_box": "876,464,1835,464,1835,1422,876,1422",
-        "thumbnail_box": "876,464,1835,464,1835,1422,876,1422"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c",
     "label": "",
     "image_file": "photos/originals/b1f7f47f-7631-4eb5-b3f4-d5c4403ab15c.jpg",
@@ -1948,6 +1918,36 @@
         "name": "M104 - Sombrero Galaxy",
         "bounding_box": "1459,936,1600,970,1498,1393,1357,1359",
         "thumbnail_box": "1106,778,1870,778,1870,1541,1106,1541"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "b394fc41-96da-415d-92e7-1bd5dfd17a93",
+    "label": "",
+    "image_file": "photos/originals/b394fc41-96da-415d-92e7-1bd5dfd17a93.jpg",
+    "preview_file": "photos/previews/b394fc41-96da-415d-92e7-1bd5dfd17a93_preview.jpg",
+    "width": 2785,
+    "height": 1915,
+    "preview_width": 1200,
+    "preview_height": 825,
+    "featured": false,
+    "data": {
+      "date": "2025-03-22",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "b394fc41-96da-415d-92e7-1bd5dfd17a93",
+        "id": 13,
+        "name": "M13 - Hercules Globular Cluster",
+        "bounding_box": "880,491,1822,491,1822,1433,880,1433",
+        "thumbnail_box": "880,491,1822,491,1822,1433,880,1433"
       }
     ],
     "gallery_ids": [
@@ -2557,66 +2557,6 @@
     ]
   },
   {
-    "id": "7c93a033-651a-491f-a013-32cefd0f3374",
-    "label": "",
-    "image_file": "photos/originals/7c93a033-651a-491f-a013-32cefd0f3374.jpg",
-    "preview_file": "photos/previews/7c93a033-651a-491f-a013-32cefd0f3374_preview.jpg",
-    "width": 1720,
-    "height": 965,
-    "preview_width": 1200,
-    "preview_height": 673,
-    "featured": false,
-    "data": {
-      "date": "2024-10-28",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "7c93a033-651a-491f-a013-32cefd0f3374",
-        "id": 29,
-        "name": "M29 - Cooling Tower Cluster",
-        "bounding_box": "421,80,1228,80,1228,887,421,887",
-        "thumbnail_box": "520,221,1195,221,1195,896,520,896"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "fc283f93-e648-4762-8d99-8fe615214315",
-    "label": "",
-    "image_file": "photos/originals/fc283f93-e648-4762-8d99-8fe615214315.jpg",
-    "preview_file": "photos/previews/fc283f93-e648-4762-8d99-8fe615214315_preview.jpg",
-    "width": 4996,
-    "height": 3357,
-    "preview_width": 1200,
-    "preview_height": 806,
-    "featured": false,
-    "data": {
-      "date": "2024-10-28",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "fc283f93-e648-4762-8d99-8fe615214315",
-        "id": 36,
-        "name": "M36 - Pinwheel Cluster",
-        "bounding_box": "1601,889,3309,889,3309,2597,1601,2597",
-        "thumbnail_box": "1601,889,3309,889,3309,2597,1601,2597"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
     "label": "",
     "image_file": "photos/originals/4a7eea52-952b-4196-b028-b8cd1cc86700.jpg",
@@ -2643,36 +2583,6 @@
       }
     ],
     "gallery_ids": []
-  },
-  {
-    "id": "4101f360-818f-49db-903e-1172a8405009",
-    "label": "",
-    "image_file": "photos/originals/4101f360-818f-49db-903e-1172a8405009.jpg",
-    "preview_file": "photos/previews/4101f360-818f-49db-903e-1172a8405009_preview.jpg",
-    "width": 5589,
-    "height": 3166,
-    "preview_width": 1200,
-    "preview_height": 680,
-    "featured": false,
-    "data": {
-      "date": "2024-10-28",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "4101f360-818f-49db-903e-1172a8405009",
-        "id": 53,
-        "name": "M53",
-        "bounding_box": "2586,1365,3145,1365,3145,1923,2586,1923",
-        "thumbnail_box": "2586,1365,3145,1365,3145,1923,2586,1923"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
   },
   {
     "id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
@@ -2735,29 +2645,59 @@
     ]
   },
   {
-    "id": "c76a6fa3-f819-4068-8ffb-382c1950361f",
+    "id": "6fb0772d-6e29-459d-9c9f-c97eb88ede04",
     "label": "",
-    "image_file": "photos/originals/c76a6fa3-f819-4068-8ffb-382c1950361f.jpg",
-    "preview_file": "photos/previews/c76a6fa3-f819-4068-8ffb-382c1950361f_preview.jpg",
-    "width": 1615,
-    "height": 977,
+    "image_file": "photos/originals/6fb0772d-6e29-459d-9c9f-c97eb88ede04.jpg",
+    "preview_file": "photos/previews/6fb0772d-6e29-459d-9c9f-c97eb88ede04_preview.jpg",
+    "width": 4996,
+    "height": 3357,
     "preview_width": 1200,
-    "preview_height": 726,
+    "preview_height": 806,
     "featured": false,
     "data": {
-      "date": "2024-10-19",
-      "integration": 10,
-      "camera": "ZWO ASI662MC",
+      "date": "2024-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "c76a6fa3-f819-4068-8ffb-382c1950361f",
-        "id": 1,
-        "name": "M1 - Crab Nebula",
-        "bounding_box": "418,172,836,172,836,806,418,806",
-        "thumbnail_box": "254,139,991,139,991,876,254,876"
+        "image_id": "6fb0772d-6e29-459d-9c9f-c97eb88ede04",
+        "id": 36,
+        "name": "M36 - Pinwheel Cluster",
+        "bounding_box": "1686,910,3280,910,3280,2505,1686,2505",
+        "thumbnail_box": "1686,910,3280,910,3280,2505,1686,2505"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "32014246-05d0-437c-86da-ff3ff3858023",
+    "label": "",
+    "image_file": "photos/originals/32014246-05d0-437c-86da-ff3ff3858023.jpg",
+    "preview_file": "photos/previews/32014246-05d0-437c-86da-ff3ff3858023_preview.jpg",
+    "width": 2899,
+    "height": 2525,
+    "preview_width": 1200,
+    "preview_height": 1045,
+    "featured": false,
+    "data": {
+      "date": "2024-10-28",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "32014246-05d0-437c-86da-ff3ff3858023",
+        "id": 53,
+        "name": "M53",
+        "bounding_box": "999,809,1985,809,1985,1795,999,1795",
+        "thumbnail_box": "999,809,1985,809,1985,1795,999,1795"
       }
     ],
     "gallery_ids": [
@@ -2820,6 +2760,36 @@
     ],
     "gallery_ids": [
       3
+    ]
+  },
+  {
+    "id": "3d48d2a3-be28-4d53-b6e0-36644d04df1d",
+    "label": "",
+    "image_file": "photos/originals/3d48d2a3-be28-4d53-b6e0-36644d04df1d.jpg",
+    "preview_file": "photos/previews/3d48d2a3-be28-4d53-b6e0-36644d04df1d_preview.jpg",
+    "width": 1615,
+    "height": 977,
+    "preview_width": 1200,
+    "preview_height": 726,
+    "featured": false,
+    "data": {
+      "date": "2024-10-19",
+      "integration": 10,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "3d48d2a3-be28-4d53-b6e0-36644d04df1d",
+        "id": 1,
+        "name": "M1 - Crab Nebula",
+        "bounding_box": "438,191,815,191,815,858,438,858",
+        "thumbnail_box": "207,90,1031,90,1031,914,207,914"
+      }
+    ],
+    "gallery_ids": [
+      1
     ]
   }
 ]
