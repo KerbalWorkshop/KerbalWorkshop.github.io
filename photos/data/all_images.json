@@ -830,36 +830,6 @@
     "gallery_ids": []
   },
   {
-    "id": "294ef7e0-b9f7-4392-802a-72b2573508ac",
-    "label": "Cat's Eye Galaxy",
-    "image_file": "photos/originals/294ef7e0-b9f7-4392-802a-72b2573508ac.jpg",
-    "preview_file": "photos/previews/294ef7e0-b9f7-4392-802a-72b2573508ac_preview.jpg",
-    "width": 3886,
-    "height": 2580,
-    "preview_width": 1200,
-    "preview_height": 797,
-    "featured": false,
-    "data": {
-      "date": "2025-05-19",
-      "integration": 173,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "294ef7e0-b9f7-4392-802a-72b2573508ac",
-        "id": 94,
-        "name": "M94",
-        "bounding_box": "1677,1039,1979,1039,1979,1474,1677,1474",
-        "thumbnail_box": "1441,858,2227,858,2227,1643,1441,1643"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
     "id": "bde74acf-5df9-43dd-bf84-e0eba61190d8",
     "label": "",
     "image_file": "photos/originals/bde74acf-5df9-43dd-bf84-e0eba61190d8.jpg",
@@ -890,59 +860,29 @@
     ]
   },
   {
-    "id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
+    "id": "0f27bb3f-f19b-4b0a-9537-4fe82de0d3b2",
     "label": "",
-    "image_file": "photos/originals/f6325bbf-bf33-4160-b950-2a1df081c4c3.jpg",
-    "preview_file": "photos/previews/f6325bbf-bf33-4160-b950-2a1df081c4c3_preview.jpg",
-    "width": 5432,
-    "height": 3853,
+    "image_file": "photos/originals/0f27bb3f-f19b-4b0a-9537-4fe82de0d3b2.jpg",
+    "preview_file": "photos/previews/0f27bb3f-f19b-4b0a-9537-4fe82de0d3b2_preview.jpg",
+    "width": 3886,
+    "height": 2580,
     "preview_width": 1200,
-    "preview_height": 851,
+    "preview_height": 797,
     "featured": false,
     "data": {
-      "date": "2025-05-18",
-      "integration": 90,
-      "camera": "Nikon D3300",
+      "date": "2025-05-19",
+      "integration": 173,
+      "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "f6325bbf-bf33-4160-b950-2a1df081c4c3",
-        "id": 67,
-        "name": "M67",
-        "bounding_box": "1735,1437,3353,1437,3353,3054,1735,3054",
-        "thumbnail_box": "1735,1437,3353,1437,3353,3054,1735,3054"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "aa8c53b6-b073-4b44-8ba3-d5287189ac4d",
-    "label": "",
-    "image_file": "photos/originals/aa8c53b6-b073-4b44-8ba3-d5287189ac4d.jpg",
-    "preview_file": "photos/previews/aa8c53b6-b073-4b44-8ba3-d5287189ac4d_preview.jpg",
-    "width": 5644,
-    "height": 3699,
-    "preview_width": 1200,
-    "preview_height": 786,
-    "featured": false,
-    "data": {
-      "date": "2025-05-18",
-      "integration": 45,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "aa8c53b6-b073-4b44-8ba3-d5287189ac4d",
-        "id": 87,
-        "name": "M87 - Virgo A",
-        "bounding_box": "2461,1622,2822,1622,2822,1983,2461,1983",
-        "thumbnail_box": "2461,1622,2822,1622,2822,1983,2461,1983"
+        "image_id": "0f27bb3f-f19b-4b0a-9537-4fe82de0d3b2",
+        "id": 94,
+        "name": "M94",
+        "bounding_box": "1674,1028,1981,1028,1981,1477,1674,1477",
+        "thumbnail_box": "1510,930,2156,930,2156,1576,1510,1576"
       }
     ],
     "gallery_ids": [
@@ -1128,6 +1068,66 @@
     ]
   },
   {
+    "id": "3d8dc8f0-1790-4dc1-822e-f5b243a74df1",
+    "label": "",
+    "image_file": "photos/originals/3d8dc8f0-1790-4dc1-822e-f5b243a74df1.jpg",
+    "preview_file": "photos/previews/3d8dc8f0-1790-4dc1-822e-f5b243a74df1_preview.jpg",
+    "width": 5432,
+    "height": 3853,
+    "preview_width": 1200,
+    "preview_height": 851,
+    "featured": false,
+    "data": {
+      "date": "2025-05-18",
+      "integration": 90,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "3d8dc8f0-1790-4dc1-822e-f5b243a74df1",
+        "id": 67,
+        "name": "M67",
+        "bounding_box": "1703,1184,3565,1184,3565,3046,1703,3046",
+        "thumbnail_box": "1703,1184,3565,1184,3565,3046,1703,3046"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "dc05242e-5913-4594-b0a3-c6de49cf557b",
+    "label": "",
+    "image_file": "photos/originals/dc05242e-5913-4594-b0a3-c6de49cf557b.jpg",
+    "preview_file": "photos/previews/dc05242e-5913-4594-b0a3-c6de49cf557b_preview.jpg",
+    "width": 5644,
+    "height": 3699,
+    "preview_width": 1200,
+    "preview_height": 786,
+    "featured": false,
+    "data": {
+      "date": "2025-05-18",
+      "integration": 45,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "dc05242e-5913-4594-b0a3-c6de49cf557b",
+        "id": 87,
+        "name": "M87 - Virgo A",
+        "bounding_box": "2524,1697,2743,1697,2743,1917,2524,1917",
+        "thumbnail_box": "2351,1528,2916,1528,2916,2092,2351,2092"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "81230cc0-1b33-426f-8219-4171e9f450ba",
     "label": "",
     "image_file": "photos/originals/81230cc0-1b33-426f-8219-4171e9f450ba.jpg",
@@ -1154,57 +1154,6 @@
       }
     ],
     "gallery_ids": []
-  },
-  {
-    "id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
-    "label": "",
-    "image_file": "photos/originals/71f41629-8f5a-4ef5-a88a-7e1b876df51a.jpg",
-    "preview_file": "photos/previews/71f41629-8f5a-4ef5-a88a-7e1b876df51a_preview.jpg",
-    "width": 5797,
-    "height": 3786,
-    "preview_width": 1200,
-    "preview_height": 784,
-    "featured": false,
-    "data": {
-      "date": "2025-05-17",
-      "integration": 25,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
-        "id": 89,
-        "name": "M89",
-        "bounding_box": "1718,2007,1910,2007,1910,2199,1718,2199",
-        "thumbnail_box": "1645,1943,1983,1943,1983,2280,1645,2280"
-      },
-      {
-        "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
-        "id": 90,
-        "name": "M90",
-        "bounding_box": "4604,1790,5038,1790,5038,1967,4604,1967",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
-        "id": 125,
-        "name": "NGC 4550",
-        "bounding_box": "296,1660,407,1740,367,1796,256,1715",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "71f41629-8f5a-4ef5-a88a-7e1b876df51a",
-        "id": 126,
-        "name": "NGC 4551",
-        "bounding_box": "560,1600,627,1643,572,1730,505,1687",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
   },
   {
     "id": "d02a44db-076f-468b-bd4b-3180ef7abaaf",
@@ -1364,29 +1313,50 @@
     ]
   },
   {
-    "id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
+    "id": "16c019e2-53a5-4492-8cb4-a7d482c88a21",
     "label": "",
-    "image_file": "photos/originals/f4eaaca6-93d8-4db1-a3de-be19d37f47f9.jpg",
-    "preview_file": "photos/previews/f4eaaca6-93d8-4db1-a3de-be19d37f47f9_preview.jpg",
-    "width": 1867,
-    "height": 1501,
+    "image_file": "photos/originals/16c019e2-53a5-4492-8cb4-a7d482c88a21.jpg",
+    "preview_file": "photos/previews/16c019e2-53a5-4492-8cb4-a7d482c88a21_preview.jpg",
+    "width": 5797,
+    "height": 3786,
     "preview_width": 1200,
-    "preview_height": 965,
+    "preview_height": 784,
     "featured": false,
     "data": {
-      "date": "2025-05-07",
-      "integration": 90,
+      "date": "2025-05-17",
+      "integration": 25,
       "camera": "Nikon D3300",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "f4eaaca6-93d8-4db1-a3de-be19d37f47f9",
-        "id": 63,
-        "name": "M63 - Sunflower Galaxy",
-        "bounding_box": "561,534,1273,534,1273,935,561,935",
-        "thumbnail_box": "507,327,1321,327,1321,1141,507,1141"
+        "image_id": "16c019e2-53a5-4492-8cb4-a7d482c88a21",
+        "id": 89,
+        "name": "M89",
+        "bounding_box": "1758,2055,1870,2055,1870,2167,1758,2167",
+        "thumbnail_box": "1670,1959,1959,1959,1959,2248,1670,2248"
+      },
+      {
+        "image_id": "16c019e2-53a5-4492-8cb4-a7d482c88a21",
+        "id": 90,
+        "name": "M90",
+        "bounding_box": "4621,1766,5018,1782,5010,1983,4613,1967",
+        "thumbnail_box": "4512,1573,5122,1573,5122,2183,4512,2183"
+      },
+      {
+        "image_id": "16c019e2-53a5-4492-8cb4-a7d482c88a21",
+        "id": 125,
+        "name": "NGC 4550",
+        "bounding_box": "285,1647,397,1738,356,1788,244,1697",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "16c019e2-53a5-4492-8cb4-a7d482c88a21",
+        "id": 126,
+        "name": "NGC 4551",
+        "bounding_box": "523,1664,589,1619,616,1659,550,1704",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
@@ -1491,6 +1461,36 @@
     ]
   },
   {
+    "id": "07e90a1b-6794-423a-949a-9e9d93b2838a",
+    "label": "",
+    "image_file": "photos/originals/07e90a1b-6794-423a-949a-9e9d93b2838a.jpg",
+    "preview_file": "photos/previews/07e90a1b-6794-423a-949a-9e9d93b2838a_preview.jpg",
+    "width": 1867,
+    "height": 1501,
+    "preview_width": 1200,
+    "preview_height": 965,
+    "featured": false,
+    "data": {
+      "date": "2025-05-07",
+      "integration": 90,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "07e90a1b-6794-423a-949a-9e9d93b2838a",
+        "id": 63,
+        "name": "M63 - Sunflower Galaxy",
+        "bounding_box": "596,578,1213,578,1213,884,596,884",
+        "thumbnail_box": "456,273,1378,273,1378,1195,456,1195"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "e59c0b0b-cffb-4540-8dde-daaf49dedbd6",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/e59c0b0b-cffb-4540-8dde-daaf49dedbd6.jpg",
@@ -1526,12 +1526,12 @@
     "gallery_ids": []
   },
   {
-    "id": "5e270de3-93b4-46d1-8705-544bc21f986b",
-    "label": "Black Eye Galaxy",
-    "image_file": "photos/originals/5e270de3-93b4-46d1-8705-544bc21f986b.jpg",
-    "preview_file": "photos/previews/5e270de3-93b4-46d1-8705-544bc21f986b_preview.jpg",
-    "width": 1392,
-    "height": 899,
+    "id": "4f6401d3-82dd-4cac-8e40-1f97ef646c0a",
+    "label": "",
+    "image_file": "photos/originals/4f6401d3-82dd-4cac-8e40-1f97ef646c0a.jpg",
+    "preview_file": "photos/previews/4f6401d3-82dd-4cac-8e40-1f97ef646c0a_preview.jpg",
+    "width": 2767,
+    "height": 1787,
     "preview_width": 1200,
     "preview_height": 775,
     "featured": false,
@@ -1544,11 +1544,11 @@
     },
     "subjects": [
       {
-        "image_id": "5e270de3-93b4-46d1-8705-544bc21f986b",
+        "image_id": "4f6401d3-82dd-4cac-8e40-1f97ef646c0a",
         "id": 64,
         "name": "M64 - Black Eye Galaxy",
-        "bounding_box": "747,23,1071,278,595,883,271,629",
-        "thumbnail_box": "308,87,1037,87,1037,816,308,816"
+        "bounding_box": "1428,542,1670,699,1330,1220,1089,1063",
+        "thumbnail_box": "1034,523,1743,523,1743,1232,1034,1232"
       }
     ],
     "gallery_ids": [
@@ -1702,10 +1702,10 @@
     ]
   },
   {
-    "id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
-    "label": "Bode's Galaxy and the Cigar Galaxy",
-    "image_file": "photos/originals/7264cb93-caef-46c3-b1d6-05d6a15c6b40.jpg",
-    "preview_file": "photos/previews/7264cb93-caef-46c3-b1d6-05d6a15c6b40_preview.jpg",
+    "id": "e7ea21f1-e6a7-4aba-acdb-9fc5c63e1e31",
+    "label": "",
+    "image_file": "photos/originals/e7ea21f1-e6a7-4aba-acdb-9fc5c63e1e31.jpg",
+    "preview_file": "photos/previews/e7ea21f1-e6a7-4aba-acdb-9fc5c63e1e31_preview.jpg",
     "width": 5532,
     "height": 3421,
     "preview_width": 1200,
@@ -1720,18 +1720,18 @@
     },
     "subjects": [
       {
-        "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
+        "image_id": "e7ea21f1-e6a7-4aba-acdb-9fc5c63e1e31",
         "id": 81,
         "name": "M81 - Bode's Galaxy",
-        "bounding_box": "1064,1151,1714,674,2374,1573,1724,2050",
-        "thumbnail_box": "1033,645,2439,645,2439,2051,1033,2051"
+        "bounding_box": "1468,746,2371,1443,1924,2022,1021,1326",
+        "thumbnail_box": "917,551,2526,551,2526,2160,917,2160"
       },
       {
-        "image_id": "7264cb93-caef-46c3-b1d6-05d6a15c6b40",
+        "image_id": "e7ea21f1-e6a7-4aba-acdb-9fc5c63e1e31",
         "id": 82,
         "name": "M82 - Cigar Galaxy",
-        "bounding_box": "4065,2386,4502,1975,4622,2102,4185,2513",
-        "thumbnail_box": "4027,1929,4636,1929,4636,2538,4027,2538"
+        "bounding_box": "4100,2372,4467,2021,4577,2136,4211,2487",
+        "thumbnail_box": "3976,1885,4716,1885,4716,2624,3976,2624"
       }
     ],
     "gallery_ids": [
@@ -2420,9 +2420,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "425450c5-558a-40fb-8714-a81dfa19450b",
@@ -2583,36 +2581,6 @@
       }
     ],
     "gallery_ids": []
-  },
-  {
-    "id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
-    "label": "",
-    "image_file": "photos/originals/67750bec-9d1f-4094-8ea1-908aa1bfd907.jpg",
-    "preview_file": "photos/previews/67750bec-9d1f-4094-8ea1-908aa1bfd907_preview.jpg",
-    "width": 1260,
-    "height": 806,
-    "preview_width": 1200,
-    "preview_height": 768,
-    "featured": false,
-    "data": {
-      "date": "2024-10-28",
-      "integration": null,
-      "camera": "ZWO ASI662MC",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "67750bec-9d1f-4094-8ea1-908aa1bfd907",
-        "id": 76,
-        "name": "M76 - Little Dumbbell Nebula",
-        "bounding_box": "418,295,728,175,820,411,510,531",
-        "thumbnail_box": "402,147,833,147,833,577,402,577"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
   },
   {
     "id": "ef360676-3f8f-4417-a934-fdce93d83453",
@@ -2786,6 +2754,85 @@
         "name": "M1 - Crab Nebula",
         "bounding_box": "438,191,815,191,815,858,438,858",
         "thumbnail_box": "207,90,1031,90,1031,914,207,914"
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
+    "id": "dd064973-2f5a-4670-b897-f98ffa969760",
+    "label": "Markarian's Chain",
+    "image_file": "photos/originals/dd064973-2f5a-4670-b897-f98ffa969760.jpg",
+    "preview_file": "photos/previews/dd064973-2f5a-4670-b897-f98ffa969760_preview.jpg",
+    "width": 5715,
+    "height": 3710,
+    "preview_width": 1200,
+    "preview_height": 779,
+    "featured": false,
+    "data": {
+      "date": "2024-04-02",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 84,
+        "name": "M84",
+        "bounding_box": "2692,3368,2833,3368,2833,3557,2692,3557",
+        "thumbnail_box": "2598,3305,2928,3305,2928,3635,2598,3635"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 86,
+        "name": "M86",
+        "bounding_box": "3219,2238,3494,2154,3608,2526,3333,2610",
+        "thumbnail_box": "3117,2076,3719,2076,3719,2679,3117,2679"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 116,
+        "name": "NGC 4388",
+        "bounding_box": "2058,2180,2191,2223,2070,2593,1938,2550",
+        "thumbnail_box": "1800,2122,2338,2122,2338,2660,1800,2660"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 115,
+        "name": "NGC 4402",
+        "bounding_box": "4103,2515,4192,2541,4095,2870,4006,2844",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 117,
+        "name": "NGC 4413",
+        "bounding_box": "1942,1526,2170,1360,2287,1520,2059,1686",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 118,
+        "name": "NGC 4425",
+        "bounding_box": "2689,940,3076,905,3090,1062,2703,1097",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 120,
+        "name": "NGC 4435 - The Eyes",
+        "bounding_box": "4132,797,4382,797,4382,917,4132,917",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 119,
+        "name": "NGC 4438 - The Eyes",
+        "bounding_box": "4425,990,4609,1011,4599,1104,4414,1083",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
