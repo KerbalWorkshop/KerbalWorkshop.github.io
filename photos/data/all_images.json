@@ -1,24 +1,24 @@
 [
   {
-    "id": "a9bb1ef3-7ed7-4026-946b-de7a022486e8",
+    "id": "87373281-99a4-4cfb-ba86-5fd3c1905d25",
     "label": "Core of the Pacman Nebula",
-    "image_file": "photos/originals/a9bb1ef3-7ed7-4026-946b-de7a022486e8.png",
-    "preview_file": "photos/previews/a9bb1ef3-7ed7-4026-946b-de7a022486e8_preview.jpg",
-    "width": 2437,
-    "height": 1608,
+    "image_file": "photos/originals/87373281-99a4-4cfb-ba86-5fd3c1905d25.png",
+    "preview_file": "photos/previews/87373281-99a4-4cfb-ba86-5fd3c1905d25_preview.jpg",
+    "width": 2656,
+    "height": 1668,
     "preview_width": 1200,
-    "preview_height": 792,
+    "preview_height": 754,
     "featured": true,
     "data": {
-      "date": "2025-08-16",
-      "integration": 960,
+      "date": "2025-08-17",
+      "integration": 1500,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "a9bb1ef3-7ed7-4026-946b-de7a022486e8",
+        "image_id": "87373281-99a4-4cfb-ba86-5fd3c1905d25",
         "id": 170,
         "name": "NGC 281 - Pacman Nebula",
         "bounding_box": null,
