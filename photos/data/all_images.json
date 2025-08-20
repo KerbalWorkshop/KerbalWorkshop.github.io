@@ -1,5 +1,42 @@
 [
   {
+    "id": "76e9399d-8e21-4b27-8749-812c6413e948",
+    "label": "Eclipse on Saturn",
+    "image_file": "photos/originals/76e9399d-8e21-4b27-8749-812c6413e948.jpg",
+    "preview_file": "photos/previews/76e9399d-8e21-4b27-8749-812c6413e948_preview.jpg",
+    "width": 1224,
+    "height": 936,
+    "preview_width": 1200,
+    "preview_height": 918,
+    "featured": false,
+    "data": {
+      "date": "2025-08-18",
+      "integration": null,
+      "camera": "ZWO ASI662MC",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "76e9399d-8e21-4b27-8749-812c6413e948",
+        "id": 137,
+        "name": "Saturn",
+        "bounding_box": "501,274,812,378,718,658,407,553",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "76e9399d-8e21-4b27-8749-812c6413e948",
+        "id": 177,
+        "name": "Titan",
+        "bounding_box": "754,698,774,698,774,718,754,718",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "87373281-99a4-4cfb-ba86-5fd3c1905d25",
     "label": "Core of the Pacman Nebula",
     "image_file": "photos/originals/87373281-99a4-4cfb-ba86-5fd3c1905d25.png",
