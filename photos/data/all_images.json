@@ -1,5 +1,66 @@
 [
   {
+    "id": "c42690e8-da36-4059-b025-8aa11dde1941",
+    "label": "Corn Moon of 2025",
+    "image_file": "photos/originals/c42690e8-da36-4059-b025-8aa11dde1941.png",
+    "preview_file": "photos/previews/c42690e8-da36-4059-b025-8aa11dde1941_preview.jpg",
+    "width": 1080,
+    "height": 1440,
+    "preview_width": 900,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-09-07",
+      "integration": null,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "c42690e8-da36-4059-b025-8aa11dde1941",
+        "id": 124,
+        "name": "Moon",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "2fcb6987-9f94-4b70-b55b-eb345c21eea5",
+    "label": "Full Moon Rising",
+    "image_file": "photos/originals/2fcb6987-9f94-4b70-b55b-eb345c21eea5.png",
+    "preview_file": "photos/previews/2fcb6987-9f94-4b70-b55b-eb345c21eea5_preview.jpg",
+    "width": 1080,
+    "height": 1440,
+    "preview_width": 900,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-09-07",
+      "integration": null,
+      "camera": "",
+      "telescope": "",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "2fcb6987-9f94-4b70-b55b-eb345c21eea5",
+        "id": 124,
+        "name": "Moon",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      3
+    ]
+  },
+  {
     "id": "939aa21b-7de8-43d0-8e68-d932d695ee2a",
     "label": "Core of the Pacman Nebula",
     "image_file": "photos/originals/939aa21b-7de8-43d0-8e68-d932d695ee2a.png",
@@ -93,7 +154,8 @@
       }
     ],
     "gallery_ids": [
-      2
+      2,
+      3
     ]
   },
   {
@@ -2793,9 +2855,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      3
-    ]
+    "gallery_ids": []
   },
   {
     "id": "3d48d2a3-be28-4d53-b6e0-36644d04df1d",
