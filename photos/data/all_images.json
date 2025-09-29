@@ -1,34 +1,34 @@
 [
   {
-    "id": "d5c7b437-2dfc-47ac-9b98-8b7144f4b671",
-    "label": "Core of the Heart Nebula",
-    "image_file": "photos/originals/d5c7b437-2dfc-47ac-9b98-8b7144f4b671.jpg",
-    "preview_file": "photos/previews/d5c7b437-2dfc-47ac-9b98-8b7144f4b671_preview.jpg",
-    "width": 2628,
-    "height": 3399,
-    "preview_width": 928,
+    "id": "e8922f27-1429-466c-81ed-eb8a57762adc",
+    "label": "Melotte 15 in the Heart Nebula",
+    "image_file": "photos/originals/e8922f27-1429-466c-81ed-eb8a57762adc.jpg",
+    "preview_file": "photos/previews/e8922f27-1429-466c-81ed-eb8a57762adc_preview.jpg",
+    "width": 1938,
+    "height": 2423,
+    "preview_width": 960,
     "preview_height": 1200,
     "featured": true,
     "data": {
-      "date": "2025-09-08",
-      "integration": 1200,
+      "date": "2025-09-27",
+      "integration": 2400,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Celestron C8-N",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "d5c7b437-2dfc-47ac-9b98-8b7144f4b671",
+        "image_id": "e8922f27-1429-466c-81ed-eb8a57762adc",
         "id": 179,
         "name": "IC 1805 - Heart Nebula",
         "bounding_box": null,
         "thumbnail_box": null
       },
       {
-        "image_id": "d5c7b437-2dfc-47ac-9b98-8b7144f4b671",
+        "image_id": "e8922f27-1429-466c-81ed-eb8a57762adc",
         "id": 178,
         "name": "Melotte 15",
-        "bounding_box": "1015,40,2353,956,1592,2068,253,1152",
+        "bounding_box": null,
         "thumbnail_box": null
       }
     ],
@@ -472,7 +472,7 @@
     "height": 2623,
     "preview_width": 1200,
     "preview_height": 739,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-26",
       "integration": 360,
@@ -701,7 +701,7 @@
     "height": 1552,
     "preview_width": 1200,
     "preview_height": 800,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-11",
       "integration": 60,
