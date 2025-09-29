@@ -37,6 +37,43 @@
     ]
   },
   {
+    "id": "49a1ccd7-a368-45c5-ac9e-ece0e34a45c4",
+    "label": "Walls of the Heart Nebula",
+    "image_file": "photos/originals/49a1ccd7-a368-45c5-ac9e-ece0e34a45c4.jpg",
+    "preview_file": "photos/previews/49a1ccd7-a368-45c5-ac9e-ece0e34a45c4_preview.jpg",
+    "width": 1779,
+    "height": 2224,
+    "preview_width": 960,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-09-27",
+      "integration": 2400,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "49a1ccd7-a368-45c5-ac9e-ece0e34a45c4",
+        "id": 179,
+        "name": "IC 1805 - Heart Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "49a1ccd7-a368-45c5-ac9e-ece0e34a45c4",
+        "id": 178,
+        "name": "Melotte 15",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "c42690e8-da36-4059-b025-8aa11dde1941",
     "label": "Corn Moon of 2025",
     "image_file": "photos/originals/c42690e8-da36-4059-b025-8aa11dde1941.png",
@@ -98,36 +135,6 @@
     ]
   },
   {
-    "id": "939aa21b-7de8-43d0-8e68-d932d695ee2a",
-    "label": "Core of the Pacman Nebula",
-    "image_file": "photos/originals/939aa21b-7de8-43d0-8e68-d932d695ee2a.png",
-    "preview_file": "photos/previews/939aa21b-7de8-43d0-8e68-d932d695ee2a_preview.jpg",
-    "width": 1797,
-    "height": 1186,
-    "preview_width": 1200,
-    "preview_height": 792,
-    "featured": false,
-    "data": {
-      "date": "2025-08-21",
-      "integration": 2500,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "939aa21b-7de8-43d0-8e68-d932d695ee2a",
-        "id": 170,
-        "name": "NGC 281 - Pacman Nebula",
-        "bounding_box": null,
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2
-    ]
-  },
-  {
     "id": "d3a22e0b-cfc4-42cd-83aa-5d592070830f",
     "label": "Pacman Nebula",
     "image_file": "photos/originals/d3a22e0b-cfc4-42cd-83aa-5d592070830f.png",
@@ -150,6 +157,36 @@
         "id": 170,
         "name": "NGC 281 - Pacman Nebula",
         "bounding_box": "1434,748,4022,748,4022,3032,1434,3032",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
+    "id": "9708bef0-939a-4cd1-a542-79aeb1bad818",
+    "label": "Core of the Pacman Nebula",
+    "image_file": "photos/originals/9708bef0-939a-4cd1-a542-79aeb1bad818.png",
+    "preview_file": "photos/previews/9708bef0-939a-4cd1-a542-79aeb1bad818_preview.jpg",
+    "width": 1942,
+    "height": 1353,
+    "preview_width": 1200,
+    "preview_height": 836,
+    "featured": false,
+    "data": {
+      "date": "2025-08-21",
+      "integration": 2500,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "9708bef0-939a-4cd1-a542-79aeb1bad818",
+        "id": 170,
+        "name": "NGC 281 - Pacman Nebula",
+        "bounding_box": null,
         "thumbnail_box": null
       }
     ],
