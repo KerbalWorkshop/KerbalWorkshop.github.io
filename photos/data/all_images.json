@@ -135,14 +135,14 @@
     ]
   },
   {
-    "id": "d3a22e0b-cfc4-42cd-83aa-5d592070830f",
+    "id": "5fc89cf9-a8e9-45f4-b834-134b4d099689",
     "label": "Pacman Nebula",
-    "image_file": "photos/originals/d3a22e0b-cfc4-42cd-83aa-5d592070830f.png",
-    "preview_file": "photos/previews/d3a22e0b-cfc4-42cd-83aa-5d592070830f_preview.jpg",
-    "width": 5302,
-    "height": 3500,
+    "image_file": "photos/originals/5fc89cf9-a8e9-45f4-b834-134b4d099689.png",
+    "preview_file": "photos/previews/5fc89cf9-a8e9-45f4-b834-134b4d099689_preview.jpg",
+    "width": 5154,
+    "height": 3588,
     "preview_width": 1200,
-    "preview_height": 792,
+    "preview_height": 835,
     "featured": false,
     "data": {
       "date": "2025-08-21",
@@ -153,40 +153,10 @@
     },
     "subjects": [
       {
-        "image_id": "d3a22e0b-cfc4-42cd-83aa-5d592070830f",
+        "image_id": "5fc89cf9-a8e9-45f4-b834-134b4d099689",
         "id": 170,
         "name": "NGC 281 - Pacman Nebula",
-        "bounding_box": "1434,748,4022,748,4022,3032,1434,3032",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2
-    ]
-  },
-  {
-    "id": "9708bef0-939a-4cd1-a542-79aeb1bad818",
-    "label": "Core of the Pacman Nebula",
-    "image_file": "photos/originals/9708bef0-939a-4cd1-a542-79aeb1bad818.png",
-    "preview_file": "photos/previews/9708bef0-939a-4cd1-a542-79aeb1bad818_preview.jpg",
-    "width": 1942,
-    "height": 1353,
-    "preview_width": 1200,
-    "preview_height": 836,
-    "featured": false,
-    "data": {
-      "date": "2025-08-21",
-      "integration": 2500,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "9708bef0-939a-4cd1-a542-79aeb1bad818",
-        "id": 170,
-        "name": "NGC 281 - Pacman Nebula",
-        "bounding_box": null,
+        "bounding_box": "881,573,4074,573,4074,2960,881,2960",
         "thumbnail_box": null
       }
     ],
@@ -382,44 +352,6 @@
     ]
   },
   {
-    "id": "ab5c3d1e-b034-41e2-9089-eb14e248e085",
-    "label": "Core of the Eagle Nebula",
-    "image_file": "photos/originals/ab5c3d1e-b034-41e2-9089-eb14e248e085.jpg",
-    "preview_file": "photos/previews/ab5c3d1e-b034-41e2-9089-eb14e248e085_preview.jpg",
-    "width": 2479,
-    "height": 1738,
-    "preview_width": 1200,
-    "preview_height": 841,
-    "featured": true,
-    "data": {
-      "date": "2025-06-28",
-      "integration": 240,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": "Ha: 29x3 min |\nOiii: 37x3 min |\nSii: 14x3 min"
-    },
-    "subjects": [
-      {
-        "image_id": "ab5c3d1e-b034-41e2-9089-eb14e248e085",
-        "id": 16,
-        "name": "M16 - Eagle Nebula",
-        "bounding_box": null,
-        "thumbnail_box": "624,359,1766,359,1766,1501,624,1501"
-      },
-      {
-        "image_id": "ab5c3d1e-b034-41e2-9089-eb14e248e085",
-        "id": 128,
-        "name": "Pillars of Creation",
-        "bounding_box": "1139,824,1313,745,1453,1056,1279,1134",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2,
-      1
-    ]
-  },
-  {
     "id": "f03e7d6a-a21f-4c54-ba60-397418c97a19",
     "label": "Eagle Nebula",
     "image_file": "photos/originals/f03e7d6a-a21f-4c54-ba60-397418c97a19.png",
@@ -454,6 +386,44 @@
     ],
     "gallery_ids": [
       2
+    ]
+  },
+  {
+    "id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+    "label": "Core of the Eagle Nebula",
+    "image_file": "photos/originals/7968dcd1-fb52-4771-8b21-aaedf42d1132.jpg",
+    "preview_file": "photos/previews/7968dcd1-fb52-4771-8b21-aaedf42d1132_preview.jpg",
+    "width": 2347,
+    "height": 1738,
+    "preview_width": 1200,
+    "preview_height": 889,
+    "featured": false,
+    "data": {
+      "date": "2025-06-28",
+      "integration": 240,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+        "id": 16,
+        "name": "M16 - Eagle Nebula",
+        "bounding_box": null,
+        "thumbnail_box": "499,237,1796,237,1796,1534,499,1534"
+      },
+      {
+        "image_id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+        "id": 128,
+        "name": "Pillars of Creation",
+        "bounding_box": "985,841,1152,731,1343,1020,1176,1131",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
     ]
   },
   {
