@@ -8,7 +8,7 @@
     "height": 2423,
     "preview_width": 960,
     "preview_height": 1200,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-09-27",
       "integration": 2400,
@@ -82,7 +82,7 @@
     "height": 3358,
     "preview_width": 960,
     "preview_height": 1200,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-09-27",
       "integration": 2400,
