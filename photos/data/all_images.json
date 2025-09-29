@@ -74,6 +74,43 @@
     ]
   },
   {
+    "id": "09822897-adfd-45ed-ae19-849f6315ab14",
+    "label": "Heart Nebula - Wider View",
+    "image_file": "photos/originals/09822897-adfd-45ed-ae19-849f6315ab14.jpg",
+    "preview_file": "photos/previews/09822897-adfd-45ed-ae19-849f6315ab14_preview.jpg",
+    "width": 2686,
+    "height": 3358,
+    "preview_width": 960,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-09-27",
+      "integration": 2400,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "09822897-adfd-45ed-ae19-849f6315ab14",
+        "id": 179,
+        "name": "IC 1805 - Heart Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "09822897-adfd-45ed-ae19-849f6315ab14",
+        "id": 178,
+        "name": "Melotte 15",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "c42690e8-da36-4059-b025-8aa11dde1941",
     "label": "Corn Moon of 2025",
     "image_file": "photos/originals/c42690e8-da36-4059-b025-8aa11dde1941.png",
