@@ -397,7 +397,7 @@
     "height": 1738,
     "preview_width": 1200,
     "preview_height": 889,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-06-28",
       "integration": 240,
@@ -471,10 +471,10 @@
     ]
   },
   {
-    "id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
+    "id": "fd53e2bb-022c-46cd-85e6-c16eba8aeed5",
     "label": "The Cygnus Wall",
-    "image_file": "photos/originals/16abc163-d97a-4fe6-93c3-7ccfc64cf1cb.jpg",
-    "preview_file": "photos/previews/16abc163-d97a-4fe6-93c3-7ccfc64cf1cb_preview.jpg",
+    "image_file": "photos/originals/fd53e2bb-022c-46cd-85e6-c16eba8aeed5.jpg",
+    "preview_file": "photos/previews/fd53e2bb-022c-46cd-85e6-c16eba8aeed5_preview.jpg",
     "width": 4259,
     "height": 2623,
     "preview_width": 1200,
@@ -489,14 +489,14 @@
     },
     "subjects": [
       {
-        "image_id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
+        "image_id": "fd53e2bb-022c-46cd-85e6-c16eba8aeed5",
         "id": 172,
         "name": "Cygnus Wall",
-        "bounding_box": "163,943,3914,566,4056,1977,305,2354",
+        "bounding_box": "307,1195,3797,731,3928,1718,439,2182",
         "thumbnail_box": null
       },
       {
-        "image_id": "16abc163-d97a-4fe6-93c3-7ccfc64cf1cb",
+        "image_id": "fd53e2bb-022c-46cd-85e6-c16eba8aeed5",
         "id": 171,
         "name": "NGC 7000",
         "bounding_box": null,
