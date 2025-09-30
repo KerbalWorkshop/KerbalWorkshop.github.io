@@ -9,6 +9,59 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="/styles.css" />
+
+
+
+  <!-- schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://hansenspace.io/#org",
+        "name": "Hansen Space",
+        "url": "https://hansenspace.io/",
+        "logo": "https://hansenspace.io/images/logo.png",
+        "sameAs": [
+          "https://www.youtube.com/@HansenSpace",
+          "https://www.instagram.com/hansenspace/",
+          "https://www.tiktok.com/@hansen_space",
+          "https://x.com/hansen_space"
+        ],
+        "founder": { "@id": "https://hansenspace.io/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://hansenspace.io/#person",
+        "name": "Dane Hansen",
+        "alternateName": ["Dane J. Hansen","Hansen Space"],
+        "url": "https://hansenspace.io/about",
+        "jobTitle": "Creator of Hansen Space",
+        "image": "https://hansenspace.io/images/dane.jpg",
+        "affiliation": { "@id": "https://hansenspace.io/#org" },
+        "sameAs": [
+          "https://hansenspace.io/",
+          "https://www.youtube.com/@HansenSpace",
+          "https://www.instagram.com/hansenspace/",
+          "https://x.com/hansen_space",
+          "https://www.tiktok.com/@hansen_space"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://hansenspace.io/#website",
+        "url": "https://hansenspace.io/",
+        "name": "Hansen Space",
+        "publisher": { "@id": "https://hansenspace.io/#org" }
+      }
+    ]
+  }
+  </script>
+
+
+
+
   <style>
     :root {
       /* Hero Section Configuration */
