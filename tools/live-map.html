@@ -220,6 +220,11 @@
         background-color: var(--color-dark-grey-panel-bg);
         color: var(--color-text-accent);
     }
+
+    /* --- Overlay collision handling (title should be on top when stacked) --- */
+    body.overlays-stacked #mapTitle {
+      z-index: 1200; /* ensure title is above legend when they stack */
+    }
   </style>
 </head>
 <body>
@@ -266,7 +271,7 @@
     <div id="helpModal" class="map-help-modal">
       <div class="map-help-modal-content">
         <span class="close" id="closeHelpModal">×</span>
-        <p>This map shows the live locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
+        <p>This live, constantly-updating map shows the locations at which the Moon, Sun, and planets are directly overhead. For a fun explanation, see <a href="https://xkcd.com/1276/" target="_blank">XKCD 1276</a>.</p>
       </div>
     </div>
   </main>
@@ -399,6 +404,52 @@
       map.on('dragstart',handleMapInteraction);
     }
 
+    /* ----------- NEW: Help modal open/close ----------- */
+    function initHelpModalControls(){
+      const helpButton = document.getElementById('helpButton');
+      const helpModal = document.getElementById('helpModal');
+      const closeBtn = document.getElementById('closeHelpModal');
+
+      const open = () => helpModal.classList.add('active');
+      const close = () => helpModal.classList.remove('active');
+
+      if (helpButton) helpButton.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+
+      // Close when clicking backdrop (but not when clicking content)
+      helpModal.addEventListener('click', (e)=>{
+        if(e.target === helpModal) close();
+      });
+      // Close on ESC
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') close();
+      });
+    }
+
+    /* ----------- NEW: Prevent overlay overlap on narrow viewports ----------- */
+    function overlaysIntersect(r1, r2){
+      return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
+    }
+    function applyOverlayLayout(){
+      const titleEl = document.getElementById('mapTitle');
+      const legendEl = document.getElementById('legendContainer');
+      if (!titleEl || !legendEl) return;
+
+      // Reset to defaults first
+      legendEl.style.top = '10px';
+      document.body.classList.remove('overlays-stacked');
+
+      const tRect = titleEl.getBoundingClientRect();
+      const lRect = legendEl.getBoundingClientRect();
+
+      if (overlaysIntersect(tRect, lRect)){
+        document.body.classList.add('overlays-stacked');
+        // Place legend just below title, keep right aligned
+        const newTop = titleEl.offsetTop + titleEl.offsetHeight + 10; // 10px gap
+        legendEl.style.top = newTop + 'px';
+      }
+    }
+
     async function initialize(){
       initMap();
       celestialObjects=await fetchEphemerisData();
@@ -406,6 +457,11 @@
       updateShapes(celestialObjects);
       setInterval(()=>updateShapes(celestialObjects),1000);
       document.getElementById('year').textContent=new Date().getFullYear();
+
+      // NEW: wire up help modal & overlay layout logic
+      initHelpModalControls();
+      applyOverlayLayout();
+      window.addEventListener('resize', applyOverlayLayout);
     }
 
     document.addEventListener('DOMContentLoaded',initialize);
