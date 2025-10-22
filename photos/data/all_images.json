@@ -30,6 +30,83 @@
     ]
   },
   {
+    "id": "966211bc-8fc2-4e80-842b-1377bc4618ac",
+    "label": "The Pleiades",
+    "image_file": "photos/originals/966211bc-8fc2-4e80-842b-1377bc4618ac.jpg",
+    "preview_file": "photos/previews/966211bc-8fc2-4e80-842b-1377bc4618ac_preview.jpg",
+    "width": 5937,
+    "height": 3884,
+    "preview_width": 1200,
+    "preview_height": 785,
+    "featured": false,
+    "data": {
+      "date": "2025-10-20",
+      "integration": 180,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "966211bc-8fc2-4e80-842b-1377bc4618ac",
+        "id": 45,
+        "name": "M45 - Pleiades",
+        "bounding_box": null,
+        "thumbnail_box": "893,57,3989,57,3989,3153,893,3153"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1,
+      4
+    ]
+  },
+  {
+    "id": "8e3afa7d-6b68-4e26-9242-cc943463ec69",
+    "label": "The Double Cluster",
+    "image_file": "photos/originals/8e3afa7d-6b68-4e26-9242-cc943463ec69.jpg",
+    "preview_file": "photos/previews/8e3afa7d-6b68-4e26-9242-cc943463ec69_preview.jpg",
+    "width": 4140,
+    "height": 2793,
+    "preview_width": 1200,
+    "preview_height": 810,
+    "featured": false,
+    "data": {
+      "date": "2025-10-19",
+      "integration": 60,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "8e3afa7d-6b68-4e26-9242-cc943463ec69",
+        "id": 173,
+        "name": "Caldwell 14 - Double Cluster",
+        "bounding_box": null,
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "8e3afa7d-6b68-4e26-9242-cc943463ec69",
+        "id": 174,
+        "name": "NGC 869",
+        "bounding_box": "1128,450,1910,450,1910,1231,1128,1231",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "8e3afa7d-6b68-4e26-9242-cc943463ec69",
+        "id": 175,
+        "name": "NGC 884",
+        "bounding_box": "2425,1403,3432,1403,3432,2410,2425,2410",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2,
+      4
+    ]
+  },
+  {
     "id": "370a1e60-7ead-41cd-b0e4-346b63af85d0",
     "label": "Harvest Moon 2025",
     "image_file": "photos/originals/370a1e60-7ead-41cd-b0e4-346b63af85d0.png",
@@ -385,10 +462,7 @@
         "thumbnail_box": "2382,471,5892,471,5892,3980,2382,3980"
       }
     ],
-    "gallery_ids": [
-      1,
-      4
-    ]
+    "gallery_ids": []
   },
   {
     "id": "94c4bfb8-e2dc-45eb-b456-5138af25ba84",
@@ -521,50 +595,6 @@
     "gallery_ids": [
       2,
       1
-    ]
-  },
-  {
-    "id": "555cb969-3101-4673-b8cc-730dde57b654",
-    "label": "The Double Cluster",
-    "image_file": "photos/originals/555cb969-3101-4673-b8cc-730dde57b654.jpg",
-    "preview_file": "photos/previews/555cb969-3101-4673-b8cc-730dde57b654_preview.jpg",
-    "width": 5664,
-    "height": 3888,
-    "preview_width": 1200,
-    "preview_height": 824,
-    "featured": true,
-    "data": {
-      "date": "2025-06-27",
-      "integration": 72,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
-        "id": 173,
-        "name": "Caldwell 14 - Double Cluster",
-        "bounding_box": null,
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
-        "id": 174,
-        "name": "NGC 869",
-        "bounding_box": "2733,684,3458,684,3458,1409,2733,1409",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "555cb969-3101-4673-b8cc-730dde57b654",
-        "id": 175,
-        "name": "NGC 884",
-        "bounding_box": "1908,2588,2683,2588,2683,3363,1908,3363",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      4
     ]
   },
   {
