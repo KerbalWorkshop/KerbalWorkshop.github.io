@@ -1,5 +1,35 @@
 [
   {
+    "id": "c06236a7-9310-4e1d-808f-efd86a0c76bf",
+    "label": "Vega",
+    "image_file": "photos/originals/c06236a7-9310-4e1d-808f-efd86a0c76bf.jpg",
+    "preview_file": "photos/previews/c06236a7-9310-4e1d-808f-efd86a0c76bf_preview.jpg",
+    "width": 5794,
+    "height": 3863,
+    "preview_width": 1200,
+    "preview_height": 800,
+    "featured": false,
+    "data": {
+      "date": "2025-10-20",
+      "integration": 10,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "c06236a7-9310-4e1d-808f-efd86a0c76bf",
+        "id": 180,
+        "name": "Vega",
+        "bounding_box": "2774,1819,3003,1819,3003,2048,2774,2048",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "370a1e60-7ead-41cd-b0e4-346b63af85d0",
     "label": "Harvest Moon 2025",
     "image_file": "photos/originals/370a1e60-7ead-41cd-b0e4-346b63af85d0.png",
