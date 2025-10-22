@@ -21,7 +21,7 @@ THUMB_PREVIEW_MAX_H = 300
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 CAMERAS = ["", "Nikon D3300", "ZWO ASI662MC", "ZWO ASI2600MM Pro"]
-TELESCOPES = ["", "Celestron C8-N", "William Optics RedCat 51"]
+TELESCOPES = ["", "Celestron C8-N", "Aperture CarbonStar 200", "Meade ETX90EC"]
 GALLERY_NAMES = ["Messier", "Highlights", "Solar System"]
 
 # --- HELPER CLASSES ---
