@@ -38,7 +38,7 @@
     "height": 3884,
     "preview_width": 1200,
     "preview_height": 785,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-10-20",
       "integration": 180,
@@ -115,7 +115,7 @@
     "height": 4168,
     "preview_width": 1200,
     "preview_height": 1200,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-10-06",
       "integration": null,
@@ -347,7 +347,7 @@
     "height": 936,
     "preview_width": 1200,
     "preview_height": 918,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-08-18",
       "integration": null,
@@ -568,7 +568,7 @@
     "height": 1738,
     "preview_width": 1200,
     "preview_height": 889,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-06-28",
       "integration": 240,
