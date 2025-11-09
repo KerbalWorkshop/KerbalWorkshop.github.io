@@ -1,5 +1,36 @@
 [
   {
+    "id": "1250b302-ba03-4dd7-94c9-4c59d7b17ac1",
+    "label": "Triangulum Galaxy",
+    "image_file": "photos/originals/1250b302-ba03-4dd7-94c9-4c59d7b17ac1.jpg",
+    "preview_file": "photos/previews/1250b302-ba03-4dd7-94c9-4c59d7b17ac1_preview.jpg",
+    "width": 5054,
+    "height": 3409,
+    "preview_width": 1200,
+    "preview_height": 809,
+    "featured": true,
+    "data": {
+      "date": "2025-10-29",
+      "integration": 960,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "1250b302-ba03-4dd7-94c9-4c59d7b17ac1",
+        "id": 33,
+        "name": "M33 - Triangulum Galaxy",
+        "bounding_box": "1095,798,3929,798,3929,2649,1095,2649",
+        "thumbnail_box": "1333,545,3662,545,3662,2874,1333,2874"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
     "id": "c06236a7-9310-4e1d-808f-efd86a0c76bf",
     "label": "Vega",
     "image_file": "photos/originals/c06236a7-9310-4e1d-808f-efd86a0c76bf.jpg",
@@ -347,7 +378,7 @@
     "height": 936,
     "preview_width": 1200,
     "preview_height": 918,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-08-18",
       "integration": null,
@@ -1972,6 +2003,85 @@
     ]
   },
   {
+    "id": "dd064973-2f5a-4670-b897-f98ffa969760",
+    "label": "Markarian's Chain",
+    "image_file": "photos/originals/dd064973-2f5a-4670-b897-f98ffa969760.jpg",
+    "preview_file": "photos/previews/dd064973-2f5a-4670-b897-f98ffa969760_preview.jpg",
+    "width": 5715,
+    "height": 3710,
+    "preview_width": 1200,
+    "preview_height": 779,
+    "featured": false,
+    "data": {
+      "date": "2025-04-02",
+      "integration": null,
+      "camera": "Nikon D3300",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 84,
+        "name": "M84",
+        "bounding_box": "2692,3368,2833,3368,2833,3557,2692,3557",
+        "thumbnail_box": "2598,3305,2928,3305,2928,3635,2598,3635"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 86,
+        "name": "M86",
+        "bounding_box": "3219,2238,3494,2154,3608,2526,3333,2610",
+        "thumbnail_box": "3117,2076,3719,2076,3719,2679,3117,2679"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 116,
+        "name": "NGC 4388",
+        "bounding_box": "2058,2180,2191,2223,2070,2593,1938,2550",
+        "thumbnail_box": "1800,2122,2338,2122,2338,2660,1800,2660"
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 115,
+        "name": "NGC 4402",
+        "bounding_box": "4103,2515,4192,2541,4095,2870,4006,2844",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 117,
+        "name": "NGC 4413",
+        "bounding_box": "1942,1526,2170,1360,2287,1520,2059,1686",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 118,
+        "name": "NGC 4425",
+        "bounding_box": "2689,940,3076,905,3090,1062,2703,1097",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 120,
+        "name": "NGC 4435 - The Eyes",
+        "bounding_box": "4132,797,4382,797,4382,917,4132,917",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
+        "id": 119,
+        "name": "NGC 4438 - The Eyes",
+        "bounding_box": "4425,990,4609,1011,4599,1104,4414,1083",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      1
+    ]
+  },
+  {
     "id": "abcca949-0a81-4b5c-8bf0-3576152eb882",
     "label": "",
     "image_file": "photos/originals/abcca949-0a81-4b5c-8bf0-3576152eb882.jpg",
@@ -2850,9 +2960,7 @@
         "thumbnail_box": "1502,782,4074,782,4074,3353,1502,3353"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "4a7eea52-952b-4196-b028-b8cd1cc86700",
@@ -3052,85 +3160,6 @@
         "name": "M1 - Crab Nebula",
         "bounding_box": "438,191,815,191,815,858,438,858",
         "thumbnail_box": "207,90,1031,90,1031,914,207,914"
-      }
-    ],
-    "gallery_ids": [
-      1
-    ]
-  },
-  {
-    "id": "dd064973-2f5a-4670-b897-f98ffa969760",
-    "label": "Markarian's Chain",
-    "image_file": "photos/originals/dd064973-2f5a-4670-b897-f98ffa969760.jpg",
-    "preview_file": "photos/previews/dd064973-2f5a-4670-b897-f98ffa969760_preview.jpg",
-    "width": 5715,
-    "height": 3710,
-    "preview_width": 1200,
-    "preview_height": 779,
-    "featured": false,
-    "data": {
-      "date": "2024-04-02",
-      "integration": null,
-      "camera": "Nikon D3300",
-      "telescope": "Celestron C8-N",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 84,
-        "name": "M84",
-        "bounding_box": "2692,3368,2833,3368,2833,3557,2692,3557",
-        "thumbnail_box": "2598,3305,2928,3305,2928,3635,2598,3635"
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 86,
-        "name": "M86",
-        "bounding_box": "3219,2238,3494,2154,3608,2526,3333,2610",
-        "thumbnail_box": "3117,2076,3719,2076,3719,2679,3117,2679"
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 116,
-        "name": "NGC 4388",
-        "bounding_box": "2058,2180,2191,2223,2070,2593,1938,2550",
-        "thumbnail_box": "1800,2122,2338,2122,2338,2660,1800,2660"
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 115,
-        "name": "NGC 4402",
-        "bounding_box": "4103,2515,4192,2541,4095,2870,4006,2844",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 117,
-        "name": "NGC 4413",
-        "bounding_box": "1942,1526,2170,1360,2287,1520,2059,1686",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 118,
-        "name": "NGC 4425",
-        "bounding_box": "2689,940,3076,905,3090,1062,2703,1097",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 120,
-        "name": "NGC 4435 - The Eyes",
-        "bounding_box": "4132,797,4382,797,4382,917,4132,917",
-        "thumbnail_box": null
-      },
-      {
-        "image_id": "dd064973-2f5a-4670-b897-f98ffa969760",
-        "id": 119,
-        "name": "NGC 4438 - The Eyes",
-        "bounding_box": "4425,990,4609,1011,4599,1104,4414,1083",
-        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
