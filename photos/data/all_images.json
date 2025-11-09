@@ -1,11 +1,11 @@
 [
   {
-    "id": "1250b302-ba03-4dd7-94c9-4c59d7b17ac1",
+    "id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
     "label": "Triangulum Galaxy",
-    "image_file": "photos/originals/1250b302-ba03-4dd7-94c9-4c59d7b17ac1.jpg",
-    "preview_file": "photos/previews/1250b302-ba03-4dd7-94c9-4c59d7b17ac1_preview.jpg",
-    "width": 5054,
-    "height": 3409,
+    "image_file": "photos/originals/ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6.jpg",
+    "preview_file": "photos/previews/ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6_preview.jpg",
+    "width": 3908,
+    "height": 2636,
     "preview_width": 1200,
     "preview_height": 809,
     "featured": true,
@@ -18,11 +18,25 @@
     },
     "subjects": [
       {
-        "image_id": "1250b302-ba03-4dd7-94c9-4c59d7b17ac1",
+        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
         "id": 33,
         "name": "M33 - Triangulum Galaxy",
-        "bounding_box": "1095,798,3929,798,3929,2649,1095,2649",
-        "thumbnail_box": "1333,545,3662,545,3662,2874,1333,2874"
+        "bounding_box": "394,296,3435,296,3435,2387,394,2387",
+        "thumbnail_box": "813,201,3016,201,3016,2404,813,2404"
+      },
+      {
+        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+        "id": 181,
+        "name": "NGC 595",
+        "bounding_box": "1773,1567,1859,1567,1859,1654,1773,1654",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+        "id": 182,
+        "name": "NGC 604",
+        "bounding_box": "1291,689,1385,689,1385,783,1291,783",
+        "thumbnail_box": null
       }
     ],
     "gallery_ids": [
