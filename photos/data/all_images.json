@@ -1,5 +1,79 @@
 [
   {
+    "id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+    "label": "Heart of the Soul Nebula",
+    "image_file": "photos/originals/55272b57-5195-4697-9d85-3ec1fd2ba6d0.jpg",
+    "preview_file": "photos/previews/55272b57-5195-4697-9d85-3ec1fd2ba6d0_preview.jpg",
+    "width": 1408,
+    "height": 1450,
+    "preview_width": 1165,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2025-11-08",
+      "integration": 360,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+        "id": 184,
+        "name": "LBN 673",
+        "bounding_box": "52,213,1189,213,1189,1381,52,1381",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+        "id": 183,
+        "name": "Westerhout 5 - Soul Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
+    "id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
+    "label": "Soul Nebula",
+    "image_file": "photos/originals/8fb90db9-12e9-4214-a7b0-e0b727cc8add.jpg",
+    "preview_file": "photos/previews/8fb90db9-12e9-4214-a7b0-e0b727cc8add_preview.jpg",
+    "width": 2086,
+    "height": 1405,
+    "preview_width": 1200,
+    "preview_height": 808,
+    "featured": true,
+    "data": {
+      "date": "2025-11-08",
+      "integration": 260,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
+        "id": 184,
+        "name": "LBN 673",
+        "bounding_box": "56,62,1707,62,1707,1361,56,1361",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
+        "id": 183,
+        "name": "Westerhout 5 - Soul Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
     "label": "Triangulum Galaxy",
     "image_file": "photos/originals/ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6.jpg",
