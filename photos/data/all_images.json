@@ -1,31 +1,38 @@
 [
   {
-    "id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+    "id": "c65c6cad-12da-48a4-b58b-1a1173be9fec",
     "label": "Heart of the Soul Nebula",
-    "image_file": "photos/originals/55272b57-5195-4697-9d85-3ec1fd2ba6d0.jpg",
-    "preview_file": "photos/previews/55272b57-5195-4697-9d85-3ec1fd2ba6d0_preview.jpg",
-    "width": 1408,
-    "height": 1450,
-    "preview_width": 1165,
+    "image_file": "photos/originals/c65c6cad-12da-48a4-b58b-1a1173be9fec.jpeg",
+    "preview_file": "photos/previews/c65c6cad-12da-48a4-b58b-1a1173be9fec_preview.jpg",
+    "width": 1620,
+    "height": 1943,
+    "preview_width": 1001,
     "preview_height": 1200,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-11-08",
-      "integration": 360,
+      "integration": 746,
       "camera": "ZWO ASI2600MM Pro",
       "telescope": "Aperture CarbonStar 200",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+        "image_id": "c65c6cad-12da-48a4-b58b-1a1173be9fec",
         "id": 184,
         "name": "LBN 673",
-        "bounding_box": "52,213,1189,213,1189,1381,52,1381",
+        "bounding_box": "451,230,1620,230,1620,1739,451,1739",
         "thumbnail_box": null
       },
       {
-        "image_id": "55272b57-5195-4697-9d85-3ec1fd2ba6d0",
+        "image_id": "c65c6cad-12da-48a4-b58b-1a1173be9fec",
+        "id": 185,
+        "name": "SFO 12",
+        "bounding_box": "381,1067,805,902,921,1199,496,1364",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c65c6cad-12da-48a4-b58b-1a1173be9fec",
         "id": 183,
         "name": "Westerhout 5 - Soul Nebula",
         "bounding_box": null,
@@ -37,32 +44,39 @@
     ]
   },
   {
-    "id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
+    "id": "f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0",
     "label": "Soul Nebula",
-    "image_file": "photos/originals/8fb90db9-12e9-4214-a7b0-e0b727cc8add.jpg",
-    "preview_file": "photos/previews/8fb90db9-12e9-4214-a7b0-e0b727cc8add_preview.jpg",
-    "width": 2086,
-    "height": 1405,
-    "preview_width": 1200,
-    "preview_height": 808,
-    "featured": true,
+    "image_file": "photos/originals/f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0.jpeg",
+    "preview_file": "photos/previews/f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0_preview.jpg",
+    "width": 1726,
+    "height": 2157,
+    "preview_width": 960,
+    "preview_height": 1200,
+    "featured": false,
     "data": {
       "date": "2025-11-08",
-      "integration": 260,
+      "integration": 746,
       "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Celestron C8-N",
+      "telescope": "Aperture CarbonStar 200",
       "notes": ""
     },
     "subjects": [
       {
-        "image_id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
-        "id": 184,
-        "name": "LBN 673",
-        "bounding_box": "56,62,1707,62,1707,1361,56,1361",
+        "image_id": "f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0",
+        "id": 186,
+        "name": "IC 1871",
+        "bounding_box": "194,602,643,480,717,754,268,875",
         "thumbnail_box": null
       },
       {
-        "image_id": "8fb90db9-12e9-4214-a7b0-e0b727cc8add",
+        "image_id": "f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0",
+        "id": 184,
+        "name": "LBN 673",
+        "bounding_box": "0,1,1318,0,1600,430,244,870",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "f3e6c4af-63ef-4fe2-bcf9-e4c35805ead0",
         "id": 183,
         "name": "Westerhout 5 - Soul Nebula",
         "bounding_box": null,
@@ -74,12 +88,12 @@
     ]
   },
   {
-    "id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+    "id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
     "label": "Triangulum Galaxy",
-    "image_file": "photos/originals/ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6.jpg",
-    "preview_file": "photos/previews/ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6_preview.jpg",
-    "width": 3908,
-    "height": 2636,
+    "image_file": "photos/originals/2537ac71-f7a9-4c69-aaca-7d43de608252.jpg",
+    "preview_file": "photos/previews/2537ac71-f7a9-4c69-aaca-7d43de608252_preview.jpg",
+    "width": 5054,
+    "height": 3409,
     "preview_width": 1200,
     "preview_height": 809,
     "featured": true,
@@ -92,60 +106,30 @@
     },
     "subjects": [
       {
-        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+        "image_id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
         "id": 33,
         "name": "M33 - Triangulum Galaxy",
-        "bounding_box": "394,296,3435,296,3435,2387,394,2387",
-        "thumbnail_box": "813,201,3016,201,3016,2404,813,2404"
+        "bounding_box": "762,589,4262,589,4262,2830,762,2830",
+        "thumbnail_box": "1500,704,3524,704,3524,2729,1500,2729"
       },
       {
-        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+        "image_id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
         "id": 181,
         "name": "NGC 595",
-        "bounding_box": "1773,1567,1859,1567,1859,1654,1773,1654",
+        "bounding_box": "2346,1955,2433,1955,2433,2042,2346,2042",
         "thumbnail_box": null
       },
       {
-        "image_id": "ce0313f5-572b-4250-b6d9-eb8cd4e0a3b6",
+        "image_id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
         "id": 182,
         "name": "NGC 604",
-        "bounding_box": "1291,689,1385,689,1385,783,1291,783",
+        "bounding_box": "1840,1066,1970,1066,1970,1196,1840,1196",
         "thumbnail_box": null
       }
     ],
     "gallery_ids": [
       2,
       1
-    ]
-  },
-  {
-    "id": "c06236a7-9310-4e1d-808f-efd86a0c76bf",
-    "label": "Vega",
-    "image_file": "photos/originals/c06236a7-9310-4e1d-808f-efd86a0c76bf.jpg",
-    "preview_file": "photos/previews/c06236a7-9310-4e1d-808f-efd86a0c76bf_preview.jpg",
-    "width": 5794,
-    "height": 3863,
-    "preview_width": 1200,
-    "preview_height": 800,
-    "featured": false,
-    "data": {
-      "date": "2025-10-20",
-      "integration": 10,
-      "camera": "ZWO ASI2600MM Pro",
-      "telescope": "Aperture CarbonStar 200",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "c06236a7-9310-4e1d-808f-efd86a0c76bf",
-        "id": 180,
-        "name": "Vega",
-        "bounding_box": "2774,1819,3003,1819,3003,2048,2774,2048",
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2
     ]
   },
   {
@@ -178,6 +162,36 @@
       2,
       1,
       4
+    ]
+  },
+  {
+    "id": "b6b676b3-71d0-4427-ab3e-e918e32723dd",
+    "label": "Vega",
+    "image_file": "photos/originals/b6b676b3-71d0-4427-ab3e-e918e32723dd.jpg",
+    "preview_file": "photos/previews/b6b676b3-71d0-4427-ab3e-e918e32723dd_preview.jpg",
+    "width": 5794,
+    "height": 3863,
+    "preview_width": 1200,
+    "preview_height": 800,
+    "featured": false,
+    "data": {
+      "date": "2025-10-20",
+      "integration": 10,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "b6b676b3-71d0-4427-ab3e-e918e32723dd",
+        "id": 180,
+        "name": "Vega",
+        "bounding_box": "2806,1843,2987,1843,2987,2024,2806,2024",
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
     ]
   },
   {
