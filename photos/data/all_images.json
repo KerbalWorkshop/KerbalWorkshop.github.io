@@ -3179,5 +3179,35 @@
     "gallery_ids": [
       1
     ]
+  },
+  {
+    "id": "71231fd1-1849-4b99-b7c1-adac75f864a4",
+    "label": "test 1",
+    "image_file": "photos/originals/71231fd1-1849-4b99-b7c1-adac75f864a4.jpeg",
+    "preview_file": "photos/previews/71231fd1-1849-4b99-b7c1-adac75f864a4_preview.jpg",
+    "width": 2416,
+    "height": 3020,
+    "preview_width": 960,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "",
+      "integration": null,
+      "camera": "",
+      "telescope": "",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "71231fd1-1849-4b99-b7c1-adac75f864a4",
+        "id": 183,
+        "name": "Westerhout 5 - Soul Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
   }
 ]
