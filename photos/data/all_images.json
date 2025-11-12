@@ -1,5 +1,100 @@
 [
   {
+    "id": "a180f911-0098-4a94-b6de-80bc8556647f",
+    "label": "Heart of the Soul Nebula",
+    "image_file": "photos/originals/a180f911-0098-4a94-b6de-80bc8556647f.jpg",
+    "preview_file": "photos/previews/a180f911-0098-4a94-b6de-80bc8556647f_preview.jpg",
+    "width": 1943,
+    "height": 1620,
+    "preview_width": 1200,
+    "preview_height": 1001,
+    "featured": false,
+    "data": {
+      "date": "2025-11-10",
+      "integration": 764,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "a180f911-0098-4a94-b6de-80bc8556647f",
+        "id": 184,
+        "name": "LBN 673",
+        "bounding_box": "470,765,1815,765,1815,1620,470,1620",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "a180f911-0098-4a94-b6de-80bc8556647f",
+        "id": 185,
+        "name": "SFO 12",
+        "bounding_box": "578,519,834,387,1031,771,775,902",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "a180f911-0098-4a94-b6de-80bc8556647f",
+        "id": 183,
+        "name": "Westerhout 5 - Soul Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
+    "id": "c909d4a2-c0db-43c0-8b6d-87dbb8f18e53",
+    "label": "Soul Nebula",
+    "image_file": "photos/originals/c909d4a2-c0db-43c0-8b6d-87dbb8f18e53.jpg",
+    "preview_file": "photos/previews/c909d4a2-c0db-43c0-8b6d-87dbb8f18e53_preview.jpg",
+    "width": 3020,
+    "height": 2416,
+    "preview_width": 1200,
+    "preview_height": 960,
+    "featured": false,
+    "data": {
+      "date": "2025-11-10",
+      "integration": 764,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "c909d4a2-c0db-43c0-8b6d-87dbb8f18e53",
+        "id": 186,
+        "name": "IC 1871",
+        "bounding_box": "1684,1281,1930,1208,2042,1585,1796,1658",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c909d4a2-c0db-43c0-8b6d-87dbb8f18e53",
+        "id": 184,
+        "name": "LBN 673",
+        "bounding_box": "808,915,1860,723,2093,1996,1041,2189",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c909d4a2-c0db-43c0-8b6d-87dbb8f18e53",
+        "id": 185,
+        "name": "SFO 12",
+        "bounding_box": "476,1751,880,1471,1038,1698,634,1978",
+        "thumbnail_box": null
+      },
+      {
+        "image_id": "c909d4a2-c0db-43c0-8b6d-87dbb8f18e53",
+        "id": 183,
+        "name": "Westerhout 5 - Soul Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
     "label": "Triangulum Galaxy",
     "image_file": "photos/originals/2537ac71-f7a9-4c69-aaca-7d43de608252.jpg",
@@ -3178,36 +3273,6 @@
     ],
     "gallery_ids": [
       1
-    ]
-  },
-  {
-    "id": "71231fd1-1849-4b99-b7c1-adac75f864a4",
-    "label": "test 1",
-    "image_file": "photos/originals/71231fd1-1849-4b99-b7c1-adac75f864a4.jpeg",
-    "preview_file": "photos/previews/71231fd1-1849-4b99-b7c1-adac75f864a4_preview.jpg",
-    "width": 2416,
-    "height": 3020,
-    "preview_width": 960,
-    "preview_height": 1200,
-    "featured": false,
-    "data": {
-      "date": "",
-      "integration": null,
-      "camera": "",
-      "telescope": "",
-      "notes": ""
-    },
-    "subjects": [
-      {
-        "image_id": "71231fd1-1849-4b99-b7c1-adac75f864a4",
-        "id": 183,
-        "name": "Westerhout 5 - Soul Nebula",
-        "bounding_box": null,
-        "thumbnail_box": null
-      }
-    ],
-    "gallery_ids": [
-      2
     ]
   }
 ]
