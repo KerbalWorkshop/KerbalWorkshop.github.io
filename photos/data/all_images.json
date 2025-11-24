@@ -1060,12 +1060,12 @@
     ]
   },
   {
-    "id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
+    "id": "af5ffd0d-5681-471f-a1d8-7e8bd42792d2",
     "label": "Whirlpool Galaxy",
-    "image_file": "photos/originals/f3a087a0-4d66-4533-8cce-0f92984333a0.jpg",
-    "preview_file": "photos/previews/f3a087a0-4d66-4533-8cce-0f92984333a0_preview.jpg",
-    "width": 1950,
-    "height": 1308,
+    "image_file": "photos/originals/af5ffd0d-5681-471f-a1d8-7e8bd42792d2.png",
+    "preview_file": "photos/previews/af5ffd0d-5681-471f-a1d8-7e8bd42792d2_preview.jpg",
+    "width": 3101,
+    "height": 2081,
     "preview_width": 1200,
     "preview_height": 805,
     "featured": false,
@@ -1078,22 +1078,21 @@
     },
     "subjects": [
       {
-        "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
+        "image_id": "af5ffd0d-5681-471f-a1d8-7e8bd42792d2",
         "id": 51,
         "name": "M51 - Whirlpool Galaxy",
-        "bounding_box": "653,420,1364,420,1364,898,653,898",
-        "thumbnail_box": "505,153,1505,153,1505,1152,505,1152"
+        "bounding_box": "1206,798,2018,798,2018,1318,1206,1318",
+        "thumbnail_box": "1144,591,2053,591,2053,1499,1144,1499"
       },
       {
-        "image_id": "f3a087a0-4d66-4533-8cce-0f92984333a0",
+        "image_id": "af5ffd0d-5681-471f-a1d8-7e8bd42792d2",
         "id": 111,
         "name": "M51b - NGC 5195",
-        "bounding_box": "1204,545,1352,545,1352,754,1204,754",
+        "bounding_box": "1806,943,2000,943,2000,1138,1806,1138",
         "thumbnail_box": null
       }
     ],
     "gallery_ids": [
-      2,
       1
     ]
   },
@@ -2191,10 +2190,10 @@
     ]
   },
   {
-    "id": "abcca949-0a81-4b5c-8bf0-3576152eb882",
+    "id": "b9d645e9-4308-40ae-9c3f-11f20cf704a7",
     "label": "",
-    "image_file": "photos/originals/abcca949-0a81-4b5c-8bf0-3576152eb882.jpg",
-    "preview_file": "photos/previews/abcca949-0a81-4b5c-8bf0-3576152eb882_preview.jpg",
+    "image_file": "photos/originals/b9d645e9-4308-40ae-9c3f-11f20cf704a7.png",
+    "preview_file": "photos/previews/b9d645e9-4308-40ae-9c3f-11f20cf704a7_preview.jpg",
     "width": 4341,
     "height": 3407,
     "preview_width": 1200,
@@ -2209,11 +2208,11 @@
     },
     "subjects": [
       {
-        "image_id": "abcca949-0a81-4b5c-8bf0-3576152eb882",
+        "image_id": "b9d645e9-4308-40ae-9c3f-11f20cf704a7",
         "id": 106,
         "name": "M106",
-        "bounding_box": "1836,814,2790,1900,2345,2290,1391,1205",
-        "thumbnail_box": "1101,556,3095,556,3095,2549,1101,2549"
+        "bounding_box": "1847,968,2697,1793,2335,2166,1484,1341",
+        "thumbnail_box": "1397,859,2798,859,2798,2260,1397,2260"
       }
     ],
     "gallery_ids": [
