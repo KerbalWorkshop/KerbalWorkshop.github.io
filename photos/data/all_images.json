@@ -1,5 +1,37 @@
 [
   {
+    "id": "c000a3e6-5663-4b47-91e5-fba71c892d8b",
+    "label": "Great Pegasus Clusterr",
+    "image_file": "photos/originals/c000a3e6-5663-4b47-91e5-fba71c892d8b.tif",
+    "preview_file": "photos/previews/c000a3e6-5663-4b47-91e5-fba71c892d8b_preview.jpg",
+    "width": 3700,
+    "height": 2467,
+    "preview_width": 1200,
+    "preview_height": 800,
+    "featured": false,
+    "data": {
+      "date": "2025-11-26",
+      "integration": 80,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "c000a3e6-5663-4b47-91e5-fba71c892d8b",
+        "id": 15,
+        "name": "M15 - Great Pegasus Cluster",
+        "bounding_box": "1577,968,2122,968,2122,1512,1577,1512",
+        "thumbnail_box": "1577,968,2122,968,2122,1512,1577,1512"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1,
+      4
+    ]
+  },
+  {
     "id": "a180f911-0098-4a94-b6de-80bc8556647f",
     "label": "Heart of the Soul Nebula",
     "image_file": "photos/originals/a180f911-0098-4a94-b6de-80bc8556647f.jpg",
