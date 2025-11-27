@@ -1,9 +1,9 @@
 [
   {
-    "id": "c000a3e6-5663-4b47-91e5-fba71c892d8b",
-    "label": "Great Pegasus Clusterr",
-    "image_file": "photos/originals/c000a3e6-5663-4b47-91e5-fba71c892d8b.tif",
-    "preview_file": "photos/previews/c000a3e6-5663-4b47-91e5-fba71c892d8b_preview.jpg",
+    "id": "99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166",
+    "label": "Great Pegasus Cluster",
+    "image_file": "photos/originals/99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166.jpg",
+    "preview_file": "photos/previews/99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166_preview.jpg",
     "width": 3700,
     "height": 2467,
     "preview_width": 1200,
@@ -18,15 +18,14 @@
     },
     "subjects": [
       {
-        "image_id": "c000a3e6-5663-4b47-91e5-fba71c892d8b",
+        "image_id": "99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166",
         "id": 15,
         "name": "M15 - Great Pegasus Cluster",
-        "bounding_box": "1577,968,2122,968,2122,1512,1577,1512",
-        "thumbnail_box": "1577,968,2122,968,2122,1512,1577,1512"
+        "bounding_box": "1567,957,2143,957,2143,1533,1567,1533",
+        "thumbnail_box": "1567,957,2143,957,2143,1533,1567,1533"
       }
     ],
     "gallery_ids": [
-      2,
       1,
       4
     ]
