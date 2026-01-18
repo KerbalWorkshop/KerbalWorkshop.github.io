@@ -1,5 +1,36 @@
 [
   {
+    "id": "48eb563a-8af3-4261-b73b-0f6f1c118c91",
+    "label": "Bode's Galaxy",
+    "image_file": "photos/originals/48eb563a-8af3-4261-b73b-0f6f1c118c91.jpg",
+    "preview_file": "photos/previews/48eb563a-8af3-4261-b73b-0f6f1c118c91_preview.jpg",
+    "width": 2519,
+    "height": 2680,
+    "preview_width": 1128,
+    "preview_height": 1200,
+    "featured": false,
+    "data": {
+      "date": "2026-01-15",
+      "integration": 1578,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Aperture CarbonStar 200",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "48eb563a-8af3-4261-b73b-0f6f1c118c91",
+        "id": 81,
+        "name": "M81 - Bode's Galaxy",
+        "bounding_box": "867,815,1634,815,1634,1811,867,1811",
+        "thumbnail_box": "656,730,1850,730,1850,1924,656,1924"
+      }
+    ],
+    "gallery_ids": [
+      2,
+      1
+    ]
+  },
+  {
     "id": "99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166",
     "label": "Great Pegasus Cluster",
     "image_file": "photos/originals/99cc3716-fcb7-41c8-a9f3-ecf5bdf4a166.jpg",
@@ -2283,9 +2314,7 @@
         "thumbnail_box": "3976,1885,4716,1885,4716,2624,3976,2624"
       }
     ],
-    "gallery_ids": [
-      1
-    ]
+    "gallery_ids": []
   },
   {
     "id": "40d7f955-7eed-40d3-a501-2190be2bb20c",
