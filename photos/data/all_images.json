@@ -541,6 +541,36 @@
     ]
   },
   {
+    "id": "3499099b-ef3b-4292-a399-0b6ada1804fc",
+    "label": "Core of the Pacman Nebula",
+    "image_file": "photos/originals/3499099b-ef3b-4292-a399-0b6ada1804fc.jpg",
+    "preview_file": "photos/previews/3499099b-ef3b-4292-a399-0b6ada1804fc_preview.jpg",
+    "width": 2251,
+    "height": 1712,
+    "preview_width": 1200,
+    "preview_height": 913,
+    "featured": false,
+    "data": {
+      "date": "2025-08-21",
+      "integration": 2500,
+      "camera": "ZWO ASI2600MM Pro",
+      "telescope": "Celestron C8-N",
+      "notes": ""
+    },
+    "subjects": [
+      {
+        "image_id": "3499099b-ef3b-4292-a399-0b6ada1804fc",
+        "id": 170,
+        "name": "NGC 281 - Pacman Nebula",
+        "bounding_box": null,
+        "thumbnail_box": null
+      }
+    ],
+    "gallery_ids": [
+      2
+    ]
+  },
+  {
     "id": "76e9399d-8e21-4b27-8749-812c6413e948",
     "label": "Eclipse on Saturn",
     "image_file": "photos/originals/76e9399d-8e21-4b27-8749-812c6413e948.jpg",
