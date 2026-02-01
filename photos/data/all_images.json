@@ -70,7 +70,7 @@
     "height": 1620,
     "preview_width": 1200,
     "preview_height": 1001,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-11-10",
       "integration": 764,
@@ -114,7 +114,7 @@
     "height": 2416,
     "preview_width": 1200,
     "preview_height": 960,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-11-10",
       "integration": 764,
@@ -208,7 +208,7 @@
     "height": 3884,
     "preview_width": 1200,
     "preview_height": 785,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-10-20",
       "integration": 180,
@@ -414,7 +414,7 @@
     "height": 3358,
     "preview_width": 960,
     "preview_height": 1200,
-    "featured": true,
+    "featured": false,
     "data": {
       "date": "2025-09-27",
       "integration": 2400,
@@ -790,7 +790,7 @@
     "height": 958,
     "preview_width": 1200,
     "preview_height": 810,
-    "featured": false,
+    "featured": true,
     "data": {
       "date": "2025-06-28",
       "integration": 240,
