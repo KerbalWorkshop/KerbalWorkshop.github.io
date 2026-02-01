@@ -755,14 +755,14 @@
     ]
   },
   {
-    "id": "f03e7d6a-a21f-4c54-ba60-397418c97a19",
+    "id": "cf47f404-e24e-4264-b5d9-ff4f69c66b80",
     "label": "Eagle Nebula",
-    "image_file": "photos/originals/f03e7d6a-a21f-4c54-ba60-397418c97a19.png",
-    "preview_file": "photos/previews/f03e7d6a-a21f-4c54-ba60-397418c97a19_preview.jpg",
-    "width": 5627,
-    "height": 3295,
+    "image_file": "photos/originals/cf47f404-e24e-4264-b5d9-ff4f69c66b80.jpg",
+    "preview_file": "photos/previews/cf47f404-e24e-4264-b5d9-ff4f69c66b80_preview.jpg",
+    "width": 4234,
+    "height": 2859,
     "preview_width": 1200,
-    "preview_height": 703,
+    "preview_height": 810,
     "featured": false,
     "data": {
       "date": "2025-06-28",
@@ -773,17 +773,17 @@
     },
     "subjects": [
       {
-        "image_id": "f03e7d6a-a21f-4c54-ba60-397418c97a19",
+        "image_id": "cf47f404-e24e-4264-b5d9-ff4f69c66b80",
         "id": 16,
         "name": "M16 - Eagle Nebula",
-        "bounding_box": "1168,476,4386,476,4386,3015,1168,3015",
+        "bounding_box": "681,212,3588,212,3588,2441,681,2441",
         "thumbnail_box": null
       },
       {
-        "image_id": "f03e7d6a-a21f-4c54-ba60-397418c97a19",
+        "image_id": "cf47f404-e24e-4264-b5d9-ff4f69c66b80",
         "id": 128,
         "name": "Pillars of Creation",
-        "bounding_box": "2745,1761,2907,1673,3064,1962,2902,2050",
+        "bounding_box": "1967,1334,2141,1253,2278,1548,2104,1629",
         "thumbnail_box": null
       }
     ],
@@ -792,14 +792,14 @@
     ]
   },
   {
-    "id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+    "id": "c8c0fd83-dec3-4541-967a-a269ed9395b4",
     "label": "Core of the Eagle Nebula",
-    "image_file": "photos/originals/7968dcd1-fb52-4771-8b21-aaedf42d1132.jpg",
-    "preview_file": "photos/previews/7968dcd1-fb52-4771-8b21-aaedf42d1132_preview.jpg",
-    "width": 2347,
-    "height": 1738,
+    "image_file": "photos/originals/c8c0fd83-dec3-4541-967a-a269ed9395b4.jpg",
+    "preview_file": "photos/previews/c8c0fd83-dec3-4541-967a-a269ed9395b4_preview.jpg",
+    "width": 1419,
+    "height": 958,
     "preview_width": 1200,
-    "preview_height": 889,
+    "preview_height": 810,
     "featured": false,
     "data": {
       "date": "2025-06-28",
@@ -810,17 +810,17 @@
     },
     "subjects": [
       {
-        "image_id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+        "image_id": "c8c0fd83-dec3-4541-967a-a269ed9395b4",
         "id": 16,
         "name": "M16 - Eagle Nebula",
         "bounding_box": null,
-        "thumbnail_box": "499,237,1796,237,1796,1534,499,1534"
+        "thumbnail_box": null
       },
       {
-        "image_id": "7968dcd1-fb52-4771-8b21-aaedf42d1132",
+        "image_id": "c8c0fd83-dec3-4541-967a-a269ed9395b4",
         "id": 128,
         "name": "Pillars of Creation",
-        "bounding_box": "985,841,1152,731,1343,1020,1176,1131",
+        "bounding_box": "614,383,786,282,960,576,787,678",
         "thumbnail_box": null
       }
     ],
