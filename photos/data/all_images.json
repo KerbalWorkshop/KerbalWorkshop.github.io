@@ -804,13 +804,13 @@
         "id": 16,
         "name": "M16 - Eagle Nebula",
         "bounding_box": null,
-        "thumbnail_box": null
+        "thumbnail_box": "409,97,1145,97,1145,834,409,834"
       },
       {
         "image_id": "c8c0fd83-dec3-4541-967a-a269ed9395b4",
         "id": 128,
         "name": "Pillars of Creation",
-        "bounding_box": "614,383,786,282,960,576,787,678",
+        "bounding_box": "628,372,804,285,938,554,763,641",
         "thumbnail_box": null
       }
     ],
