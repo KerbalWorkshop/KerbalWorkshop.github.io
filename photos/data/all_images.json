@@ -152,9 +152,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      2
-    ]
+    "gallery_ids": []
   },
   {
     "id": "2537ac71-f7a9-4c69-aaca-7d43de608252",
@@ -304,7 +302,6 @@
       }
     ],
     "gallery_ids": [
-      2,
       4
     ]
   },
@@ -371,9 +368,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      2
-    ]
+    "gallery_ids": []
   },
   {
     "id": "49a1ccd7-a368-45c5-ac9e-ece0e34a45c4",
@@ -408,9 +403,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      2
-    ]
+    "gallery_ids": []
   },
   {
     "id": "09822897-adfd-45ed-ae19-849f6315ab14",
@@ -476,7 +469,6 @@
       }
     ],
     "gallery_ids": [
-      2,
       3
     ]
   },
@@ -536,9 +528,7 @@
         "thumbnail_box": null
       }
     ],
-    "gallery_ids": [
-      2
-    ]
+    "gallery_ids": []
   },
   {
     "id": "3499099b-ef3b-4292-a399-0b6ada1804fc",
