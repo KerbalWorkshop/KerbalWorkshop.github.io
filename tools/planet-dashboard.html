@@ -580,7 +580,7 @@
         toggleError('size', false);
 
         if (mode.status !== 'ok') {
-            toggleError('size', true, "Data Unavailable (Offline)");
+            toggleError('size', true, "Loading...");
             return;
         }
 
@@ -610,7 +610,7 @@
         distAnchor.style.display = 'block';
 
         if (mode.status !== 'ok') {
-            toggleError('dist', true, "Data Unavailable (Offline)");
+            toggleError('dist', true, "Loading...");
             distAnchor.style.display = 'none'; 
             return;
         }
@@ -674,7 +674,7 @@
         toggleError('obs', false);
 
         if (displayData.observability.status !== 'ok') {
-            toggleError('obs', true, "Forecast Unavailable (Offline)");
+            toggleError('obs', true, "Loading...");
             return;
         }
 
