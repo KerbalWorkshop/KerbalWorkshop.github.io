@@ -551,7 +551,17 @@
                         if (raDiff > 12) raDiff = 24 - raDiff; // Handle wrap (e.g., 23h vs 1h = 2h diff)
                         
                         const elong = raDiff * 15; // Convert hours to degrees
-                        const score = Math.min(100, Math.max(0, (elong/70) * 100 - (day.magnitude * 5)));
+                        // --- ORIGINAL LOGIC RESTORED ---
+                        // 1. Elongation Factor (Sigmoid Curve) creates the smooth transition
+                        const elongFactor = 1 / (1 + Math.exp(-0.3 * (elong - 25)));
+
+                        // 2. Magnitude Factor (Linear brightness scaling)
+                        const magFactor = (-(50 / 9) * day.magnitude) + (670 / 9);
+
+                        // 3. Combine and Clamp
+                        let score = elongFactor * magFactor;
+                        score = Math.round(Math.max(0, Math.min(100, score)));
+                        // -------------------------------
                         
                         validPoints.push({ score, mag: day.magnitude, elong, date: day.date });
                     }
