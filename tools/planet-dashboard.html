@@ -551,7 +551,7 @@
                         if (raDiff > 12) raDiff = 24 - raDiff; // Handle wrap (e.g., 23h vs 1h = 2h diff)
                         
                         const elong = raDiff * 15; // Convert hours to degrees
-                        const score = Math.min(100, Math.max(0, (elong/180) * 100 - (day.magnitude * 5)));
+                        const score = Math.min(100, Math.max(0, (elong/70) * 100 - (day.magnitude * 5)));
                         
                         validPoints.push({ score, mag: day.magnitude, elong, date: day.date });
                     }
