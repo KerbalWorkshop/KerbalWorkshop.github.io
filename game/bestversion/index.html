@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Astronomy Tycoon – Equipment Setup & Inventory</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="night-mode">
+  <div id="topHeader">Socials | Website</div>
+  
+  <div id="container">
+    <div id="leftSide">
+      <canvas id="gameCanvas" width="1000" height="600"></canvas>
+      <div id="leftOverlay" class="overlay">
+        <div id="moneyDisplay">Money: $100</div>
+        <div id="timeDisplay">Time: 2025-01-01 00:00</div>
+      </div>
+      <div id="bottomNews" class="overlay">
+        <div id="newsContent">Space News: [Placeholder]</div>
+        <button id="settingsCog" class="btn settings-cog">&#9881;</button>
+      </div>
+    </div>
+    <div id="rightSide">
+      <div class="buttonGroup">
+        <button id="storeBtn" class="btn">Shop</button>
+        <button id="upgradesBtn" class="btn">Tools</button>
+        <button id="equipmentBtn" class="btn">Your Equipment</button>
+        <button id="beginSessionBtn" class="btn" title="Available at night only">Begin Session</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="sessionContainer" style="display:none;">
+      
+      <button id="endSessionBtn" class="btn session-back-btn">← End Session</button>
+
+      <div class="session-split">
+          
+          <div id="skyMapPanel" class="session-panel">
+              <div class="panel-label">Sky Map (Coming Soon)</div>
+              </div>
+
+          <div id="controlPanel" class="session-panel">
+              <div class="panel-label">Telescope Control</div>
+              
+              <div class="control-section">
+                  <h3>Current Rig Stats</h3>
+                  <div id="sessionStatsContent">
+                      </div>
+              </div>
+
+              <div class="control-section">
+                  <h3>Imaging Sequence</h3>
+                  <div class="placeholder-box">Camera Controls</div>
+                  <div class="placeholder-box">Filter Wheel</div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div id="debugWindow">
+    Day/Night: <span id="dayNightStatus">Night</span>
+    <button id="devAddMoneyBtn" class="btn">+ $1000 (Dev)</button>
+  </div>
+  
+  <div id="modalOverlay" class="modal-overlay"></div>
+  
+  <div class="modal" id="settingsModal">
+    <div class="modal-header">
+      <span class="modal-title">Game Settings</span>
+      <button class="btn modal-close" data-modal="settingsModal">X</button>
+    </div>
+    <div class="modal-content">
+      <button id="saveBtn" class="btn">Save Game</button>
+      <button id="loadBtn" class="btn">Load Game</button>
+    </div>
+  </div>
+  
+  <div class="modal" id="shopModal">
+    <div class="modal-header">
+      <span class="modal-title">Astro Shop</span>
+      <button class="btn modal-close" data-modal="shopModal">X</button>
+    </div>
+    <div class="modal-content" id="shopContent"></div>
+  </div>
+  
+  <div class="modal" id="gearModal">
+    <div class="modal-header">
+      <span class="modal-title">Your Equipment</span>
+      <button class="btn modal-close" data-modal="gearModal">X</button>
+    </div>
+    <div class="modal-content" id="gearContent"></div>
+  </div>
+  
+  <div class="modal" id="upgradesModal">
+    <div class="modal-header">
+      <span class="modal-title">Upgrades</span>
+      <button class="btn modal-close" data-modal="upgradesModal">X</button>
+    </div>
+    <div class="modal-content">
+      <p>Placeholder for upgrades.</p>
+    </div>
+  </div>
+  
+  <script src="js/gameStateManager.js"></script>
+  <script src="js/timeManager.js"></script>
+  <script src="js/popupManager.js"></script>
+  <script src="js/uiManager.js"></script>
+  <script src="js/equipmentManager.js"></script>
+  <script src="js/renderingEngine.js"></script>
+  <script src="js/sessionManager.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
